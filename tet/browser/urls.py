@@ -6,6 +6,6 @@ urlpatterns = [
     url(r'^$', views.index, name='index'),
     # ex: /search/
     url(r'^search/$', views.search, name='search'),
-    # ex: /dataset/abc-123-asd/
+    # ex: /dataset/abc-123-id/
     url(r'^dataset/(?P<dataset_id>[a-zA-Z0-9-]+)$', views.dataset, name='dataset'),
 ]
