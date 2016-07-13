@@ -1,9 +1,46 @@
-{% if latest_question_list %}
-    <ul>
-    {% for question in latest_question_list %}
-        <li><a href="/polls/{{ question.id }}/">{{ question.question_text }}</a></li>
-    {% endfor %}
-    </ul>
-{% else %}
-    <p>No polls are available.</p>
-{% endif %}
+{% extends "base.html" %}
+{% load staticfiles %}
+
+{% block content %}
+                <div id="homepage-search" class="container">
+
+                    <div class="row text-center tet-search-image">
+
+                        <img class="img-circle" alt="140x140" src="{% static 'browser/images/tet-graphics.png' %}" style="width: 140px; height: 140px;">
+                        <img class="img-circle" alt="140x140" src="{% static 'browser/images/tet-graphics.png' %}" style="width: 140px; height: 140px;">
+                        <img class="img-circle" alt="140x140" src="{% static 'browser/images/tet-graphics.png' %}" style="width: 140px; height: 140px;">
+
+                    </div>
+
+
+                    <div class="row search-ui">
+
+                        <div class="span8 offset2 text-center">
+
+                            <div class="row">
+
+                                <form class="form-search" action="results.html">
+                                    <div class="input-append">
+                                        <input type="text" class="span5 main-search">
+                                        <button type="submit" class="span2 pull-right btn main-search-btn"> <i class="fa fa-search" aria-hidden="true"></i> Search</button>
+                                    </div>
+                                </form>
+
+                            </div>
+
+                            <div class="row">
+                                <div class="span12 tags text-center">
+                                    <span>Popular search phrases:</span>
+
+                                    <a class="tag" href="#">Dublin</a>
+                                    <a class="tag" href="#">government</a>
+                                    <a class="tag" href="#">traffic</a>
+                                </div>
+
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+{% endblock content %}
