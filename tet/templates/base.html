@@ -1,0 +1,64 @@
+{% load staticfiles %}
+{% block doc %}
+<!DOCTYPE html>
+<html{% block html_attribs %}{% endblock html_attribs %}>
+{% block html %}
+  <head>
+    {% block head %}
+    <title>{% block title %}title|default{% endblock title %}</title>
+
+    {% block metas %}
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="TET Browser prototype">
+    <meta name="author" content="">
+
+    <link rel="icon" href="{% static 'favicon.ico' %}" />
+    {% endblock metas %}
+
+    {% block styles %}
+    <!-- Bootstrap -->
+    <link rel=stylesheet type=text/css href="{% static 'css/bootstrap-2.3.2.css' %}" />
+    <link rel=stylesheet type=text/css href="{% static 'css/bootstrap-responsive-2.3.2.css' %}" />
+    <link rel=stylesheet type=text/css href="{% static 'browser/css/tet-theme.css' %}" />
+
+    <!-- FontAwesome -->
+    <link rel=stylesheet type=text/css href="{% static 'css/font-awesome.min.css' %}" />
+
+    {% endblock styles %}
+    {% endblock head %}
+  </head>
+
+  <!-- IE Fix for HTML5 Tags -->
+  <!--[if lt IE 9]>
+    <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+
+  <body{% block body_attribs %}{% endblock body_attribs %}>
+
+    <div id="wrap">
+
+    {% block body %}
+
+      {% block navbar %}
+        {% include "browser/_navbar.html" %}
+      {% endblock navbar %}
+
+      {% block content %}
+
+      {% endblock content %}
+    </div>  <!-- / #wrap -->
+
+    {% block footer %}
+      {% include "browser/_footer.html" %}
+    {% endblock footer %}
+
+    {% block scripts %}
+
+    <script type="text/javascript" src="{% static 'js/jquery.min.js' %}"></script>
+
+    {% endblock scripts %}
+    {% endblock body %}
+  </body>
+{% endblock html %}
+</html>
+{% endblock doc %}
