@@ -8,10 +8,7 @@ Requirements
 
 - [Python](https://www.python.org/downloads)
 - [Django 1.9](https://www.djangoproject.com)
-- .
-- .
-- .
-- .
+- [ckan/ckanapi](https://github.com/ckan/ckanapi)
 
 
 Getting Started
@@ -23,6 +20,7 @@ Getting Started
 3. Install dependencies from requirements.txt i.e. ``pip install {lib name}``
 4. Run the server: ``python manage.py runserver``
 5. Open website in browser at ``http://localhost:8000``
+
 
 ### After initial setup ###
 1. Activate the virtualenv: ``source venv/bin/activate``
