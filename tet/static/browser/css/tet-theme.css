@@ -145,6 +145,11 @@ body, html {
 .dataset-resources li {
     display: inline;
 }
+
+.dataset-resources li .label {
+    margin-right: 15px !important;
+}
+
 .dataset-services {
     float: left;
     margin-bottom: 55px;
