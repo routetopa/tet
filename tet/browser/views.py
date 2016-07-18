@@ -3,6 +3,7 @@
 import ckanapi
 import html
 import re
+from .helpers import metadata_to_text
 from django.core.urlresolvers import reverse
 from django.conf import settings
 from django.http import HttpResponse, HttpResponseRedirect, Http404
@@ -85,9 +86,10 @@ def dataset(request, dataset_id):
     filters = []
     has_results = False
 
-
+    print(dataset)
     context = {
         'dataset_id': dataset_id,
+        'metadata_box': metadata_to_text( dataset )
     }
 
     return render(request, template_name, context)

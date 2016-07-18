@@ -1,0 +1,178 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+                <div class="container">
+
+                    <div class="row search-ui">
+
+                        <div class="span3 text-right">
+                            {image}
+                        </div>
+
+                        <div class="span8 offset1 text-left">
+
+                            <div class="row">
+
+                                <form class="form-search" action="/search" method="get">
+                                    <div class="input-append">
+                                        <input type="text" class="span5 main-search" name="query" value="{{ query }}" />
+                                        <button type="submit" class="span2 pull-right btn main-search-btn"> <i class="fa fa-search" aria-hidden="true"></i> Search </button>
+                                    </div>
+                                </form>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <div class="row">
+
+                    <h4> the dataset id is = {{ dataset_id }} </h4>
+
+                <div class="row">
+
+                    <div class="span10 offset1">
+
+
+                        <div class="carousel carousel-fade slide" id="main-chart">
+                            <div class="carousel-inner">
+
+                                <div class="item active">
+
+                                <script type="text/javascript" src="https://cdn.jsdelivr.net/webcomponentsjs/0.7.16/webcomponents-lite.min.js"></script>
+                                <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
+                                <!-- REMOVE THE PREVIOUS SCRIPT TAGS IF YOUR PAGE ALREADY USES JQUERY AND POLYFILL LIBRARIES  -->
+                                <link rel="import" href="http://deep.routetopa.eu/COMPONENTS/datalets/columnchart-datalet/columnchart-datalet.html" />
+                                <columnchart-datalet data-url='http://ckan.routetopa.eu/api/action/datastore_search?resource_id=48a4db73-d3d4-4639-bbc2-9c797d0e6cda&limit=99999' filters='[]' aggregators='[]' orders='[]' fields='["result,records,_id","result,records,Movimentato"]'></columnchart-datalet>
+
+
+                                </div><!-- /Slide1 -->
+
+                                <div class="item">
+
+                                    <div class="bannerImage">
+                                        <a href="#"><img src="http://cl.ly/image/2J0z1t033B25/banner_02.jpg" alt=""></a>
+                                    </div>
+
+                                </div><!-- /Slide2 -->
+
+                                <div class="item">
+
+                                    <div class="bannerImage">
+                                        <a href="#"><img src="http://cl.ly/image/1a3i3k0F3B3h/banner_03.jpg" alt=""></a>
+                                    </div>
+
+                                </div><!-- /Slide2 -->
+
+                            </div>
+
+
+                            <div class="control-box">
+                                <a data-slide="prev" href="#main-chart" class="carousel-control left">‹</a>
+                                <a data-slide="next" href="#main-chart" class="carousel-control right">›</a>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <div class="row">
+
+                    <div class="span6">
+
+                        <div class="">
+                            <h5>
+                                <i class="fa fa-file-text-o" aria-hidden="true"></i> Description
+                            </h5>
+                            <p class="text-justify">
+                                Sustainable Indicators The Sustainability Indicators Report brings together international, national and local indicators to measure the Dublin Regions progress towards environmental, economic and social sustainability. Key metrics include 30 headline indicators spread over 10 themes to build up an evidence base for Dublin and benchmark internationally. Indicators are generally covering the calender year 2011, but may have slightly different timeframes as noted in the Appendix report.
+                            </p>
+
+                        </div>
+
+
+                        <div class="">
+
+                            <h5>
+                                <i class="fa fa-info-circle" aria-hidden="true"></i> Metadata
+                            </h5>
+                            <p class="text-justify">
+                                {{ metadata_box|safe }}
+                            </p>
+                        </div>
+
+
+                    </div>
+
+
+                    <div class="span6">
+
+                        <div class="">
+
+                            <h5>
+                                <i class="fa fa-comments-o" aria-hidden="true"></i> Discussions at SPOD
+                            </h5>
+
+                            <ul class="media-list">
+
+
+                                <li class="media">
+                                    <a href="#" class="pull-left" data-original-title="" title="">
+                                        <img src="http://spod.routetopa.eu/ow_userfiles/plugins/base/avatars/avatar_5_1443201146.jpg" alt="" class="img-circle avatar">
+                                    </a>
+                                    <div class="media-body">
+                                        <strong class="text-success">Vittorio Scarano</strong>
+                                        <p>
+                                            Here we count the sum of workers (size of enterprise) grouped by sector, only of the companies in the network "Seine ouest digital" ..
+                                        </p>
+                                    </div>
+                                </li>
+
+
+                                <li class="media">
+                                    <a href="#" class="pull-left" data-original-title="" title="">
+                                        <img src="http://spod.routetopa.eu/ow_userfiles/plugins/base/avatars/avatar_4_1443201014.jpg" alt="" class="img-circle avatar">
+                                    </a>
+                                    <div class="media-body">
+                                        <strong class="text-success">Luigi Serra</strong>
+                                        <p>
+                                            Let's see how large are the companies whose sector is Informatique ...
+                                        </p>
+                                    </div>
+                                </li>
+
+
+
+                                <li class="media">
+                                    <a href="#" class="pull-left" data-original-title="" title="">
+                                        <img src="http://spod.routetopa.eu/ow_userfiles/plugins/base/avatars/avatar_5_1443201146.jpg" alt="" class="img-circle avatar">
+                                    </a>
+                                    <div class="media-body">
+                                        <strong class="text-success">Vittorio Scarano</strong>
+                                        <p>
+                                            And now, let's see the size of the telcom companies in Dublin!
+                                        </p>
+                                    </div>
+                                </li>
+
+
+
+                            </ul>
+
+                            <a href="#" class="pull-right" data-original-title="" title=""> Join the discussion</a>
+
+                            <br>
+
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+
+{% endblock content %}
