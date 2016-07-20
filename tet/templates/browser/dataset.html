@@ -31,11 +31,13 @@
 
                 <div class="row">
 
-                    <h4> the dataset id is = {{ dataset_id }} </h4>
+                    <h4 class="dataset-title"> {{ dataset.title }} </h4>
+
+                </div>
 
                 <div class="row">
 
-                    <div class="span10 offset1">
+                    <div class="span12 -span10 -offset1">
 
 
                         <div class="carousel carousel-fade slide" id="main-chart">
@@ -85,18 +87,17 @@
 
                     <div class="span6">
 
-                        <div class="">
+                        <div class="dataset-description">
                             <h5>
                                 <i class="fa fa-file-text-o" aria-hidden="true"></i> Description
                             </h5>
                             <p class="text-justify">
-                                Sustainable Indicators The Sustainability Indicators Report brings together international, national and local indicators to measure the Dublin Regions progress towards environmental, economic and social sustainability. Key metrics include 30 headline indicators spread over 10 themes to build up an evidence base for Dublin and benchmark internationally. Indicators are generally covering the calender year 2011, but may have slightly different timeframes as noted in the Appendix report.
+                                {{ dataset.notes }}
                             </p>
 
                         </div>
 
-
-                        <div class="">
+                        <div class="dataset-metadata">
 
                             <h5>
                                 <i class="fa fa-info-circle" aria-hidden="true"></i> Metadata
@@ -104,6 +105,7 @@
                             <p class="text-justify">
                                 {{ metadata_box|safe }}
                             </p>
+
                         </div>
 
 
@@ -112,7 +114,7 @@
 
                     <div class="span6">
 
-                        <div class="">
+                        <div class="dataset-description">
 
                             <h5>
                                 <i class="fa fa-comments-o" aria-hidden="true"></i> Discussions at SPOD

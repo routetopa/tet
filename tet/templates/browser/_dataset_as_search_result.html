@@ -7,7 +7,7 @@
         </h3>
 
         <div class="text-justify">
-            {{ dataset.notes|safe|truncatewords:55 }}
+            {{ dataset.notes|truncatewords:55|safe }}
         </div>
     </div>
 
@@ -33,10 +33,10 @@
     {% if dataset.resources %}
         <ul class="dataset-resources unstyled">
 
-        {# limit resources to 6 links #}
-        {% for resource in dataset.resources|slice:":6" %}
+        {# limit resources to 8 links #}
+        {% for resource in dataset.resources|slice:":8" %}
             <li>
-                <a href="{% url 'dataset' dataset.id %}" class="label" data-format="{{ resource.format|lower }}">{{ resource.format }}</a>
+                <a href="{{ resource.url }}" target="_blank" class="label" data-format="{{ resource.format|lower }}">{{ resource.format }}</a>
             </li>
         {% endfor %}
 

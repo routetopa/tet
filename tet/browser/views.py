@@ -1,13 +1,13 @@
 #-*- coding: utf-8 -*-
 
 import ckanapi
-import html
 import re
 from .helpers import metadata_to_text
 from django.core.urlresolvers import reverse
 from django.conf import settings
 from django.http import HttpResponse, HttpResponseRedirect, Http404
 from django.shortcuts import get_object_or_404, render
+from django.utils.html import strip_tags
 from django.views import generic
 from reportlab.pdfgen import canvas
 from io import BytesIO
@@ -47,8 +47,8 @@ def search(request, query=False):
         pattern = re.compile(query, re.IGNORECASE)
         for dataset in api_result["results"]:
             # bold the query phrase
-            dataset["title"] = pattern.sub("<strong>"+query+"</strong>", html.escape(dataset["title"]))
-            dataset["notes"] = pattern.sub("<strong>"+query+"</strong>", html.escape(dataset["notes"]))
+            dataset["title"] = pattern.sub("<strong>"+query+"</strong>", strip_tags(dataset["title"]))
+            dataset["notes"] = pattern.sub("<strong>"+query+"</strong>", strip_tags(dataset["notes"]))
 
             #|truncatewords:55
             search_results.append(dataset)
@@ -80,7 +80,6 @@ def dataset(request, dataset_id):
     except:
         raise Http404("No Dataset found.")
 
-
     # display logic
     search_results = []
     filters = []
@@ -89,7 +88,8 @@ def dataset(request, dataset_id):
     print(dataset)
     context = {
         'dataset_id': dataset_id,
-        'metadata_box': metadata_to_text( dataset )
+        'dataset': dataset,
+        'metadata_box': metadata_to_text(dataset),
     }
 
     return render(request, template_name, context)

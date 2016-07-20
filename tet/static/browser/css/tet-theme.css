@@ -147,9 +147,14 @@ body, html {
 }
 
 .dataset-resources li .label {
-    margin-right: 15px !important;
+    margin-right: 10px !important;
+    opacity: 0.2;
+    filter: alpha(opacity=20); /* For IE8 and earlier */
 }
-
+.dataset-resources li .label:hover {
+    opacity: 0.8;
+    filter: alpha(opacity=80); /* For IE8 and earlier */
+}
 .dataset-services {
     float: left;
     margin-bottom: 55px;
@@ -383,6 +388,10 @@ input[type="checkbox"] { margin-right: 20px; }
 
 
 /* Dataset details */
+
+.dataset-title {
+    margin: 1.68rem 0 2.1rem 0;
+}
 
 #main-chart {
     padding-bottom: 25px;
