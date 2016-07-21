@@ -13,19 +13,18 @@
 
     <ul class="dataset-services unstyled">
         <li class="dataset-service">
-            <a href="{% url 'dataset' dataset.id %}"><i class="fa fa-bar-chart" aria-hidden="true"></i></a>
+            <a href="{% url 'dataset' dataset.id %}"><i class="fa fa-bar-chart" aria-hidden="true" data-toggle="tooltip" data-placement="bottom" title="View as chart"></i></a>
         </li>
         <li class="dataset-service">
-            <a href="{% url 'dataset' dataset.id %}"><i class="fa fa-table" aria-hidden="true"></i></a>
+            <a href="{% url 'dataset_as_table' dataset.id %}"><i class="fa fa-table" aria-hidden="true" data-toggle="tooltip" data-placement="bottom" title="View as table"></i></a>
         </li>
         <li class="dataset-service">
-            <a href="{% url 'dataset' dataset.id %}"><i class="fa fa-tablet" aria-hidden="true"></i></a>
+            <a href="{% url 'dataset_as_app' dataset.id %}"><i class="fa fa-tablet" aria-hidden="true" data-toggle="tooltip" data-placement="bottom" title="View as app"></i></a>
         </li>
         <li class="dataset-service">
-            <a href="{% url 'dataset' dataset.id %}"><i class="fa fa-file-pdf-o" aria-hidden="true"></i></a>
+            <a href="{% url 'dataset_as_pdf' dataset.id %}"><i class="fa fa-file-pdf-o" aria-hidden="true" data-toggle="tooltip" data-placement="bottom" title="View as PDF"></i></a>
         </li>
     </ul>
-
 
 
     {# Number of resources: {{ dataset.resources|length }} #}
@@ -36,7 +35,7 @@
         {# limit resources to 8 links #}
         {% for resource in dataset.resources|slice:":8" %}
             <li>
-                <a href="{{ resource.url }}" target="_blank" class="label" data-format="{{ resource.format|lower }}">{{ resource.format }}</a>
+                <a href="{{ resource.url }}" target="_blank" class="label" data-toggle="tooltip" data-placement="bottom" title="View raw data" data-format="{{ resource.format|lower }}">{{ resource.format }}</a>
             </li>
         {% endfor %}
 
