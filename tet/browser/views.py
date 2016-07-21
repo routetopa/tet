@@ -140,13 +140,13 @@ def dataset_as_pdf(request, dataset_id):
     style.alignment = TA_JUSTIFY
 
     # Document title
-    p.setFillColorCMYK(1, 0.342, 0, 0.106)                                      # choose font colour
-    p.setFont("Helvetica", 32)                                                  # choose font type and font size
-    p.drawCentredString(PAGE_WIDTH/2.0, PAGE_HEIGHT-108, dataset["title"])      # write text
+    p.setFillColorCMYK(1, 0.342, 0, 0.106)                                          # choose font colour
+    p.setFont("Helvetica", 19)                                                      # choose font type and font size
+    p.drawCentredString(PAGE_WIDTH/2.0, PAGE_HEIGHT - 1.5 * inch, dataset["title"]) # write text
 
     # Document notes
     paragraph = Paragraph(dataset["notes"], style)
-    paragraph.wrapOn(p, PAGE_WIDTH - 2 * inch, PAGE_HEIGHT - 1 * inch)
+    paragraph.wrapOn(p, PAGE_WIDTH - 2 * inch, PAGE_HEIGHT - 2 * inch)
     paragraph.drawOn(p, 1 * inch, PAGE_HEIGHT - 3 * inch)
 
     # Draw ROUTE-TO-PA project logo

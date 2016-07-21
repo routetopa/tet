@@ -1,5 +1,7 @@
 {% extends "base.html" %}
 
+{% block title %} Dataset details {% endblock title %}
+
 {% block content %}
 
                 <div class="container">
@@ -46,7 +48,7 @@
                                 <div class="item active">
 
                                 <script type="text/javascript" src="https://cdn.jsdelivr.net/webcomponentsjs/0.7.16/webcomponents-lite.min.js"></script>
-                                <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
+                                <!--<script type="text/javascript" src="https://code.jquery.com/jquery-2.1.4.min.js"></script>-->
                                 <!-- REMOVE THE PREVIOUS SCRIPT TAGS IF YOUR PAGE ALREADY USES JQUERY AND POLYFILL LIBRARIES  -->
                                 <link rel="import" href="http://deep.routetopa.eu/COMPONENTS/datalets/columnchart-datalet/columnchart-datalet.html" />
                                 <columnchart-datalet data-url='http://ckan.routetopa.eu/api/action/datastore_search?resource_id=48a4db73-d3d4-4639-bbc2-9c797d0e6cda&limit=99999' filters='[]' aggregators='[]' orders='[]' fields='["result,records,_id","result,records,Movimentato"]'></columnchart-datalet>

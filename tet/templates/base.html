@@ -5,7 +5,7 @@
 {% block html %}
   <head>
     {% block head %}
-    <title>{% block title %}title|default{% endblock title %}</title>
+    <title>{% block title %}TET{% endblock title %} | Transparency-Enhancing Toolset</title>
 
     {% block metas %}
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -25,6 +25,30 @@
     <link rel=stylesheet type=text/css href="{% static 'css/font-awesome.min.css' %}" />
 
     {% endblock styles %}
+
+    {% block scripts %}
+
+    <!--<script type="text/javascript" src="{% static 'js/jquery.min.js' %}"></script>-->
+    <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
+
+    <script src="{% static 'js/widgets.js' %}"></script>
+    <script src="{% static 'js/bootstrap-transition.js' %}"></script>
+    <script src="{% static 'js/bootstrap-alert.js' %}"></script>
+    <script src="{% static 'js/bootstrap-modal.js' %}"></script>
+    <script src="{% static 'js/bootstrap-dropdown.js' %}"></script>
+    <script src="{% static 'js/bootstrap-scrollspy.js' %}"></script>
+    <script src="{% static 'js/bootstrap-tab.js' %}"></script>
+    <script src="{% static 'js/bootstrap-tooltip.js' %}"></script>
+    <script src="{% static 'js/bootstrap-popover.js' %}"></script>
+    <script src="{% static 'js/bootstrap-button.js' %}"></script>
+    <script src="{% static 'js/bootstrap-collapse.js' %}"></script>
+    <script src="{% static 'js/bootstrap-carousel.js' %}"></script>
+    <script src="{% static 'js/bootstrap-typeahead.js' %}"></script>
+
+    <script src="{% static 'js/script.js' %}"></script>
+
+    {% endblock scripts %}
+
     {% endblock head %}
   </head>
 
@@ -58,11 +82,6 @@
       {% include "browser/_footer.html" %}
     {% endblock footer %}
 
-    {% block scripts %}
-
-    <script type="text/javascript" src="{% static 'js/jquery.min.js' %}"></script>
-
-    {% endblock scripts %}
     {% endblock body %}
   </body>
 {% endblock html %}
