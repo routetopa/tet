@@ -8,6 +8,8 @@ import os
 
 from .helpers import metadata_to_text, name_to_url
 from io import BytesIO
+from dateutil.parser import parse
+
 from django.core.urlresolvers import reverse
 from django.conf import settings
 from django.http import HttpResponse, HttpResponseRedirect, Http404
@@ -58,14 +60,17 @@ def search(request, query=False):
         has_results = True
         # prepare search results and the filters
         pattern = re.compile(query, re.IGNORECASE)
-        for dataset in api_result["results"]:
+        for idx, dataset in enumerate(api_result["results"]):
             # bold the query phrase
             dataset["title"] = pattern.sub("<strong>"+query+"</strong>", strip_tags(dataset["title"]))
             dataset["notes"] = pattern.sub("<strong>"+query+"</strong>", strip_tags(dataset["notes"]))
 
-            #|truncatewords:55
-            search_results.append(dataset)
+            # used in search / filtering JS
+            dataset["relevance_key"] = idx
+            dataset["name_key"] = strip_tags(dataset["title"])[:10].upper()
+            dataset["date_key"] = parse(dataset["metadata_created"]).strftime("%Y%m%d%H%M%S")
 
+            search_results.append(dataset)
 
     context = {
         'query': query,
@@ -97,6 +102,7 @@ def dataset(request, dataset_id):
         'dataset_id': dataset_id,
         'dataset': dataset,
         'metadata_box': metadata_to_text(dataset),
+        'SPOD_URL': settings.SPOD_URL,
     }
 
     return render(request, template_name, context)
@@ -116,6 +122,7 @@ def dataset_as_pdf(request, dataset_id):
         settings.CKAN_URL,
         user_agent='tetbrowser/1.0 (+http://tetbrowser.routetopa.eu)'
     )
+
 
     try:
         dataset = ckan_api_instance.action.package_show(

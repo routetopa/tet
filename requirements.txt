@@ -1,3 +1,4 @@
 django=1.9.6
 ckanapi
+python-dateutil
 reportlab
