@@ -41,7 +41,7 @@ def search(request, query=False):
     # display logic
     query = request.GET.get('query') or ''
     search_results = []
-    filters = []
+    filters = {}
     has_results = False
 
     ckan_api_instance = ckanapi.RemoteCKAN(
@@ -60,6 +60,12 @@ def search(request, query=False):
         has_results = True
         # prepare search results and the filters
         pattern = re.compile(query, re.IGNORECASE)
+
+        themes = {}
+        periods ={}
+        locations ={}
+        locations_list = ["Dublin" , "Leinster", "Cork", "Munster", "Limerick", "Waterford", "Kilkenny", "Galway" ]
+
         for idx, dataset in enumerate(api_result["results"]):
             # bold the query phrase
             dataset["title"] = pattern.sub("<strong>"+query+"</strong>", strip_tags(dataset["title"]))
@@ -72,6 +78,35 @@ def search(request, query=False):
 
             search_results.append(dataset)
 
+            text = (dataset["title"] + dataset["notes"]).lower()
+
+            if "category" in dataset.keys():
+                if dataset["category"] not in themes.keys():
+                    themes[dataset["category"]] = 1
+                else:
+                    themes[dataset["category"]] += 1
+            for year in range (1900, 2020):
+                syear = str(year)
+                if text.find(syear) > 0:
+                    if syear not in periods.keys():
+                        periods[syear] = 1
+                    else:
+                        periods[syear] += 1
+
+            for location in locations_list:
+                slocation = location.lower() 
+                if text.find(slocation) > 0:
+                    if location not in locations.keys():
+                        locations[location] = 1
+                    else:
+                        locations[location] += 1
+
+        if "" in themes.keys():
+            del themes[""]
+        filters["themes"] = themes 
+        filters["locations"] = locations
+        filters["periods"] = periods
+        
     context = {
         'query': query,
         'has_results': has_results,
