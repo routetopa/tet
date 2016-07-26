@@ -6,7 +6,7 @@ import re
 import os
 
 
-from .helpers import metadata_to_text, name_to_url
+from .helpers import dataset_to_metadata_text, dataset_to_spod, name_to_url
 from io import BytesIO
 from dateutil.parser import parse
 
@@ -101,7 +101,8 @@ def dataset(request, dataset_id):
     context = {
         'dataset_id': dataset_id,
         'dataset': dataset,
-        'metadata_box': metadata_to_text(dataset),
+        'metadata_box': dataset_to_metadata_text(dataset),
+        'spod_box': dataset_to_spod(dataset),
         'SPOD_URL': settings.SPOD_URL,
     }
 

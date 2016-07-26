@@ -1,10 +1,15 @@
 from django.conf import settings
 from dateutil.parser import parse
+from urllib.request import urlopen
+import urllib
+import json
+
+
 
 # TODO consider migration to /tet/
 
 # Generates user friendly metadata description fo the dataset: creation, categories etc.
-def metadata_to_text(dataset):
+def dataset_to_metadata_text(dataset):
     '''
     :param dataset: CKAN API response - JSON representation of dataset
     :return: string
@@ -39,6 +44,45 @@ def metadata_to_text(dataset):
 
     return text
 
+
+# Get rooms related to DATASET
+# List all the rooms per all the resources
+def get_rooms_for_dataset(dataset):
+
+    rooms = []
+
+    if dataset["num_resources"] > 0:
+        for res in dataset["resources"]:
+            # TODO results merging / checking for duplicates
+            try:
+                url =  settings.SPOD_URL + "/spodapi/roomsusingdataset?data-url=" + \
+                settings.CKAN_URL + "/api/action/datastore_search?resource_id=" + res["id"]
+
+                # print(url)
+
+                req = urlopen(url)
+                content = req.read().decode('utf8')
+                j = json.loads(content)
+
+                if j["status"] == "success" and j["result"]:
+                    rooms.append(j["result"])
+            except:
+                # do nothing
+                pass
+
+    return rooms
+
+
+# Generates SPOD discussions widget
+def dataset_to_spod(dataset):
+
+    rooms = get_rooms_for_dataset(dataset)
+    print(rooms)
+    if rooms:
+        for room in rooms:
+            print(room[0]["id"])
+
+    return ''
 
 
 # Generates Dataset URL bases on SETTINGS and dataset name / permalink
