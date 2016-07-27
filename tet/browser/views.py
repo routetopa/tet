@@ -62,8 +62,10 @@ def search(request, query=False):
         pattern = re.compile(query, re.IGNORECASE)
 
         themes = {}
-        periods ={}
-        locations ={}
+        periods = {}
+        locations = {}
+        formats = {}
+
         locations_list = ["Dublin" , "Leinster", "Cork", "Munster", "Limerick", "Waterford", "Kilkenny", "Galway" ]
 
         for idx, dataset in enumerate(api_result["results"]):
@@ -81,10 +83,12 @@ def search(request, query=False):
             text = (dataset["title"] + dataset["notes"]).lower()
 
             if "category" in dataset.keys():
-                if dataset["category"] not in themes.keys():
-                    themes[dataset["category"]] = 1
-                else:
-                    themes[dataset["category"]] += 1
+                categories = dataset["category"].split(",")
+                for category in categories:
+                    if category not in themes.keys():
+                        themes[category] = 1
+                    else:
+                        themes[category] += 1
             for year in range (1900, 2020):
                 syear = str(year)
                 if text.find(syear) > 0:
@@ -100,13 +104,21 @@ def search(request, query=False):
                         locations[location] = 1
                     else:
                         locations[location] += 1
+            if "resources"  in dataset.keys():
+                for resource in dataset["resources"]:
+                    if resource["format"] not in formats:
+                        formats[resource["format"]] = 1
+                    else:
+                        formats[resource["format"]] += 1
 
         if "" in themes.keys():
             del themes[""]
+        if "" in formats.keys():
+            del formats[""]
         filters["themes"] = themes 
         filters["locations"] = locations
         filters["periods"] = periods
-        
+        filters["formats"] = formats
     context = {
         'query': query,
         'has_results': has_results,
