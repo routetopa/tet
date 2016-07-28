@@ -148,18 +148,23 @@ def dataset(request, dataset_id):
         if "resources" in dataset.keys():
             for resource in dataset["resources"]:
                 if resource["format"].lower() in ["csv","xls"]:
-                    resource_id = resource["id"]
-                    url = settings.CKAN_URL + "/api/action/datastore_search?resource_id=" + resource_id + "&limit=5"
-                    print(url)
-                    res = urllib.request.urlopen(url)
-                    data = json.loads(res.read().decode(res.info().get_param('charset') or 'utf-8'))
-                    fields = []
-                    for field in data["result"]["fields"]:
-                        if field["type"] == "numeric":
-                            fields.append(field["id"])
-                    resource_fields = fields
-                    resource_id = settings.CKAN_URL + "/api/action/datastore_search?resource_id=" + resource_id + "&limit=9999"
-                    break
+                    try:
+                        resource_id = resource["id"]
+                        url = settings.CKAN_URL + "/api/action/datastore_search?resource_id=" + resource_id + "&limit=5"
+                        print(url)
+                        res = urllib.request.urlopen(url)
+                        data = json.loads(res.read().decode(res.info().get_param('charset') or 'utf-8'))
+                        fields = []
+                        for field in data["result"]["fields"]:
+                            if field["type"] == "numeric":
+                                fields.append(field["id"])
+                        resource_fields = fields
+                        resource_id = settings.CKAN_URL + "/api/action/datastore_search?resource_id=" + resource_id + "&limit=9999"
+                        break
+                    except Exception:
+                        resource_id = None
+                        resource_fields = None 
+                        pass
     except Exception:
         raise Exception
     if  resource_id and len(resource_fields) < 1:
