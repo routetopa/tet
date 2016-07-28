@@ -68,7 +68,7 @@ def search(request, query=False):
         locations = {}
         formats = {}
 
-        locations_list = ["Dublin" , "Leinster", "Cork", "Munster", "Limerick", "Waterford", "Kilkenny", "Galway" ]
+        locations_list = ["Dublin", "Leinster", "Cork", "Munster", "Limerick", "Waterford", "Kilkenny", "Galway" ]
 
         for idx, dataset in enumerate(api_result["results"]):
             # bold the query phrase
@@ -80,47 +80,57 @@ def search(request, query=False):
             dataset["name_key"] = strip_tags(dataset["title"])[:10].upper()
             dataset["date_key"] = parse(dataset["metadata_created"]).strftime("%Y%m%d%H%M%S")
 
-            search_results.append(dataset)
-
             text = (dataset["title"] + dataset["notes"]).lower()
 
             if "category" in dataset.keys():
                 categories = dataset["category"].split(",")
+                dataset["categry_key"] = categories
                 for category in categories:
                     if category not in themes.keys():
                         themes[category] = 1
                     else:
                         themes[category] += 1
-            for year in range (1900, 2020):
+            for year in range(1900, 2020):
                 syear = str(year)
                 if text.find(syear) > 0:
+                    dataset["year_key"] = syear
                     if syear not in periods.keys():
                         periods[syear] = 1
                     else:
                         periods[syear] += 1
+                else:
+                    dataset["year_key"] = -1
 
             for location in locations_list:
                 slocation = location.lower() 
                 if text.find(slocation) > 0:
+                    dataset["location_key"] = slocation
                     if location not in locations.keys():
                         locations[location] = 1
                     else:
                         locations[location] += 1
-            if "resources"  in dataset.keys():
+                else:
+                    dataset["location_key"] = ''
+
+            if "resources" in dataset.keys():
                 for resource in dataset["resources"]:
                     if resource["format"] not in formats:
                         formats[resource["format"]] = 1
                     else:
                         formats[resource["format"]] += 1
 
+            search_results.append(dataset)
+
         if "" in themes.keys():
             del themes[""]
         if "" in formats.keys():
             del formats[""]
+
         filters["themes"] = themes 
         filters["locations"] = locations
         filters["periods"] = periods
         filters["formats"] = formats
+
     context = {
         'query': query,
         'has_results': has_results,
@@ -151,7 +161,7 @@ def dataset(request, dataset_id):
                     try:
                         resource_id = resource["id"]
                         url = settings.CKAN_URL + "/api/action/datastore_search?resource_id=" + resource_id + "&limit=5"
-                        print(url)
+
                         res = urllib.request.urlopen(url)
                         data = json.loads(res.read().decode(res.info().get_param('charset') or 'utf-8'))
                         fields = []
@@ -167,7 +177,7 @@ def dataset(request, dataset_id):
                         pass
     except Exception:
         raise Exception
-    if  resource_id and len(resource_fields) < 1:
+    if resource_id and len(resource_fields) < 1:
         resource_id = None
     context = {
         'dataset_id': dataset_id,
@@ -199,7 +209,7 @@ def dataset_as_table(request, dataset_id):
         if "resources" in dataset.keys():
             for resource in dataset["resources"]:
                 if resource["format"].lower() in ["csv","xls"]:
-                    url = url + "/resource/" +  resource["id"]
+                    url = url + "/resource/" + resource["id"]
                     break
     except Exception:
         raise Exception
