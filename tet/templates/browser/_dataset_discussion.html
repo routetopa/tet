@@ -1,0 +1,9 @@
+    {% set rooms = h.get_rooms( res.id )%}
+    {% if rooms %}
+    <small>{{_('Discussed in:')}}</small>
+    <ul>
+       {% for room in rooms %}
+        <li><a href="{{room.url}}">{{room.subject}}</a></li>
+       {% endfor %}
+    </ul>
+    {% endif %}

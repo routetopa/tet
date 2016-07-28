@@ -126,6 +126,8 @@ body, html {
 #homepage-search .search-ui .main-search {
     border-top-left-radius: 14px;
     border-bottom-left-radius: 14px;
+    /* Firefox bug fix */
+    float: left;
 }
 
 #homepage-search .search-ui .main-search, 
@@ -404,3 +406,4 @@ input[type="checkbox"] { margin-right: 20px; }
 base-ajax-json-alasql-datalet {
     display: none;
 }
+
