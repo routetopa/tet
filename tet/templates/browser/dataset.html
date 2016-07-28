@@ -36,42 +36,36 @@
                     <h4 class="dataset-title"> {{ dataset.title }} </h4>
 
                 </div>
-
+                {% if resource_id %} 
                 <div class="row">
 
                     <div class="span12 -span10 -offset1">
-
-
+                       
                         <div class="carousel carousel-fade slide" id="main-chart">
                             <div class="carousel-inner">
-
+                                {% for resource in resource_fields|slice:":1" %}
                                 <div class="item active">
 
                                 <script type="text/javascript" src="https://cdn.jsdelivr.net/webcomponentsjs/0.7.16/webcomponents-lite.min.js"></script>
                                 <!--<script type="text/javascript" src="https://code.jquery.com/jquery-2.1.4.min.js"></script>-->
                                 <!-- REMOVE THE PREVIOUS SCRIPT TAGS IF YOUR PAGE ALREADY USES JQUERY AND POLYFILL LIBRARIES  -->
                                 <link rel="import" href="http://deep.routetopa.eu/COMPONENTS/datalets/columnchart-datalet/columnchart-datalet.html" />
-                                <columnchart-datalet data-url='http://ckan.routetopa.eu/api/action/datastore_search?resource_id=48a4db73-d3d4-4639-bbc2-9c797d0e6cda&limit=99999' filters='[]' aggregators='[]' orders='[]' fields='["result,records,_id","result,records,Movimentato"]'></columnchart-datalet>
+                                <columnchart-datalet data-url='{{resource_id}}' filters='[]' aggregators='[]' orders='[]' fields='["result,records,_id","result,records,{{resource}}"]'></columnchart-datalet>
 
 
                                 </div><!-- /Slide1 -->
-
+                                {% endfor %}
+                                {% for resource in resource_fields|slice:"1:" %}
                                 <div class="item">
 
-                                    <div class="bannerImage">
-                                        <a href="#"><img src="http://cl.ly/image/2J0z1t033B25/banner_02.jpg" alt=""></a>
-                                    </div>
+                                   <script type="text/javascript" src="https://cdn.jsdelivr.net/webcomponentsjs/0.7.16/webcomponents-lite.min.js"></script>
+                                <!--<script type="text/javascript" src="https://code.jquery.com/jquery-2.1.4.min.js"></script>-->
+                                <!-- REMOVE THE PREVIOUS SCRIPT TAGS IF YOUR PAGE ALREADY USES JQUERY AND POLYFILL LIBRARIES  -->
+                                <link rel="import" href="http://deep.routetopa.eu/COMPONENTS/datalets/columnchart-datalet/columnchart-datalet.html" />
+                                <columnchart-datalet data-url='{{resource_id}}' filters='[]' aggregators='[]' orders='[]' fields='["result,records,_id","result,records,{{resource}}"]'></columnchart-datalet>
 
-                                </div><!-- /Slide2 -->
-
-                                <div class="item">
-
-                                    <div class="bannerImage">
-                                        <a href="#"><img src="http://cl.ly/image/1a3i3k0F3B3h/banner_03.jpg" alt=""></a>
-                                    </div>
-
-                                </div><!-- /Slide2 -->
-
+                                </div>
+                                {% endfor %}
                             </div>
 
 
@@ -84,7 +78,7 @@
                     </div>
 
                 </div>
-
+                {% endif%}
                 <div class="row">
 
                     <div class="span6">

@@ -5,7 +5,8 @@ import re
 
 import os
 
-
+import urllib
+import json
 from .helpers import dataset_to_metadata_text, dataset_to_spod, name_to_url
 from io import BytesIO
 from dateutil.parser import parse
@@ -137,20 +138,39 @@ def dataset(request, dataset_id):
         settings.CKAN_URL,
         user_agent='tetbrowser/1.0 (+http://tetbrowser.routetopa.eu)'
     )
-
+    resource_id = None 
+    resource_fields = None
     try:
         dataset = ckan_api_instance.action.package_show(
             id=dataset_id
         )
-    except:
-        raise Http404("No Dataset found.")
-
+        if "resources" in dataset.keys():
+            for resource in dataset["resources"]:
+                if resource["format"].lower() in ["csv","xls"]:
+                    resource_id = resource["id"]
+                    url = settings.CKAN_URL + "/api/action/datastore_search?resource_id=" + resource_id + "&limit=5"
+                    print(url)
+                    res = urllib.request.urlopen(url)
+                    data = json.loads(res.read().decode(res.info().get_param('charset') or 'utf-8'))
+                    fields = []
+                    for field in data["result"]["fields"]:
+                        if field["type"] == "numeric":
+                            fields.append(field["id"])
+                    resource_fields = fields
+                    resource_id = settings.CKAN_URL + "/api/action/datastore_search?resource_id=" + resource_id + "&limit=9999"
+                    break
+    except Exception:
+        raise Exception
+    if  resource_id and len(resource_fields) < 1:
+        resource_id = None
     context = {
         'dataset_id': dataset_id,
         'dataset': dataset,
         'metadata_box': dataset_to_metadata_text(dataset),
         'spod_box': dataset_to_spod(dataset),
         'SPOD_URL': settings.SPOD_URL,
+        'resource_id':resource_id,
+        'resource_fields': resource_fields
     }
 
     return render(request, template_name, context)
