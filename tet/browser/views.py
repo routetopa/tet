@@ -41,7 +41,7 @@ def search(request, query=False):
     template_name = 'browser/search.html'
 
     # display logic
-    query = request.GET.get('query') or ''
+    query = request.GET.get('q') or ''
     search_results = []
     filters = {}
     has_results = False
@@ -114,6 +114,10 @@ def search(request, query=False):
 
             if "resources" in dataset.keys():
                 for resource in dataset["resources"]:
+
+                    if resource["format"].lower() in ["csv","xls"]:
+                        dataset["has_table"] = True
+
                     if resource["format"] not in formats:
                         formats[resource["format"]] = 1
                     else:
