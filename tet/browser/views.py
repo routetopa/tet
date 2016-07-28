@@ -24,6 +24,7 @@ from reportlab.platypus import SimpleDocTemplate, Image, Paragraph, Spacer
 from reportlab.lib.styles import getSampleStyleSheet
 from reportlab.rl_config import defaultPageSize
 from reportlab.lib.enums import TA_CENTER, TA_JUSTIFY, TA_LEFT, TA_RIGHT
+from django.shortcuts import render, redirect
 
 PAGE_HEIGHT = defaultPageSize[1]
 PAGE_WIDTH = defaultPageSize[0]
@@ -181,7 +182,24 @@ def dataset_as_app(request, dataset_id):
 
 
 def dataset_as_table(request, dataset_id):
-    return HttpResponse(dataset_id + ' as_table')
+    ckan_api_instance = ckanapi.RemoteCKAN(
+        settings.CKAN_URL,
+        user_agent='tetbrowser/1.0 (+http://tetbrowser.routetopa.eu)'
+    )
+    url = settings.CKAN_URL + "/dataset/" + dataset_id
+    try:
+        dataset = ckan_api_instance.action.package_show(
+            id=dataset_id
+        )
+        if "resources" in dataset.keys():
+            for resource in dataset["resources"]:
+                if resource["format"].lower() in ["csv","xls"]:
+                    url = url + "/resource/" +  resource["id"]
+                    break
+    except Exception:
+        raise Exception
+
+    return redirect(url)
 
 # TODO summary: keywords, charts, extracted media
 def dataset_as_pdf(request, dataset_id):
