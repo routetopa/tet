@@ -111,10 +111,10 @@ def search(request, query=False):
                     else:
                         locations[location] += 1
 
-            dataset["formats_key"] = ""
+            dataset["format_key"] = ""
             if "resources" in dataset.keys():
                 for resource in dataset["resources"]:
-                    dataset["formats_key"] += resource["format"].lower() + " "
+                    dataset["format_key"] += resource["format"].lower() + " "
 
                     if resource["format"].lower() in ["csv","xls"]:
                         dataset["has_table"] = True

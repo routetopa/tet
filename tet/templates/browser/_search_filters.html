@@ -22,7 +22,7 @@
                         <li class="list-group-item">
                             <span class="result-label">{{ loc }}</span>
                             <span class="results-count">( {% keyvalue filters.locations loc %} )</span>
-                            <input type="checkbox" class="pull-right">
+                            <input type="checkbox" class="pull-right" filter-key="location" filter-value="{{loc|lower}}">
                         </li>
                     {% endfor %}
 
@@ -49,7 +49,7 @@
                         <li class="list-group-item">
                             <span class="result-label">{{ per }}</span>
                             <span class="results-count">( {% keyvalue filters.periods per %} )</span>
-                            <input type="checkbox" class="pull-right">
+                            <input type="checkbox" class="pull-right" filter-key="year" filter-value="{{per}}">
                         </li>
                     {% endfor %}
 
@@ -76,7 +76,7 @@
                         <li class="list-group-item">
                             <span class="result-label">{{ the }}</span>
                             <span class="results-count">( {% keyvalue filters.themes the %} )</span>
-                            <input type="checkbox" class="pull-right">
+                            <input type="checkbox" class="pull-right" filter-key="category" filter-value="{{the|lower}}">
                         </li>
                     {% endfor %}
 
@@ -102,7 +102,7 @@
                         <li class="list-group-item">
                             <span class="label result-label" data-format="{{for}}">{{ for }}</span>
                             <span class="results-count">( {% keyvalue filters.formats for %} )</span>
-                            <input type="checkbox" class="pull-right">
+                            <input type="checkbox" class="pull-right" filter-key="format" filter-value="{{for|lower}}">
                         </li>
                     {% endfor %}
 
