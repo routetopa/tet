@@ -125,59 +125,9 @@
                                 <i class="fa fa-comments-o" aria-hidden="true"></i> Discussions at SPOD
                             </h5>
 
-                            <ul class="media-list">
-
-
-                                <li class="media">
-                                    <a href="#" class="pull-left" data-original-title="" title="">
-                                        <img src="http://spod.routetopa.eu/ow_userfiles/plugins/base/avatars/avatar_5_1443201146.jpg" alt="" class="img-circle avatar">
-                                    </a>
-                                    <div class="media-body">
-                                        <strong class="text-success">Vittorio Scarano</strong>
-                                        <p>
-                                            Here we count the sum of workers (size of enterprise) grouped by sector, only of the companies in the network "Seine ouest digital" ..
-                                        </p>
-                                    </div>
-                                </li>
-
-
-                                <li class="media">
-                                    <a href="#" class="pull-left" data-original-title="" title="">
-                                        <img src="http://spod.routetopa.eu/ow_userfiles/plugins/base/avatars/avatar_4_1443201014.jpg" alt="" class="img-circle avatar">
-                                    </a>
-                                    <div class="media-body">
-                                        <strong class="text-success">Luigi Serra</strong>
-                                        <p>
-                                            Let's see how large are the companies whose sector is Informatique ...
-                                        </p>
-                                    </div>
-                                </li>
-
-
-
-                                <li class="media">
-                                    <a href="#" class="pull-left" data-original-title="" title="">
-                                        <img src="http://spod.routetopa.eu/ow_userfiles/plugins/base/avatars/avatar_5_1443201146.jpg" alt="" class="img-circle avatar">
-                                    </a>
-                                    <div class="media-body">
-                                        <strong class="text-success">Vittorio Scarano</strong>
-                                        <p>
-                                            And now, let's see the size of the telcom companies in Dublin!
-                                        </p>
-                                    </div>
-                                </li>
-
-
-
-                            </ul>
-
-                            <div>
-                                {{ spod_box|safe }}
-                            </div>
-
-                            <a href="{{ SPOD_URL }}" class="pull-right" data-original-title="" title=""> Join the discussion</a>
-
-                            <br>
+                            {% for dataset in spod_box_datasets %}
+                                {% include "browser/_dataset_discussion.html" with dataset=dataset %}
+                            {% endfor %}
 
                         </div>
                     </div>

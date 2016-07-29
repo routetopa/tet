@@ -55,7 +55,7 @@ def get_rooms_for_dataset(dataset):
         for res in dataset["resources"]:
             # TODO results merging / checking for duplicates
             try:
-                url =  settings.SPOD_URL + "/spodapi/roomsusingdataset?data-url=" + \
+                url = settings.SPOD_URL + "/spodapi/roomsusingdataset?data-url=" + \
                 settings.CKAN_URL + "/api/action/datastore_search?resource_id=" + res["id"]
 
                 # print(url)
@@ -65,7 +65,7 @@ def get_rooms_for_dataset(dataset):
                 j = json.loads(content)
 
                 if j["status"] == "success" and j["result"]:
-                    rooms.append(j["result"])
+                    rooms.append(j["result"][0])
             except:
                 # do nothing
                 pass
@@ -73,16 +73,34 @@ def get_rooms_for_dataset(dataset):
     return rooms
 
 
-# Generates SPOD discussions widget
+# Generates list of SPOD rooms for discussions widget
 def dataset_to_spod(dataset):
 
     rooms = get_rooms_for_dataset(dataset)
-    print(rooms)
+
     if rooms:
         for room in rooms:
-            print(room[0]["id"])
 
-    return ''
+            try:
+                url = settings.SPOD_URL + "/spodapi/roomsummary?id=" + str(room["id"])
+                print(url)
+                req = urlopen(url)
+                content = req.read().decode('utf8')
+                j = json.loads(content)
+
+                # print(j)
+
+                if j["status"] == "success" and j["result"]:
+                    room["roomsummary"] = j["result"]
+                else:
+                    room["roomsummary"] = False
+            except:
+                # do nothing
+                pass
+
+    print(rooms)
+
+    return rooms
 
 
 # Generates Dataset URL bases on SETTINGS and dataset name / permalink
