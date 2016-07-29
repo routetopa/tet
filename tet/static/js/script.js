@@ -1,3 +1,5 @@
+var SEARCH_MODE = "AND"
+
 $(document).ready(function(){
     $('[data-toggle="tooltip"]').tooltip();
 });
@@ -85,22 +87,37 @@ $(function () {
     // Results filtering
     $('input:checkbox').click(function () {
 
+        if ( $("#results-filter input:checked").length == 0){
+            $("ul.dataset-list li.dataset-item").show();
+            // update counter
+            $("#results_count").html($("ul.dataset-list li.dataset-item:visible").length);
+            return true
+        }
+
         // Hide all
         $("ul.dataset-list li.dataset-item").hide();
 
-        // Show each meeting one of the filters criteria
-        // TODO agree on drill down algorithm
-        $("input:checked").each(function () {
+        if ( SEARCH_MODE == "OR"){
+            // TODO agree on drill down algorithm
+            $("#results-filter input:checked").each(function () {
 
-            var filterKey = $(this).attr("filter-key");
-            var filterValue = $(this).attr("filter-value");
+                var filterKey = $(this).attr("filter-key");
+                var filterValue = $(this).attr("filter-value");
 
-//            alert("Do something for: " + filterKey + ", " + filterValue);
-//            alert("ul.dataset-list li.dataset-item[search-" + filterKey + "*='" + filterValue + "']")
+    //            alert("Do something for: " + filterKey + ", " + filterValue);
+    //            alert("ul.dataset-list li.dataset-item[search-" + filterKey + "*='" + filterValue + "']")
 
-            $("ul.dataset-list li.dataset-item[search-" + filterKey + "*='" + filterValue + "']").show()
+                $("ul.dataset-list li.dataset-item[search-" + filterKey + "*='" + filterValue + "']").show()
 
-        });
+            });
+        } else {
+
+        }
+
+        // update counter
+        $("#results_count").html($("ul.dataset-list li.dataset-item:visible").length);
+
+        return true
 
     });
 
