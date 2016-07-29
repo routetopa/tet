@@ -65,7 +65,11 @@ TEMPLATES = [
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
                 # 'browser.context_processors.common_settings,'
+
             ],
+            'libraries': {
+                'keyvalue' : 'browser.templatetags.keyvalue',   #to add new tags module,
+            },
         },
     },
 ]
