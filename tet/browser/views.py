@@ -84,36 +84,37 @@ def search(request, query=False):
 
             if "category" in dataset.keys():
                 categories = dataset["category"].split(",")
-                dataset["categry_key"] = categories
+                dataset["category_key"] = " ".join(categories)
                 for category in categories:
                     if category not in themes.keys():
                         themes[category] = 1
                     else:
                         themes[category] += 1
+
+            dataset["year_key"] = ""
             for year in range(1900, 2020):
                 syear = str(year)
                 if text.find(syear) > 0:
-                    dataset["year_key"] = syear
+                    dataset["year_key"] += " " + syear
                     if syear not in periods.keys():
                         periods[syear] = 1
                     else:
                         periods[syear] += 1
-                else:
-                    dataset["year_key"] = -1
 
+            dataset["location_key"] = ""
             for location in locations_list:
                 slocation = location.lower() 
                 if text.find(slocation) > 0:
-                    dataset["location_key"] = slocation
+                    dataset["location_key"] += slocation + " "
                     if location not in locations.keys():
                         locations[location] = 1
                     else:
                         locations[location] += 1
-                else:
-                    dataset["location_key"] = ''
 
+            dataset["formats_key"] = ""
             if "resources" in dataset.keys():
                 for resource in dataset["resources"]:
+                    dataset["formats_key"] += resource["format"].lower() + " "
 
                     if resource["format"].lower() in ["csv","xls"]:
                         dataset["has_table"] = True
