@@ -20,7 +20,7 @@
 
                                 <form class="form-search" action="search" method="get">
                                     <div class="input-append">
-                                        <input type="text" class="span5 main-search" name="query">
+                                        <input type="text" class="span5 main-search" name="query" placeholder="Search for datasets">
                                         <button type="submit" class="span2 pull-right btn main-search-btn"> <i class="fa fa-search" aria-hidden="true"></i> Search</button>
                                     </div>
                                 </form>
@@ -31,9 +31,9 @@
                                 <div class="span12 tags text-center">
                                     <span>Popular search phrases:</span>
 
-                                    <a class="tag" href="{% url 'search' %}?q=Dublin">Dublin</a>
-                                    <a class="tag" href="{% url 'search' %}?q=government">government</a>
-                                    <a class="tag" href="{% url 'search' %}?q=traffic">traffic</a>
+                                    <a class="tag" href="{% url 'search' %}?query=Dublin">Dublin</a>
+                                    <a class="tag" href="{% url 'search' %}?query=government">government</a>
+                                    <a class="tag" href="{% url 'search' %}?query=traffic">traffic</a>
                                 </div>
 
                             </div>
