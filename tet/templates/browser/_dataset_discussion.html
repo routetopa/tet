@@ -1,9 +1,27 @@
-    {% set rooms = h.get_rooms( res.id )%}
-    {% if rooms %}
-    <small>{{_('Discussed in:')}}</small>
-    <ul>
-       {% for room in rooms %}
-        <li><a href="{{room.url}}">{{room.subject}}</a></li>
-       {% endfor %}
+<div>
+
+    <h5><small>{{ dataset.subject }}</small></h5>
+
+    <ul class="media-list">
+
+    {% for comment in dataset.roomsummary %}
+
+        <li class="media">
+            <a href="#" class="pull-left" data-original-title="" title="">
+                <img src="{{ comment.userAvatarUrl }}" alt="" class="img-circle avatar">
+            </a>
+            <div class="media-body">
+                <strong class="text-success">{{ comment.userDisplayName }}</strong>
+                <p>
+                    {{ comment.message }}
+                </p>
+            </div>
+        </li>
+
+    {% endfor %}
+
     </ul>
-    {% endif %}
+
+    <a href="{{ dataset.url }}" class="pull-right" data-original-title="" title=""> Join the discussion</a>
+
+</div>

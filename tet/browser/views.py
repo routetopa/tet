@@ -187,7 +187,7 @@ def dataset(request, dataset_id):
         'dataset_id': dataset_id,
         'dataset': dataset,
         'metadata_box': dataset_to_metadata_text(dataset),
-        'spod_box': dataset_to_spod(dataset),
+        'spod_box_datasets': dataset_to_spod(dataset),
         'SPOD_URL': settings.SPOD_URL,
         'resource_id':resource_id,
         'resource_fields': resource_fields

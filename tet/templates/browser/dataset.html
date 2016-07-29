@@ -114,6 +114,10 @@
                                 <i class="fa fa-comments-o" aria-hidden="true"></i> Discussions at SPOD
                             </h5>
 
+                            {% for dataset in spod_box_datasets %}
+                                {% include "browser/_dataset_discussion.html" with dataset=dataset %}
+                            {% endfor %}
+
                             <ul class="media-list">
 
 
@@ -159,10 +163,6 @@
 
 
                             </ul>
-
-                            <div>
-                                {{ spod_box|safe }}
-                            </div>
 
                             <a href="{{ SPOD_URL }}" class="pull-right" data-original-title="" title=""> Join the discussion</a>
 
