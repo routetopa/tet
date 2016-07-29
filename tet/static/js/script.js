@@ -97,21 +97,30 @@ $(function () {
         // Hide all
         $("ul.dataset-list li.dataset-item").hide();
 
+        // TODO agree on default drill down algorithm
         if ( SEARCH_MODE == "OR"){
-            // TODO agree on drill down algorithm
             $("#results-filter input:checked").each(function () {
 
                 var filterKey = $(this).attr("filter-key");
                 var filterValue = $(this).attr("filter-value");
-
-    //            alert("Do something for: " + filterKey + ", " + filterValue);
-    //            alert("ul.dataset-list li.dataset-item[search-" + filterKey + "*='" + filterValue + "']")
 
                 $("ul.dataset-list li.dataset-item[search-" + filterKey + "*='" + filterValue + "']").show()
 
             });
         } else {
 
+            results_selector = "ul.dataset-list li.dataset-item"
+
+            $("#results-filter input:checked").each(function () {
+
+                var filterKey = $(this).attr("filter-key");
+                var filterValue = $(this).attr("filter-value");
+
+                results_selector += "[search-" + filterKey + "*='" + filterValue + "']"
+
+            });
+
+            $(results_selector).show()
         }
 
         // update counter
