@@ -8,7 +8,7 @@
     {% for comment in dataset.roomsummary %}
 
         <li class="media">
-            <a href="#" class="pull-left" data-original-title="" title="">
+            <a href="{{ comment.userUrl }}" class="pull-left" data-original-title="" title="">
                 <img src="{{ comment.userAvatarUrl }}" alt="" class="img-circle avatar">
             </a>
             <div class="media-body">
