@@ -1,20 +1,49 @@
+{% load keyvalue %}
 
-                            <h3>Refine by</h3>
-                            <div class="panel-group">
-                                <div class="panel panel-default">
-                                    <div class="panel-heading">
-                                        <h5 class="panel-title">
-                                            <a data-toggle="collapse" href="#collapse1"> <i class="fa fa-map-marker" aria-hidden="true"></i>
-                                                Location</a>
-                                        </h5>
-                                    </div>
-                                    <div id="collapse1" class="panel-collapse">
-                                        <ul class="list-group unstyled">
-                                            <li class="list-group-item">
-                                                <span class="result-label">Galway</span>
-                                                <span class="results-count">( 12 )</span>
-                                                <input type="checkbox" class="pull-right">
-                                            </li>
+{% if filters %}
+
+    {{ filters }}
+
+    <h3>Refine by</h3>
+
+    {% if filters.locations %}
+
+    <div class="panel-group">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h5 class="panel-title">
+                    <a data-toggle="collapse" href="#collapse1"> <i class="fa fa-map-marker" aria-hidden="true"></i>
+                        Location
+                    </a>
+                </h5>
+            </div>
+            <div id="collapse1" class="panel-collapse">
+                <ul class="list-group unstyled">
+
+                    {% for loc in filters.locations %}
+                        <li class="list-group-item">
+                            <span class="result-label">{{ loc }}</span>
+                            <span class="results-count">( {% keyvalue filters.locations loc %} )</span>
+                            <input type="checkbox" class="pull-right">
+                        </li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    {% endif %}
+
+{% endif %}
+
+
+
+
+<hr><hr><hr><hr><hr><hr>
+
+
+
+
                                             <li class="list-group-item">
                                                 <span class="result-label">Dublin</span>
                                                 <span class="results-count">( 3 )</span>
@@ -25,10 +54,7 @@
                                                 <span class="results-count">( 1 )</span>
                                                 <input type="checkbox" class="pull-right">
                                             </li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
+
 
 <!--                            <hr>-->
 
