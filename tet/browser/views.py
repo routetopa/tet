@@ -206,6 +206,7 @@ def dataset_as_app(request, dataset_id):
 
 
 def dataset_as_table(request, dataset_id):
+    template_name = 'browser/tabular.html'
     ckan_api_instance = ckanapi.RemoteCKAN(
         settings.CKAN_URL,
         user_agent='tetbrowser/1.0 (+http://tetbrowser.routetopa.eu)'
@@ -218,12 +219,19 @@ def dataset_as_table(request, dataset_id):
         if "resources" in dataset.keys():
             for resource in dataset["resources"]:
                 if resource["format"].lower() in ["csv","xls"]:
-                    url = url + "/resource/" + resource["id"]
-                    break
+                    views = ckan_api_instance.action.resource_view_list(id=resource["id"])
+                    for view in views:
+                        if (view["view_type"]=="recline_view"):
+                            url = settings.CKAN_URL + "/dataset/" + dataset_id + "/resource/" + resource["id"] + "/view/" + view["id"]
+                            break
     except Exception:
         raise Exception
 
-    return redirect(url)
+    context = {
+        'url': url
+    }
+
+    return render(request, template_name, context)
 
 # TODO summary: keywords, charts, extracted media
 def dataset_as_pdf(request, dataset_id):

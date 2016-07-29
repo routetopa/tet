@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+
+{% block title %} Dataset details {% endblock title %}
+
+{% block content %}
+
+                <div class="container">
+
+                    <div class="row search-ui">
+
+                        <div class="span3 text-right">
+
+                        </div>
+
+                        <div class="span8 offset1 text-left">
+
+                            <div class="row">
+
+                                <form class="form-search" action="/search" method="get">
+                                    <div class="input-append">
+                                        <input type="text" class="span5 main-search" name="query" value="{{ query }}" />
+                                        <button type="submit" class="span2 pull-right btn main-search-btn"> <i class="fa fa-search" aria-hidden="true"></i> Search </button>
+                                    </div>
+                                </form>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <div class="row">
+
+                    <h4 class="dataset-title"> Tabular View </h4>
+
+                </div>
+                <div class="row">
+                <iframe width="100%" height="800" src="{{url}}" frameBorder="0"></iframe>
+                </div>
+
+
+            </div>
+
+{% endblock content %}
