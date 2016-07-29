@@ -113,8 +113,12 @@ def search(request, query=False):
 
             dataset["format_key"] = ""
             if "resources" in dataset.keys():
+                already_added = []
                 for resource in dataset["resources"]:
                     dataset["format_key"] += resource["format"].lower() + " "
+
+                    if resource["format"].lower() in already_added:
+                        continue
 
                     if resource["format"].lower() in ["csv","xls"]:
                         dataset["has_table"] = True
@@ -123,6 +127,7 @@ def search(request, query=False):
                         formats[resource["format"]] = 1
                     else:
                         formats[resource["format"]] += 1
+                    already_added.append(resource["format"].lower())
 
             search_results.append(dataset)
 
@@ -170,8 +175,15 @@ def dataset(request, dataset_id):
                         res = urllib.request.urlopen(url)
                         data = json.loads(res.read().decode(res.info().get_param('charset') or 'utf-8'))
                         fields = []
+                        filter_list = ["long", "lat", "no.", "phone", "date","id"] 
                         for field in data["result"]["fields"]:
                             name = field["id"]
+                            found = False 
+                            for f in filter_list:
+                                if f in name.lower():
+                                    found = True 
+                            if found:
+                                continue
                             if field["type"] == "numeric":
                                 fields.append((name, True))
                             elif field["type"] == "text":
