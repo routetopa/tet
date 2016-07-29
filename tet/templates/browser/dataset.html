@@ -49,20 +49,31 @@
                                 <script type="text/javascript" src="https://cdn.jsdelivr.net/webcomponentsjs/0.7.16/webcomponents-lite.min.js"></script>
                                 <!--<script type="text/javascript" src="https://code.jquery.com/jquery-2.1.4.min.js"></script>-->
                                 <!-- REMOVE THE PREVIOUS SCRIPT TAGS IF YOUR PAGE ALREADY USES JQUERY AND POLYFILL LIBRARIES  -->
-                                <link rel="import" href="http://deep.routetopa.eu/COMPONENTS/datalets/columnchart-datalet/columnchart-datalet.html" />
-                                <columnchart-datalet data-url='{{resource_id}}' filters='[]' aggregators='[]' orders='[]' fields='["result,records,_id","result,records,{{resource}}"]'></columnchart-datalet>
+                                 <link rel="import" href="http://deep.routetopa.eu/COMPONENTS/datalets/columnchart-datalet/columnchart-datalet.html" />
+                                {% if resource.1 %}
+                                   <columnchart-datalet data-url='{{resource_id}}' filters='[]' aggregators='[]' orders='[]' fields='["result,records,_id","result,records,{{resource.0}}"]'></columnchart-datalet>
+                                {% else %}
+                                    <columnchart-datalet data-url='{{resource_id}}' x-axis-label="{{resource}}" y-axis-label="Count1 of {{resource.0}}" filters='[]' aggregators='[{"field":"{{resource.0}}","operation":"GROUP BY"},{"field":"_id","operation":"COUNT"}]' orders='[]' fields='["result,records,{{resource.0}}","result,records,_id"]'></columnchart-datalet>
+                                {% endif %}
+                               
 
 
                                 </div><!-- /Slide1 -->
                                 {% endfor %}
                                 {% for resource in resource_fields|slice:"1:" %}
+                                
                                 <div class="item">
 
                                    <script type="text/javascript" src="https://cdn.jsdelivr.net/webcomponentsjs/0.7.16/webcomponents-lite.min.js"></script>
                                 <!--<script type="text/javascript" src="https://code.jquery.com/jquery-2.1.4.min.js"></script>-->
                                 <!-- REMOVE THE PREVIOUS SCRIPT TAGS IF YOUR PAGE ALREADY USES JQUERY AND POLYFILL LIBRARIES  -->
                                 <link rel="import" href="http://deep.routetopa.eu/COMPONENTS/datalets/columnchart-datalet/columnchart-datalet.html" />
-                                <columnchart-datalet data-url='{{resource_id}}' filters='[]' aggregators='[]' orders='[]' fields='["result,records,_id","result,records,{{resource}}"]'></columnchart-datalet>
+                                {% if resource.1 %}
+                                   <columnchart-datalet data-url='{{resource_id}}' filters='[]' aggregators='[]' orders='[]' fields='["result,records,_id","result,records,{{resource.0}}"]'></columnchart-datalet>
+                                {% else %}
+                                    <columnchart-datalet data-url='{{resource_id}}' x-axis-label="{{resource}}" y-axis-label="Count1 of {{resource.0}}" filters='[]' aggregators='[{"field":"{{resource.0}}","operation":"GROUP BY"},{"field":"_id","operation":"COUNT"}]' orders='[]' fields='["result,records,{{resource.0}}","result,records,_id"]'></columnchart-datalet>
+                                {% endif %}
+                               
 
                                 </div>
                                 {% endfor %}

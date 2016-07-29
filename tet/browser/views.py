@@ -170,8 +170,13 @@ def dataset(request, dataset_id):
                         data = json.loads(res.read().decode(res.info().get_param('charset') or 'utf-8'))
                         fields = []
                         for field in data["result"]["fields"]:
+                            name = field["id"]
                             if field["type"] == "numeric":
-                                fields.append(field["id"])
+                                fields.append((name, True))
+                            elif field["type"] == "text":
+                                fields.append((name, False))
+                            else:
+                                pass
                         resource_fields = fields
                         resource_id = settings.CKAN_URL + "/api/action/datastore_search?resource_id=" + resource_id + "&limit=9999"
                         break
