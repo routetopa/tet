@@ -31,7 +31,34 @@ PAGE_WIDTH = defaultPageSize[0]
 styles = getSampleStyleSheet()
 
 def index(request):
-    return render(request, 'browser/index.html')
+
+    template_name = 'browser/index.html'
+
+    try:
+
+        url_datasets = settings.CKAN_URL + "/api/3/stats/dataset_count"
+        url_organizations = settings.CKAN_URL + "/api/3/stats/organization_count"
+
+        res_datasets = urllib.request.urlopen(url_datasets)
+        datasets_count_json = json.loads(res_datasets.read().decode(res_datasets.info().get_param('charset') or 'utf-8'))
+        datasets_count = int(datasets_count_json['dataset_count'])
+
+        res_organizations = urllib.request.urlopen(url_organizations)
+        organizations_count_json = json.loads(res_organizations.read().decode(res_organizations.info().get_param('charset') or 'utf-8'))
+        organizations_count = int(organizations_count_json['organization_count'])
+
+    except Exception:
+        datasets_count = 0
+        organizations_count = 0
+        pass
+
+    context = {
+        'datasets_count': datasets_count,
+        'organizations_count': organizations_count,
+        'CKAN_URL': settings.CKAN_URL,
+    }
+
+    return render(request, template_name, context)
 
 
 # TODO url param parsing
