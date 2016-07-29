@@ -41,7 +41,7 @@ def search(request, query=False):
     template_name = 'browser/search.html'
 
     # display logic
-    query = request.GET.get('q') or ''
+    query = request.GET.get('query') or ''
     search_results = []
     filters = {}
     has_results = False
