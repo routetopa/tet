@@ -84,7 +84,24 @@ $(function () {
 
     // Results filtering
     $('input:checkbox').click(function () {
-        $("ul.dataset-list").randomize("li.dataset-item");
+
+        // Hide all
+        $("ul.dataset-list li.dataset-item").hide();
+
+        // Show each meeting one of the filters criteria
+        // TODO agree on drill down algorithm
+        $("input:checked").each(function () {
+
+            var filterKey = $(this).attr("filter-key");
+            var filterValue = $(this).attr("filter-value");
+
+//            alert("Do something for: " + filterKey + ", " + filterValue);
+//            alert("ul.dataset-list li.dataset-item[search-" + filterKey + "*='" + filterValue + "']")
+
+            $("ul.dataset-list li.dataset-item[search-" + filterKey + "*='" + filterValue + "']").show()
+
+        });
+
     });
 
 
