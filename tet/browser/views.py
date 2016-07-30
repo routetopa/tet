@@ -150,6 +150,9 @@ def search(request, query=False):
                     if resource["format"].lower() in ["csv","xls"]:
                         dataset["has_table"] = True
 
+                    if resource["format"].lower()  == "pdf":
+                        dataset["has_pdf"] = True
+
                     if resource["format"] not in formats:
                         formats[resource["format"]] = 1
                     else:
@@ -293,6 +296,10 @@ def dataset_as_pdf(request, dataset_id):
         dataset = ckan_api_instance.action.package_show(
             id=dataset_id
         )
+        if "resources" in dataset.keys():
+            for resource in dataset["resources"]:
+                if resource["format"].lower() == "pdf":
+                    return redirect(resource["url"])
     except:
         raise Http404("No Dataset found.")
 
