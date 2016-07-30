@@ -37,7 +37,23 @@
 
                 </div>
                 <div class="row">
-                <iframe width="100%" height="800" src="{{url}}" frameBorder="0"></iframe>
+                    <div>
+
+                      <ul class="nav nav-tabs" role="tablist">
+                        <li role="presentation" class="active"><a href="#explorer" aria-controls="explorer" role="tab" data-toggle="tab">Data Explorer</a></li>
+                        <li role="presentation"><a href="#pivottable" aria-controls="pivottable" role="tab" data-toggle="tab">PivotTable</a></li>    
+                      </ul>
+
+                      <div class="tab-content">
+                        <div role="tabpanel" class="tab-pane active" id="explorer">
+                            <iframe width="100%" height="800" src="{{url_table}}" frameBorder="0"></iframe>
+                        </div>
+                        <div role="tabpanel" class="tab-pane" id="pivottable">
+                            <iframe width="100%" height="800" src="{{url_pivottable}}" frameBorder="0"></iframe>
+                        </div>
+                      </div>
+
+                    </div>
                 </div>
 
 

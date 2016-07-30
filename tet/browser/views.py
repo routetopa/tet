@@ -252,6 +252,8 @@ def dataset_as_table(request, dataset_id):
         user_agent='tetbrowser/1.0 (+http://tetbrowser.routetopa.eu)'
     )
     url = settings.CKAN_URL + "/dataset/" + dataset_id
+    url_table = None
+    url_pivottable = None
     try:
         dataset = ckan_api_instance.action.package_show(
             id=dataset_id
@@ -262,13 +264,18 @@ def dataset_as_table(request, dataset_id):
                     views = ckan_api_instance.action.resource_view_list(id=resource["id"])
                     for view in views:
                         if (view["view_type"]=="recline_view"):
-                            url = settings.CKAN_URL + "/dataset/" + dataset_id + "/resource/" + resource["id"] + "/view/" + view["id"]
+                            url_table = settings.CKAN_URL + "/dataset/" + dataset_id + "/resource/" + resource["id"] + "/view/" + view["id"]
+                            break
+                    for view in views:
+                        if (view["view_type"]=="pivottable"):
+                            url_pivottable = settings.CKAN_URL + "/dataset/" + dataset_id + "/resource/" + resource["id"] + "/view/" + view["id"]
                             break
     except Exception:
         raise Exception
 
     context = {
-        'url': url
+        "url_table": url_table,
+        'url_pivottable': url_pivottable
     }
 
     return render(request, template_name, context)
