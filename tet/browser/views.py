@@ -279,7 +279,12 @@ def dataset_as_table(request, dataset_id):
 
     context = {
         "url_table": url_table,
-        'url_pivottable': url_pivottable
+        'url_pivottable': url_pivottable,
+        'dataset_id': dataset_id,
+        'dataset': dataset,
+        'metadata_box': dataset_to_metadata_text(dataset),
+        'spod_box_datasets': dataset_to_spod(dataset),
+        'SPOD_URL': settings.SPOD_URL,
     }
 
     return render(request, template_name, context)

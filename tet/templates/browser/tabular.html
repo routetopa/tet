@@ -37,11 +37,40 @@
 
                 </div>
                 <div class="row">
+
+                    <div >
+
+                        <div class="dataset-description">
+                            <h5>
+                                <i class="fa fa-file-text-o" aria-hidden="true"></i> Description
+                            </h5>
+                            <p class="text-justify">
+                                {{ dataset.notes }}
+                            </p>
+
+                        </div>
+
+                        <div class="dataset-metadata">
+
+                            <h5>
+                                <i class="fa fa-info-circle" aria-hidden="true"></i> Metadata
+                            </h5>
+                            <div>
+                                {{ metadata_box|safe }}
+                            </div>
+
+                        </div>
+
+                    </div>
+                </div>
+                <br/>
+                <div class="row">
                     <div>
 
                       <ul class="nav nav-tabs" role="tablist">
                         <li role="presentation" class="active"><a href="#explorer" aria-controls="explorer" role="tab" data-toggle="tab">Data Explorer</a></li>
-                        <li role="presentation"><a href="#pivottable" aria-controls="pivottable" role="tab" data-toggle="tab">PivotTable</a></li>    
+                        <li role="presentation"><a href="#pivottable" aria-controls="pivottable" role="tab" data-toggle="tab">PivotTable</a></li>
+                        <li role="presentation"><a href="#discuss" aria-controls="discuss" role="tab" data-toggle="tab">SPOD Discussion</a></li>    
                       </ul>
 
                       <div class="tab-content">
@@ -50,6 +79,19 @@
                         </div>
                         <div role="tabpanel" class="tab-pane" id="pivottable">
                             <iframe width="100%" height="800" src="{{url_pivottable}}" frameBorder="0"></iframe>
+                        </div>
+                        <div role="tabpanel" class="tab-pane" id="discuss">
+                            <div class="spod-discussions">
+
+                                <h5>
+                                    <i class="fa fa-comments-o" aria-hidden="true"></i> Discussions at SPOD
+                                </h5>
+
+                                {% for dataset in spod_box_datasets %}
+                                    {% include "browser/_dataset_discussion.html" with dataset=dataset %}
+                                {% endfor %}
+
+                            </div>
                         </div>
                       </div>
 
