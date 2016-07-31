@@ -25,6 +25,7 @@ from reportlab.lib.styles import getSampleStyleSheet
 from reportlab.rl_config import defaultPageSize
 from reportlab.lib.enums import TA_CENTER, TA_JUSTIFY, TA_LEFT, TA_RIGHT
 from django.shortcuts import render, redirect
+import collections
 
 PAGE_HEIGHT = defaultPageSize[1]
 PAGE_WIDTH = defaultPageSize[0]
@@ -168,7 +169,7 @@ def search(request, query=False):
 
         filters["themes"] = themes 
         filters["locations"] = locations
-        filters["periods"] = periods
+        filters["periods"] = collections.OrderedDict(sorted(periods.items()))
         filters["formats"] = formats
 
     context = {
