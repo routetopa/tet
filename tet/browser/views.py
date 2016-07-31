@@ -169,7 +169,7 @@ def search(request, query=False):
 
         filters["themes"] = themes 
         filters["locations"] = locations
-        filters["periods"] = collections.OrderedDict(sorted(periods.items()))
+        filters["periods"] = collections.OrderedDict(sorted(periods.items(), reverse=True))
         filters["formats"] = formats
 
     context = {
