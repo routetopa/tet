@@ -177,6 +177,7 @@ def search(request, query=False):
         'has_results': has_results,
         'search_results': search_results,
         'filters': filters,
+        'CKAN_URL': settings.CKAN_URL,
     }
 
     return render(request, template_name, context)
@@ -239,7 +240,8 @@ def dataset(request, dataset_id):
         'spod_box_datasets': dataset_to_spod(dataset),
         'SPOD_URL': settings.SPOD_URL,
         'resource_id':resource_id,
-        'resource_fields': resource_fields
+        'resource_fields': resource_fields,
+        'CKAN_URL': settings.CKAN_URL + "/dataset/" + dataset_id,
     }
 
     return render(request, template_name, context)
@@ -258,6 +260,7 @@ def dataset_as_table(request, dataset_id):
     url = settings.CKAN_URL + "/dataset/" + dataset_id
     url_table = None
     url_pivottable = None
+    resource_id = None
     try:
         dataset = ckan_api_instance.action.package_show(
             id=dataset_id
@@ -285,6 +288,7 @@ def dataset_as_table(request, dataset_id):
         'metadata_box': dataset_to_metadata_text(dataset),
         'spod_box_datasets': dataset_to_spod(dataset),
         'SPOD_URL': settings.SPOD_URL,
+        'CKAN_URL': settings.CKAN_URL + "/dataset/" + dataset_id
     }
 
     return render(request, template_name, context)
