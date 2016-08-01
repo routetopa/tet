@@ -125,9 +125,19 @@
                                 <i class="fa fa-comments-o" aria-hidden="true"></i> Discussions at SPOD
                             </h5>
 
-                            {% for dataset in spod_box_datasets %}
-                                {% include "browser/_dataset_discussion.html" with dataset=dataset %}
-                            {% endfor %}
+                            {% if spod_box_datasets %}
+                                {% for dataset in spod_box_datasets %}
+                                    {% include "browser/_dataset_discussion.html" with dataset=dataset %}
+                                {% endfor %}
+                            {% else %}
+                            <p>
+                                This dataset has not been discussed in SPOD, be the first to discuss the dataset!
+                            </p>
+                            <br/><br/>
+                            <p>
+                                <a href="{{ SPOD_URL }}" class="pull-right" data-original-title="" title=""> Start the discussion</a>
+                            </p>
+                            {% endif %}
 
                         </div>
                     </div>
