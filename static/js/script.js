@@ -1,19 +1,8 @@
-var SEARCH_MODE = "AND"
-
 $(document).ready(function(){
     $('[data-toggle="tooltip"]').tooltip();
 });
 
 $(function () {
-
-    // Results filters
-
-    $('.expand-btn').click(function () {
-        $(this).parent().parent().children('.filter-hidden').fadeIn('slow')
-        $(this).hide()
-
-    });
-
 
     // Results order
     // TODO server side processing
@@ -95,72 +84,16 @@ $(function () {
 
     // Results filtering
     $('input:checkbox').click(function () {
+//        $("ul.dataset-list").randomize("li.dataset-item");
 
-        if ( $("#results-filter input:checked").length == 0){
-            $("ul.dataset-list li.dataset-item").show();
-            // update counter
-            $("#results_count").html($("ul.dataset-list li.dataset-item:visible").length);
-            return true
-        }
+        $("input:checked").each(function () {
 
-        // Hide all
-        $("ul.dataset-list li.dataset-item").hide();
+            var filter-key = $(this).attr("filter-key");
+            var filter-value = $(this).attr("filter-value");
 
-        // TODO agree on default drill down algorithm
-        if ( SEARCH_MODE == "OR"){
-            $("#results-filter input:checked").each(function () {
 
-                var filterKey = $(this).attr("filter-key");
-                var filterValue = $(this).attr("filter-value");
-
-                $("ul.dataset-list li.dataset-item[search-" + filterKey + "*='" + filterValue + "']").show()
-
-            });
-        } else {
-
-            results_selector = "ul.dataset-list li.dataset-item"
-
-//            $("#results-filter input:checked").each(function () {
-//
-//                var filterKey = $(this).attr("filter-key");
-//                var filterValue = $(this).attr("filter-value");
-//
-//                results_selector += "[search-" + filterKey + "*='" + filterValue + "']"
-//
-//            });
-
-            var results_filtered = $("ul.dataset-list li.dataset-item");
-
-            $("#results-filter .panel-group").each(function () {
-
-                var results_selector_filter = ''
-
-                $("input:checked", this).each( function() {
-
-                    var filterKey = $(this).attr("filter-key");
-                    var filterValue = $(this).attr("filter-value");
-
-                    if ( results_selector_filter ){
-                        results_selector_filter += ", " + "[search-" + filterKey + "*='" + filterValue + "']"
-                    } else {
-                        results_selector_filter = "[search-" + filterKey + "*='" + filterValue + "']"
-                    }
-
-                })
-
-                if (results_selector_filter){
-                    results_filtered = results_filtered.filter( results_selector_filter )
-                }
-
-            });
-
-            results_filtered.show()
-        }
-
-        // update counter
-        $("#results_count").html($("ul.dataset-list li.dataset-item:visible").length);
-
-        return true
+            alert("Do something for: " + filter-key + ", " + filter-value);
+        });
 
     });
 
