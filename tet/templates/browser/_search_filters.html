@@ -10,21 +10,27 @@
         <div class="panel panel-default">
             <div class="panel-heading">
                 <h5 class="panel-title">
-                    <a data-toggle="collapse" href="#collapse1"> <i class="fa fa-map-marker" aria-hidden="true"></i>
+                    <a data-toggle="collapse" href="#"> <i class="fa fa-map-marker" aria-hidden="true"></i>
                         Location
                     </a>
                 </h5>
             </div>
-            <div id="collapse1" class="panel-collapse">
+            <div class="panel-collapse">
                 <ul class="list-group unstyled">
 
                     {% for loc in filters.locations %}
-                        <li class="list-group-item">
+                        <li class="list-group-item{% if forloop.counter > 5 %} filter-hidden{% endif %}">
                             <span class="result-label">{{ loc }}</span>
                             <span class="results-count">( {% keyvalue filters.locations loc %} )</span>
                             <input type="checkbox" class="pull-right" filter-key="location" filter-value="{{loc|lower}}">
                         </li>
                     {% endfor %}
+
+                    {% if filters.locations|length > 5 %}
+                        <li class="expand">
+                            <a class="expand-btn pull-right"><i class="fa fa-caret-down"></i> Show More </a>
+                        </li>
+                    {% endif %}
 
                 </ul>
             </div>
@@ -39,19 +45,25 @@
         <div class="panel panel-default">
             <div class="panel-heading">
                 <h5 class="panel-title">
-                    <a data-toggle="collapse" href="#collapse2"><i class="fa fa-calendar" aria-hidden="true"></i> Period</a>
+                    <a data-toggle="collapse" href="#"><i class="fa fa-calendar" aria-hidden="true"></i> Period</a>
                 </h5>
             </div>
-            <div id="collapse1" class="panel-collapse">
+            <div class="panel-collapse">
                 <ul class="list-group unstyled">
 
                     {% for per in filters.periods %}
-                        <li class="list-group-item">
+                        <li class="list-group-item{% if forloop.counter > 5 %} filter-hidden{% endif %}">
                             <span class="result-label">{{ per }}</span>
                             <span class="results-count">( {% keyvalue filters.periods per %} )</span>
                             <input type="checkbox" class="pull-right" filter-key="year" filter-value="{{per}}">
                         </li>
                     {% endfor %}
+
+                    {% if filters.periods|length > 5 %}
+                        <li class="expand">
+                            <a class="expand-btn pull-right"><i class="fa fa-caret-down"></i> Show More </a>
+                        </li>
+                    {% endif %}
 
                 </ul>
             </div>
@@ -66,19 +78,25 @@
         <div class="panel panel-default">
             <div class="panel-heading">
                 <h5 class="panel-title">
-                    <a data-toggle="collapse" href="#collapse3"><i class="fa fa-tags" aria-hidden="true"></i> Themes</a>
+                    <a data-toggle="collapse" href="#"><i class="fa fa-tags" aria-hidden="true"></i> Themes</a>
                 </h5>
             </div>
-            <div id="collapse1" class="panel-collapse">
+            <div class="panel-collapse">
                 <ul class="list-group unstyled">
 
                     {% for the in filters.themes %}
-                        <li class="list-group-item">
+                        <li class="list-group-item{% if forloop.counter > 5 %} filter-hidden{% endif %}">
                             <span class="result-label">{{ the }}</span>
                             <span class="results-count">( {% keyvalue filters.themes the %} )</span>
                             <input type="checkbox" class="pull-right" filter-key="category" filter-value="{{the|lower}}">
                         </li>
                     {% endfor %}
+
+                    {% if filters.themes|length > 5 %}
+                        <li class="expand">
+                            <a class="expand-btn pull-right"><i class="fa fa-caret-down"></i> Show More </a>
+                        </li>
+                    {% endif %}
 
                 </ul>
             </div>
@@ -91,21 +109,27 @@
         <div class="panel panel-default">
             <div class="panel-heading">
                 <h5 class="panel-title">
-                    <a data-toggle="collapse" href="#collapse4"><i class="fa fa-files-o" aria-hidden="true"></i>
+                    <a data-toggle="collapse" href="#"><i class="fa fa-files-o" aria-hidden="true"></i>
                         Format</a>
                 </h5>
             </div>
-            <div id="collapse4" class="panel-collapse">
+            <div class="panel-collapse">
                 <ul class="list-group unstyled">
 
                     {% for for in filters.formats %}
-                        <li class="list-group-item">
+                        <li class="list-group-item{% if forloop.counter > 5 %} filter-hidden{% endif %}">
                             <span class="label result-label" data-format="{{for}}">{{ for }}</span>
                             <span class="results-count">( {% keyvalue filters.formats for %} )</span>
                             <input type="checkbox" class="pull-right" filter-key="format" filter-value="{{for|lower}}">
                         </li>
                     {% endfor %}
 
+                    {% if filters.formats|length > 5 %}
+                        <li class="expand">
+                            <a class="expand-btn pull-right"><i class="fa fa-caret-down"></i> Show More </a>
+                        </li>
+                    {% endif %}
+                    
 <!--
                     <li class="list-group-item">
                         <span class="label result-label" data-format="xls">Spreadsheet</span>
@@ -154,10 +178,10 @@
         <div class="panel panel-default">
             <div class="panel-heading">
                 <h5 class="panel-title">
-                    <a data-toggle="collapse" href="#collapse3"><i class="fa fa-database" aria-hidden="true"></i> Content</a>
+                    <a data-toggle="collapse" href="#"><i class="fa fa-database" aria-hidden="true"></i> Content</a>
                 </h5>
             </div>
-            <div id="collapse3" class="panel-collapse">
+            <div class="panel-collapse">
                 <ul class="list-group unstyled">
                     <li class="list-group-item">
                         <span class="result-label">Address </span>
