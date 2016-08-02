@@ -100,8 +100,9 @@ def search(request, query=False):
 
         for idx, dataset in enumerate(api_result["results"]):
             # bold the query phrase
-            dataset["title"] = pattern.sub("<strong>"+query+"</strong>", strip_tags(dataset["title"]))
-            dataset["notes"] = pattern.sub("<strong>"+query+"</strong>", strip_tags(dataset["notes"]))
+            if ( query ):
+                dataset["title"] = pattern.sub("<strong>"+query+"</strong>", strip_tags(dataset["title"]))
+                dataset["notes"] = pattern.sub("<strong>"+query+"</strong>", strip_tags(dataset["notes"]))
 
             # used in search / filtering JS
             dataset["relevance_key"] = idx
