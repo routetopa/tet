@@ -431,3 +431,20 @@ base-ajax-json-alasql-datalet {
     margin-bottom: 7px !important;
 }
 
+/* Table view */
+
+input.js-zeroclipboard-target {
+    padding: 20px;
+    width: 85%;
+}
+
+.js-zeroclipboard-btn {
+    padding: 20px;
+    top: -5px;
+    position: relative;
+    outline: 0;
+}
+
+.js-zeroclipboard-btn:focus {
+    outline: none;
+}

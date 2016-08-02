@@ -65,8 +65,19 @@
                 </div>
                 <br/>
                 <div class="row">
-                  <div class="well">
-                      API Link : <a href="{{API_LINK}}">{{API_LINK}}</a>
+                  <div class="well well-lg">
+
+                      <legend class="the-legend">API Link</legend>
+
+                      <div class="input-group-button">
+                        <input type="text" class="js-zeroclipboard-target" value="{{API_LINK}}" aria-label="{{API_LINK}}" readonly="">
+
+                        <button aria-label="Copy to clipboard" class="js-zeroclipboard-btn btn" data-clipboard-text="{{API_LINK}}" type="button">
+                            <i class="fa fa-clipboard" aria-hidden="true"></i>
+                        </button>
+
+                      </div>
+
                   </div>
                 </div>
                 <div class="row">

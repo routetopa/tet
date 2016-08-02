@@ -2,6 +2,11 @@ var SEARCH_MODE = "AND"
 
 $(document).ready(function(){
     $('[data-toggle="tooltip"]').tooltip();
+
+    if ( $('.js-zeroclipboard-btn').size() ){
+        var client = new ZeroClipboard( $(".js-zeroclipboard-btn") );
+    }
+
 });
 
 $(function () {
