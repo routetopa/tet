@@ -275,6 +275,17 @@ body, html {
     display: inline-block;
 }
 
+#results-filter li.expand {
+    padding-bottom: 35px;
+}
+
+#results-filter li.expand a {
+    margin-right: 45px;
+}
+
+#results-filter .filter-hidden {
+    display: none;
+}
 
 #search-results .dataset-list .dataset-item {
     margin-top: 35px;
