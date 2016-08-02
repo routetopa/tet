@@ -6,6 +6,12 @@ $(document).ready(function(){
 
 $(function () {
 
+    // Results filters
+    $('.expand-btn').click(function () {
+        $(this).parent().parent().children('.filter-hidden').fadeIn('slow')
+        $(this).hide()
+    });
+
     // Results order
     // TODO server side processing
     $('#sort-btn-relevance').click(function () {
@@ -111,16 +117,41 @@ $(function () {
 
             results_selector = "ul.dataset-list li.dataset-item"
 
-            $("#results-filter input:checked").each(function () {
+//            $("#results-filter input:checked").each(function () {
+//
+//                var filterKey = $(this).attr("filter-key");
+//                var filterValue = $(this).attr("filter-value");
+//
+//                results_selector += "[search-" + filterKey + "*='" + filterValue + "']"
+//
+//            });
 
-                var filterKey = $(this).attr("filter-key");
-                var filterValue = $(this).attr("filter-value");
+            var results_filtered = $("ul.dataset-list li.dataset-item");
 
-                results_selector += "[search-" + filterKey + "*='" + filterValue + "']"
+            $("#results-filter .panel-group").each(function () {
+
+                var results_selector_filter = ''
+
+                $("input:checked", this).each( function() {
+
+                    var filterKey = $(this).attr("filter-key");
+                    var filterValue = $(this).attr("filter-value");
+
+                    if ( results_selector_filter ){
+                        results_selector_filter += ", " + "[search-" + filterKey + "*='" + filterValue + "']"
+                    } else {
+                        results_selector_filter = "[search-" + filterKey + "*='" + filterValue + "']"
+                    }
+
+                })
+
+                if (results_selector_filter){
+                    results_filtered = results_filtered.filter( results_selector_filter )
+                }
 
             });
 
-            $(results_selector).show()
+            results_filtered.show()
         }
 
         // update counter

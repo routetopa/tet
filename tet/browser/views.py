@@ -26,6 +26,7 @@ from reportlab.rl_config import defaultPageSize
 from reportlab.lib.enums import TA_CENTER, TA_JUSTIFY, TA_LEFT, TA_RIGHT
 from django.shortcuts import render, redirect
 import collections
+import operator
 
 PAGE_HEIGHT = defaultPageSize[1]
 PAGE_WIDTH = defaultPageSize[0]
@@ -100,8 +101,9 @@ def search(request, query=False):
 
         for idx, dataset in enumerate(api_result["results"]):
             # bold the query phrase
-            dataset["title"] = pattern.sub("<strong>"+query+"</strong>", strip_tags(dataset["title"]))
-            dataset["notes"] = pattern.sub("<strong>"+query+"</strong>", strip_tags(dataset["notes"]))
+            if ( query ):
+                dataset["title"] = pattern.sub("<strong>"+query+"</strong>", strip_tags(dataset["title"]))
+                dataset["notes"] = pattern.sub("<strong>"+query+"</strong>", strip_tags(dataset["notes"]))
 
             # used in search / filtering JS
             dataset["relevance_key"] = idx
@@ -167,10 +169,14 @@ def search(request, query=False):
         if "" in formats.keys():
             del formats[""]
 
-        filters["themes"] = themes 
-        filters["locations"] = locations
+
+
+        filters["themes"] = collections.OrderedDict(reversed(sorted(themes.items(), key=lambda x: int(x[1]))))
+        filters["locations"] = collections.OrderedDict(reversed(sorted(locations.items(), key=lambda x: int(x[1]))))
         filters["periods"] = collections.OrderedDict(sorted(periods.items(), reverse=True))
-        filters["formats"] = formats
+        filters["formats"] = collections.OrderedDict(reversed(sorted(formats.items(), key=lambda x: int(x[1]))))
+
+
 
     context = {
         'query': query,
@@ -300,12 +306,12 @@ def dataset_as_table(request, dataset_id):
 
 # TODO summary: keywords, charts, extracted media
 def dataset_as_pdf(request, dataset_id):
+
     template_name = 'browser/pdf.html'
     ckan_api_instance = ckanapi.RemoteCKAN(
         settings.CKAN_URL,
         user_agent='tetbrowser/1.0 (+http://tetbrowser.routetopa.eu)'
     )
-
 
     try:
         dataset = ckan_api_instance.action.package_show(
@@ -316,7 +322,7 @@ def dataset_as_pdf(request, dataset_id):
                 if resource["format"].lower() == "pdf":
                     context = {
                        "url" : resource["url"],
-                       'CKAN_URL': settings.CKAN_URL + "?r=" + request.get_full_path()
+                       'CKAN_URL': settings.CKAN_URL + "/dataset/" + dataset_id + "?r=" + request.get_full_path()
                     }
                     return render(request, template_name, context)
     except:
