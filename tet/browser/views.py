@@ -280,6 +280,7 @@ def dataset_as_table(request, dataset_id):
             for resource in dataset["resources"]:
                 if resource["format"].lower() in ["csv","xls"]:
                     views = ckan_api_instance.action.resource_view_list(id=resource["id"])
+                    resource_id = resource["id"]
                     for view in views:
                         if (view["view_type"]=="recline_view"):
                             url_table = settings.CKAN_URL + "/dataset/" + dataset_id + "/resource/" + resource["id"] + "/view/" + view["id"]
@@ -299,7 +300,8 @@ def dataset_as_table(request, dataset_id):
         'metadata_box': dataset_to_metadata_text(dataset),
         'spod_box_datasets': dataset_to_spod(dataset),
         'SPOD_URL': settings.SPOD_URL,
-        'CKAN_URL': settings.CKAN_URL + "/dataset/" + dataset_id + "?r=" + request.get_full_path()
+        'CKAN_URL': settings.CKAN_URL + "/dataset/" + dataset_id + "?r=" + request.get_full_path(),
+        'API_LINK' : settings.CKAN_URL + "/api/action/datastore_search?resource_id=" + resource_id + "&limit=99999" 
      }
 
     return render(request, template_name, context)
