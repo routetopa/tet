@@ -246,7 +246,7 @@ def dataset(request, dataset_id):
         'SPOD_URL': settings.SPOD_URL,
         'resource_id':resource_id,
         'resource_fields': resource_fields,
-        'CKAN_URL': settings.CKAN_URL + "/dataset/" + dataset_id,
+        'CKAN_URL': settings.CKAN_URL + "/dataset/" + dataset_id + "?r=" + request.get_full_path()
     }
 
     return render(request, template_name, context)
@@ -293,8 +293,8 @@ def dataset_as_table(request, dataset_id):
         'metadata_box': dataset_to_metadata_text(dataset),
         'spod_box_datasets': dataset_to_spod(dataset),
         'SPOD_URL': settings.SPOD_URL,
-        'CKAN_URL': settings.CKAN_URL + "/dataset/" + dataset_id
-    }
+        'CKAN_URL': settings.CKAN_URL + "/dataset/" + dataset_id + "?r=" + request.get_full_path()
+     }
 
     return render(request, template_name, context)
 
@@ -316,7 +316,7 @@ def dataset_as_pdf(request, dataset_id):
                 if resource["format"].lower() == "pdf":
                     context = {
                        "url" : resource["url"],
-                       'CKAN_URL': settings.CKAN_URL 
+                       'CKAN_URL': settings.CKAN_URL + "?r=" + request.get_full_path()
                     }
                     return render(request, template_name, context)
     except:
