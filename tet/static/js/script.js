@@ -6,15 +6,6 @@ $(document).ready(function(){
 
 $(function () {
 
-    // Results filters
-
-    $('.expand-btn').click(function () {
-        $(this).parent().parent().children('.filter-hidden').fadeIn('slow')
-        $(this).hide()
-
-    });
-
-
     // Results order
     // TODO server side processing
     $('#sort-btn-relevance').click(function () {

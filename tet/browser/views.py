@@ -306,7 +306,7 @@ def dataset_as_table(request, dataset_id):
 
 # TODO summary: keywords, charts, extracted media
 def dataset_as_pdf(request, dataset_id):
-    template_name = 'browser/pdf.html'
+
     ckan_api_instance = ckanapi.RemoteCKAN(
         settings.CKAN_URL,
         user_agent='tetbrowser/1.0 (+http://tetbrowser.routetopa.eu)'
@@ -320,11 +320,7 @@ def dataset_as_pdf(request, dataset_id):
         if "resources" in dataset.keys():
             for resource in dataset["resources"]:
                 if resource["format"].lower() == "pdf":
-                    context = {
-                       "url" : resource["url"],
-                       'CKAN_URL': settings.CKAN_URL 
-                    }
-                    return render(request, template_name, context)
+                    return redirect(resource["url"])
     except:
         raise Http404("No Dataset found.")
 
