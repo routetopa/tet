@@ -434,12 +434,12 @@ base-ajax-json-alasql-datalet {
 /* Table view */
 
 input.js-zeroclipboard-target {
-    padding: 20px;
+    padding: 10px;
     width: 85%;
 }
 
 .js-zeroclipboard-btn {
-    padding: 20px;
+    padding: 10px;
     top: -5px;
     position: relative;
     outline: 0;
