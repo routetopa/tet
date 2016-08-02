@@ -418,3 +418,16 @@ base-ajax-json-alasql-datalet {
     display: none;
 }
 
+.dataset-files {
+    margin-top: 25px;
+}
+
+.dataset-files li {
+    margin-bottom: 15px;
+}
+
+.dataset-services-details {
+    margin-top: 15px;
+    margin-bottom: 7px !important;
+}
+

@@ -39,53 +39,35 @@
                 {% if resource_id %} 
                 <div class="row">
 
+                    <script type="text/javascript" src="https://cdn.jsdelivr.net/webcomponentsjs/0.7.16/webcomponents-lite.min.js"></script>
+                    <!--<script type="text/javascript" src="https://code.jquery.com/jquery-2.1.4.min.js"></script>-->
+                    <!-- REMOVE THE PREVIOUS SCRIPT TAGS IF YOUR PAGE ALREADY USES JQUERY AND POLYFILL LIBRARIES  -->
+                    <link rel="import" href="http://deep.routetopa.eu/COMPONENTS/datalets/columnchart-datalet/columnchart-datalet.html" />
+
                     <div class="span12 -span10 -offset1">
                        
                         <div class="carousel carousel-fade slide" id="main-chart">
                             <div class="carousel-inner">
-                                {% for resource in resource_fields|slice:":1" %}
-                                <div class="item active">
+                                {% for resource in resource_fields %}
+                                    <div class="item{% if forloop.counter == 1 %} active{% endif %}">
 
-                                <script type="text/javascript" src="https://cdn.jsdelivr.net/webcomponentsjs/0.7.16/webcomponents-lite.min.js"></script>
-                                <!--<script type="text/javascript" src="https://code.jquery.com/jquery-2.1.4.min.js"></script>-->
-                                <!-- REMOVE THE PREVIOUS SCRIPT TAGS IF YOUR PAGE ALREADY USES JQUERY AND POLYFILL LIBRARIES  -->
-                                 <link rel="import" href="http://deep.routetopa.eu/COMPONENTS/datalets/columnchart-datalet/columnchart-datalet.html" />
-                                {% if resource.1 %}
-                                   <columnchart-datalet data-url='{{resource_id}}' filters='[]' aggregators='[]' orders='[]' fields='["result,records,_id","result,records,{{resource.0}}"]'></columnchart-datalet>
-                                {% else %}
-                                    <columnchart-datalet data-url='{{resource_id}}' x-axis-label="{{resource.0}}" y-axis-label="Count1 of {{resource.0}}" filters='[]' aggregators='[{"field":"{{resource.0}}","operation":"GROUP BY"},{"field":"_id","operation":"COUNT"}]' orders='[]' fields='["result,records,{{resource.0}}","result,records,_id"]'></columnchart-datalet>
-                                {% endif %}
-                               
-
-
-                                </div><!-- /Slide1 -->
+                                    {% if resource.1 %}
+                                       <columnchart-datalet data-url='{{resource_id}}' filters='[]' aggregators='[]' orders='[]' fields='["result,records,_id","result,records,{{resource.0}}"]'></columnchart-datalet>
+                                    {% else %}
+                                        <columnchart-datalet data-url='{{resource_id}}' x-axis-label="{{resource.0}}" y-axis-label="Count1 of {{resource.0}}" filters='[]' aggregators='[{"field":"{{resource.0}}","operation":"GROUP BY"},{"field":"_id","operation":"COUNT"}]' orders='[]' fields='["result,records,{{resource.0}}","result,records,_id"]'></columnchart-datalet>
+                                    {% endif %}
+                                    </div><!-- /Slide1 -->
                                 {% endfor %}
-                                {% for resource in resource_fields|slice:"1:" %}
-                                
-                                <div class="item">
 
-                                   <script type="text/javascript" src="https://cdn.jsdelivr.net/webcomponentsjs/0.7.16/webcomponents-lite.min.js"></script>
-                                <!--<script type="text/javascript" src="https://code.jquery.com/jquery-2.1.4.min.js"></script>-->
-                                <!-- REMOVE THE PREVIOUS SCRIPT TAGS IF YOUR PAGE ALREADY USES JQUERY AND POLYFILL LIBRARIES  -->
-                                <link rel="import" href="http://deep.routetopa.eu/COMPONENTS/datalets/columnchart-datalet/columnchart-datalet.html" />
-                                {% if resource.1 %}
-                                   <columnchart-datalet data-url='{{resource_id}}' filters='[]' aggregators='[]' orders='[]' fields='["result,records,_id","result,records,{{resource.0}}"]'></columnchart-datalet>
-                                {% else %}
-                                    <columnchart-datalet data-url='{{resource_id}}' x-axis-label="{{resource.0}}" y-axis-label="Count1 of {{resource.0}}" filters='[]' aggregators='[{"field":"{{resource.0}}","operation":"GROUP BY"},{"field":"_id","operation":"COUNT"}]' orders='[]' fields='["result,records,{{resource.0}}","result,records,_id"]'></columnchart-datalet>
-                                {% endif %}
-                               
-
-                                </div>
-                                {% endfor %}
                                 {% for resource in dataset.resources %}
-                                {% if resource.format == "PNG"%}
-                                <div class="item">
-                                <img src="{{resource.url}}"/>
-                                </div>
-                                {% endif %}
+                                    {% if resource.format == "PNG"%}
+                                    <div class="item">
+                                        <img src="{{resource.url}}"/>
+                                    </div>
+                                    {% endif %}
                                 {% endfor %}
-                            </div>
 
+                            </div>
 
                             <div class="control-box">
                                 <a data-slide="prev" href="#main-chart" class="carousel-control left">‹</a>
@@ -126,39 +108,46 @@
                         <h5>
                             <i class="fa fa-file-text-o" aria-hidden="true"></i> Files
                         </h5>
-                        <ul>
+                        <ul class="dataset-files unstyled">
                         {% for resource in dataset.resources %}
-                        <li><a href="{{resource.url}}">{{resource.name}} [{{resource.format}}]</a></li>
+                            <li><span class="label result-label" data-format="{{resource.format|lower}}">{{ resource.format }}</span> <a href="{{resource.url}}">{{resource.name}}</a></li>
                         {% endfor %}
                         </ul>
                         </div>
 
                     </div>
-                    <div class="span6">
 
-                    <ul class="dataset-services unstyled">
-                        <li class="dataset-service">
-                            {% if dataset.has_table %}
-                            <a href="{% url 'dataset_as_table' dataset.id %}"><i class="fa fa-table" aria-hidden="true" data-toggle="tooltip" data-placement="bottom" title="View as table"></i></a>
-                            {% else %}
-                            <a href="#" class="disabled"><i class="fa fa-table" aria-hidden="true" data-toggle="tooltip" data-placement="bottom" title="View as table - not available"></i></a>
-                            {% endif %}
-                        </li>
-                        <li class="dataset-service">
-                            {% if dataset.has_apps %}
-                            <a href="{% url 'dataset_as_app' dataset.id %}" class="disabled"><i class="fa fa-tablet" aria-hidden="true" data-toggle="tooltip" data-placement="bottom" title="View as app"></i></a>
-                            {% else %}
-                            <a href="#" class="disabled"><i class="fa fa-tablet" aria-hidden="true" data-toggle="tooltip" data-placement="bottom" title="View as app - not available"></i></a>
-                            {% endif %}
-                        </li>
-                        <li class="dataset-service">
-                            {% if dataset.has_pdf %}
-                            <a href="{% url 'dataset_as_pdf' dataset.id %}"><i class="fa fa-file-pdf-o" aria-hidden="true" data-toggle="tooltip" data-placement="bottom" title="View as PDF"></i></a>
-                            {% else %}
-                            <a href="#" class="disabled"><i class="fa fa-file-pdf-o" aria-hidden="true" data-toggle="tooltip" data-placement="bottom" title="View as PDF"></i></a>
-                            {% endif %}
-                        </li>
-                    </ul>
+
+                    <div class="span6">
+                        <div>
+                            <h5>
+                                <i class="fa fa-eye" aria-hidden="true"></i> Available views
+                            </h5>
+
+                            <ul class="dataset-services dataset-services-details unstyled">
+                                <li class="dataset-service">
+                                    {% if dataset.has_table %}
+                                    <a href="{% url 'dataset_as_table' dataset.id %}"><i class="fa fa-table" aria-hidden="true" data-toggle="tooltip" data-placement="bottom" title="View as table"></i></a>
+                                    {% else %}
+                                    <a href="#" class="disabled"><i class="fa fa-table" aria-hidden="true" data-toggle="tooltip" data-placement="bottom" title="View as table - not available"></i></a>
+                                    {% endif %}
+                                </li>
+                                <li class="dataset-service">
+                                    {% if dataset.has_apps %}
+                                    <a href="{% url 'dataset_as_app' dataset.id %}" class="disabled"><i class="fa fa-tablet" aria-hidden="true" data-toggle="tooltip" data-placement="bottom" title="View as app"></i></a>
+                                    {% else %}
+                                    <a href="#" class="disabled"><i class="fa fa-tablet" aria-hidden="true" data-toggle="tooltip" data-placement="bottom" title="View as app - not available"></i></a>
+                                    {% endif %}
+                                </li>
+                                <li class="dataset-service">
+                                    {% if dataset.has_pdf %}
+                                    <a href="{% url 'dataset_as_pdf' dataset.id %}"><i class="fa fa-file-pdf-o" aria-hidden="true" data-toggle="tooltip" data-placement="bottom" title="View as PDF"></i></a>
+                                    {% else %}
+                                    <a href="#" class="disabled"><i class="fa fa-file-pdf-o" aria-hidden="true" data-toggle="tooltip" data-placement="bottom" title="View as PDF"></i></a>
+                                    {% endif %}
+                                </li>
+                            </ul>
+                        </div>
                     </div>
 
                     <div class="span6">

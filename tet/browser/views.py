@@ -252,7 +252,7 @@ def dataset(request, dataset_id):
         'SPOD_URL': settings.SPOD_URL,
         'resource_id':resource_id,
         'resource_fields': resource_fields,
-        'CKAN_URL': settings.CKAN_URL + "/dataset/" + dataset_id + "?r=" + request.get_full_path()
+        'CKAN_URL': settings.CKAN_URL + "/dataset/" + dataset_id + "?r=" + request.get_full_path(),
     }
 
     return render(request, template_name, context)
