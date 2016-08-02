@@ -116,6 +116,32 @@
                         </div>
 
                     </div>
+                    <div class="span6">
+
+                    <ul class="dataset-services unstyled">
+                        <li class="dataset-service">
+                            {% if dataset.has_table %}
+                            <a href="{% url 'dataset_as_table' dataset.id %}"><i class="fa fa-table" aria-hidden="true" data-toggle="tooltip" data-placement="bottom" title="View as table"></i></a>
+                            {% else %}
+                            <a href="#" class="disabled"><i class="fa fa-table" aria-hidden="true" data-toggle="tooltip" data-placement="bottom" title="View as table - not available"></i></a>
+                            {% endif %}
+                        </li>
+                        <li class="dataset-service">
+                            {% if dataset.has_apps %}
+                            <a href="{% url 'dataset_as_app' dataset.id %}" class="disabled"><i class="fa fa-tablet" aria-hidden="true" data-toggle="tooltip" data-placement="bottom" title="View as app"></i></a>
+                            {% else %}
+                            <a href="#" class="disabled"><i class="fa fa-tablet" aria-hidden="true" data-toggle="tooltip" data-placement="bottom" title="View as app - not available"></i></a>
+                            {% endif %}
+                        </li>
+                        <li class="dataset-service">
+                            {% if dataset.has_pdf %}
+                            <a href="{% url 'dataset_as_pdf' dataset.id %}"><i class="fa fa-file-pdf-o" aria-hidden="true" data-toggle="tooltip" data-placement="bottom" title="View as PDF"></i></a>
+                            {% else %}
+                            <a href="#" class="disabled"><i class="fa fa-file-pdf-o" aria-hidden="true" data-toggle="tooltip" data-placement="bottom" title="View as PDF"></i></a>
+                            {% endif %}
+                        </li>
+                    </ul>
+                    </div>
 
                     <div class="span6">
 
@@ -142,7 +168,9 @@
                         </div>
                     </div>
 
+
                 </div>
+
 
             </div>
 

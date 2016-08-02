@@ -200,6 +200,11 @@ def dataset(request, dataset_id):
         if "resources" in dataset.keys():
             for resource in dataset["resources"]:
                 if resource["format"].lower() in ["csv","xls"]:
+                    dataset["has_table"] = True
+
+                if resource["format"].lower()  == "pdf":
+                    dataset["has_pdf"] = True
+                if resource["format"].lower() in ["csv","xls"]:
                     try:
                         resource_id = resource["id"]
                         url = settings.CKAN_URL + "/api/action/datastore_search?resource_id=" + resource_id + "&limit=5"
