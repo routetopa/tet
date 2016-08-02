@@ -77,6 +77,13 @@
 
                                 </div>
                                 {% endfor %}
+                                {% for resource in dataset.resources %}
+                                {% if resource.format == "PNG"%}
+                                <div class="item">
+                                <img src="{{resource.url}}"/>
+                                </div>
+                                {% endif %}
+                                {% endfor %}
                             </div>
 
 
@@ -113,6 +120,17 @@
                                 {{ metadata_box|safe }}
                             </div>
 
+                        </div>
+
+                        <div>
+                        <h5>
+                            <i class="fa fa-file-text-o" aria-hidden="true"></i> Files
+                        </h5>
+                        <ul>
+                        {% for resource in dataset.resources %}
+                        <li><a href="{{resource.url}}">{{resource.name}} [{{resource.format}}]</a></li>
+                        {% endfor %}
+                        </ul>
                         </div>
 
                     </div>
@@ -170,6 +188,7 @@
 
 
                 </div>
+
 
 
             </div>
