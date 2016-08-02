@@ -6,7 +6,6 @@ $(document).ready(function(){
     if ( $('.js-zeroclipboard-btn').size() ){
         var client = new ZeroClipboard( $(".js-zeroclipboard-btn") );
     }
-
 });
 
 $(function () {
