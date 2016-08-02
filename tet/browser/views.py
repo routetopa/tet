@@ -212,7 +212,7 @@ def dataset(request, dataset_id):
                         res = urllib.request.urlopen(url)
                         data = json.loads(res.read().decode(res.info().get_param('charset') or 'utf-8'))
                         fields = []
-                        filter_list = ["long", "lat", "no.", "phone", "date","id"] 
+                        filter_list = ["long", "lat", "no.", "phone", "date","id", "code"] 
                         for field in data["result"]["fields"]:
                             name = field["id"]
                             found = False 
