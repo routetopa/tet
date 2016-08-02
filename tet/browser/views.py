@@ -26,6 +26,7 @@ from reportlab.rl_config import defaultPageSize
 from reportlab.lib.enums import TA_CENTER, TA_JUSTIFY, TA_LEFT, TA_RIGHT
 from django.shortcuts import render, redirect
 import collections
+import operator
 
 PAGE_HEIGHT = defaultPageSize[1]
 PAGE_WIDTH = defaultPageSize[0]
@@ -168,10 +169,14 @@ def search(request, query=False):
         if "" in formats.keys():
             del formats[""]
 
-        filters["themes"] = themes 
-        filters["locations"] = locations
+
+
+        filters["themes"] = collections.OrderedDict(reversed(sorted(themes.items(), key=lambda x: int(x[1]))))
+        filters["locations"] = collections.OrderedDict(reversed(sorted(locations.items(), key=lambda x: int(x[1]))))
         filters["periods"] = collections.OrderedDict(sorted(periods.items(), reverse=True))
-        filters["formats"] = formats
+        filters["formats"] = collections.OrderedDict(reversed(sorted(formats.items(), key=lambda x: int(x[1]))))
+
+
 
     context = {
         'query': query,
