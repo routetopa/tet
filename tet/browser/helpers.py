@@ -18,16 +18,16 @@ def dataset_to_metadata_text(dataset):
     # print(dataset)
 
     text = "<p>This Dataset was created at <strong>" + parse(dataset["metadata_created"]).strftime("%d %B% %Y, %H:%M") + "</strong>"
-    text += " and last modified at <strong>" + parse(dataset["metadata_modified"]).strftime("%d %B% %Y, %H:%M") + "</strong>.</p>"
+    text += " and last modified at <strong>" + parse(dataset["metadata_modified"]).strftime("%d %B% %Y, %H:%M") + "</strong>.</p> "
 
     if dataset["license_title"]:
-        text += "<p>This Dataset is published under <strong>" + dataset["license_title"] + "</strong> license.</p>"
+        text += "<p>This Dataset is published under <strong>" + dataset["license_title"] + "</strong> license.</p> "
 
     if dataset["organization"]:
-        text += "<p>The data was published by <strong>" + dataset["organization"]["title"] + "</strong>.</p>"
+        text += "<p>The data was published by <strong>" + dataset["organization"]["title"] + "</strong>.</p> "
 
     if dataset["maintainer_email"]:
-        text += "<p>In you need more details, maintainer can be contacted at: <a href='#' data-original-title='' title=''><strong>" + dataset["maintainer_email"] + "</strong></a>.</p>"
+        text += "<p>If you need more details, maintainer can be contacted at: <a href='#' data-original-title='' title=''><strong>" + dataset["maintainer_email"] + "</strong></a>.</p> "
 
     if dataset["num_resources"] > 0:
         text += "<p>The data is available in " + str(dataset["num_resources"]) + " format"
@@ -40,7 +40,7 @@ def dataset_to_metadata_text(dataset):
         for res in dataset["resources"]:
             text += "<strong>" + res["format"] + "</strong> "
 
-        text += "</p>"
+        text += "</p> "
 
     return text
 
