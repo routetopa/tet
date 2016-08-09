@@ -431,6 +431,19 @@ base-ajax-json-alasql-datalet {
     margin-bottom: 7px !important;
 }
 
+.dataset-description p {
+    -ms-word-break: break-all;
+    word-break: break-all;
+
+ /* Non standard for webkit */
+     word-break: break-word;
+
+    -webkit-hyphens: auto;
+       -moz-hyphens: auto;
+        -ms-hyphens: auto;
+            hyphens: auto;
+}
+
 /* Table view */
 
 input.js-zeroclipboard-target {
