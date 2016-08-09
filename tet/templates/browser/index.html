@@ -1,4 +1,6 @@
 {% extends "base.html" %}
+
+{% load i18n %}
 {% load staticfiles %}
 
 {% block content %}
@@ -18,12 +20,7 @@
 
                             <div class="row">
 
-                                <form class="form-search" action="search" method="get">
-                                    <div class="input-append">
-                                        <input type="text" class="span5 main-search" name="query" placeholder="Search for datasets">
-                                        <button type="submit" class="span2 pull-right btn main-search-btn"> <i class="fa fa-search" aria-hidden="true"></i> Search</button>
-                                    </div>
-                                </form>
+                                {% include "browser/_search.html" with query=query %}
 
                             </div>
 

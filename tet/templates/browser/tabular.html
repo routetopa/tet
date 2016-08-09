@@ -1,5 +1,7 @@
 {% extends "base.html" %}
 
+{% load i18n %}
+
 {% block title %} Dataset details {% endblock title %}
 
 {% block content %}
@@ -16,12 +18,7 @@
 
                             <div class="row">
 
-                                <form class="form-search" action="/search" method="get">
-                                    <div class="input-append">
-                                        <input type="text" class="span5 main-search" name="query" value="{{ query }}" />
-                                        <button type="submit" class="span2 pull-right btn main-search-btn"> <i class="fa fa-search" aria-hidden="true"></i> Search </button>
-                                    </div>
-                                </form>
+                                {% include "browser/_search.html" with query=query %}
 
                             </div>
 
@@ -33,16 +30,18 @@
 
                 <div class="row">
 
-                    <h4 class="dataset-title"> Tabular View </h4>
+                    <h4 class="dataset-title"> {% trans "Tabular View" %} </h4>
 
                 </div>
+
                 <div class="row">
 
                     <div >
 
                         <div class="dataset-description">
                             <h5>
-                                <i class="fa fa-file-text-o" aria-hidden="true"></i> Description
+                                <i class="fa fa-file-text-o" aria-hidden="true"></i>
+                                {% trans "Description" %}
                             </h5>
                             <p class="text-justify">
                                 {{ dataset.notes }}
@@ -53,7 +52,8 @@
                         <div class="dataset-metadata">
 
                             <h5>
-                                <i class="fa fa-info-circle" aria-hidden="true"></i> Metadata
+                                <i class="fa fa-info-circle" aria-hidden="true"></i>
+                                {% trans "Metadata" %}
                             </h5>
                             <div>
                                 {{ metadata_box|safe }}
@@ -65,28 +65,15 @@
                 </div>
                 <br/>
                 <div class="row">
-                  <div class="well well-small">
-
-                      <strong class="the-legend">API Link</strong>
-
-                      <div class="input-group-button">
-                        <input type="text" class="js-zeroclipboard-target" value="{{API_LINK}}" aria-label="{{API_LINK}}" readonly="">
-
-                        <button aria-label="Copy to clipboard" class="js-zeroclipboard-btn btn" data-clipboard-text="{{API_LINK}}" type="button">
-                            <i class="fa fa-clipboard" aria-hidden="true"></i>
-                        </button>
-
-                      </div>
-
-                  </div>
+                    {% include "browser/_dataset_api_box.html" with API_LINK=API_LINK %}
                 </div>
                 <div class="row">
                     <div>
 
                       <ul class="nav nav-tabs" role="tablist">
-                        <li role="presentation" class="active"><a href="#explorer" aria-controls="explorer" role="tab" data-toggle="tab">Data Explorer</a></li>
-                        <li role="presentation"><a href="#pivottable" aria-controls="pivottable" role="tab" data-toggle="tab">PivotTable</a></li>
-                        <li role="presentation"><a href="#discuss" aria-controls="discuss" role="tab" data-toggle="tab">SPOD Discussion</a></li>    
+                        <li role="presentation" class="active"><a href="#explorer" aria-controls="explorer" role="tab" data-toggle="tab">{% trans "Data Explorer" %}</a></li>
+                        <li role="presentation"><a href="#pivottable" aria-controls="pivottable" role="tab" data-toggle="tab">{% trans "PivotTable" %}</a></li>
+                        <li role="presentation"><a href="#discuss" aria-controls="discuss" role="tab" data-toggle="tab">{% trans "SPOD Discussion" %}</a></li>
                       </ul>
 
                       <div class="tab-content">
@@ -100,7 +87,8 @@
                             <div class="spod-discussions">
 
                                 <h5>
-                                    <i class="fa fa-comments-o" aria-hidden="true"></i> Discussions at SPOD
+                                    <i class="fa fa-comments-o" aria-hidden="true"></i>
+                                    {% trans "Discussions at SPOD" %}
                                 </h5>
                                 {% if spod_box_datasets %}
                                     {% for dataset in spod_box_datasets %}
@@ -108,11 +96,11 @@
                                     {% endfor %}
                                 {% else %}
                                 <p>
-                                    This dataset has not been discussed in SPOD, be the first to discuss the dataset!
+                                    {% trans "This dataset has not been discussed in SPOD, be the first to discuss the dataset!" %}
                                 </p>
                                 <br/><br/>
                                 <p>
-                                    <a href="{{ SPOD_URL }}" class="pull-right" data-original-title="" title=""> Start the discussion</a>
+                                    <a href="{{ SPOD_URL }}" class="pull-right" data-original-title="" title=""> {% trans "Start the discussion" %}</a>
                                 </p>
                                 {% endif %}
 
