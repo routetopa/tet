@@ -1,0 +1,233 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2016-08-09 15:30+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: templates/browser/_dataset_api_box.html:6
+msgid "API Link"
+msgstr ""
+
+#: templates/browser/_dataset_as_search_result.html:18
+msgid "View as chart"
+msgstr ""
+
+#: templates/browser/_dataset_as_search_result.html:22
+#: templates/browser/dataset.html:126
+msgid "View as table"
+msgstr ""
+
+#: templates/browser/_dataset_as_search_result.html:24
+#: templates/browser/dataset.html:128
+msgid "View as table - not available"
+msgstr ""
+
+#: templates/browser/_dataset_as_search_result.html:29
+#: templates/browser/dataset.html:133
+msgid "View as app"
+msgstr ""
+
+#: templates/browser/_dataset_as_search_result.html:31
+#: templates/browser/dataset.html:135
+msgid "View as app - not available"
+msgstr ""
+
+#: templates/browser/_dataset_as_search_result.html:36
+#: templates/browser/_dataset_as_search_result.html:38
+#: templates/browser/dataset.html:140 templates/browser/dataset.html:142
+msgid "View as PDF"
+msgstr ""
+
+#: templates/browser/_dataset_as_search_result.html:52
+msgid "View raw data"
+msgstr ""
+
+#: templates/browser/_dataset_discussion.html:26
+msgid "Join the discussion"
+msgstr ""
+
+#: templates/browser/_footer.html:15
+msgid ""
+"Transparency-Enhancing Toolset (TET) is the next-generation open data portal "
+"containing set of tools that facilitate a better understanding of the data "
+"by providing connections and links to related datasets, and providing "
+"information about provenance."
+msgstr ""
+
+#: templates/browser/_footer.html:16
+msgid ""
+"<a href=\"http://routetopa.eu\">ROUTE-TO-PA project</a> has received funding "
+"from the European Union’s Horizon 2020 research and innovation programme "
+"under grant agreement No 645860."
+msgstr ""
+
+#: templates/browser/_footer.html:21
+msgid ""
+"Powered by <a class=\"hide-text ckan-footer-logo\" href=\"http://ckan.org"
+"\">CKAN</a>"
+msgstr ""
+
+#: templates/browser/_footer.html:27
+msgid ""
+"TET interface developed by <a class=\"hide-text insight-footer-logo\" href="
+"\"http://insight-centre.org/\">CKAN</a>"
+msgstr ""
+
+#: templates/browser/_header.html:9
+msgid "Login"
+msgstr ""
+
+#: templates/browser/_header.html:14
+msgid "Home"
+msgstr ""
+
+#: templates/browser/_header.html:14
+msgid "About"
+msgstr ""
+
+#: templates/browser/_header.html:14
+msgid "Help"
+msgstr ""
+
+#: templates/browser/_header.html:14
+msgid "Classic CKAN"
+msgstr ""
+
+#: templates/browser/_search.html:3
+msgid "Search for datasets"
+msgstr ""
+
+#: templates/browser/_search.html:6
+msgid "Search"
+msgstr ""
+
+#: templates/browser/_search_filters.html:6
+msgid "Refine by"
+msgstr ""
+
+#: templates/browser/_search_filters.html:15
+msgid "Location"
+msgstr ""
+
+#: templates/browser/_search_filters.html:32
+#: templates/browser/_search_filters.html:67
+#: templates/browser/_search_filters.html:102
+#: templates/browser/_search_filters.html:135
+msgid "Show More"
+msgstr ""
+
+#: templates/browser/_search_filters.html:50
+msgid "Period"
+msgstr ""
+
+#: templates/browser/_search_filters.html:85
+msgid "Themes"
+msgstr ""
+
+#: templates/browser/_search_filters.html:118
+msgid "Format"
+msgstr ""
+
+#: templates/browser/dataset.html:4
+msgid "Dataset details"
+msgstr ""
+
+#: templates/browser/dataset.html:84 templates/browser/tabular.html:44
+msgid "Description"
+msgstr ""
+
+#: templates/browser/dataset.html:95 templates/browser/tabular.html:56
+msgid "Metadata"
+msgstr ""
+
+#: templates/browser/dataset.html:105
+msgid "Files"
+msgstr ""
+
+#: templates/browser/dataset.html:120
+msgid "Available views"
+msgstr ""
+
+#: templates/browser/dataset.html:154 templates/browser/tabular.html:91
+msgid "Discussions at SPOD"
+msgstr ""
+
+#: templates/browser/dataset.html:163 templates/browser/tabular.html:99
+msgid ""
+"This dataset has not been discussed in SPOD, be the first to discuss the "
+"dataset!"
+msgstr ""
+
+#: templates/browser/dataset.html:167 templates/browser/tabular.html:103
+msgid "Start the discussion"
+msgstr ""
+
+#: templates/browser/pdf.html:32
+msgid "PDF Preview"
+msgstr ""
+
+#: templates/browser/search.html:47
+msgid "Relevance"
+msgstr ""
+
+#: templates/browser/search.html:48
+msgid "Name"
+msgstr ""
+
+#: templates/browser/search.html:49
+msgid "Date"
+msgstr ""
+
+#: templates/browser/search.html:70
+msgid "No results found."
+msgstr ""
+
+#: templates/browser/search.html:71
+msgid "Please try another search."
+msgstr ""
+
+#: templates/browser/tabular.html:33
+msgid "Tabular View"
+msgstr ""
+
+#: templates/browser/tabular.html:74
+msgid "Data Explorer"
+msgstr ""
+
+#: templates/browser/tabular.html:75
+msgid "PivotTable"
+msgstr ""
+
+#: templates/browser/tabular.html:76
+msgid "SPOD Discussion"
+msgstr ""
+
+#: tet/settings.py:119
+msgid "English"
+msgstr ""
+
+#: tet/settings.py:120
+msgid "Italian"
+msgstr ""
+
+#: tet/settings.py:121
+msgid "French"
+msgstr ""
+
+#: tet/settings.py:122
+msgid "Dutch"
+msgstr ""
