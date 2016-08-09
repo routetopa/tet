@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/1.9/ref/settings/
 """
 
 import os
+from django.utils.translation import ugettext_lazy as _
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -48,6 +49,9 @@ MIDDLEWARE_CLASSES = [
     'django.contrib.auth.middleware.SessionAuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'django.contrib.sessions.middleware.SessionMiddleware',
+    'django.middleware.locale.LocaleMiddleware',
+    'django.middleware.common.CommonMiddleware',
 ]
 
 ROOT_URLCONF = 'tet.urls'
@@ -64,6 +68,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'django.template.context_processors.i18n',
                 # 'browser.context_processors.common_settings,'
 
             ],
@@ -110,6 +115,13 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/1.9/topics/i18n/
 
+LANGUAGES = (
+    ('en', _('English')),
+    ('it', _('Italian')),
+    ('fr', _('French')),
+    ('nl', _('Dutch')),
+)
+
 LANGUAGE_CODE = 'en-us'
 
 TIME_ZONE = 'GMT'
@@ -127,6 +139,10 @@ USE_TZ = True
 STATIC_URL = '/static/'
 MEDIA_URL = '/media/'
 
+LOCALE_PATHS = (
+    os.path.join(BASE_DIR, 'locale'),
+)
+
 STATICFILES_DIRS = (
     os.path.join(BASE_DIR, "static"),
 )
@@ -139,4 +155,4 @@ MEDIA_ROOT = os.path.join(os.path.dirname(BASE_DIR), "media")
 CKAN_URL = "http://dublin-tet.routetopa.eu:8080"
 CKAN_USERNAME = "admin"
 CKAN_API_KEY = "xxxx-xxxx-xxxx-xxxx"
-SPOD_URL = "http://dublin-spod.routetopa.eu"
+SPOD_URL = "http://spod.routetopa.eu"
