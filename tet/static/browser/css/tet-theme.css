@@ -85,7 +85,7 @@ body, html {
 
 /* Search + Tags */ 
 .tet-search-image {
-    padding-top: 80px;
+    padding-top: 30px;
 }
 
 .search-ui {
@@ -364,7 +364,8 @@ h6 {
     -webkit-box-shadow: none;
     box-shadow: none;
     background-image: none;
-    background-color: #fff;
+    background-color: #007dbe;
+    color: #fff;
 }
 
 .navbar-fixed-top .btn-primary-login {
@@ -381,6 +382,7 @@ h6 {
 
 .navbar-fixed-top .head-buttons a {
     margin: 3px 12px;
+    color: #fff;
 }
 
 
@@ -460,4 +462,21 @@ input.js-zeroclipboard-target {
 
 .js-zeroclipboard-btn:focus {
     outline: none;
+}
+
+
+@media (max-width: 767px){
+
+    #homepage-search .search-ui .main-search-btn {
+        font-size: 16px;
+        padding: 5px;
+        width: 120px;
+    }
+
+    .search-ui .main-search-btn {
+        font-size: 16px;
+        padding: 4px;
+        width: 120px;
+    }
+
 }
