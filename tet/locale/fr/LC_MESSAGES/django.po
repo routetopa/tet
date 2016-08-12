@@ -3,62 +3,62 @@
 # This file is distributed under the same license as the PACKAGE package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
-#, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: PACKAGE VERSION\n"
+"Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2016-08-09 15:30+0000\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language-Team: LANGUAGE <LL@li.org>\n"
-"Language: \n"
+"PO-Revision-Date: 2016-08-12 16:55+0100\n"
+"Language: fr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"X-Generator: Poedit 1.8.8\n"
 
 #: templates/browser/_dataset_api_box.html:6
 msgid "API Link"
-msgstr ""
+msgstr "API Lien"
 
 #: templates/browser/_dataset_as_search_result.html:18
 msgid "View as chart"
-msgstr ""
+msgstr "Vue que le chat"
 
 #: templates/browser/_dataset_as_search_result.html:22
 #: templates/browser/dataset.html:126
 msgid "View as table"
-msgstr ""
+msgstr "Vue que la table"
 
 #: templates/browser/_dataset_as_search_result.html:24
 #: templates/browser/dataset.html:128
 msgid "View as table - not available"
-msgstr ""
+msgstr "Voir que la table - non disponible"
 
 #: templates/browser/_dataset_as_search_result.html:29
 #: templates/browser/dataset.html:133
 msgid "View as app"
-msgstr ""
+msgstr "Vue comme app"
 
 #: templates/browser/_dataset_as_search_result.html:31
 #: templates/browser/dataset.html:135
 msgid "View as app - not available"
-msgstr ""
+msgstr "Voir que l'application - non disponible"
 
 #: templates/browser/_dataset_as_search_result.html:36
 #: templates/browser/_dataset_as_search_result.html:38
 #: templates/browser/dataset.html:140 templates/browser/dataset.html:142
 msgid "View as PDF"
-msgstr ""
+msgstr "Voir en PDF"
 
 #: templates/browser/_dataset_as_search_result.html:52
 msgid "View raw data"
-msgstr ""
+msgstr "Afficher les données brutes"
 
 #: templates/browser/_dataset_discussion.html:26
 msgid "Join the discussion"
-msgstr ""
+msgstr "Participer à la discussion"
 
 #: templates/browser/_footer.html:15
 msgid ""
@@ -67,6 +67,10 @@ msgid ""
 "by providing connections and links to related datasets, and providing "
 "information about provenance."
 msgstr ""
+"Transparency-Enhancing Toolset (TET) est la prochaine génération de portails "
+"consacrés aux données ouvertes. Il contient un ensemble d’outils qui "
+"facilitent une meilleure compréhension des données en fournissant des liens "
+"avec des jeux de données liées et des indications sur l’origine des données."
 
 #: templates/browser/_footer.html:16
 msgid ""
@@ -89,145 +93,147 @@ msgstr ""
 
 #: templates/browser/_header.html:9
 msgid "Login"
-msgstr ""
+msgstr "S’identifier"
 
 #: templates/browser/_header.html:14
 msgid "Home"
-msgstr ""
+msgstr "Domicile"
 
 #: templates/browser/_header.html:14
 msgid "About"
-msgstr ""
+msgstr "À propos"
 
 #: templates/browser/_header.html:14
 msgid "Help"
-msgstr ""
+msgstr "Aidez-moi"
 
 #: templates/browser/_header.html:14
 msgid "Classic CKAN"
-msgstr ""
+msgstr "CKAN classique"
 
 #: templates/browser/_search.html:3
 msgid "Search for datasets"
-msgstr ""
+msgstr "Rechercher des ensembles de données"
 
 #: templates/browser/_search.html:6
 msgid "Search"
-msgstr ""
+msgstr "Chercher"
 
 #: templates/browser/_search_filters.html:6
 msgid "Refine by"
-msgstr ""
+msgstr "Raffiner"
 
 #: templates/browser/_search_filters.html:15
 msgid "Location"
-msgstr ""
+msgstr "Emplacement"
 
 #: templates/browser/_search_filters.html:32
 #: templates/browser/_search_filters.html:67
 #: templates/browser/_search_filters.html:102
 #: templates/browser/_search_filters.html:135
 msgid "Show More"
-msgstr ""
+msgstr "Montre plus"
 
 #: templates/browser/_search_filters.html:50
 msgid "Period"
-msgstr ""
+msgstr "Période"
 
 #: templates/browser/_search_filters.html:85
 msgid "Themes"
-msgstr ""
+msgstr "Thème"
 
 #: templates/browser/_search_filters.html:118
 msgid "Format"
-msgstr ""
+msgstr "Format"
 
 #: templates/browser/dataset.html:4
 msgid "Dataset details"
-msgstr ""
+msgstr "Détails dataset"
 
 #: templates/browser/dataset.html:84 templates/browser/tabular.html:44
 msgid "Description"
-msgstr ""
+msgstr "La description"
 
 #: templates/browser/dataset.html:95 templates/browser/tabular.html:56
 msgid "Metadata"
-msgstr ""
+msgstr "Métadonnées"
 
 #: templates/browser/dataset.html:105
 msgid "Files"
-msgstr ""
+msgstr "Fichiers"
 
 #: templates/browser/dataset.html:120
 msgid "Available views"
-msgstr ""
+msgstr "Vues disponibles"
 
 #: templates/browser/dataset.html:154 templates/browser/tabular.html:91
 msgid "Discussions at SPOD"
-msgstr ""
+msgstr "Discussion au SPOD"
 
 #: templates/browser/dataset.html:163 templates/browser/tabular.html:99
 msgid ""
 "This dataset has not been discussed in SPOD, be the first to discuss the "
 "dataset!"
 msgstr ""
+"Cette base de données n'a pas été discuté dans PDD, soyez le premier à "
+"discuter de l'ensemble de données!"
 
 #: templates/browser/dataset.html:167 templates/browser/tabular.html:103
 msgid "Start the discussion"
-msgstr ""
+msgstr "Engager le débat"
 
 #: templates/browser/pdf.html:32
 msgid "PDF Preview"
-msgstr ""
+msgstr "Aperçu PDF"
 
 #: templates/browser/search.html:47
 msgid "Relevance"
-msgstr ""
+msgstr "Pertinence"
 
 #: templates/browser/search.html:48
 msgid "Name"
-msgstr ""
+msgstr "Prénom"
 
 #: templates/browser/search.html:49
 msgid "Date"
-msgstr ""
+msgstr "Date"
 
 #: templates/browser/search.html:70
 msgid "No results found."
-msgstr ""
+msgstr "Aucun résultat trouvé."
 
 #: templates/browser/search.html:71
 msgid "Please try another search."
-msgstr ""
+msgstr "S'il vous plaît essayer une nouvelle recherche"
 
 #: templates/browser/tabular.html:33
 msgid "Tabular View"
-msgstr ""
+msgstr "Affichage tabulaire"
 
 #: templates/browser/tabular.html:74
 msgid "Data Explorer"
-msgstr ""
+msgstr "Data Explorer"
 
 #: templates/browser/tabular.html:75
 msgid "PivotTable"
-msgstr ""
+msgstr "Table de pivot"
 
 #: templates/browser/tabular.html:76
 msgid "SPOD Discussion"
-msgstr ""
+msgstr "Discussion PDD"
 
 #: tet/settings.py:119
 msgid "English"
-msgstr ""
+msgstr "Anglais"
 
 #: tet/settings.py:120
 msgid "Italian"
-msgstr ""
+msgstr "Italien"
 
 #: tet/settings.py:121
 msgid "French"
-msgstr ""
+msgstr "Français"
 
 #: tet/settings.py:122
 msgid "Dutch"
-msgstr ""
+msgstr "Néerlandais"
