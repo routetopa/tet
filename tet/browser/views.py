@@ -80,19 +80,20 @@ def table_api(request, resource_id):
         results = {
           "success": True,
           "result" : {
+            "resource_id": resource_id,
             "records" : [],
             "fields" : [
               {"id":"Name", "type" : "text"},
               {"id":"Range", "type" : "text"},
               {"id":"Frequency", "type" : "numeric"}
             ],
-            "total" : 0 
+            "total" : 0,
+            "limit":99999,
           }
         }
         for f in fields:
             if f["type"] ==  "numeric":
                 c = f["id"]
-                print(c)
                 temp_data[c] = pd.to_numeric(temp_data[c], errors='coerce')
                 dist = np.histogram(temp_data[c],11)
                 for i in range (0, 11):
