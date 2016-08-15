@@ -13,11 +13,10 @@ from dateutil.parser import parse
 
 from django.core.urlresolvers import reverse
 from django.conf import settings
-from django.http import HttpResponse, HttpResponseRedirect, Http404
+from django.http import HttpResponse, HttpResponseRedirect, Http404, JsonResponse
 from django.shortcuts import get_object_or_404, render
 from django.utils.html import strip_tags
 from django.views import generic
-
 from reportlab.pdfgen import canvas
 from reportlab.lib.units import inch
 from reportlab.platypus import SimpleDocTemplate, Image, Paragraph, Spacer
@@ -27,6 +26,9 @@ from reportlab.lib.enums import TA_CENTER, TA_JUSTIFY, TA_LEFT, TA_RIGHT
 from django.shortcuts import render, redirect
 import collections
 import operator
+from pandas.io.json import json_normalize
+import pandas as pd
+import numpy as np
 
 PAGE_HEIGHT = defaultPageSize[1]
 PAGE_WIDTH = defaultPageSize[0]
@@ -62,6 +64,53 @@ def index(request):
 
     return render(request, template_name, context)
 
+def pct_rank_qcut(series, n):
+    edges = pd.Series([float(i) / n for i in range(n + 1)])
+    f = lambda x: (edges >= x).argmax()
+    return series.rank(pct=1).apply(f)
+
+def table_api(request, resource_id):
+    try:
+        url = settings.CKAN_URL + "/api/action/datastore_search?resource_id=" + resource_id + "&limit=99999"
+        res = urllib.request.urlopen(url)
+        data = json.loads(res.read().decode(res.info().get_param('charset') or 'utf-8'))
+        temp_data = json_normalize(data["result"]["records"])
+        fields = data["result"]["fields"]
+        record_count = 0
+        results = {
+          "success": True,
+          "result" : {
+            "records" : [],
+            "fields" : [
+              {"id":"Name", "type" : "text"},
+              {"id":"Range", "type" : "text"},
+              {"id":"Frequency", "type" : "numeric"}
+            ],
+            "total" : 0 
+          }
+        }
+        for f in fields:
+            if f["type"] ==  "numeric":
+                c = f["id"]
+                print(c)
+                temp_data[c] = pd.to_numeric(temp_data[c], errors='coerce')
+                dist = np.histogram(temp_data[c],11)
+                for i in range (0, 11):
+                    record = {
+                      "Name" : c,
+                      "Range" : str(round(dist[1][i]))+"-"+str(round(dist[1][i+1])),
+                      "Frequency" : int(dist[0][i])
+                    }
+                    results["result"]["records"].append(record)
+                    print(str(round(dist[1][i]))+"-"+str(round(dist[1][i+1]))+"="+str(dist[0][i]))
+                    record_count += 1
+        results["result"]["total"] = record_count
+        response =  JsonResponse(results)
+        response["Access-Control-Allow-Origin"] = "*"
+        return response
+    except Exception:
+        raise Exception
+        return JsonResponse({'success': False})
 
 # TODO url param parsing
 # TODO pagination
