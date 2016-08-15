@@ -102,7 +102,6 @@ def table_api(request, resource_id):
                       "Frequency" : int(dist[0][i])
                     }
                     results["result"]["records"].append(record)
-                    print(str(round(dist[1][i]))+"-"+str(round(dist[1][i+1]))+"="+str(dist[0][i]))
                     record_count += 1
         results["result"]["total"] = record_count
         response =  JsonResponse(results)
