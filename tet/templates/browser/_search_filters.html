@@ -1,8 +1,9 @@
 {% load keyvalue %}
+{% load i18n %}
 
 {% if filters %}
 
-    <h3>Refine by</h3>
+    <h3>{% trans "Refine by" %}</h3>
 
     {% if filters.locations %}
 
@@ -11,7 +12,7 @@
             <div class="panel-heading">
                 <h5 class="panel-title">
                     <a data-toggle="collapse" href="#"> <i class="fa fa-map-marker" aria-hidden="true"></i>
-                        Location
+                        {% trans "Location" %}
                     </a>
                 </h5>
             </div>
@@ -28,7 +29,7 @@
 
                     {% if filters.locations|length > 5 %}
                         <li class="expand">
-                            <a class="expand-btn pull-right">  Show More <i class="fa fa-caret-down"></i> </a>
+                            <a class="expand-btn pull-right">  {% trans "Show More" %} <i class="fa fa-caret-down"></i> </a>
                         </li>
                     {% endif %}
 
@@ -45,7 +46,9 @@
         <div class="panel panel-default">
             <div class="panel-heading">
                 <h5 class="panel-title">
-                    <a data-toggle="collapse" href="#"><i class="fa fa-calendar" aria-hidden="true"></i> Period</a>
+                    <a data-toggle="collapse" href="#"><i class="fa fa-calendar" aria-hidden="true"></i>
+                        {% trans "Period" %}
+                    </a>
                 </h5>
             </div>
             <div class="panel-collapse">
@@ -61,7 +64,7 @@
 
                     {% if filters.periods|length > 5 %}
                         <li class="expand">
-                            <a class="expand-btn pull-right">  Show More <i class="fa fa-caret-down"></i> </a>
+                            <a class="expand-btn pull-right">  {% trans "Show More" %} <i class="fa fa-caret-down"></i> </a>
                         </li>
                     {% endif %}
 
@@ -78,7 +81,9 @@
         <div class="panel panel-default">
             <div class="panel-heading">
                 <h5 class="panel-title">
-                    <a data-toggle="collapse" href="#"><i class="fa fa-tags" aria-hidden="true"></i> Themes</a>
+                    <a data-toggle="collapse" href="#"><i class="fa fa-tags" aria-hidden="true"></i>
+                        {% trans "Themes" %}
+                    </a>
                 </h5>
             </div>
             <div class="panel-collapse">
@@ -94,7 +99,7 @@
 
                     {% if filters.themes|length > 5 %}
                         <li class="expand">
-                            <a class="expand-btn pull-right">  Show More <i class="fa fa-caret-down"></i> </a>
+                            <a class="expand-btn pull-right">  {% trans "Show More" %} <i class="fa fa-caret-down"></i> </a>
                         </li>
                     {% endif %}
 
@@ -110,7 +115,8 @@
             <div class="panel-heading">
                 <h5 class="panel-title">
                     <a data-toggle="collapse" href="#"><i class="fa fa-files-o" aria-hidden="true"></i>
-                        Format</a>
+                        {% trans "Format" %}
+                    </a>
                 </h5>
             </div>
             <div class="panel-collapse">
@@ -126,47 +132,10 @@
 
                     {% if filters.formats|length > 5 %}
                         <li class="expand">
-                            <a class="expand-btn pull-right">  Show More <i class="fa fa-caret-down"></i> </a>
+                            <a class="expand-btn pull-right">  {% trans "Show More" %} <i class="fa fa-caret-down"></i> </a>
                         </li>
                     {% endif %}
-                    
-<!--
-                    <li class="list-group-item">
-                        <span class="label result-label" data-format="xls">Spreadsheet</span>
-                        <span class="results-count">( 3 )</span>
-                        <input type="checkbox" class="pull-right">
-                    </li>
-                    <li class="list-group-item">
-                        <span class="label result-label" data-format="csv">CSV</span>
-                        <span class="results-count">( 6 )</span>
-                        <input type="checkbox" class="pull-right">
-                    </li>
-                    <li class="list-group-item">
-                        <span class="label result-label" data-format="json">JSON</span>
-                        <span class="results-count">( 1 )</span>
-                        <input type="checkbox" class="pull-right">
-                    </li>
-                    <li class="list-group-item">
-                        <span class="label result-label" data-format="api">API</span>
-                        <span class="results-count">( 1 )</span>
-                        <input type="checkbox" class="pull-right">
-                    </li>
-                    <li class="list-group-item">
-                        <span class="label result-label" data-format="graph">Graph</span>
-                        <span class="results-count">( 2 )</span>
-                        <input type="checkbox" class="pull-right">
-                    </li>
-                    <li class="list-group-item">
-                        <span class="label result-label" data-format="txt">Text</span>
-                        <span class="results-count">( 6 )</span>
-                        <input type="checkbox" class="pull-right">
-                    </li>
-                    <li class="list-group-item">
-                        <span class="label result-label" data-format="pdf">PDF</span>
-                        <span class="results-count">( 6 )</span>
-                        <input type="checkbox" class="pull-right">
-                    </li>
--->
+
                 </ul>
             </div>
         </div>

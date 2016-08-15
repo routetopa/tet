@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{% load i18n %}
 
 {% block title %} Dataset details {% endblock title %}
 
@@ -16,12 +17,7 @@
 
                             <div class="row">
 
-                                <form class="form-search" action="/search" method="get">
-                                    <div class="input-append">
-                                        <input type="text" class="span5 main-search" name="query" value="{{ query }}" />
-                                        <button type="submit" class="span2 pull-right btn main-search-btn"> <i class="fa fa-search" aria-hidden="true"></i> Search </button>
-                                    </div>
-                                </form>
+                                {% include "browser/_search.html" with query=query %}
 
                             </div>
 
@@ -33,7 +29,7 @@
 
                 <div class="row">
 
-                    <h4 class="dataset-title"> PDF Preview </h4>
+                    <h4 class="dataset-title"> {% trans "PDF Preview" %} </h4>
 
                 </div>
                 <div class="row">

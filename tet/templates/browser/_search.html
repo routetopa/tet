@@ -1,0 +1,8 @@
+{% load i18n %}
+
+                                <form class="form-search" action="{% url "search" %}" method="get" placeholder="{% trans "Search for datasets" %}">
+                                    <div class="input-append">
+                                        <input type="text" class="span5 main-search" name="query" value="{{ query }}" />
+                                        <button type="submit" class="span2 pull-right btn main-search-btn"> <i class="fa fa-search" aria-hidden="true"></i> {% trans "Search" %} </button>
+                                    </div>
+                                </form>

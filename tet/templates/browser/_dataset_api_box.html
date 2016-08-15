@@ -1,0 +1,17 @@
+{% load i18n %}
+
+
+                <div class="well well-small">
+
+                      <strong class="the-legend">{% trans "API Link" %}</strong>
+
+                      <div class="input-group-button">
+                        <input type="text" class="js-zeroclipboard-target" value="{{API_LINK}}" aria-label="{{API_LINK}}" readonly="">
+
+                        <button aria-label="Copy to clipboard" class="js-zeroclipboard-btn btn" data-clipboard-text="{{API_LINK}}" type="button">
+                            <i class="fa fa-clipboard" aria-hidden="true"></i>
+                        </button>
+
+                      </div>
+
+                </div>

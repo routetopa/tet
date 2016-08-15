@@ -1,6 +1,7 @@
 {% extends "base.html" %}
+{% load i18n %}
 
-{% block title %} Dataset details {% endblock title %}
+{% block title %} {% trans "Dataset details" %} {% endblock title %}
 
 {% block content %}
 
@@ -16,12 +17,7 @@
 
                             <div class="row">
 
-                                <form class="form-search" action="/search" method="get" placeholder="Search for datasets">
-                                    <div class="input-append">
-                                        <input type="text" class="span5 main-search" name="query" value="{{ query }}" />
-                                        <button type="submit" class="span2 pull-right btn main-search-btn"> <i class="fa fa-search" aria-hidden="true"></i> Search </button>
-                                    </div>
-                                </form>
+                                {% include "browser/_search.html" with query=query %}
 
                             </div>
 
@@ -85,7 +81,7 @@
 
                         <div class="dataset-description">
                             <h5>
-                                <i class="fa fa-file-text-o" aria-hidden="true"></i> Description
+                                <i class="fa fa-file-text-o" aria-hidden="true"></i> {% trans "Description" %}
                             </h5>
                             <p class="text-justify">
                                 {{ dataset.notes }}
@@ -96,7 +92,7 @@
                         <div class="dataset-metadata">
 
                             <h5>
-                                <i class="fa fa-info-circle" aria-hidden="true"></i> Metadata
+                                <i class="fa fa-info-circle" aria-hidden="true"></i> {% trans "Metadata" %}
                             </h5>
                             <div>
                                 {{ metadata_box|safe }}
@@ -106,7 +102,7 @@
 
                         <div>
                         <h5>
-                            <i class="fa fa-file-text-o" aria-hidden="true"></i> Files
+                            <i class="fa fa-file-text-o" aria-hidden="true"></i> {% trans "Files" %}
                         </h5>
                         <ul class="dataset-files unstyled">
                         {% for resource in dataset.resources %}
@@ -121,29 +117,29 @@
                     <div class="span6">
                         <div>
                             <h5>
-                                <i class="fa fa-eye" aria-hidden="true"></i> Available views
+                                <i class="fa fa-eye" aria-hidden="true"></i> {% trans "Available views" %}
                             </h5>
 
                             <ul class="dataset-services dataset-services-details unstyled">
                                 <li class="dataset-service">
                                     {% if dataset.has_table %}
-                                    <a href="{% url 'dataset_as_table' dataset.id %}"><i class="fa fa-table" aria-hidden="true" data-toggle="tooltip" data-placement="bottom" title="View as table"></i></a>
+                                    <a href="{% url 'dataset_as_table' dataset.id %}"><i class="fa fa-table" aria-hidden="true" data-toggle="tooltip" data-placement="bottom" title="{% trans "View as table" %}"></i></a>
                                     {% else %}
-                                    <a href="#" class="disabled"><i class="fa fa-table" aria-hidden="true" data-toggle="tooltip" data-placement="bottom" title="View as table - not available"></i></a>
+                                    <a href="#" class="disabled"><i class="fa fa-table" aria-hidden="true" data-toggle="tooltip" data-placement="bottom" title="{% trans "View as table - not available" %}"></i></a>
                                     {% endif %}
                                 </li>
                                 <li class="dataset-service">
                                     {% if dataset.has_apps %}
-                                    <a href="{% url 'dataset_as_app' dataset.id %}" class="disabled"><i class="fa fa-tablet" aria-hidden="true" data-toggle="tooltip" data-placement="bottom" title="View as app"></i></a>
+                                    <a href="{% url 'dataset_as_app' dataset.id %}" class="disabled"><i class="fa fa-tablet" aria-hidden="true" data-toggle="tooltip" data-placement="bottom" title="{% trans "View as app" %}"></i></a>
                                     {% else %}
-                                    <a href="#" class="disabled"><i class="fa fa-tablet" aria-hidden="true" data-toggle="tooltip" data-placement="bottom" title="View as app - not available"></i></a>
+                                    <a href="#" class="disabled"><i class="fa fa-tablet" aria-hidden="true" data-toggle="tooltip" data-placement="bottom" title="{% trans "View as app - not available" %}"></i></a>
                                     {% endif %}
                                 </li>
                                 <li class="dataset-service">
                                     {% if dataset.has_pdf %}
-                                    <a href="{% url 'dataset_as_pdf' dataset.id %}"><i class="fa fa-file-pdf-o" aria-hidden="true" data-toggle="tooltip" data-placement="bottom" title="View as PDF"></i></a>
+                                    <a href="{% url 'dataset_as_pdf' dataset.id %}"><i class="fa fa-file-pdf-o" aria-hidden="true" data-toggle="tooltip" data-placement="bottom" title="{% trans "View as PDF" %}"></i></a>
                                     {% else %}
-                                    <a href="#" class="disabled"><i class="fa fa-file-pdf-o" aria-hidden="true" data-toggle="tooltip" data-placement="bottom" title="View as PDF"></i></a>
+                                    <a href="#" class="disabled"><i class="fa fa-file-pdf-o" aria-hidden="true" data-toggle="tooltip" data-placement="bottom" title="{% trans "View as PDF" %}"></i></a>
                                     {% endif %}
                                 </li>
                             </ul>
@@ -155,7 +151,7 @@
                         <div class="spod-discussions">
 
                             <h5>
-                                <i class="fa fa-comments-o" aria-hidden="true"></i> Discussions at SPOD
+                                <i class="fa fa-comments-o" aria-hidden="true"></i> {% trans "Discussions at SPOD" %}
                             </h5>
 
                             {% if spod_box_datasets %}
@@ -164,11 +160,11 @@
                                 {% endfor %}
                             {% else %}
                             <p>
-                                This dataset has not been discussed in SPOD, be the first to discuss the dataset!
+                                {% trans "This dataset has not been discussed in SPOD, be the first to discuss the dataset!" %}
                             </p>
                             <br/><br/>
                             <p>
-                                <a href="{{ SPOD_URL }}" class="pull-right" data-original-title="" title=""> Start the discussion</a>
+                                <a href="{{ SPOD_URL }}/public-room" class="pull-right" data-original-title="" title=""> {% trans "Start the discussion" %}</a>
                             </p>
                             {% endif %}
 

@@ -1,4 +1,6 @@
 {% extends "base.html" %}
+
+{% load i18n %}
 {% load staticfiles %}
 
 {% block title %} Search results {% endblock title %}
@@ -18,12 +20,7 @@
 
                             <div class="row">
 
-                                <form class="form-search" action="/search" method="get">
-                                    <div class="input-append">
-                                        <input type="text" class="span5 main-search" name="query" placeholder="Search fo datasets" value="{{ query }}" />
-                                        <button type="submit" class="span2 pull-right btn main-search-btn"> <i class="fa fa-search" aria-hidden="true"></i> Search </button>
-                                    </div>
-                                </form>
+                                {% include "browser/_search.html" with query=query %}
 
                             </div>
 
@@ -47,9 +44,9 @@
 
                             <div class="span3 text-left"><h3>Results: <span id="results_count">{{search_results|length}}</span></h3></div>
 
-                            <div class="span2 text-right active-filter"><a href="#" id="sort-btn-relevance" class="sort-btn">Relevance <i class="fa fa-sort-amount-asc" aria-hidden="true"></i></a></div>
-                            <div class="span2 text-right"><a href="#" id="sort-btn-name" class="sort-btn">Name <i class="fa fa-sort-amount-desc" aria-hidden="true"></i></a></div>
-                            <div class="span2 text-right"><a href="#" id="sort-btn-date" class="sort-btn">Date <i class="fa fa-sort-amount-asc" aria-hidden="true"></i></a></div>
+                            <div class="span2 text-right active-filter"><a href="#" id="sort-btn-relevance" class="sort-btn">{% trans "Relevance" %} <i class="fa fa-sort-amount-asc" aria-hidden="true"></i></a></div>
+                            <div class="span2 text-right"><a href="#" id="sort-btn-name" class="sort-btn">{% trans "Name" %} <i class="fa fa-sort-amount-desc" aria-hidden="true"></i></a></div>
+                            <div class="span2 text-right"><a href="#" id="sort-btn-date" class="sort-btn">{% trans "Date" %} <i class="fa fa-sort-amount-asc" aria-hidden="true"></i></a></div>
 
                         </div>
 
@@ -70,8 +67,8 @@
                 <div class="container">
                     <div class="container text-center">
 
-                        <h3>No results found.</h3>
-                        <p>Please try another search.</p>
+                        <h3>{% trans "No results found." %}</h3>
+                        <p>{% trans "Please try another search." %}</p>
 
                     </div>
                 </div>
