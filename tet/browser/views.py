@@ -64,7 +64,7 @@ def index(request):
 
     return render(request, template_name, context)
 
-def table_api(request, resource_id):
+def table_api(request, resource_id, field_id):
     try:
         url = settings.CKAN_URL + "/api/action/datastore_search?resource_id=" + resource_id + "&limit=99999"
         res = urllib.request.urlopen(url)
@@ -87,18 +87,20 @@ def table_api(request, resource_id):
           }
         }
         for f in fields:
-            if f["type"] ==  "numeric":
-                c = f["id"]
-                temp_data[c] = pd.to_numeric(temp_data[c], errors='coerce')
-                dist = np.histogram(temp_data[c],11)
-                for i in range (0, 11):
-                    record = {
-                      "Name" : c,
-                      "Range" : str(round(dist[1][i]))+"-"+str(round(dist[1][i+1])),
-                      "Frequency" : int(dist[0][i])
-                    }
-                    results["result"]["records"].append(record)
-                    record_count += 1
+            if f == field_id:
+                break
+        if f["type"] ==  "numeric":
+            c = f["id"]
+            temp_data[c] = pd.to_numeric(temp_data[c], errors='coerce')
+            dist = np.histogram(temp_data[c],11)
+            for i in range (0, 11):
+                record = {
+                  "Name" : c,
+                  "Range" : str(round(dist[1][i]))+"-"+str(round(dist[1][i+1])),
+                  "Frequency" : int(dist[0][i])
+                }
+                results["result"]["records"].append(record)
+                record_count += 1
         results["result"]["total"] = record_count
         response =  JsonResponse(results)
         response["Access-Control-Allow-Origin"] = "*"
@@ -278,7 +280,6 @@ def dataset(request, dataset_id):
                             else:
                                 pass
                         resource_fields = fields
-                        resource_id = settings.CKAN_URL + "/api/action/datastore_search?resource_id=" + resource_id + "&limit=9999"
                         break
                     except Exception:
                         resource_id = None
@@ -294,7 +295,8 @@ def dataset(request, dataset_id):
         'metadata_box': dataset_to_metadata_text(dataset),
         'spod_box_datasets': dataset_to_spod(dataset),
         'SPOD_URL': settings.SPOD_URL,
-        'resource_id':resource_id,
+        'resource_id': settings.CKAN_URL + "/api/action/datastore_search?resource_id=" + resource_id + "&limit=9999",
+        'freq_resource_id': "/api/table/" + resource_id,
         'resource_fields': resource_fields,
         'CKAN_URL': settings.CKAN_URL + "/dataset/" + dataset_id + "?r=" + request.get_full_path(),
     }
