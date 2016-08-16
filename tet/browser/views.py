@@ -64,11 +64,6 @@ def index(request):
 
     return render(request, template_name, context)
 
-def pct_rank_qcut(series, n):
-    edges = pd.Series([float(i) / n for i in range(n + 1)])
-    f = lambda x: (edges >= x).argmax()
-    return series.rank(pct=1).apply(f)
-
 def table_api(request, resource_id):
     try:
         url = settings.CKAN_URL + "/api/action/datastore_search?resource_id=" + resource_id + "&limit=99999"
