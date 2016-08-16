@@ -5,7 +5,13 @@ import re
 
 import os
 
-import urllib
+try: 
+  from urllib2 import urlopen
+  from urlparse import scheme_chars
+  unicode = unicode
+except ImportError: 
+  from urllib.request import urlopen
+
 import json
 from .helpers import dataset_to_metadata_text, dataset_to_spod, name_to_url
 from io import BytesIO
@@ -43,11 +49,11 @@ def index(request):
         url_datasets = settings.CKAN_URL + "/api/3/stats/dataset_count"
         url_organizations = settings.CKAN_URL + "/api/3/stats/organization_count"
 
-        res_datasets = urllib.request.urlopen(url_datasets)
+        res_datasets = urlopen(url_datasets)
         datasets_count_json = json.loads(res_datasets.read().decode(res_datasets.info().get_param('charset') or 'utf-8'))
         datasets_count = int(datasets_count_json['dataset_count'])
 
-        res_organizations = urllib.request.urlopen(url_organizations)
+        res_organizations = urlopen(url_organizations)
         organizations_count_json = json.loads(res_organizations.read().decode(res_organizations.info().get_param('charset') or 'utf-8'))
         organizations_count = int(organizations_count_json['organization_count'])
 
@@ -67,8 +73,8 @@ def index(request):
 def table_api(request, resource_id, field_id):
     try:
         url = settings.CKAN_URL + "/api/action/datastore_search?resource_id=" + resource_id + "&limit=99999"
-        res = urllib.request.urlopen(url)
-        data = json.loads(res.read().decode(res.info().get_param('charset') or 'utf-8'))
+        res = urlopen(url)
+        data = json.loads(res.read())
         temp_data = json_normalize(data["result"]["records"])
         fields = data["result"]["fields"]
         record_count = 0
@@ -106,7 +112,7 @@ def table_api(request, resource_id, field_id):
         response["Access-Control-Allow-Origin"] = "*"
         return response
     except Exception:
-        raise Exception
+        print( Exception)
         return JsonResponse({'success': False})
 
 # TODO url param parsing
@@ -261,7 +267,7 @@ def dataset(request, dataset_id):
                         resource_id = resource["id"]
                         url = settings.CKAN_URL + "/api/action/datastore_search?resource_id=" + resource_id + "&limit=5"
 
-                        res = urllib.request.urlopen(url)
+                        res = urlopen(url)
                         data = json.loads(res.read().decode(res.info().get_param('charset') or 'utf-8'))
                         fields = []
                         filter_list = ["long", "lat", "no.", "phone", "date","id", "code"] 

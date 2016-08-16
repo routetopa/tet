@@ -1,7 +1,13 @@
 from django.conf import settings
 from dateutil.parser import parse
-from urllib.request import urlopen
-import urllib
+
+try: 
+  from urllib2 import urlopen
+  from urlparse import scheme_chars
+  unicode = unicode
+except ImportError: 
+  from urllib.request import urlopen
+
 import json
 
 
