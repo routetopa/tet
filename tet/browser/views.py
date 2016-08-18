@@ -1,5 +1,14 @@
 #-*- coding: utf-8 -*-
 
+from __future__ import absolute_import
+from __future__ import print_function
+import nltk, re, pprint
+from nltk import word_tokenize
+import pyPdf
+from pyPdf import PdfFileReader
+import string
+import RAKE.RAKE as rake
+import operator
 import ckanapi
 import re
 
@@ -7,6 +16,7 @@ import os
 
 try: 
   from urllib2 import urlopen
+  from urllib2 import Request
   from urlparse import scheme_chars
   unicode = unicode
 except ImportError: 
@@ -23,27 +33,46 @@ from django.http import HttpResponse, HttpResponseRedirect, Http404, JsonRespons
 from django.shortcuts import get_object_or_404, render
 from django.utils.html import strip_tags
 from django.views import generic
-from reportlab.pdfgen import canvas
-from reportlab.lib.units import inch
-from reportlab.platypus import SimpleDocTemplate, Image, Paragraph, Spacer
+from reportlab.lib.pagesizes import letter
 from reportlab.lib.styles import getSampleStyleSheet
-from reportlab.rl_config import defaultPageSize
-from reportlab.lib.enums import TA_CENTER, TA_JUSTIFY, TA_LEFT, TA_RIGHT
+from reportlab.platypus import BaseDocTemplate, Frame, PageTemplate, Paragraph
 from django.shortcuts import render, redirect
 import collections
 import operator
 from pandas.io.json import json_normalize
 import pandas as pd
 import numpy as np
+from StringIO import StringIO
 
-PAGE_HEIGHT = defaultPageSize[1]
-PAGE_WIDTH = defaultPageSize[0]
+
 styles = getSampleStyleSheet()
+style_normal = styles['Normal']
+style_heading1 = styles['Heading1']
+
+def get_keywords(raw_text, stopwords_file):
+    punctuation_exclude = set(string.punctuation)
+    raw_text = ''.join(ch for ch in raw_text if ch not in punctuation_exclude)
+    tokens = nltk.word_tokenize(raw_text)
+    rake_object = rake.Rake(stopwords_file)
+    text = '\t'.join(tokens)
+    return rake_object.run(text)
+
+def get_keywords_from_pdf(url, stopwords_file):
+    remote_file = urlopen(Request(url)).read()
+    memory_file = StringIO(remote_file)
+    pdf_to_read = PdfFileReader(memory_file)
+    keywords = False
+    tokens = False
+    keywords =[]
+    for pageNum in xrange(pdf_to_read.getNumPages()):
+        raw_text = pdf_to_read.getPage(pageNum).extractText()
+        raked = get_keywords(raw_text,stopwords_file)
+        keywords.extend(raked)
+    return keywords
 
 def index(request):
 
     template_name = 'browser/index.html'
-
     try:
 
         url_datasets = settings.CKAN_URL + "/api/3/stats/dataset_count"
@@ -110,9 +139,11 @@ def table_api(request, resource_id, field_id):
         results["result"]["total"] = record_count
         response =  JsonResponse(results)
         response["Access-Control-Allow-Origin"] = "*"
+        
+
         return response
     except Exception:
-        print( Exception)
+        raise Exception
         return JsonResponse({'success': False})
 
 # TODO url param parsing
@@ -367,6 +398,7 @@ def dataset_as_pdf(request, dataset_id):
         user_agent='tetbrowser/1.0 (+http://tetbrowser.routetopa.eu)'
     )
 
+    keywords = []
     try:
         dataset = ckan_api_instance.action.package_show(
             id=dataset_id
@@ -378,9 +410,10 @@ def dataset_as_pdf(request, dataset_id):
                        "url" : resource["url"],
                        'CKAN_URL': settings.CKAN_URL + "/dataset/" + dataset_id + "?r=" + request.get_full_path()
                     }
-                    return render(request, template_name, context)
-    except:
-        raise Http404("No Dataset found.")
+                    path = (os.path.dirname(os.path.realpath(__file__)))
+                    keywords = get_keywords_from_pdf(resource["url"],path+'/SmartStoplist.txt')
+    except Exception:
+        pass
 
     # Create the HttpResponse object with the appropriate PDF headers.
     response = HttpResponse(content_type='application/pdf')
@@ -388,37 +421,23 @@ def dataset_as_pdf(request, dataset_id):
 
     buffer = BytesIO()
 
-    # Create the PDF object, using the BytesIO object as its "file."
-    p = canvas.Canvas(buffer)
-
-    # Draw summary on the PDF
-    # See the ReportLab documentation for the full list of functionality.
-
-    style = styles["Normal"]
-    style.alignment = TA_JUSTIFY
-
-    # Document title
-    p.setFillColorCMYK(1, 0.342, 0, 0.106)                                          # choose font colour
-    p.setFont("Helvetica", 19)                                                      # choose font type and font size
-    p.drawCentredString(PAGE_WIDTH/2.0, PAGE_HEIGHT - 1.5 * inch, dataset["title"]) # write text
-
-    # Document notes
-    paragraph = Paragraph(dataset["notes"], style)
-    paragraph.wrapOn(p, PAGE_WIDTH - 2 * inch, PAGE_HEIGHT - 2 * inch)
-    paragraph.drawOn(p, 1 * inch, PAGE_HEIGHT - 3 * inch)
-
-    # Draw ROUTE-TO-PA project logo
-    filename = settings.STATIC_ROOT + "/images/logo-RTPA-150.png"
-    p.drawImage(filename, 0.25 * inch, 0.25 * inch, 0.5 * inch, 0.5 * inch)
-    p.setFont('Helvetica',9)
-    p.drawString(0.85 * inch, 0.55 * inch, "Document generated by TET / ROUTE-TO-PA project")
-    p.setFillColorCMYK(0, 0, 0, 0.55) # choose your font colour
-    p.drawString(0.85 * inch, 0.4 * inch, "Data source: " + name_to_url(dataset["name"]))
-
-    # Close the PDF object cleanly.
-    p.showPage()
-    p.save()
-
+    doc = BaseDocTemplate(buffer, pagesize=letter)
+    frame = Frame(doc.leftMargin, doc.bottomMargin, doc.width, doc.height, id='normal')
+    template = PageTemplate(id='test', frames=frame)
+    doc.addPageTemplates([template])
+    text = []
+    text.append(Paragraph(dataset["title"], style_heading1))
+    text.append(Paragraph(dataset["notes"], style_normal))
+    text.append(Paragraph(" ", style_normal))
+    path = (os.path.dirname(os.path.realpath(__file__)))
+    keywords.extend(get_keywords(dataset["notes"],path+'/SmartStoplist.txt'))
+    text.append(Paragraph(" ", style_normal))
+    text.append(Paragraph("Keywords", style_heading1))
+    keyword_string = ""
+    for k in keywords:
+        keyword_string += k[0] + " (" + str(int(k[1])) + ") "
+    text.append(Paragraph(keyword_string, style_normal))
+    doc.build(text)
     # Get the value of the BytesIO buffer and write it to the response.
     pdf = buffer.getvalue()
     buffer.close()
