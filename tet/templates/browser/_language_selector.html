@@ -1,0 +1,19 @@
+{% load i18n %}
+{% get_current_language as LANGUAGE_CODE %}
+
+     <div class="pull-right">
+         <ul class="unstyled"><!-- nav navbar-nav navbar-right -->
+            <li class="dropdown">
+                <a href="#" class="lang_item dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+                    <span class="lang_{{ LANGUAGE_CODE }} ">{{ LANGUAGE_CODE }} </span>
+                </a>
+                <ul class="lang-dropdown-menu dropdown-menu" role="menu">
+                    <li class="lang_item"><a class="lang_en" href="/en" class="btn-link">{% trans "EN" %}</a></li>
+                    <li class="lang_item"><a class="lang_it" href="/it" class="btn-link">{% trans "IT" %}</a></li>
+                    <li class="lang_item"><a class="lang_nl" href="/nl" class="btn-link">{% trans "NL" %}</a></li>
+                    <li class="lang_item"><a class="lang_fr" href="/fr" class="btn-link">{% trans "FR" %}</a></li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+

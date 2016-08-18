@@ -386,6 +386,103 @@ h6 {
 }
 
 
+/* Languages tooltip */
+
+.lang-dropdown-menu {
+  padding: 10px;
+  min-width: 80px;
+  list-style: none;
+}
+
+.lang-dropdown-menu > li > a {
+  display: block;
+  padding: 3px 20px;
+  clear: both;
+  font-weight: normal;
+  line-height: 20px;
+  color: #007dbe;
+  white-space: nowrap;
+}
+
+.lang-dropdown-menu > li > a:hover,
+.lang-dropdown-menu > li > a:focus,
+.lang-dropdown-submenu:hover > a,
+.lang-dropdown-submenu:focus > a {
+  color: #000;
+}
+
+.lang-dropdown-menu > .disabled > a:hover,
+.lang-dropdown-menu > .disabled > a:focus {
+  text-decoration: none;
+  cursor: default;
+  background-color: transparent;
+  background-image: none;
+  filter: progid:DXImageTransform.Microsoft.gradient(enabled=false);
+}
+
+.lang_item {
+
+}
+
+.lang_item span, .lang_item a {
+    color: #fff;
+    display: inline-block;
+    padding-left: 22px;
+    background-position: 0 5px;
+    margin: 0 !important;
+}
+
+.lang_item a {
+    color: #007dbe !important;
+}
+
+.lang_us,
+.lang_en,
+.lang_us:hover,
+.lang_en:hover {
+    background: url(../images/flags/GB.png) no-repeat 0px 3px !important;
+}
+
+.lang_fr,
+.lang_fr:hover {
+    background: url(../images/flags/FR.png) no-repeat 0px 3px !important;
+}
+
+.lang_it,
+.lang_it:hover {
+    background: url(../images/flags/IT.png) no-repeat 0px 3px !important;
+}
+
+.lang_nl,
+.lang_nl:hover {
+    background: url(../images/flags/NL.png) no-repeat 0px 3px !important;
+}
+
+/* Languages tooltip */
+.language_popup {
+    position: ;
+    right: 0px;
+    width: 80px;
+    z-index: 100;
+
+}
+.language_popup .tooltip {
+    top: 32px !important;
+    padding-top: 2px;
+    right: 0px;
+}
+.language_popup .tooltip_tail span {
+    background-position: 1px -6px;
+}
+.language_popup .lang_tooltip .tooltip_body {
+    max-width: 340px;
+    padding: 0px;
+}
+.console_tooltip {
+    z-index: 100;
+}
+
+
 .text-success { color: #2196F3; }
 .btn-success { color: #fff; background-color: #2196F3; }
 

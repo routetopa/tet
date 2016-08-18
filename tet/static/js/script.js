@@ -6,6 +6,17 @@ $(document).ready(function(){
     if ( $('.js-zeroclipboard-btn').size() ){
         var client = new ZeroClipboard( $(".js-zeroclipboard-btn") );
     }
+
+    $('.lang_dropdown_toggle').on('click', function (event) {
+        // Avoid following the href location when clicking
+        event.preventDefault();
+
+        // Avoid having the menu to close when clicking
+        event.stopPropagation();
+
+        $('.language_popup').toggle();
+
+    });
 });
 
 $(function () {
