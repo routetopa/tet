@@ -299,7 +299,9 @@ def dataset(request, dataset_id):
                         url = settings.CKAN_URL + "/api/action/datastore_search?resource_id=" + resource_id + "&limit=5"
 
                         res = urlopen(url)
-                        data = json.loads(res.read().decode(res.info().get_param('charset') or 'utf-8'))
+                        data = json.loads(res.read())
+                        print("****")
+                        print(data)
                         fields = []
                         filter_list = ["long", "lat", "no.", "phone", "date","id", "code"] 
                         for field in data["result"]["fields"]:
@@ -321,7 +323,7 @@ def dataset(request, dataset_id):
                     except Exception:
                         resource_id = None
                         resource_fields = None 
-                        pass
+                        raise Exception
     except Exception:
         raise Exception
     if resource_id and len(resource_fields) < 1:
@@ -332,12 +334,14 @@ def dataset(request, dataset_id):
         'metadata_box': dataset_to_metadata_text(dataset),
         'spod_box_datasets': dataset_to_spod(dataset),
         'SPOD_URL': settings.SPOD_URL,
-        'resource_id': settings.CKAN_URL + "/api/action/datastore_search?resource_id=" + resource_id + "&limit=9999",
-        'freq_resource_id': "/api/table/" + resource_id,
         'resource_fields': resource_fields,
         'CKAN_URL': settings.CKAN_URL + "/dataset/" + dataset_id + "?r=" + request.get_full_path(),
     }
 
+    if resource_id:
+        context['resource_id'] = settings.CKAN_URL + "/api/action/datastore_search?resource_id=" + resource_id + "&limit=9999",
+        context['freq_resource_id'] = "/en/api/table/" + resource_id
+    print (context)
     return render(request, template_name, context)
 
 
