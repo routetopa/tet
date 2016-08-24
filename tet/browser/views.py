@@ -297,11 +297,8 @@ def dataset(request, dataset_id):
                     try:
                         resource_id = resource["id"]
                         url = settings.CKAN_URL + "/api/action/datastore_search?resource_id=" + resource_id + "&limit=5"
-
                         res = urlopen(url)
                         data = json.loads(res.read())
-                        print("****")
-                        print(data)
                         fields = []
                         filter_list = ["long", "lat", "no.", "phone", "date","id", "code"] 
                         for field in data["result"]["fields"]:
