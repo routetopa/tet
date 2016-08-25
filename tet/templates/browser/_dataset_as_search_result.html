@@ -32,11 +32,7 @@
             {% endif %}
         </li>
         <li class="dataset-service">
-            {% if dataset.has_pdf %}
             <a href="{% url 'dataset_as_pdf' dataset.id %}"><i class="fa fa-file-pdf-o" aria-hidden="true" data-toggle="tooltip" data-placement="bottom" title="{% trans "View as PDF" %}"></i></a>
-            {% else %}
-            <a href="#" class="disabled"><i class="fa fa-file-pdf-o" aria-hidden="true" data-toggle="tooltip" data-placement="bottom" title="{% trans "View as PDF" %}"></i></a>
-            {% endif %}
         </li>
     </ul>
 

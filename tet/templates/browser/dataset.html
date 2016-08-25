@@ -48,19 +48,11 @@
                                     <div class="item{% if forloop.counter == 1 %} active{% endif %}">
 
                                     {% if resource.1 %}
-                                       <columnchart-datalet data-url='{{resource_id}}' filters='[]' aggregators='[]' orders='[]' fields='["result,records,_id","result,records,{{resource.0}}"]'></columnchart-datalet>
+                                       <columnchart-datalet data-url='{{freq_resource_id}}/{{resource.0}}' title="{{resource.0}}" x-axis-label="Range of values in the field {{resource.0}}" y-axis-label="Frequency" filters='[]' aggregators='[]' orders='[]' fields='["result,records,Range","result,records,Frequency"]'></columnchart-datalet>
                                     {% else %}
-                                        <columnchart-datalet data-url='{{resource_id}}' x-axis-label="{{resource.0}}" y-axis-label="Count1 of {{resource.0}}" filters='[]' aggregators='[{"field":"{{resource.0}}","operation":"GROUP BY"},{"field":"_id","operation":"COUNT"}]' orders='[]' fields='["result,records,{{resource.0}}","result,records,_id"]'></columnchart-datalet>
+                                        <columnchart-datalet data-url='{{freq_resource_id}}/{{resource.0}}' title="{{resource.0}}" x-axis-label="Values in {{resource.0}} field" y-axis-label="Number of occurrences" filters='[]' aggregators='[]' orders='[]' fields='["result,records,Value","result,records,Count"]'></columnchart-datalet>
                                     {% endif %}
                                     </div><!-- /Slide1 -->
-                                {% endfor %}
-
-                                {% for resource in dataset.resources %}
-                                    {% if resource.format == "PNG"%}
-                                    <div class="item">
-                                        <img src="{{resource.url}}"/>
-                                    </div>
-                                    {% endif %}
                                 {% endfor %}
 
                             </div>

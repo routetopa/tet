@@ -1,11 +1,27 @@
 #-*- coding: utf-8 -*-
 
+from __future__ import absolute_import
+from __future__ import print_function
+import nltk, re, pprint
+from nltk import word_tokenize
+import pyPdf
+from pyPdf import PdfFileReader
+import string
+import RAKE.RAKE as rake
+import operator
 import ckanapi
 import re
 
 import os
 
-import urllib
+try: 
+  from urllib2 import urlopen
+  from urllib2 import Request
+  from urlparse import scheme_chars
+  unicode = unicode
+except ImportError: 
+  from urllib.request import urlopen
+
 import json
 from .helpers import dataset_to_metadata_text, dataset_to_spod, name_to_url
 from io import BytesIO
@@ -17,37 +33,56 @@ from django.http import HttpResponse, HttpResponseRedirect, Http404, JsonRespons
 from django.shortcuts import get_object_or_404, render
 from django.utils.html import strip_tags
 from django.views import generic
-from reportlab.pdfgen import canvas
-from reportlab.lib.units import inch
-from reportlab.platypus import SimpleDocTemplate, Image, Paragraph, Spacer
+from reportlab.lib.pagesizes import letter
 from reportlab.lib.styles import getSampleStyleSheet
-from reportlab.rl_config import defaultPageSize
-from reportlab.lib.enums import TA_CENTER, TA_JUSTIFY, TA_LEFT, TA_RIGHT
+from reportlab.platypus import BaseDocTemplate, Frame, PageTemplate, Paragraph
 from django.shortcuts import render, redirect
 import collections
 import operator
 from pandas.io.json import json_normalize
 import pandas as pd
 import numpy as np
+from StringIO import StringIO
+from collections import Counter
 
-PAGE_HEIGHT = defaultPageSize[1]
-PAGE_WIDTH = defaultPageSize[0]
 styles = getSampleStyleSheet()
+style_normal = styles['Normal']
+style_heading1 = styles['Heading1']
+
+def get_keywords(raw_text, stopwords_file):
+    punctuation_exclude = set(string.punctuation)
+    raw_text = ''.join(ch for ch in raw_text if ch not in punctuation_exclude)
+    tokens = nltk.word_tokenize(raw_text)
+    rake_object = rake.Rake(stopwords_file)
+    text = '\t'.join(tokens)
+    return rake_object.run(text)
+
+def get_keywords_from_pdf(url, stopwords_file):
+    remote_file = urlopen(Request(url)).read()
+    memory_file = StringIO(remote_file)
+    pdf_to_read = PdfFileReader(memory_file)
+    keywords = False
+    tokens = False
+    keywords =[]
+    for pageNum in xrange(pdf_to_read.getNumPages()):
+        raw_text = pdf_to_read.getPage(pageNum).extractText()
+        raked = get_keywords(raw_text,stopwords_file)
+        keywords.extend(raked)
+    return keywords
 
 def index(request):
 
     template_name = 'browser/index.html'
-
     try:
 
         url_datasets = settings.CKAN_URL + "/api/3/stats/dataset_count"
         url_organizations = settings.CKAN_URL + "/api/3/stats/organization_count"
 
-        res_datasets = urllib.request.urlopen(url_datasets)
+        res_datasets = urlopen(url_datasets)
         datasets_count_json = json.loads(res_datasets.read().decode(res_datasets.info().get_param('charset') or 'utf-8'))
         datasets_count = int(datasets_count_json['dataset_count'])
 
-        res_organizations = urllib.request.urlopen(url_organizations)
+        res_organizations = urlopen(url_organizations)
         organizations_count_json = json.loads(res_organizations.read().decode(res_organizations.info().get_param('charset') or 'utf-8'))
         organizations_count = int(organizations_count_json['organization_count'])
 
@@ -64,11 +99,11 @@ def index(request):
 
     return render(request, template_name, context)
 
-def table_api(request, resource_id):
+def table_api(request, resource_id, field_id):
     try:
         url = settings.CKAN_URL + "/api/action/datastore_search?resource_id=" + resource_id + "&limit=99999"
-        res = urllib.request.urlopen(url)
-        data = json.loads(res.read().decode(res.info().get_param('charset') or 'utf-8'))
+        res = urlopen(url)
+        data = json.loads(res.read())
         temp_data = json_normalize(data["result"]["records"])
         fields = data["result"]["fields"]
         record_count = 0
@@ -87,21 +122,37 @@ def table_api(request, resource_id):
           }
         }
         for f in fields:
-            if f["type"] ==  "numeric":
-                c = f["id"]
-                temp_data[c] = pd.to_numeric(temp_data[c], errors='coerce')
-                dist = np.histogram(temp_data[c],11)
-                for i in range (0, 11):
-                    record = {
-                      "Name" : c,
-                      "Range" : str(round(dist[1][i]))+"-"+str(round(dist[1][i+1])),
-                      "Frequency" : int(dist[0][i])
-                    }
-                    results["result"]["records"].append(record)
-                    record_count += 1
+            if f["id"] == field_id:
+                break
+        if f["type"] ==  "numeric":
+            c = f["id"]
+            temp_data[c] = pd.to_numeric(temp_data[c], errors='coerce')
+            dist = np.histogram(temp_data[c],11)
+            for i in range (0, 11):
+                record = {
+                  "Name" : c,
+                  "Range" : str(round(dist[1][i]))+"-"+str(round(dist[1][i+1])),
+                  "Frequency" : int(dist[0][i])
+                }
+                results["result"]["records"].append(record)
+                record_count += 1
+        if f["type"] ==  "text":
+            c = f["id"]
+            counts = Counter(temp_data[c])
+            for item in counts.most_common(10):
+              record = {
+                  "Name" : c,
+                  "Value" : item[0],
+                  "Count" : item[1]
+              }
+              results["result"]["records"].append(record)
+              record_count += 1                 
+
         results["result"]["total"] = record_count
         response =  JsonResponse(results)
         response["Access-Control-Allow-Origin"] = "*"
+        
+
         return response
     except Exception:
         raise Exception
@@ -258,9 +309,8 @@ def dataset(request, dataset_id):
                     try:
                         resource_id = resource["id"]
                         url = settings.CKAN_URL + "/api/action/datastore_search?resource_id=" + resource_id + "&limit=5"
-
-                        res = urllib.request.urlopen(url)
-                        data = json.loads(res.read().decode(res.info().get_param('charset') or 'utf-8'))
+                        res = urlopen(url)
+                        data = json.loads(res.read())
                         fields = []
                         filter_list = ["long", "lat", "no.", "phone", "date","id", "code"] 
                         for field in data["result"]["fields"]:
@@ -278,12 +328,11 @@ def dataset(request, dataset_id):
                             else:
                                 pass
                         resource_fields = fields
-                        resource_id = settings.CKAN_URL + "/api/action/datastore_search?resource_id=" + resource_id + "&limit=9999"
                         break
                     except Exception:
                         resource_id = None
                         resource_fields = None 
-                        pass
+                        raise Exception
     except Exception:
         raise Exception
     if resource_id and len(resource_fields) < 1:
@@ -294,11 +343,13 @@ def dataset(request, dataset_id):
         'metadata_box': dataset_to_metadata_text(dataset),
         'spod_box_datasets': dataset_to_spod(dataset),
         'SPOD_URL': settings.SPOD_URL,
-        'resource_id':resource_id,
         'resource_fields': resource_fields,
         'CKAN_URL': settings.CKAN_URL + "/dataset/" + dataset_id + "?r=" + request.get_full_path(),
     }
 
+    if resource_id:
+        context['resource_id'] = settings.CKAN_URL + "/api/action/datastore_search?resource_id=" + resource_id + "&limit=9999",
+        context['freq_resource_id'] = "/en/api/table/" + resource_id
     return render(request, template_name, context)
 
 
@@ -359,6 +410,7 @@ def dataset_as_pdf(request, dataset_id):
         user_agent='tetbrowser/1.0 (+http://tetbrowser.routetopa.eu)'
     )
 
+    keywords = []
     try:
         dataset = ckan_api_instance.action.package_show(
             id=dataset_id
@@ -370,9 +422,10 @@ def dataset_as_pdf(request, dataset_id):
                        "url" : resource["url"],
                        'CKAN_URL': settings.CKAN_URL + "/dataset/" + dataset_id + "?r=" + request.get_full_path()
                     }
-                    return render(request, template_name, context)
-    except:
-        raise Http404("No Dataset found.")
+                    path = (os.path.dirname(os.path.realpath(__file__)))
+                    keywords = get_keywords_from_pdf(resource["url"],path+'/SmartStoplist.txt')
+    except Exception:
+        pass
 
     # Create the HttpResponse object with the appropriate PDF headers.
     response = HttpResponse(content_type='application/pdf')
@@ -380,37 +433,23 @@ def dataset_as_pdf(request, dataset_id):
 
     buffer = BytesIO()
 
-    # Create the PDF object, using the BytesIO object as its "file."
-    p = canvas.Canvas(buffer)
-
-    # Draw summary on the PDF
-    # See the ReportLab documentation for the full list of functionality.
-
-    style = styles["Normal"]
-    style.alignment = TA_JUSTIFY
-
-    # Document title
-    p.setFillColorCMYK(1, 0.342, 0, 0.106)                                          # choose font colour
-    p.setFont("Helvetica", 19)                                                      # choose font type and font size
-    p.drawCentredString(PAGE_WIDTH/2.0, PAGE_HEIGHT - 1.5 * inch, dataset["title"]) # write text
-
-    # Document notes
-    paragraph = Paragraph(dataset["notes"], style)
-    paragraph.wrapOn(p, PAGE_WIDTH - 2 * inch, PAGE_HEIGHT - 2 * inch)
-    paragraph.drawOn(p, 1 * inch, PAGE_HEIGHT - 3 * inch)
-
-    # Draw ROUTE-TO-PA project logo
-    filename = settings.STATIC_ROOT + "/images/logo-RTPA-150.png"
-    p.drawImage(filename, 0.25 * inch, 0.25 * inch, 0.5 * inch, 0.5 * inch)
-    p.setFont('Helvetica',9)
-    p.drawString(0.85 * inch, 0.55 * inch, "Document generated by TET / ROUTE-TO-PA project")
-    p.setFillColorCMYK(0, 0, 0, 0.55) # choose your font colour
-    p.drawString(0.85 * inch, 0.4 * inch, "Data source: " + name_to_url(dataset["name"]))
-
-    # Close the PDF object cleanly.
-    p.showPage()
-    p.save()
-
+    doc = BaseDocTemplate(buffer, pagesize=letter)
+    frame = Frame(doc.leftMargin, doc.bottomMargin, doc.width, doc.height, id='normal')
+    template = PageTemplate(id='test', frames=frame)
+    doc.addPageTemplates([template])
+    text = []
+    text.append(Paragraph(dataset["title"], style_heading1))
+    text.append(Paragraph(dataset["notes"], style_normal))
+    text.append(Paragraph(" ", style_normal))
+    path = (os.path.dirname(os.path.realpath(__file__)))
+    keywords.extend(get_keywords(dataset["notes"],path+'/SmartStoplist.txt'))
+    text.append(Paragraph(" ", style_normal))
+    text.append(Paragraph("Keywords", style_heading1))
+    keyword_string = ""
+    for k in keywords:
+        keyword_string += k[0] + " (" + str(int(k[1])) + ") "
+    text.append(Paragraph(keyword_string, style_normal))
+    doc.build(text)
     # Get the value of the BytesIO buffer and write it to the response.
     pdf = buffer.getvalue()
     buffer.close()
