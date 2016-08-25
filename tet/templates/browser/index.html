@@ -22,11 +22,12 @@
 
                             <div class="row">
                                 <div class="span12 tags text-center">
-                                    <span>Popular search phrases:</span>
+                                    <span>{% trans "Popular search phrases" %}:</span>
 
                                     <a class="tag" href="{% url 'search' %}?query=Dublin">Dublin</a>
                                     <a class="tag" href="{% url 'search' %}?query=government">government</a>
                                     <a class="tag" href="{% url 'search' %}?query=traffic">traffic</a>
+
                                 </div>
 
                             </div>
@@ -34,8 +35,8 @@
                             <div class="row">
                                 <div class="span8 Xoffset2 text-center" style="margin-top: 55px">
                                     <small>
-                                        TET search engine results are based on resources available at <a href="{{ CKAN_URL }}" target="_blank">{{ CKAN_URL }}</a>. <br/>
-                                        Currently there are <strong>{{ datasets_count }}</strong> dataset{% if datasets_count > 1 %}s{% endif %} published by <strong>{{ organizations_count }}</strong> organisation{% if organizations_count > 1 %}s{% endif %}.
+                                        {% trans "TET search engine results are based on resources available at" %} <a href="{{ CKAN_URL }}" target="_blank">{{ CKAN_URL }}</a>. <br/>
+                                        {% trans "Currently there are" %} <strong>{{ datasets_count }}</strong> {% if datasets_count == 1 %} {% trans "dataset" %}{% else %}{% trans "dataset" %}{% endif %} {% trans "published by" %} <strong>{{ organizations_count }}</strong> {% if organizations_count == 1 %}{% trans "organization" %}{% else %}{% trans "organizations" %}{% endif %}.
                                     </small>
                                 </div>
                             </div>
