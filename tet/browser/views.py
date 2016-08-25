@@ -43,7 +43,7 @@ from pandas.io.json import json_normalize
 import pandas as pd
 import numpy as np
 from StringIO import StringIO
-
+from collections import Counter
 
 styles = getSampleStyleSheet()
 style_normal = styles['Normal']
@@ -122,7 +122,7 @@ def table_api(request, resource_id, field_id):
           }
         }
         for f in fields:
-            if f == field_id:
+            if f["id"] == field_id:
                 break
         if f["type"] ==  "numeric":
             c = f["id"]
@@ -136,6 +136,18 @@ def table_api(request, resource_id, field_id):
                 }
                 results["result"]["records"].append(record)
                 record_count += 1
+        if f["type"] ==  "text":
+            c = f["id"]
+            counts = Counter(temp_data[c])
+            for item in counts.most_common(10):
+              record = {
+                  "Name" : c,
+                  "Value" : item[0],
+                  "Count" : item[1]
+              }
+              results["result"]["records"].append(record)
+              record_count += 1                 
+
         results["result"]["total"] = record_count
         response =  JsonResponse(results)
         response["Access-Control-Allow-Origin"] = "*"
@@ -338,7 +350,6 @@ def dataset(request, dataset_id):
     if resource_id:
         context['resource_id'] = settings.CKAN_URL + "/api/action/datastore_search?resource_id=" + resource_id + "&limit=9999",
         context['freq_resource_id'] = "/en/api/table/" + resource_id
-    print (context)
     return render(request, template_name, context)
 
 

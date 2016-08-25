@@ -19,7 +19,7 @@ urlpatterns = [
     # ex: /dataset/abc-123-id/table
     url(r'^dataset/(?P<dataset_id>[a-zA-Z0-9-]+)/table$', views.dataset_as_table, name='dataset_as_table'),
         # ex: /dataset/abc-123-id/table
-    url(r'^api/table/(?P<resource_id>[a-zA-Z0-9-]+)/(?P<field_id>[a-zA-Z0-9-]+)$', views.table_api, name='table_api'),
+    url(r'^api/table/(?P<resource_id>[a-zA-Z0-9-]+)/(?P<field_id>[\w|\W]+)$', views.table_api, name='table_api'),
 
 ]
 
