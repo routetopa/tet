@@ -15,7 +15,7 @@ Getting Started
 ---------------
 
 ### Initial Setup ###
-1. Make a new virtualenv: ``virtualenv -p python3 venv``
+1. Make a new virtualenv: ``virtualenv -p python venv``
 2. Activate the virtualenv: ``source venv/bin/activate``
 3. Install dependencies from requirements.txt i.e. ``pip install {lib name}``
 4. Run the server: ``python manage.py runserver``
