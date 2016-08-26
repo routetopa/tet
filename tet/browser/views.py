@@ -140,9 +140,12 @@ def table_api(request, resource_id, field_id):
             c = f["id"]
             counts = Counter(temp_data[c])
             for item in counts.most_common(10):
+              value = item[0]
+              if len(value) > 35:
+                value = value[:35] + "..."
               record = {
                   "Name" : c,
-                  "Value" : item[0],
+                  "Value" : value,
                   "Count" : item[1]
               }
               results["result"]["records"].append(record)
