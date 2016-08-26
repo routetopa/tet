@@ -3,231 +3,262 @@
 # This file is distributed under the same license as the PACKAGE package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
-#, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: PACKAGE VERSION\n"
+"Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-08-09 15:30+0000\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language-Team: LANGUAGE <LL@li.org>\n"
-"Language: \n"
+"POT-Creation-Date: 2016-08-25 14:26+0000\n"
+"PO-Revision-Date: 2016-08-25 15:59+0100\n"
+"Language: nl\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"X-Generator: Poedit 1.8.8\n"
 
 #: templates/browser/_dataset_api_box.html:6
 msgid "API Link"
-msgstr ""
+msgstr "API Link"
 
 #: templates/browser/_dataset_as_search_result.html:18
 msgid "View as chart"
-msgstr ""
+msgstr "Bekijk als grafiek"
 
 #: templates/browser/_dataset_as_search_result.html:22
-#: templates/browser/dataset.html:126
+#: templates/browser/dataset.html:127
 msgid "View as table"
-msgstr ""
+msgstr "Bekijk als table"
 
 #: templates/browser/_dataset_as_search_result.html:24
-#: templates/browser/dataset.html:128
+#: templates/browser/dataset.html:129
 msgid "View as table - not available"
-msgstr ""
+msgstr "Bekijk op de tafel - niet beschikbaar"
 
 #: templates/browser/_dataset_as_search_result.html:29
-#: templates/browser/dataset.html:133
+#: templates/browser/dataset.html:134
 msgid "View as app"
-msgstr ""
+msgstr "Bekijk als app"
 
 #: templates/browser/_dataset_as_search_result.html:31
-#: templates/browser/dataset.html:135
+#: templates/browser/dataset.html:136
 msgid "View as app - not available"
-msgstr ""
+msgstr "Bekijk als app - niet beschikbaar"
 
 #: templates/browser/_dataset_as_search_result.html:36
 #: templates/browser/_dataset_as_search_result.html:38
-#: templates/browser/dataset.html:140 templates/browser/dataset.html:142
+#: templates/browser/dataset.html:141 templates/browser/dataset.html:143
 msgid "View as PDF"
-msgstr ""
+msgstr "Bekijk als PDF"
 
 #: templates/browser/_dataset_as_search_result.html:52
 msgid "View raw data"
-msgstr ""
+msgstr "Bekijk ruwe data"
 
 #: templates/browser/_dataset_discussion.html:26
 msgid "Join the discussion"
-msgstr ""
+msgstr "Discussieer mee"
 
 #: templates/browser/_footer.html:15
-msgid ""
-"Transparency-Enhancing Toolset (TET) is the next-generation open data portal "
-"containing set of tools that facilitate a better understanding of the data "
-"by providing connections and links to related datasets, and providing "
-"information about provenance."
-msgstr ""
+msgid "Transparency-Enhancing Toolset (TET) is the next-generation open data portal containing set of tools that facilitate a better understanding of the data by providing connections and links to related datasets, and providing information about provenance."
+msgstr "Transparantie-Enhancing Toolset (TET) is de volgende generatie open data portaal met daarin set van tools die een beter begrip van de gegevens te vergemakkelijken door middel van verbindingen en links naar verwante datasets, en het verstrekken van informatie over de herkomst."
 
 #: templates/browser/_footer.html:16
-msgid ""
-"<a href=\"http://routetopa.eu\">ROUTE-TO-PA project</a> has received funding "
-"from the European Union’s Horizon 2020 research and innovation programme "
-"under grant agreement No 645860."
+msgid "<a href=\"http://routetopa.eu\">ROUTE-TO-PA project</a> has received funding from the European Union’s Horizon 2020 research and innovation programme under grant agreement No 645860."
 msgstr ""
 
 #: templates/browser/_footer.html:21
-msgid ""
-"Powered by <a class=\"hide-text ckan-footer-logo\" href=\"http://ckan.org"
-"\">CKAN</a>"
+msgid "Powered by <a class=\"hide-text ckan-footer-logo\" href=\"http://ckan.org\">CKAN</a>"
 msgstr ""
 
 #: templates/browser/_footer.html:27
-msgid ""
-"TET interface developed by <a class=\"hide-text insight-footer-logo\" href="
-"\"http://insight-centre.org/\">CKAN</a>"
+msgid "TET interface developed by <a class=\"hide-text insight-footer-logo\" href=\"http://insight-centre.org/\">CKAN</a>"
 msgstr ""
 
-#: templates/browser/_header.html:9
+#: templates/browser/_header.html:10
 msgid "Login"
-msgstr ""
+msgstr "Inloggen"
 
-#: templates/browser/_header.html:14
+#: templates/browser/_header.html:15
 msgid "Home"
-msgstr ""
+msgstr "Huis"
 
-#: templates/browser/_header.html:14
+#: templates/browser/_header.html:15
 msgid "About"
-msgstr ""
+msgstr "Over"
 
-#: templates/browser/_header.html:14
+#: templates/browser/_header.html:15
 msgid "Help"
-msgstr ""
+msgstr "Helpen"
 
-#: templates/browser/_header.html:14
+#: templates/browser/_header.html:15
 msgid "Classic CKAN"
-msgstr ""
+msgstr "Classic CKAN"
+
+#: templates/browser/_language_selector.html:11
+msgid "EN"
+msgstr "EN"
+
+#: templates/browser/_language_selector.html:12
+msgid "IT"
+msgstr "IT"
+
+#: templates/browser/_language_selector.html:13
+msgid "NL"
+msgstr "NL"
+
+#: templates/browser/_language_selector.html:14
+msgid "FR"
+msgstr "FR"
 
 #: templates/browser/_search.html:3
 msgid "Search for datasets"
-msgstr ""
+msgstr "Zoeken naar datasets"
 
 #: templates/browser/_search.html:6
 msgid "Search"
-msgstr ""
+msgstr "Zoeken"
 
 #: templates/browser/_search_filters.html:6
 msgid "Refine by"
-msgstr ""
+msgstr "Verfijn op"
 
 #: templates/browser/_search_filters.html:15
 msgid "Location"
-msgstr ""
+msgstr "plaats"
 
 #: templates/browser/_search_filters.html:32
 #: templates/browser/_search_filters.html:67
 #: templates/browser/_search_filters.html:102
 #: templates/browser/_search_filters.html:135
 msgid "Show More"
-msgstr ""
+msgstr "Laat meer zien"
 
 #: templates/browser/_search_filters.html:50
 msgid "Period"
-msgstr ""
+msgstr "Periode"
 
 #: templates/browser/_search_filters.html:85
 msgid "Themes"
-msgstr ""
+msgstr "Thema's"
 
 #: templates/browser/_search_filters.html:118
 msgid "Format"
-msgstr ""
+msgstr "Formaat"
 
-#: templates/browser/dataset.html:4
+#: templates/browser/dataset.html:5
 msgid "Dataset details"
-msgstr ""
+msgstr "dataset gegevens"
 
-#: templates/browser/dataset.html:84 templates/browser/tabular.html:44
+#: templates/browser/dataset.html:85 templates/browser/tabular.html:44
 msgid "Description"
-msgstr ""
+msgstr "Details"
 
-#: templates/browser/dataset.html:95 templates/browser/tabular.html:56
+#: templates/browser/dataset.html:96 templates/browser/tabular.html:56
 msgid "Metadata"
-msgstr ""
+msgstr "Metadata"
 
-#: templates/browser/dataset.html:105
+#: templates/browser/dataset.html:106
 msgid "Files"
-msgstr ""
+msgstr "Bestanden"
 
-#: templates/browser/dataset.html:120
+#: templates/browser/dataset.html:121
 msgid "Available views"
-msgstr ""
+msgstr "beschikbare weergaven"
 
-#: templates/browser/dataset.html:154 templates/browser/tabular.html:91
+#: templates/browser/dataset.html:155 templates/browser/tabular.html:91
 msgid "Discussions at SPOD"
-msgstr ""
+msgstr "Discussies op SPOD"
 
-#: templates/browser/dataset.html:163 templates/browser/tabular.html:99
-msgid ""
-"This dataset has not been discussed in SPOD, be the first to discuss the "
-"dataset!"
-msgstr ""
+#: templates/browser/dataset.html:164 templates/browser/tabular.html:99
+msgid "This dataset has not been discussed in SPOD, be the first to discuss the dataset!"
+msgstr "Deze dataset is niet besproken in SPOD, de eerste zijn om de dataset te bespreken!"
 
-#: templates/browser/dataset.html:167 templates/browser/tabular.html:103
+#: templates/browser/dataset.html:168 templates/browser/tabular.html:103
 msgid "Start the discussion"
-msgstr ""
+msgstr "Start de discussie"
+
+#: templates/browser/index.html:25
+msgid "Popular search phrases"
+msgstr "Populaire zoektermen"
+
+#: templates/browser/index.html:38
+msgid "TET search engine results are based on resources available at"
+msgstr "TET zoekmachine resultaten zijn gebaseerd op de beschikbare middelen op"
+
+#: templates/browser/index.html:39
+msgid "Currently there are"
+msgstr "Momenteel zijn er"
+
+#: templates/browser/index.html:39
+msgid "dataset"
+msgstr "dataset"
+
+#: templates/browser/index.html:39
+msgid "published by"
+msgstr "gepubliceerd door"
+
+#: templates/browser/index.html:39
+msgid "organization"
+msgstr "Organisatie"
+
+#: templates/browser/index.html:39
+msgid "organizations"
+msgstr "organisaties"
 
 #: templates/browser/pdf.html:32
 msgid "PDF Preview"
-msgstr ""
+msgstr "PDF Voorbeeld"
 
 #: templates/browser/search.html:47
 msgid "Relevance"
-msgstr ""
+msgstr "Relevantie"
 
 #: templates/browser/search.html:48
 msgid "Name"
-msgstr ""
+msgstr "Naam"
 
 #: templates/browser/search.html:49
 msgid "Date"
-msgstr ""
+msgstr "Datum"
 
 #: templates/browser/search.html:70
 msgid "No results found."
-msgstr ""
+msgstr "Geen resultaten gevonden."
 
 #: templates/browser/search.html:71
 msgid "Please try another search."
-msgstr ""
+msgstr "Probeer een andere zoekopdracht."
 
 #: templates/browser/tabular.html:33
 msgid "Tabular View"
-msgstr ""
+msgstr "tabular View"
 
 #: templates/browser/tabular.html:74
 msgid "Data Explorer"
-msgstr ""
+msgstr "data Explorer"
 
 #: templates/browser/tabular.html:75
 msgid "PivotTable"
-msgstr ""
+msgstr "draaitabel"
 
 #: templates/browser/tabular.html:76
 msgid "SPOD Discussion"
-msgstr ""
+msgstr "SPOD Discussion"
 
 #: tet/settings.py:119
 msgid "English"
-msgstr ""
+msgstr "Engels"
 
 #: tet/settings.py:120
 msgid "Italian"
-msgstr ""
+msgstr "Italiaans"
 
 #: tet/settings.py:121
 msgid "French"
-msgstr ""
+msgstr "Frans"
 
 #: tet/settings.py:122
 msgid "Dutch"
-msgstr ""
+msgstr "Nederlands"

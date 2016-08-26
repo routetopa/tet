@@ -42,10 +42,10 @@ body, html {
 
 #footer {
     background-color: #BBDEFB; // #e3e3e3;
-    padding-top: 10px;
+    padding-top: 20px;
     font-size: 13px;
     line-height: 1.6em;
-    min-height: 70px;
+    min-height: 80px;
 }
 
 .attribution .ckan-footer-logo {
@@ -85,7 +85,7 @@ body, html {
 
 /* Search + Tags */ 
 .tet-search-image {
-    padding-top: 30px;
+    padding-top: 20px;
 }
 
 .search-ui {

@@ -7,15 +7,15 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-08-09 15:30+0000\n"
-"PO-Revision-Date: 2016-08-12 16:55+0100\n"
+"POT-Creation-Date: 2016-08-25 14:26+0000\n"
+"PO-Revision-Date: 2016-08-25 16:01+0100\n"
+"Last-Translator: \n"
+"Language-Team: \n"
 "Language: fr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
-"Last-Translator: \n"
-"Language-Team: \n"
 "X-Generator: Poedit 1.8.8\n"
 
 #: templates/browser/_dataset_api_box.html:6
@@ -27,28 +27,28 @@ msgid "View as chart"
 msgstr "Vue que le chat"
 
 #: templates/browser/_dataset_as_search_result.html:22
-#: templates/browser/dataset.html:126
+#: templates/browser/dataset.html:127
 msgid "View as table"
 msgstr "Vue que la table"
 
 #: templates/browser/_dataset_as_search_result.html:24
-#: templates/browser/dataset.html:128
+#: templates/browser/dataset.html:129
 msgid "View as table - not available"
 msgstr "Voir que la table - non disponible"
 
 #: templates/browser/_dataset_as_search_result.html:29
-#: templates/browser/dataset.html:133
+#: templates/browser/dataset.html:134
 msgid "View as app"
 msgstr "Vue comme app"
 
 #: templates/browser/_dataset_as_search_result.html:31
-#: templates/browser/dataset.html:135
+#: templates/browser/dataset.html:136
 msgid "View as app - not available"
 msgstr "Voir que l'application - non disponible"
 
 #: templates/browser/_dataset_as_search_result.html:36
 #: templates/browser/_dataset_as_search_result.html:38
-#: templates/browser/dataset.html:140 templates/browser/dataset.html:142
+#: templates/browser/dataset.html:141 templates/browser/dataset.html:143
 msgid "View as PDF"
 msgstr "Voir en PDF"
 
@@ -91,25 +91,41 @@ msgid ""
 "\"http://insight-centre.org/\">CKAN</a>"
 msgstr ""
 
-#: templates/browser/_header.html:9
+#: templates/browser/_header.html:10
 msgid "Login"
 msgstr "S’identifier"
 
-#: templates/browser/_header.html:14
+#: templates/browser/_header.html:15
 msgid "Home"
 msgstr "Domicile"
 
-#: templates/browser/_header.html:14
+#: templates/browser/_header.html:15
 msgid "About"
 msgstr "À propos"
 
-#: templates/browser/_header.html:14
+#: templates/browser/_header.html:15
 msgid "Help"
 msgstr "Aidez-moi"
 
-#: templates/browser/_header.html:14
+#: templates/browser/_header.html:15
 msgid "Classic CKAN"
 msgstr "CKAN classique"
+
+#: templates/browser/_language_selector.html:11
+msgid "EN"
+msgstr ""
+
+#: templates/browser/_language_selector.html:12
+msgid "IT"
+msgstr ""
+
+#: templates/browser/_language_selector.html:13
+msgid "NL"
+msgstr ""
+
+#: templates/browser/_language_selector.html:14
+msgid "FR"
+msgstr ""
 
 #: templates/browser/_search.html:3
 msgid "Search for datasets"
@@ -146,31 +162,31 @@ msgstr "Thème"
 msgid "Format"
 msgstr "Format"
 
-#: templates/browser/dataset.html:4
+#: templates/browser/dataset.html:5
 msgid "Dataset details"
 msgstr "Détails dataset"
 
-#: templates/browser/dataset.html:84 templates/browser/tabular.html:44
+#: templates/browser/dataset.html:85 templates/browser/tabular.html:44
 msgid "Description"
 msgstr "La description"
 
-#: templates/browser/dataset.html:95 templates/browser/tabular.html:56
+#: templates/browser/dataset.html:96 templates/browser/tabular.html:56
 msgid "Metadata"
 msgstr "Métadonnées"
 
-#: templates/browser/dataset.html:105
+#: templates/browser/dataset.html:106
 msgid "Files"
 msgstr "Fichiers"
 
-#: templates/browser/dataset.html:120
+#: templates/browser/dataset.html:121
 msgid "Available views"
 msgstr "Vues disponibles"
 
-#: templates/browser/dataset.html:154 templates/browser/tabular.html:91
+#: templates/browser/dataset.html:155 templates/browser/tabular.html:91
 msgid "Discussions at SPOD"
 msgstr "Discussion au SPOD"
 
-#: templates/browser/dataset.html:163 templates/browser/tabular.html:99
+#: templates/browser/dataset.html:164 templates/browser/tabular.html:99
 msgid ""
 "This dataset has not been discussed in SPOD, be the first to discuss the "
 "dataset!"
@@ -178,9 +194,39 @@ msgstr ""
 "Cette base de données n'a pas été discuté dans PDD, soyez le premier à "
 "discuter de l'ensemble de données!"
 
-#: templates/browser/dataset.html:167 templates/browser/tabular.html:103
+#: templates/browser/dataset.html:168 templates/browser/tabular.html:103
 msgid "Start the discussion"
 msgstr "Engager le débat"
+
+#: templates/browser/index.html:25
+msgid "Popular search phrases"
+msgstr "Mots-clés populaires"
+
+#: templates/browser/index.html:38
+msgid "TET search engine results are based on resources available at"
+msgstr ""
+"Moteur de recherche de TET résultats reposent sur les ressources disponibles "
+"au"
+
+#: templates/browser/index.html:39
+msgid "Currently there are"
+msgstr "Actuellement, il y a"
+
+#: templates/browser/index.html:39
+msgid "dataset"
+msgstr "dataset"
+
+#: templates/browser/index.html:39
+msgid "published by"
+msgstr "publié par"
+
+#: templates/browser/index.html:39
+msgid "organization"
+msgstr "organisation"
+
+#: templates/browser/index.html:39
+msgid "organizations"
+msgstr "organisations"
 
 #: templates/browser/pdf.html:32
 msgid "PDF Preview"
