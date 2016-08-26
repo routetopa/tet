@@ -3,3 +3,7 @@ ckanapi
 python-dateutil
 reportlab
 pandas
+numpy
+python-rake
+pyPdf
+
