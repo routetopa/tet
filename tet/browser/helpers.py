@@ -11,9 +11,7 @@ except ImportError:
 import json
 
 
-
 # TODO consider migration to /tet/
-
 # Generates user friendly metadata description fo the dataset: creation, categories etc.
 def dataset_to_metadata_text(dataset):
     '''

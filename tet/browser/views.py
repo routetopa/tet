@@ -79,14 +79,14 @@ def index(request):
         url_organizations = settings.CKAN_URL + "/api/3/stats/organization_count"
 
         res_datasets = urlopen(url_datasets)
-        datasets_count_json = json.loads(res_datasets.read().decode(res_datasets.info().get_param('charset') or 'utf-8'))
+        datasets_count_json = json.loads(res_datasets.read().decode('utf-8'))
         datasets_count = int(datasets_count_json['dataset_count'])
 
         res_organizations = urlopen(url_organizations)
-        organizations_count_json = json.loads(res_organizations.read().decode(res_organizations.info().get_param('charset') or 'utf-8'))
+        organizations_count_json = json.loads(res_organizations.read().decode('utf-8'))
         organizations_count = int(organizations_count_json['organization_count'])
 
-    except Exception:
+    except Exception, e:
         datasets_count = 0
         organizations_count = 0
         pass
