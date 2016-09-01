@@ -131,7 +131,7 @@ def table_api(request, resource_id, field_id):
             for i in range (0, 11):
                 record = {
                   "Name" : c,
-                  "Range" : str(round(dist[1][i]))+"-"+str(round(dist[1][i+1])),
+                  "Range" : str(round(dist[1][i]))+" to "+str(round(dist[1][i+1])),
                   "Frequency" : int(dist[0][i])
                 }
                 results["result"]["records"].append(record)
@@ -315,7 +315,7 @@ def dataset(request, dataset_id):
                         res = urlopen(url)
                         data = json.loads(res.read())
                         fields = []
-                        filter_list = ["long", "lat", "no.", "phone", "date","id", "code"] 
+                        filter_list = ["long", "lat","no", "no.", "phone", "date","id", "code"] 
                         for field in data["result"]["fields"]:
                             name = field["id"]
                             found = False 
@@ -387,6 +387,7 @@ def dataset_as_table(request, dataset_id):
                         if (view["view_type"]=="pivottable"):
                             url_pivottable = settings.CKAN_URL + "/dataset/" + dataset_id + "/resource/" + resource["id"] + "/view/" + view["id"]
                             break
+                    break
     except Exception:
         raise Exception
 
