@@ -297,10 +297,17 @@ def dataset(request, dataset_id):
     )
     resource_id = None 
     resource_fields = None
+    related_datasets = None
     try:
         dataset = ckan_api_instance.action.package_show(
             id=dataset_id
         )
+        try:
+            url = settings.CKAN_URL + "/api/3/util/tet/get_recommended_datasets?pkg=" + dataset_id
+            res = urlopen(url)
+            related_datasets = json.loads(res.read())["datasets"]
+        except Exception:
+            pass
         if "resources" in dataset.keys():
             for resource in dataset["resources"]:
                 if resource["format"].lower() in ["csv","xls"]:
@@ -347,6 +354,7 @@ def dataset(request, dataset_id):
         'spod_box_datasets': dataset_to_spod(dataset),
         'SPOD_URL': settings.SPOD_URL,
         'resource_fields': resource_fields,
+        'related_datasets' : related_datasets,
         'CKAN_URL': settings.CKAN_URL + "/dataset/" + dataset_id + "?r=" + request.get_full_path(),
     }
 
