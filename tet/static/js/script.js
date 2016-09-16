@@ -17,6 +17,14 @@ $(document).ready(function(){
         $('.language_popup').toggle();
 
     });
+
+    // Social sharing
+    $('#social-sharing').jsSocials({
+        showLabel: false,
+        showCount: "inside",
+        shareIn: "popup",
+        shares: ["email", "twitter", "facebook", "googleplus"] // TODO SPOD share
+    });
 });
 
 $(function () {
