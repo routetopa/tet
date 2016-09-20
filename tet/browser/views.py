@@ -44,6 +44,9 @@ import pandas as pd
 import numpy as np
 from StringIO import StringIO
 from collections import Counter
+from django.utils.translation import ugettext as _
+from django.utils.translation import activate
+from django.utils import translation
 
 styles = getSampleStyleSheet()
 style_normal = styles['Normal']
@@ -169,6 +172,12 @@ def search(request, query=False):
 
     # display logic
     query = request.GET.get('query') or ''
+
+    if query.lower().startswith(_("i am")):
+        query =  "role::" + _(query.lower().replace(_("i am"), ""))
+    if query.lower().startswith(_("interested in")):
+        query =  "category::" + _(query.lower().replace(_("interested in"), ""))
+    
     search_results = []
     filters = {}
     has_results = False
