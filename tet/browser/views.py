@@ -204,7 +204,7 @@ def search(request, query=False):
         locations = {}
         formats = {}
 
-        locations_list = ["Dublin", "Leinster", "Cork", "Munster", "Limerick", "Waterford", "Kilkenny", "Galway" ]
+        locations_list = settings.LOCATIONS_LIST
 
         for idx, dataset in enumerate(api_result["results"]):
             # bold the query phrase
