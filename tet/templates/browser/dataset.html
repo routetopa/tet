@@ -102,6 +102,35 @@
                         {% endfor %}
                         </ul>
                         </div>
+                        {% if fields %}
+                            <div>
+                                <div class="accordion" id="accordion">
+                                    <div class="accordion-group">
+                                        <div class="accordion-heading">
+                                          <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#collapseStruct">
+                                             <i class="fa fa-table" aria-hidden="true"></i><b> Table Structure</b>
+                                          </a>
+                                        </div>
+                                        <div id="collapseStruct" class="accordion-body collapse">
+                                          <div class="accordion-inner">
+                                             <table style="width:100%" border="1">
+                                              <tr>
+                                                <th>Field Name</th>
+                                                <th>Type</th>
+                                              </tr>
+                                              {% for f in fields %}
+                                                  <tr>
+                                                    <td> {{f.id}} </td>
+                                                    <td> {{f.type}} </td>
+                                                  </tr>
+                                               {% endfor %}
+                                            </table> 
+                                          </div>
+                                        </div>
+                                      </div>
+                                </div>
+                            </div>
+                        {% endif %}
                         <div>
                         <h5>
                             <i class="fa fa-table" aria-hidden="true"></i> {% trans "Related Datasets" %}
@@ -112,7 +141,6 @@
                         {% endfor %}
                         </ul>
                         </div>
-
                     </div>
 
 
