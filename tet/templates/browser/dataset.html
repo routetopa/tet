@@ -92,6 +92,7 @@
 
                         </div>
 
+
                         <div>
                         <h5>
                             <i class="fa fa-file-text-o" aria-hidden="true"></i> {% trans "Files" %}
@@ -131,6 +132,18 @@
                                 </div>
                             </div>
                         {% endif %}
+                        <div class="dataset-tags">
+
+                            <h5>
+                                <i class="fa fa-tag" aria-hidden="true"></i> {% trans "Tags" %}
+                            </h5>
+                            <div class="well">
+                            {% for tag in dataset.tags %}
+                                <span class="label result-label" >{{ tag.display_name }}</span> 
+                            {% endfor %}
+                            </div>
+                            
+                        </div>
                         <div>
                         <h5>
                             <i class="fa fa-table" aria-hidden="true"></i> {% trans "Related Datasets" %}
