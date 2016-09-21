@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 {% load i18n %}
-
+{% get_current_language as LANGUAGE_CODE %}
 {% block title %} {% trans "Dataset details" %} {% endblock title %}
 
 {% block content %}
@@ -137,7 +137,9 @@
                         </h5>
                         <ul class="dataset-files unstyled">
                         {% for ds in related_datasets %}
-                            <li><a href="/en/dataset/{{ds.id}}"> {{ds.title}}</a></li>
+                            <li><a href="/{{LANGUAGE_CODE}}/dataset/{{ds.id}}"> {{ds.title}}</a>
+                            <div>{{ds.notes}}</div>
+                            </li>
                         {% endfor %}
                         </ul>
                         </div>
