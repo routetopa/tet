@@ -82,14 +82,14 @@ def index(request):
         url_organizations = settings.CKAN_URL + "/api/3/stats/organization_count"
 
         res_datasets = urlopen(url_datasets)
-        datasets_count_json = json.loads(res_datasets.read().decode(res_datasets.info().get_param('charset') or 'utf-8'))
+        datasets_count_json = json.loads(res_datasets.read().decode('utf-8'))
         datasets_count = int(datasets_count_json['dataset_count'])
 
         res_organizations = urlopen(url_organizations)
-        organizations_count_json = json.loads(res_organizations.read().decode(res_organizations.info().get_param('charset') or 'utf-8'))
+        organizations_count_json = json.loads(res_organizations.read().decode('utf-8'))
         organizations_count = int(organizations_count_json['organization_count'])
 
-    except Exception:
+    except Exception, e:
         datasets_count = 0
         organizations_count = 0
         pass
@@ -134,7 +134,7 @@ def table_api(request, resource_id, field_id):
             for i in range (0, 11):
                 record = {
                   "Name" : c,
-                  "Range" : str(round(dist[1][i]))+"-"+str(round(dist[1][i+1])),
+                  "Range" : str(round(dist[1][i]))+" to "+str(round(dist[1][i+1])),
                   "Frequency" : int(dist[0][i])
                 }
                 results["result"]["records"].append(record)
@@ -406,6 +406,7 @@ def dataset_as_table(request, dataset_id):
                         if (view["view_type"]=="pivottable"):
                             url_pivottable = settings.CKAN_URL + "/dataset/" + dataset_id + "/resource/" + resource["id"] + "/view/" + view["id"]
                             break
+                    break
     except Exception:
         raise Exception
 

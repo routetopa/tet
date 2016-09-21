@@ -73,7 +73,8 @@ TEMPLATES = [
 
             ],
             'libraries': {
-                'keyvalue' : 'browser.templatetags.keyvalue',   #to add new tags module,
+                'keyvalue' : 'browser.templatetags.keyvalue',               #to add new tags module,
+                'translate_url' : 'browser.templatetags.translate_url',     #to add new tags module,
             },
         },
     },

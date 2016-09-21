@@ -1,4 +1,6 @@
 {% load i18n %}
+{% load translate_url %}
+
 {% get_current_language as LANGUAGE_CODE %}
 
      <div class="pull-right">
@@ -8,10 +10,10 @@
                     <span class="lang_{{ LANGUAGE_CODE }} ">{{ LANGUAGE_CODE }} </span>
                 </a>
                 <ul class="lang-dropdown-menu dropdown-menu" role="menu">
-                    <li class="lang_item"><a class="lang_en" href="/en" class="btn-link">{% trans "EN" %}</a></li>
-                    <li class="lang_item"><a class="lang_it" href="/it" class="btn-link">{% trans "IT" %}</a></li>
-                    <li class="lang_item"><a class="lang_nl" href="/nl" class="btn-link">{% trans "NL" %}</a></li>
-                    <li class="lang_item"><a class="lang_fr" href="/fr" class="btn-link">{% trans "FR" %}</a></li>
+                    <li class="lang_item"><a class="lang_en" href="{% translate_url en %}" class="btn-link">{% trans "EN" %}</a></li>
+                    <li class="lang_item"><a class="lang_it" href="{% translate_url it %}" class="btn-link">{% trans "IT" %}</a></li>
+                    <li class="lang_item"><a class="lang_nl" href="{% translate_url nl %}" class="btn-link">{% trans "NL" %}</a></li>
+                    <li class="lang_item"><a class="lang_fr" href="{% translate_url fr %}" class="btn-link">{% trans "FR" %}</a></li>
                 </ul>
             </li>
         </ul>
