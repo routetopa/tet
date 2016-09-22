@@ -102,6 +102,23 @@ def index(request):
 
     return render(request, template_name, context)
 
+def typeahead(request):
+    try:
+        results = {
+          "success": True,
+          "options": []
+        }
+        url = settings.CKAN_URL + "/api/3/util/tet/getconfig"
+        res = urlopen(url)
+        data = json.loads(res.read())
+        for role in data["roles"]:
+            results["options"].append("I am " + role)
+        for cat in data["categories"]:
+            results["options"].append("Interested in " + cat)
+        return JsonResponse(results)
+    except Exception, e:
+        return JsonResponse({'success': False})
+
 def table_api(request, resource_id, field_id):
     try:
         url = settings.CKAN_URL + "/api/action/datastore_search?resource_id=" + resource_id + "&limit=99999"

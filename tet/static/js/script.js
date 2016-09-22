@@ -20,7 +20,14 @@ $(document).ready(function(){
 });
 
 $(function () {
-
+    //type ahead
+    $('.main-search').typeahead({
+        source: function (query, process) {
+            return $.get('/api/typeahead', { query: query }, function (data) {
+                return process(data.options);
+            });
+    }});
+    
     // Results filters
     $('.expand-btn').click(function () {
         $(this).parent().parent().children('.filter-hidden').fadeIn('slow')
