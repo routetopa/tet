@@ -157,3 +157,5 @@ CKAN_URL = "http://dublin-tet.routetopa.eu:8080"
 CKAN_USERNAME = "admin"
 CKAN_API_KEY = "xxxx-xxxx-xxxx-xxxx"
 SPOD_URL = "http://spod.routetopa.eu"
+
+LOCATIONS_LIST = ["Dublin", "Leinster", "Cork", "Munster", "Limerick", "Waterford", "Kilkenny", "Galway", "Prato", "Paris", "Daan Haag"]

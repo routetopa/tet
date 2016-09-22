@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 {% load i18n %}
-
+{% get_current_language as LANGUAGE_CODE %}
 {% block title %} {% trans "Dataset details" %} {% endblock title %}
 
 {% block content %}
@@ -92,6 +92,7 @@
 
                         </div>
 
+
                         <div>
                         <h5>
                             <i class="fa fa-file-text-o" aria-hidden="true"></i> {% trans "Files" %}
@@ -102,7 +103,59 @@
                         {% endfor %}
                         </ul>
                         </div>
+                        {% if fields %}
+                            <div>
+                                <div class="accordion" id="accordion">
+                                    <div class="accordion-group">
+                                        <div class="accordion-heading">
+                                          <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#collapseStruct">
+                                             <i class="fa fa-table" aria-hidden="true"></i><b> Table Structure</b>
+                                          </a>
+                                        </div>
+                                        <div id="collapseStruct" class="accordion-body collapse">
+                                          <div class="accordion-inner">
+                                             <table style="width:100%" border="1">
+                                              <tr>
+                                                <th>Field Name</th>
+                                                <th>Type</th>
+                                              </tr>
+                                              {% for f in fields %}
+                                                  <tr>
+                                                    <td> {{f.id}} </td>
+                                                    <td> {{f.type}} </td>
+                                                  </tr>
+                                               {% endfor %}
+                                            </table> 
+                                          </div>
+                                        </div>
+                                      </div>
+                                </div>
+                            </div>
+                        {% endif %}
+                        <div class="dataset-tags">
 
+                            <h5>
+                                <i class="fa fa-tag" aria-hidden="true"></i> {% trans "Tags" %}
+                            </h5>
+                            <div class="well">
+                            {% for tag in dataset.tags %}
+                                <span class="label result-label" >{{ tag.display_name }}</span> 
+                            {% endfor %}
+                            </div>
+                            
+                        </div>
+                        <div>
+                        <h5>
+                            <i class="fa fa-table" aria-hidden="true"></i> {% trans "Related Datasets" %}
+                        </h5>
+                        <ul class="dataset-files unstyled">
+                        {% for ds in related_datasets %}
+                            <li><a href="/{{LANGUAGE_CODE}}/dataset/{{ds.id}}"> {{ds.title}}</a>
+                            <div>{{ds.notes}}</div>
+                            </li>
+                        {% endfor %}
+                        </ul>
+                        </div>
                     </div>
 
 

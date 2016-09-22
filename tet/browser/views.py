@@ -44,6 +44,9 @@ import pandas as pd
 import numpy as np
 from StringIO import StringIO
 from collections import Counter
+from django.utils.translation import ugettext as _
+from django.utils.translation import activate
+from django.utils import translation
 
 styles = getSampleStyleSheet()
 style_normal = styles['Normal']
@@ -169,6 +172,12 @@ def search(request, query=False):
 
     # display logic
     query = request.GET.get('query') or ''
+
+    if query.lower().startswith(_("i am")):
+        query =  "role::" + _(query.lower().replace(_("i am"), ""))
+    if query.lower().startswith(_("interested in")):
+        query =  "category::" + _(query.lower().replace(_("interested in"), ""))
+    
     search_results = []
     filters = {}
     has_results = False
@@ -195,7 +204,7 @@ def search(request, query=False):
         locations = {}
         formats = {}
 
-        locations_list = ["Dublin", "Leinster", "Cork", "Munster", "Limerick", "Waterford", "Kilkenny", "Galway" ]
+        locations_list = settings.LOCATIONS_LIST
 
         for idx, dataset in enumerate(api_result["results"]):
             # bold the query phrase
@@ -297,10 +306,18 @@ def dataset(request, dataset_id):
     )
     resource_id = None 
     resource_fields = None
+    related_datasets = None
+    fields = None
     try:
         dataset = ckan_api_instance.action.package_show(
             id=dataset_id
         )
+        try:
+            url = settings.CKAN_URL + "/api/3/util/tet/get_recommended_datasets?pkg=" + dataset_id
+            res = urlopen(url)
+            related_datasets = json.loads(res.read())["datasets"]
+        except Exception:
+            pass
         if "resources" in dataset.keys():
             for resource in dataset["resources"]:
                 if resource["format"].lower() in ["csv","xls"]:
@@ -314,8 +331,8 @@ def dataset(request, dataset_id):
                         url = settings.CKAN_URL + "/api/action/datastore_search?resource_id=" + resource_id + "&limit=5"
                         res = urlopen(url)
                         data = json.loads(res.read())
-                        fields = []
-                        filter_list = ["long", "lat","no", "no.", "phone", "date","id", "code"] 
+                        resource_fields = []
+                        filter_list = ["long", "lat", "no.", "phone", "date","id", "code"] 
                         for field in data["result"]["fields"]:
                             name = field["id"]
                             found = False 
@@ -325,12 +342,12 @@ def dataset(request, dataset_id):
                             if found:
                                 continue
                             if field["type"] == "numeric":
-                                fields.append((name, True))
+                                resource_fields.append((name, True))
                             elif field["type"] == "text":
-                                fields.append((name, False))
+                                resource_fields.append((name, False))
                             else:
                                 pass
-                        resource_fields = fields
+                        fields = data["result"]["fields"]
                         break
                     except Exception:
                         resource_id = None
@@ -347,7 +364,9 @@ def dataset(request, dataset_id):
         'spod_box_datasets': dataset_to_spod(dataset),
         'SPOD_URL': settings.SPOD_URL,
         'resource_fields': resource_fields,
+        'related_datasets' : related_datasets,
         'CKAN_URL': settings.CKAN_URL + "/dataset/" + dataset_id + "?r=" + request.get_full_path(),
+        'fields' : fields
     }
 
     if resource_id:
