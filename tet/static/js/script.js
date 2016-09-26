@@ -26,12 +26,9 @@ $(document).ready(function(){
         shares: ["email", "twitter", "facebook", "googleplus"] // TODO SPOD share
     });
 
-    //
-
     // auto-adjust chart area
     $('#main-chart').on('slid', function() {
         $(window).trigger('resize');
-        console.log("resized");
         return false
     });
 
