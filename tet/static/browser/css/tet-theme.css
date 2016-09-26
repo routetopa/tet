@@ -427,13 +427,17 @@ h6 {
 .lang_item span, .lang_item a {
     color: #fff;
     display: inline-block;
-    padding-left: 22px;
+    /* padding-left: 22px; */
     background-position: 0 5px;
     margin: 0 !important;
 }
 
 .lang_item a {
     color: #007dbe !important;
+}
+
+.lang_item a:hover {
+    background: #BBDEFB !important;
 }
 
 .lang_us,
@@ -541,6 +545,17 @@ base-ajax-json-alasql-datalet {
        -moz-hyphens: auto;
         -ms-hyphens: auto;
             hyphens: auto;
+}
+
+.dataset-details .row h5 {
+    margin-top: 32px;
+}
+
+.dataset-tags .label {
+    margin-right: 6px !important;
+    display: inline-block;
+    padding: 8px 6px;
+    margin-bottom: 10px;
 }
 
 /* Table view */
