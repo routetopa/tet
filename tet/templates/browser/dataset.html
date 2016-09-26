@@ -67,174 +67,210 @@
 
                 </div>
                 {% endif%}
-                <div class="row">
 
-                    <div class="span6">
-
-                        <div class="dataset-description">
-                            <h5>
-                                <i class="fa fa-file-text-o" aria-hidden="true"></i> {% trans "Description" %}
-                            </h5>
-                            <p class="text-justify">
-                                {{ dataset.notes }}
-                            </p>
-
-                        </div>
-
-                        <div class="dataset-metadata">
-
-                            <h5>
-                                <i class="fa fa-info-circle" aria-hidden="true"></i> {% trans "Metadata" %}
-                            </h5>
-                            <div>
-                                {{ metadata_box|safe }}
-                            </div>
-
-                        </div>
+                <div class="row dataset-details">
 
 
-                        <div>
-                        <h5>
-                            <i class="fa fa-file-text-o" aria-hidden="true"></i> {% trans "Files" %}
-                        </h5>
-                        <ul class="dataset-files unstyled">
-                        {% for resource in dataset.resources %}
-                            <li><span class="label result-label" data-format="{{resource.format|lower}}">{{ resource.format }}</span> <a href="{{resource.url}}">{{resource.name}}</a></li>
-                        {% endfor %}
-                        </ul>
-                        </div>
-                        {% if fields %}
-                            <div>
-                                <div class="accordion" id="accordion">
-                                    <div class="accordion-group">
-                                        <div class="accordion-heading">
-                                          <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#collapseStruct">
-                                             <i class="fa fa-table" aria-hidden="true"></i><b> Table Structure</b>
-                                          </a>
-                                        </div>
-                                        <div id="collapseStruct" class="accordion-body collapse">
-                                          <div class="accordion-inner">
-                                             <table style="width:100%" border="1">
-                                              <tr>
-                                                <th>Field Name</th>
-                                                <th>Type</th>
-                                              </tr>
-                                              {% for f in fields %}
-                                                  <tr>
-                                                    <td> {{f.id}} </td>
-                                                    <td> {{f.type}} </td>
-                                                  </tr>
-                                               {% endfor %}
-                                            </table> 
-                                          </div>
-                                        </div>
-                                      </div>
+
+                    <div class="row">
+
+                        <div class="span6">
+
+                            <div class="">
+
+                                <div class="dataset-description">
+                                    <h5>
+                                        <i class="fa fa-file-text-o" aria-hidden="true"></i> {% trans "Description" %}
+                                    </h5>
+                                    <p class="text-justify">
+                                        {{ dataset.notes }}
+                                    </p>
                                 </div>
                             </div>
-                        {% endif %}
-                        <div class="dataset-tags">
 
-                            <h5>
-                                <i class="fa fa-tag" aria-hidden="true"></i> {% trans "Tags" %}
-                            </h5>
-                            <div class="well">
-                            {% for tag in dataset.tags %}
-                                <span class="label result-label" >{{ tag.display_name }}</span> 
-                            {% endfor %}
+                            <div class="">
+
+                                <div class="dataset-metadata">
+
+                                    <h5>
+                                        <i class="fa fa-info-circle" aria-hidden="true"></i> {% trans "Metadata" %}
+                                    </h5>
+                                    <div>
+                                        {{ metadata_box|safe }}
+                                    </div>
+
+                                </div>
+
                             </div>
-                            
-                        </div>
-                        <div>
-                        <h5>
-                            <i class="fa fa-table" aria-hidden="true"></i> {% trans "Related Datasets" %}
-                        </h5>
-                        <ul class="dataset-files unstyled">
-                        {% for ds in related_datasets %}
-                            <li><a href="/{{LANGUAGE_CODE}}/dataset/{{ds.id}}"> {{ds.title}}</a>
-                            <div>{{ds.notes}}</div>
-                            </li>
-                        {% endfor %}
-                        </ul>
-                        </div>
-                    </div>
 
 
-                    <div class="span6">
-                        <div>
-                            <h5>
-                                <i class="fa fa-eye" aria-hidden="true"></i> {% trans "Available views" %}
-                            </h5>
 
-                            <ul class="dataset-services dataset-services-details unstyled">
-                                <li class="dataset-service">
-                                    {% if dataset.has_table %}
-                                    <a href="{% url 'dataset_as_table' dataset.id %}"><i class="fa fa-table" aria-hidden="true" data-toggle="tooltip" data-placement="bottom" title="{% trans "View as table" %}"></i></a>
-                                    {% else %}
-                                    <a href="#" class="disabled"><i class="fa fa-table" aria-hidden="true" data-toggle="tooltip" data-placement="bottom" title="{% trans "View as table - not available" %}"></i></a>
-                                    {% endif %}
-                                </li>
-                                <li class="dataset-service">
-                                    {% if dataset.has_apps %}
-                                    <a href="{% url 'dataset_as_app' dataset.id %}" class="disabled"><i class="fa fa-tablet" aria-hidden="true" data-toggle="tooltip" data-placement="bottom" title="{% trans "View as app" %}"></i></a>
-                                    {% else %}
-                                    <a href="#" class="disabled"><i class="fa fa-tablet" aria-hidden="true" data-toggle="tooltip" data-placement="bottom" title="{% trans "View as app - not available" %}"></i></a>
-                                    {% endif %}
-                                </li>
-                                <li class="dataset-service">
-                                    {% if dataset.has_pdf %}
-                                    <a href="{% url 'dataset_as_pdf' dataset.id %}"><i class="fa fa-file-pdf-o" aria-hidden="true" data-toggle="tooltip" data-placement="bottom" title="{% trans "View as PDF" %}"></i></a>
-                                    {% else %}
-                                    <a href="#" class="disabled"><i class="fa fa-file-pdf-o" aria-hidden="true" data-toggle="tooltip" data-placement="bottom" title="{% trans "View as PDF" %}"></i></a>
-                                    {% endif %}
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
+                            <div class="">
 
-                    <div class="span6">
+                                <h5>
+                                    <i class="fa fa-tag" aria-hidden="true"></i> {% trans "Tags" %}
+                                </h5>
 
-                        <div class="spod-discussions">
-
-                            <h5>
-                                <i class="fa fa-comments-o" aria-hidden="true"></i> {% trans "Discussions at SPOD" %}
-                            </h5>
-
-                            {% if spod_box_datasets %}
-                                {% for dataset in spod_box_datasets %}
-                                    {% include "browser/_dataset_discussion.html" with dataset=dataset %}
+                                <div class="dataset-tags">
+                                {% for tag in dataset.tags %}
+                                    <span class="label" >{{ tag.display_name }}</span>
                                 {% endfor %}
-                            {% else %}
-                            <p>
-                                {% trans "This dataset has not been discussed in SPOD, be the first to discuss the dataset!" %}
-                            </p>
-                            <br/><br/>
-                            <p>
-                                <a href="{{ SPOD_URL }}/public-room" class="pull-right" data-original-title="" title=""> {% trans "Start the discussion" %}</a>
-                            </p>
+                                </div>
+
+                            </div>
+
+
+
+                            {% if fields %}
+                                <div class="">
+
+                                    <h5>
+                                        <i class="fa fa-list" aria-hidden="true"></i> {% trans "Table Structure" %}
+                                    </h5>
+
+                                    <div>
+                                        <table class="table table-hover">
+                                          <tr>
+                                            <th>{% trans "Field name" %}</th>
+                                            <th>{% trans "Type" %}</th>
+                                          </tr>
+                                          {% for f in fields %}
+                                              <tr>
+                                                <td> {{f.id}} </td>
+                                                <td> {{f.type}} </td>
+                                              </tr>
+                                           {% endfor %}
+                                        </table>
+                                    </div>
+
+                                </div>
                             {% endif %}
 
+
+
+                            <div class="">
+
+                                <h5>
+                                    <i class="fa fa-file-text-o" aria-hidden="true"></i> {% trans "Files" %}
+                                </h5>
+
+                                <ul class="dataset-files unstyled">
+                                {% for resource in dataset.resources %}
+                                    <li><span class="label" data-format="{{resource.format|lower}}">{{ resource.format }}</span> <a href="{{resource.url}}">{{resource.name}}</a></li>
+                                {% endfor %}
+                                </ul>
+
+                            </div>
+
+
+
+
                         </div>
+
+
+
+                        <div class="span6">
+
+                            <div>
+                                <h5>
+                                    <i class="fa fa-eye" aria-hidden="true"></i> {% trans "Available views" %}
+                                </h5>
+
+                                <div>
+                                    <ul class="dataset-services dataset-services-details unstyled">
+                                        <li class="dataset-service">
+                                            {% if dataset.has_table %}
+                                            <a href="{% url 'dataset_as_table' dataset.id %}"><i class="fa fa-table" aria-hidden="true" data-toggle="tooltip" data-placement="bottom" title="{% trans "View as table" %}"></i></a>
+                                            {% else %}
+                                            <a href="#" class="disabled"><i class="fa fa-table" aria-hidden="true" data-toggle="tooltip" data-placement="bottom" title="{% trans "View as table - not available" %}"></i></a>
+                                            {% endif %}
+                                        </li>
+                                        <li class="dataset-service">
+                                            {% if dataset.has_apps %}
+                                            <a href="{% url 'dataset_as_app' dataset.id %}" class="disabled"><i class="fa fa-tablet" aria-hidden="true" data-toggle="tooltip" data-placement="bottom" title="{% trans "View as app" %}"></i></a>
+                                            {% else %}
+                                            <a href="#" class="disabled"><i class="fa fa-tablet" aria-hidden="true" data-toggle="tooltip" data-placement="bottom" title="{% trans "View as app - not available" %}"></i></a>
+                                            {% endif %}
+                                        </li>
+                                        <li class="dataset-service">
+                                            {% if dataset.has_pdf %}
+                                            <a href="{% url 'dataset_as_pdf' dataset.id %}"><i class="fa fa-file-pdf-o" aria-hidden="true" data-toggle="tooltip" data-placement="bottom" title="{% trans "View as PDF" %}"></i></a>
+                                            {% else %}
+                                            <a href="#" class="disabled"><i class="fa fa-file-pdf-o" aria-hidden="true" data-toggle="tooltip" data-placement="bottom" title="{% trans "View as PDF" %}"></i></a>
+                                            {% endif %}
+                                        </li>
+                                    </ul>
+
+                                    <span class="clearfix"></span>
+
+                                </div>
+
+                            </div>
+
+
+
+                            <div class="">
+
+                                <h5>
+                                    <i class="fa fa-share-square-o" aria-hidden="true"></i> {% trans "Share this page" %}
+                                </h5>
+
+                                <p>
+                                    {% trans "Use the icons below in order to share this page in your favourite Social Media." %}
+                                </p>
+
+                                <div id="social-sharing"></div>
+
+                            </div>
+
+
+
+                            <div class="">
+
+                                <h5>
+                                    <i class="fa fa-comments-o" aria-hidden="true"></i> {% trans "Discussions at SPOD" %}
+                                </h5>
+
+                                {% if spod_box_datasets %}
+                                    {% for dataset in spod_box_datasets %}
+                                        {% include "browser/_dataset_discussion.html" with dataset=dataset %}
+                                    {% endfor %}
+                                {% else %}
+                                <p>
+                                    {% trans "This dataset has not been discussed in SPOD, be the first to discuss the dataset!" %}
+                                </p>
+                                <br/><br/>
+                                <p>
+                                    <a href="{{ SPOD_URL }}/public-room" class="pull-right" data-original-title="" title=""> {% trans "Start the discussion" %}</a>
+                                </p>
+                                {% endif %}
+
+                            </div>
+
+
+
+                            <div class="">
+
+                                <h5>
+                                    <i class="fa fa-link" aria-hidden="true"></i> {% trans "Related Datasets" %}
+                                </h5>
+
+                                <ul class="dataset-files unstyled">
+                                {% for ds in related_datasets %}
+                                    <li>
+                                        <a href="/{{LANGUAGE_CODE}}/dataset/{{ds.id}}"> {{ds.title}}</a>
+                                        <div> {{ds.notes|truncatewords:10}} </div>
+                                    </li>
+                                {% endfor %}
+                                </ul>
+
+                            </div>
+
+
+                        </div>
+
                     </div>
-
-                    <div class="span6">
-
-                        <h5>
-                            <i class="fa fa-share-square-o" aria-hidden="true"></i> {% trans "Share this page" %}
-                        </h5>
-
-                        <p>
-                            {% trans "Use the icons below in order to share this page in your favourite Social Media." %}
-                        </p>
-
-                        <div id="social-sharing"></div>
-
-                    </div>
-
 
                 </div>
-
-
-
-            </div>
 
 {% endblock content %}
