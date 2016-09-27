@@ -23,7 +23,7 @@ except ImportError:
   from urllib.request import urlopen
 
 import json
-from .helpers import dataset_to_metadata_text, dataset_to_spod, name_to_url
+from .helpers import dataset_to_metadata_text, dataset_to_spod, name_to_url, resource_fields_to_text
 from io import BytesIO
 from dateutil.parser import parse
 
@@ -125,7 +125,7 @@ def table_api(request, resource_id, field_id):
         res = urlopen(url)
         data = json.loads(res.read())
         temp_data = json_normalize(data["result"]["records"])
-        fields = data["result"]["fields"]
+        fields = data["result"]["fields"] # type_unified TODO
         record_count = 0
         results = {
           "success": True,
@@ -366,10 +366,11 @@ def dataset(request, dataset_id):
                                 pass
                         fields = data["result"]["fields"]
                         break
-                    except Exception:
+                    except Exception as e:
+                        # print(str(e))
                         resource_id = None
                         resource_fields = None 
-                        raise Exception
+                        # raise Exception
     except Exception:
         raise Exception
     if resource_id and len(resource_fields) < 1:
@@ -383,7 +384,7 @@ def dataset(request, dataset_id):
         'resource_fields': resource_fields,
         'related_datasets' : related_datasets,
         'CKAN_URL': settings.CKAN_URL + "/dataset/" + dataset_id + "?r=" + request.get_full_path(),
-        'fields' : fields
+        'fields' : resource_fields_to_text(fields)
     }
 
     if resource_id:
