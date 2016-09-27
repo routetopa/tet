@@ -128,7 +128,7 @@
                                         <i class="fa fa-list" aria-hidden="true"></i> {% trans "Table Structure" %}
                                     </h5>
 
-                                    <div>
+                                    <div class="top30 span5">
                                         <table class="table table-hover">
                                           <tr>
                                             <th>{% trans "Field name" %}</th>
@@ -136,12 +136,14 @@
                                           </tr>
                                           {% for f in fields %}
                                               <tr>
-                                                <td> {{f.id}} </td>
-                                                <td> {{f.type}} </td>
+                                                <td><code>{{f.id}}</code></td>
+                                                <td>{% trans f.type_unified %}</td>
                                               </tr>
                                            {% endfor %}
                                         </table>
                                     </div>
+
+                                    <span class="clearfix"></span>
 
                                 </div>
                             {% endif %}
@@ -156,7 +158,7 @@
 
                                 <ul class="dataset-files unstyled">
                                 {% for resource in dataset.resources %}
-                                    <li><span class="label" data-format="{{resource.format|lower}}">{{ resource.format }}</span> <a href="{{resource.url}}">{{resource.name}}</a></li>
+                                    <li> <span class="label" data-format="{{resource.format|lower}}">{{ resource.format }}</span> <a href="{{resource.url}}"> <i class="fa fa-external-link" aria-hidden="true"></i> {{resource.name}}</a></li>
                                 {% endfor %}
                                 </ul>
 
@@ -258,8 +260,8 @@
                                 <ul class="dataset-files unstyled">
                                 {% for ds in related_datasets %}
                                     <li>
-                                        <a href="/{{LANGUAGE_CODE}}/dataset/{{ds.id}}"> {{ds.title}}</a>
-                                        <div> {{ds.notes|truncatewords:10}} </div>
+                                        <a href="/{{LANGUAGE_CODE}}/dataset/{{ds.id}}" aria-hidden="true" data-toggle="tooltip" data-placement="bottom" title="{{ds.notes|truncatewords:16}}"> <i class="fa fa-link" aria-hidden="true"></i> {{ds.title}}</a>
+                                        <!-- <div> {{ds.notes|truncatewords:8}} </div> -->
                                     </li>
                                 {% endfor %}
                                 </ul>
