@@ -47,21 +47,21 @@
                     {%if text_analytics.entities %}
                     <h5>Entities</h5>
                          {% for entitiy in text_analytics.entities %}
-                            <span>{{entitiy.text}} ({{entitiy.type}})&nbsp;</span>
+                            <span class="label">{{entitiy.text}} ({{entitiy.type}})&nbsp;</span>
                          {% endfor %}
                     {% endif %}
 
                     {%if text_analytics.concepts %}
                     <h5>Concepts</h5>
                          {% for concept in text_analytics.concepts %}
-                            <a href="{{concept.dbpedia}}">{{concept.text}} </a>
+                            <span class="label"><a href="{{concept.dbpedia}}">{{concept.text}} </a></span>
                          {% endfor %}
                     {% endif %}
 
                     {%if text_analytics.keywords %}
                     <h5>Keywords</h5>
                          {% for keyword in text_analytics.keywords %}
-                            <span>{{keyword.text}}&nbsp;</span>
+                            <span class="label">{{keyword.text}}</span>
                          {% endfor %}
                     {% endif %}
 
