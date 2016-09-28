@@ -62,7 +62,7 @@ def get_rooms_for_dataset(dataset):
                 url = settings.SPOD_URL + "/spodapi/roomsusingdataset?data-url=" + \
                 settings.CKAN_URL + "/api/action/datastore_search?resource_id=" + res["id"]
 
-                # print(url)
+                print(url)
 
                 req = urlopen(url)
                 content = req.read().decode('utf8')
@@ -70,8 +70,9 @@ def get_rooms_for_dataset(dataset):
 
                 if j["status"] == "success" and j["result"]:
                     rooms.append(j["result"][0])
-            except:
+            except Exception, e:
                 # do nothing
+                print("Error: " + str(e))
                 pass
 
     return rooms
@@ -98,8 +99,9 @@ def dataset_to_spod(dataset):
                     room["roomsummary"] = j["result"]
                 else:
                     room["roomsummary"] = False
-            except:
+            except Exception, e:
                 # do nothing
+                print("Error: " + str(e))
                 pass
 
     print(rooms)
@@ -115,3 +117,27 @@ def name_to_url(name):
     '''
     return settings.CKAN_URL + "/dataset/" + name
 
+
+# make fields type name user friendly
+# see: http://docs.ckan.org/en/latest/maintaining/datastore.html#fields
+
+def resource_fields_to_text(resource_fields):
+
+    field_switcher = {
+        "int": "Integer numbers, e.g 42, 7",
+        "int4": "Integer numbers, e.g 42, 7",
+        "numeric": "Numbers, e.g 1, 2.4, 4.7",
+        "float": "Floats, e.g. 1.61803",
+		"text": "Arbitrary text data, e.g. Some text",
+		"json": "Arbitrary nested json data",
+		"date": "Date without time, e.g 2016-5-25",
+		"time": "Time without date, e.g 12:06",
+		"timestamp": "Date and time, e.g 2016-05-01T02:43Z",
+		"bool": "Boolean values, e.g. true, 0",
+    }
+
+    if (resource_fields):
+        for field in resource_fields:
+            field["type_unified"] =  field_switcher.get(field["type"], "Other: " + field["type"])
+
+    return resource_fields

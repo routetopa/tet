@@ -16,6 +16,14 @@
 .default-primary       { color: #2196F3; }
 .light-primary         { color: #BBDEFB; }
 
+.top5 { margin-top:5px !important; }
+.top7 { margin-top:7px !important; }
+.top10 { margin-top:10px !important; }
+.top15 { margin-top:15px !important; }
+.top17 { margin-top:17px !important; }
+.top25 { margin-top:25px !important; }
+.top30 { margin-top:30px !important; }
+
 body, html {
     font-family: 'Roboto', sans-serif;
     color: #212121;
@@ -169,7 +177,7 @@ body, html {
 }
 
 .dataset-service .fa {
-    font-size: 22px;
+    /* font-size: 22px; */
 }
 
 .dataset-service .disabled .fa {
@@ -178,6 +186,16 @@ body, html {
 
 .dataset-service .disabled:hover .fa {
   cursor: default;
+}
+
+.dataset-files .label {
+    width: 28px;
+    height: 16px;
+    line-height: 16px;
+}
+
+.dataset-files i {
+    margin-right: 14px;
 }
 
 .label {
@@ -427,13 +445,17 @@ h6 {
 .lang_item span, .lang_item a {
     color: #fff;
     display: inline-block;
-    padding-left: 22px;
+    /* padding-left: 22px; */
     background-position: 0 5px;
     margin: 0 !important;
 }
 
 .lang_item a {
     color: #007dbe !important;
+}
+
+.lang_item a:hover {
+    background: #BBDEFB !important;
 }
 
 .lang_us,
@@ -509,6 +531,15 @@ input[type="checkbox"] { margin-right: 20px; }
     padding-bottom: 25px;
 }
 
+.dataset-services-as-divider {
+    text-align: center;
+}
+
+.dataset-services-as-divider li {
+    display: inline-block;
+    margin-right: 25px;
+}
+
 .dataset-metadata p {
     display: inline;
 }
@@ -541,6 +572,26 @@ base-ajax-json-alasql-datalet {
        -moz-hyphens: auto;
         -ms-hyphens: auto;
             hyphens: auto;
+}
+
+.dataset-details h5 {
+    margin-top: 25px;
+}
+
+.dataset-details .row h5 small {
+    margin-top: 32px;
+    font-size: 75%;
+}
+
+.dataset-tags .label {
+    margin-right: 6px !important;
+    display: inline-block;
+    padding: 8px 6px;
+    margin-bottom: 10px;
+}
+
+.spod-discussion h5 small {
+    color: #2196F3;
 }
 
 /* Table view */
