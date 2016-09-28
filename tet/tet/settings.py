@@ -159,3 +159,5 @@ CKAN_API_KEY = "xxxx-xxxx-xxxx-xxxx"
 SPOD_URL = "http://spod.routetopa.eu"
 
 LOCATIONS_LIST = ["Dublin", "Leinster", "Cork", "Munster", "Limerick", "Waterford", "Kilkenny", "Galway", "Prato", "Paris", "Daan Haag"]
+
+API_KEY = "xxxx-xxxx-xxxx-xxxx"
