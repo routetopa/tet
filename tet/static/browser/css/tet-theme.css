@@ -177,7 +177,7 @@ body, html {
 }
 
 .dataset-service .fa {
-    font-size: 22px;
+    /* font-size: 22px; */
 }
 
 .dataset-service .disabled .fa {
@@ -529,6 +529,15 @@ input[type="checkbox"] { margin-right: 20px; }
 
 #main-chart {
     padding-bottom: 25px;
+}
+
+.dataset-services-as-divider {
+    text-align: center;
+}
+
+.dataset-services-as-divider li {
+    display: inline-block;
+    margin-right: 25px;
 }
 
 .dataset-metadata p {
