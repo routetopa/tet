@@ -7,4 +7,4 @@ numpy
 python-rake
 pyPdf
 watson_developer_cloud
-
+nltk
