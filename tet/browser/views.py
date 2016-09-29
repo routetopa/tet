@@ -189,6 +189,67 @@ def table_api(request, resource_id, field_id):
         raise Exception
         return JsonResponse({'success': False})
 
+def text_api(request, dataset_id, info_type):
+    try:
+        rich_text = cache_db(dataset_id)
+        if len(rich_text) == 0:
+            ckan_api_instance = ckanapi.RemoteCKAN(
+                settings.CKAN_URL,
+                user_agent='tetbrowser/1.0 (+http://tetbrowser.routetopa.eu)'
+            )
+            dataset = ckan_api_instance.action.package_show(
+                id=dataset_id
+            )
+            if "resources" in dataset.keys():
+                for resource in dataset["resources"]:
+                    if resource["format"].lower() == "pdf":
+                            rich_text = text_analytics(dataset_id, resource["url"], dataset["notes"])
+        record_count = 0
+        results = {
+          "success": True,
+          "result" : {
+            "resource_id": dataset_id,
+            "records" : [],
+            "fields" : [
+              {"id":"Name", "type" : "text"},
+              {"id":"Relevance", "type" : "numeric"}
+            ],
+            "total" : 0,
+            "limit":99999,
+          }
+        }
+
+        if info_type == "summary":
+            results["result"]["fields"][0] = "Summary"
+
+        for item in rich_text[info_type]:
+            if info_type == "summary":
+                name = item
+                record = {
+                      "Summary" : name,
+                      "Relevance" : 1
+                }
+            else:
+                name = item["text"]
+                if len(name) > 35:
+                    name = name[:35] + "..."
+                rel = float(item["relevance"])
+                record = {
+                      "Name" : name,
+                      "Relevance" : rel
+                }
+            results["result"]["records"].append(record)
+            record_count += 1
+
+        results["result"]["total"] = record_count
+        response =  JsonResponse(results)
+        response["Access-Control-Allow-Origin"] = "*"
+        
+        return response
+    except Exception as e:
+        raise e
+        return JsonResponse({'success': False})
+
 # TODO url param parsing
 # TODO pagination
 def search(request, query=False):
@@ -481,12 +542,12 @@ def text_analytics(dataset_id, url, notes):
                 except Exception:
                     continue
             alchemy_language = AlchemyLanguageV1(api_key=settings.API_KEY)
-            data = alchemy_language.combined(raw_text, extract="concepts dates title keywords relations entities")
-            unique_relations = set()
+            data = alchemy_language.combined(raw_text, extract="concepts dates title keywords relations entities", max_items=10)
+            summary = set()
             for relation in data["relations"]:
-                if  relation["sentence"] not in unique_relations:
-                    unique_relations.add(relation["sentence"])
-            data ["unique_relations"] = unique_relations
+                if  relation["sentence"] not in summary:
+                    summary.add(relation["sentence"])
+            data ["summary"] = summary
             cache_db(dataset_id,data)
         except Exception as e:
             pass

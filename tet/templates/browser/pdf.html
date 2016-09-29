@@ -35,10 +35,10 @@
                 {% if text_analytics %}
                 <div class="row">
 
-                    {%if text_analytics.unique_relations %}
+                    {%if text_analytics.summary %}
                     <h5>Summary</h5>
                         <ul>
-                         {% for relations in text_analytics.unique_relations %}
+                         {% for relations in text_analytics.summary %}
                             <li>{{relations}}</li>
                          {% endfor %}
                         </ul>
