@@ -51,7 +51,9 @@ from watson_developer_cloud import AlchemyLanguageV1
 from django.core.cache import cache
 import shelve
 import logging
+from threading import Lock
 
+mutex = Lock()
 logger = logging.getLogger(__name__)
 
 styles = getSampleStyleSheet()
@@ -448,9 +450,23 @@ def dataset_as_table(request, dataset_id):
 
     return render(request, template_name, context)
 
+def cache_db(key, value=None):
+    mutex.acquire()
+    file_name = "cache/" + key
+    db = shelve.open(file_name)
+    data = {}
+    if value == None:
+        if len(db) > 0:
+            data = db["data"]
+    else:
+        db["data"] = value 
+    db.close()
+    mutex.release()
+    return data
+
 def text_analytics(dataset_id, url, notes):
-    cache_response = cache.get(dataset_id)
-    if cache_response != None:
+    cache_response = cache_db(dataset_id)
+    if len(cache_response) > 0:
         return cache_response
     else:
         data = None
@@ -471,7 +487,7 @@ def text_analytics(dataset_id, url, notes):
                 if  relation["sentence"] not in unique_relations:
                     unique_relations.add(relation["sentence"])
             data ["unique_relations"] = unique_relations
-            cache.set(dataset_id, data, 604800)
+            cache_db(dataset_id,data)
         except Exception as e:
             pass
         return data
