@@ -31,9 +31,75 @@
 
                 </div>
 
+
+                <div class="row">
+                    <div>
+
+                        <ul class="nav nav-tabs" role="tablist">
+                            <li role="presentation" class="active"><a href="#explorer" aria-controls="explorer" role="tab" data-toggle="tab">{% trans "Data Explorer" %}</a></li>
+                            <li role="presentation"><a href="#pivottable" aria-controls="pivottable" role="tab" data-toggle="tab">{% trans "PivotTable" %}</a></li>
+                            <!--<li role="presentation"><a href="#discuss" aria-controls="discuss" role="tab" data-toggle="tab">{% trans "SPOD Discussion" %}</a></li>-->
+                        </ul>
+
+                        <div class="tab-content">
+
+                            <div role="tabpanel" class="tab-pane active" id="explorer">
+                                <iframe width="100%" height="650" src="{{url_table}}" frameBorder="0"></iframe>
+                            </div>
+
+                            <div role="tabpanel" class="tab-pane" id="pivottable">
+                                <iframe width="100%" height="650" src="{{url_pivottable}}" frameBorder="0"></iframe>
+                            </div>
+<!--
+                            <div role="tabpanel" class="tab-pane" id="discuss">
+
+                            </div>
+-->
+                        </div>
+
+                    </div>
+                </div>
+
+
+                <div class="row top30">
+
+                    <div class="span8">
+                        {% include "browser/_dataset_api_box.html" with API_LINK=API_LINK %}
+                    </div>
+
+                    <div class="span4 top30">
+
+                        <ul class="dataset-services-as-divider">
+                            <li class="dataset-service">{% trans "View as: " %} </li>
+                            <li class="dataset-service">
+                                <a href="{% url 'dataset' dataset.id %}"><i class="fa fa-3x fa-bar-chart" aria-hidden="true" data-toggle="tooltip" data-placement="bottom" title="{% trans "View as chart" %}"></i></a>
+                            </li>
+                            <li class="dataset-service">
+                                {% if dataset.has_apps %}
+                                <a href="{% url 'dataset_as_app' dataset.id %}" class="disabled"><i class="fa fa-3x fa-tablet" aria-hidden="true" data-toggle="tooltip" data-placement="bottom" title="{% trans "View as app" %}"></i></a>
+                                {% else %}
+                                <a href="#" class="disabled"><i class="fa fa-3x fa-tablet" aria-hidden="true" data-toggle="tooltip" data-placement="bottom" title="{% trans "View as app - not available" %}"></i></a>
+                                {% endif %}
+                            </li>
+                            <li class="dataset-service">
+                                {% if dataset.has_pdf %}
+                                <a href="{% url 'dataset_as_pdf' dataset.id %}"><i class="fa fa-3x fa-file-pdf-o" aria-hidden="true" data-toggle="tooltip" data-placement="bottom" title="{% trans "View as PDF" %}"></i></a>
+                                {% else %}
+                                <a href="#" class="disabled"><i class="fa fa-3x fa-file-pdf-o" aria-hidden="true" data-toggle="tooltip" data-placement="bottom" title="{% trans "View as PDF - not available" %}"></i></a>
+                                {% endif %}
+                            </li>
+                        </ul>
+
+                        <span class="clearfix"></span>
+
+                    </div>
+
+                </div>
+
+
                 <div class="row">
 
-                    <div >
+                    <div class="span6">
 
                         <div class="dataset-description">
                             <h5>
@@ -59,53 +125,36 @@
                         </div>
 
                     </div>
-                </div>
-                <br/>
-                <div class="row">
-                    {% include "browser/_dataset_api_box.html" with API_LINK=API_LINK %}
-                </div>
-                <div class="row">
-                    <div>
 
-                      <ul class="nav nav-tabs" role="tablist">
-                        <li role="presentation" class="active"><a href="#explorer" aria-controls="explorer" role="tab" data-toggle="tab">{% trans "Data Explorer" %}</a></li>
-                        <li role="presentation"><a href="#pivottable" aria-controls="pivottable" role="tab" data-toggle="tab">{% trans "PivotTable" %}</a></li>
-                        <li role="presentation"><a href="#discuss" aria-controls="discuss" role="tab" data-toggle="tab">{% trans "SPOD Discussion" %}</a></li>
-                      </ul>
 
-                      <div class="tab-content">
-                        <div role="tabpanel" class="tab-pane active" id="explorer">
-                            <iframe width="100%" height="800" src="{{url_table}}" frameBorder="0"></iframe>
+                    <div class="span6">
+
+                        <div>
+
+                            <h5>
+                                <i class="fa fa-comments-o" aria-hidden="true"></i> {% trans "Discussions at SPOD" %}
+                            </h5>
+
+                            {% if spod_box_datasets %}
+                                {% for dataset in spod_box_datasets %}
+                                    {% include "browser/_dataset_discussion.html" with dataset=dataset %}
+                                {% endfor %}
+                            {% else %}
+                            <p>
+                                {% trans "This dataset has not been discussed in SPOD, be the first to discuss the dataset!" %}
+                            </p>
+                            <br/><br/>
+                            <p>
+                                <a href="{{ SPOD_URL }}/public-room" class="pull-right" data-original-title="" title=""> {% trans "Start the discussion" %}</a>
+                            </p>
+                            {% endif %}
+
+                            <span class="clearfix"></span>
+
                         </div>
-                        <div role="tabpanel" class="tab-pane" id="pivottable">
-                            <iframe width="100%" height="800" src="{{url_pivottable}}" frameBorder="0"></iframe>
-                        </div>
-                        <div role="tabpanel" class="tab-pane" id="discuss">
-                            <div class="spod-discussions">
-
-                                <h5>
-                                    <i class="fa fa-comments-o" aria-hidden="true"></i>
-                                    {% trans "Discussions at SPOD" %}
-                                </h5>
-                                {% if spod_box_datasets %}
-                                    {% for dataset in spod_box_datasets %}
-                                        {% include "browser/_dataset_discussion.html" with dataset=dataset %}
-                                    {% endfor %}
-                                {% else %}
-                                <p>
-                                    {% trans "This dataset has not been discussed in SPOD, be the first to discuss the dataset!" %}
-                                </p>
-                                <br/><br/>
-                                <p>
-                                    <a href="{{ SPOD_URL }}" class="pull-right" data-original-title="" title=""> {% trans "Start the discussion" %}</a>
-                                </p>
-                                {% endif %}
-
-                            </div>
-                        </div>
-                      </div>
 
                     </div>
+
                 </div>
 
 
