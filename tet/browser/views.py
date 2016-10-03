@@ -572,6 +572,7 @@ def dataset_as_pdf(request, dataset_id):
                 if resource["format"].lower() == "pdf":
                     _text_analytics = text_analytics(dataset_id, resource["url"], dataset["notes"])
                     context = {
+                       "dataset" : dataset,
                        "url" : resource["url"],
                        'CKAN_URL': settings.CKAN_URL,
                        "text_analytics" : _text_analytics
