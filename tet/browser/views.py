@@ -482,6 +482,10 @@ def dataset_as_table(request, dataset_id):
         )
         if "resources" in dataset.keys():
             for resource in dataset["resources"]:
+
+                if resource["format"].lower()  == "pdf":
+                    dataset["has_pdf"] = True
+
                 if resource["format"].lower() in ["csv","xls"]:
                     views = ckan_api_instance.action.resource_view_list(id=resource["id"])
                     resource_id = resource["id"]
