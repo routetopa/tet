@@ -28,14 +28,15 @@
                     <h4 class="dataset-title"> {{ dataset.title }} </h4>
 
                 </div>
-                {% if resource_id %} 
+                {% if resource_id or dataset.has_pdf %} 
                 <div class="row">
 
                     <script type="text/javascript" src="https://cdn.jsdelivr.net/webcomponentsjs/0.7.16/webcomponents-lite.min.js"></script>
                     <!--<script type="text/javascript" src="https://code.jquery.com/jquery-2.1.4.min.js"></script>-->
                     <!-- REMOVE THE PREVIOUS SCRIPT TAGS IF YOUR PAGE ALREADY USES JQUERY AND POLYFILL LIBRARIES  -->
                     <link rel="import" href="http://deep.routetopa.eu/COMPONENTS/datalets/columnchart-datalet/columnchart-datalet.html" />
-
+                    <link rel="import" href="http://deep.routetopa.eu/COMPONENTS/datalets/datatable-datalet/datatable-datalet.html" /> 
+                    <link rel="import" href="http://deep.routetopa.eu/COMPONENTS/datalets/barchart-datalet/barchart-datalet.html" /> 
                     <div class="span12 -span10 -offset1">
                        
                         <div class="carousel carousel-fade slide" id="main-chart">
@@ -50,6 +51,20 @@
                                     {% endif %}
                                     </div><!-- /Slide1 -->
                                 {% endfor %}
+                                {% if dataset.has_pdf %}
+                                    <div class="item {% if not resource_id  %} active {% endif %}">
+                                        <barchart-datalet data-url="/en/api/text/{{dataset.id}}/concepts" description="" title="Concepts related to the document" x-axis-label="" y-axis-label="" suffix="" theme="" filters="[]" aggregators="[]" orders="[]" fields='["result,records,Name","result,records,Relevance"]'></barchart-datalet>
+                                    </div>
+                                    <div class="item">
+                                        <barchart-datalet data-url="/en/api/text/{{dataset.id}}/entities" description="" title="Entities related to the document" x-axis-label="" y-axis-label="" suffix="" theme="" filters="[]" aggregators="[]" orders="[]" fields='["result,records,Name","result,records,Relevance"]'></barchart-datalet>
+                                    </div>
+                                    <div class="item">
+                                        <barchart-datalet data-url="/en/api/text/{{dataset.id}}/keywords" description="" title="Keywords related to the document" x-axis-label="" y-axis-label="" suffix="" theme="" filters="[]" aggregators="[]" orders="[]" fields='["result,records,Name","result,records,Relevance"]'></barchart-datalet>
+                                    </div>
+                                    <div class="item">
+                                        <datatable-datalet data-url="/en/api/text/{{dataset.id}}/summary" description="" title="" filters="[]" aggregators="[]" orders="[]" fields='["result,records,Summary"]'></datatable-datalet>
+                                    </div>
+                                {% endif %}
 
                             </div>
 

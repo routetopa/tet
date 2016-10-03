@@ -41,7 +41,9 @@ $(function () {
             return $.get('/api/typeahead', { query: query }, function (data) {
                 return process(data.options);
             });
-    }});
+        },
+        item: '<li class="span5"><a href="#"></a></li>'
+    });
     
     // Results filters
     $('.expand-btn').click(function () {

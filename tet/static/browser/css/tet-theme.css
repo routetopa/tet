@@ -144,6 +144,16 @@ body, html {
     padding: 15px;
 }
 
+#homepage-search .typeahead {
+    padding: 15px 8px;
+    margin: 0px;
+}
+
+#homepage-search .typeahead li {
+    text-align: left;
+    margin-left: 0px;
+}
+
 #search-results .dataset-heading {
     font-size: 17px;
     margin: 1.46rem 0 0.496rem 0;

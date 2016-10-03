@@ -47,6 +47,14 @@ from collections import Counter
 from django.utils.translation import ugettext as _
 from django.utils.translation import activate
 from django.utils import translation
+from watson_developer_cloud import AlchemyLanguageV1
+from django.core.cache import cache
+import shelve
+import logging
+from threading import Lock
+
+mutex = Lock()
+logger = logging.getLogger(__name__)
 
 styles = getSampleStyleSheet()
 style_normal = styles['Normal']
@@ -179,6 +187,67 @@ def table_api(request, resource_id, field_id):
         return response
     except Exception:
         raise Exception
+        return JsonResponse({'success': False})
+
+def text_api(request, dataset_id, info_type):
+    try:
+        rich_text = cache_db(dataset_id)
+        if len(rich_text) == 0:
+            ckan_api_instance = ckanapi.RemoteCKAN(
+                settings.CKAN_URL,
+                user_agent='tetbrowser/1.0 (+http://tetbrowser.routetopa.eu)'
+            )
+            dataset = ckan_api_instance.action.package_show(
+                id=dataset_id
+            )
+            if "resources" in dataset.keys():
+                for resource in dataset["resources"]:
+                    if resource["format"].lower() == "pdf":
+                            rich_text = text_analytics(dataset_id, resource["url"], dataset["notes"])
+        record_count = 0
+        results = {
+          "success": True,
+          "result" : {
+            "resource_id": dataset_id,
+            "records" : [],
+            "fields" : [
+              {"id":"Name", "type" : "text"},
+              {"id":"Relevance", "type" : "numeric"}
+            ],
+            "total" : 0,
+            "limit":99999,
+          }
+        }
+
+        if info_type == "summary":
+            results["result"]["fields"][0] = "Summary"
+
+        for item in rich_text[info_type]:
+            if info_type == "summary":
+                name = item
+                record = {
+                      "Summary" : name,
+                      "Relevance" : 1
+                }
+            else:
+                name = item["text"]
+                if len(name) > 35:
+                    name = name[:35] + "..."
+                rel = float(item["relevance"])
+                record = {
+                      "Name" : name,
+                      "Relevance" : rel
+                }
+            results["result"]["records"].append(record)
+            record_count += 1
+
+        results["result"]["total"] = record_count
+        response =  JsonResponse(results)
+        response["Access-Control-Allow-Origin"] = "*"
+        
+        return response
+    except Exception as e:
+        raise e
         return JsonResponse({'success': False})
 
 # TODO url param parsing
@@ -413,6 +482,10 @@ def dataset_as_table(request, dataset_id):
         )
         if "resources" in dataset.keys():
             for resource in dataset["resources"]:
+
+                if resource["format"].lower()  == "pdf":
+                    dataset["has_pdf"] = True
+
                 if resource["format"].lower() in ["csv","xls"]:
                     views = ckan_api_instance.action.resource_view_list(id=resource["id"])
                     resource_id = resource["id"]
@@ -442,16 +515,54 @@ def dataset_as_table(request, dataset_id):
 
     return render(request, template_name, context)
 
-# TODO summary: keywords, charts, extracted media
-def dataset_as_pdf(request, dataset_id):
+def cache_db(key, value=None):
+    mutex.acquire()
+    file_name = "cache/" + key
+    db = shelve.open(file_name)
+    data = {}
+    if value == None:
+        if len(db) > 0:
+            data = db["data"]
+    else:
+        db["data"] = value 
+    db.close()
+    mutex.release()
+    return data
 
+def text_analytics(dataset_id, url, notes):
+    cache_response = cache_db(dataset_id)
+    if len(cache_response) > 0:
+        return cache_response
+    else:
+        data = None
+        try:
+            remote_file = urlopen(url).read()
+            memory_file = StringIO(remote_file)
+            pdf_to_read = PdfFileReader(memory_file)
+            raw_text = notes
+            for pageNum in xrange(pdf_to_read.getNumPages()):
+                try:
+                    raw_text += pdf_to_read.getPage(pageNum).extractText()
+                except Exception:
+                    continue
+            alchemy_language = AlchemyLanguageV1(api_key=settings.API_KEY)
+            data = alchemy_language.combined(raw_text, extract="concepts dates title keywords relations entities", max_items=10)
+            summary = set()
+            for relation in data["relations"]:
+                if  relation["sentence"] not in summary:
+                    summary.add(relation["sentence"])
+            data ["summary"] = summary
+            cache_db(dataset_id,data)
+        except Exception as e:
+            pass
+        return data
+
+def dataset_as_pdf(request, dataset_id):
     template_name = 'browser/pdf.html'
     ckan_api_instance = ckanapi.RemoteCKAN(
         settings.CKAN_URL,
         user_agent='tetbrowser/1.0 (+http://tetbrowser.routetopa.eu)'
     )
-
-    keywords = []
     try:
         dataset = ckan_api_instance.action.package_show(
             id=dataset_id
@@ -459,40 +570,12 @@ def dataset_as_pdf(request, dataset_id):
         if "resources" in dataset.keys():
             for resource in dataset["resources"]:
                 if resource["format"].lower() == "pdf":
+                    _text_analytics = text_analytics(dataset_id, resource["url"], dataset["notes"])
                     context = {
                        "url" : resource["url"],
-                       'CKAN_URL': settings.CKAN_URL + "/dataset/" + dataset_id + "?r=" + request.get_full_path()
+                       'CKAN_URL': settings.CKAN_URL,
+                       "text_analytics" : _text_analytics
                     }
-                    path = (os.path.dirname(os.path.realpath(__file__)))
-                    keywords = get_keywords_from_pdf(resource["url"],path+'/SmartStoplist.txt')
-    except Exception:
-        pass
-
-    # Create the HttpResponse object with the appropriate PDF headers.
-    response = HttpResponse(content_type='application/pdf')
-    response['Content-Disposition'] = 'attachment; filename="dataset_summary_by_tet.pdf"'
-
-    buffer = BytesIO()
-
-    doc = BaseDocTemplate(buffer, pagesize=letter)
-    frame = Frame(doc.leftMargin, doc.bottomMargin, doc.width, doc.height, id='normal')
-    template = PageTemplate(id='test', frames=frame)
-    doc.addPageTemplates([template])
-    text = []
-    text.append(Paragraph(dataset["title"], style_heading1))
-    text.append(Paragraph(dataset["notes"], style_normal))
-    text.append(Paragraph(" ", style_normal))
-    path = (os.path.dirname(os.path.realpath(__file__)))
-    keywords.extend(get_keywords(dataset["notes"],path+'/SmartStoplist.txt'))
-    text.append(Paragraph(" ", style_normal))
-    text.append(Paragraph("Keywords", style_heading1))
-    keyword_string = ""
-    for k in keywords:
-        keyword_string += k[0] + " (" + str(int(k[1])) + ") "
-    text.append(Paragraph(keyword_string, style_normal))
-    doc.build(text)
-    # Get the value of the BytesIO buffer and write it to the response.
-    pdf = buffer.getvalue()
-    buffer.close()
-    response.write(pdf)
-    return response
+                    return render(request, template_name, context)
+    except Exception as e:
+        raise e

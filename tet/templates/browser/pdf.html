@@ -32,6 +32,48 @@
                     <h4 class="dataset-title"> {% trans "PDF Preview" %} </h4>
 
                 </div>
+                {% if text_analytics %}
+                <div class="row">
+
+                    {%if text_analytics.summary %}
+                    <h5>Summary</h5>
+                        <ul>
+                         {% for relations in text_analytics.summary %}
+                            <li>{{relations}}</li>
+                         {% endfor %}
+                        </ul>
+                    {% endif %}
+
+                    {%if text_analytics.entities %}
+                    <h5>Entities</h5>
+                         {% for entitiy in text_analytics.entities %}
+                            <span class="label">{{entitiy.text}} ({{entitiy.type}})&nbsp;</span>
+                         {% endfor %}
+                    {% endif %}
+
+                    {%if text_analytics.concepts %}
+                    <h5>Concepts</h5>
+                         {% for concept in text_analytics.concepts %}
+                            <span class="label"><a href="{{concept.dbpedia}}">{{concept.text}} </a></span>
+                         {% endfor %}
+                    {% endif %}
+
+                    {%if text_analytics.keywords %}
+                    <h5>Keywords</h5>
+                         {% for keyword in text_analytics.keywords %}
+                            <span class="label">{{keyword.text}}</span>
+                         {% endfor %}
+                    {% endif %}
+
+                    {%if text_analytics.dates %}
+                    <h5>Dates</h5>
+                         {% for date in text_analytics.dates %}
+                            <span>{{date.text}}&nbsp;</span>
+                         {% endfor %}
+                    {% endif %}
+        
+                </div>
+                {% endif %}
                 <div class="row">
                   <embed src="{{url}}" width="100%" height="1000" type='application/pdf'>
                 </div>
