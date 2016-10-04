@@ -13,7 +13,7 @@ import ckanapi
 import re
 
 import os
-
+import pickle 
 try: 
   from urllib2 import urlopen
   from urllib2 import Request
@@ -517,15 +517,15 @@ def dataset_as_table(request, dataset_id):
 
 def cache_db(key, value=None):
     mutex.acquire()
-    file_name = "cache/" + key
-    db = shelve.open(file_name)
     data = {}
+    file_name = "cache/" + key + ".d"
     if value == None:
-        if len(db) > 0:
-            data = db["data"]
+        try:
+            data = pickle.load(open(file_name,"rb"))
+        except IOError:
+            pass
     else:
-        db["data"] = value 
-    db.close()
+       pickle.dump(value, open(file_name,"wb"))
     mutex.release()
     return data
 
