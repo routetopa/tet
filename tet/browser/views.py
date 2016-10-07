@@ -381,6 +381,19 @@ def search(request, query=False):
 
     return render(request, template_name, context)
 
+def compute_completeness(stats):
+    internal_attributes =["relationships_as_object","private","num_tags","id","metadata_created","metadata_modified","state",\
+    "creator_user_id","type","resources","num_resources","tags","groups","relationships_as_subject","organization","name","isopen",\
+    "url","notes","owner_org","extras","license_url","title","revision_id"]
+    metadata_fields = [key for key in stats["ds"] if key not in internal_attributes]
+    description_length = len(stats["ds"]["notes"])
+    stats["metadata"] = len(metadata_fields)/10.0 * 100 if len(metadata_fields) <= 10  else 100
+    stats["description"] = description_length/600.0 * 100 if description_length <= 600 else 100
+    if "fields" in stats:
+        stats["fields"] = stats["fields"]/5.0 * 100 if stats["fields"] <= 5  else 100
+    if "records" in stats:
+        stats["records"] = stats["records"]/100.0 * 100 if stats["records"] <= 100  else 100
+    return stats
 
 def dataset(request, dataset_id):
 
@@ -390,14 +403,21 @@ def dataset(request, dataset_id):
         settings.CKAN_URL,
         user_agent='tetbrowser/1.0 (+http://tetbrowser.routetopa.eu)'
     )
+
     resource_id = None 
     resource_fields = None
     related_datasets = None
     fields = None
+    compleness = {}
+    stats = {}
+
     try:
         dataset = ckan_api_instance.action.package_show(
             id=dataset_id
         )
+
+        stats["ds"] = dataset 
+        
         try:
             url = settings.CKAN_URL + "/api/3/util/tet/get_recommended_datasets?pkg=" + dataset_id
             res = urlopen(url)
@@ -419,6 +439,8 @@ def dataset(request, dataset_id):
                         data = json.loads(res.read())
                         resource_fields = []
                         filter_list = ["long", "lat", "no.", "phone", "date","id", "code"] 
+                        stats["fields"] = len(data["result"]["fields"])
+                        stats["records"] = data["result"]["total"]
                         for field in data["result"]["fields"]:
                             name = field["id"]
                             found = False 
@@ -440,13 +462,15 @@ def dataset(request, dataset_id):
                         resource_id = None
                         resource_fields = None 
                         # raise Exception
-    except Exception:
-        raise Exception
+        completness = compute_completeness(stats)
+    except Exception as e:
+        raise e
     if resource_id and len(resource_fields) < 1:
         resource_id = None
     context = {
         'dataset_id': dataset_id,
         'dataset': dataset,
+        'completness' : completness,
         'metadata_box': dataset_to_metadata_text(dataset),
         'spod_box_datasets': dataset_to_spod(dataset),
         'SPOD_URL': settings.SPOD_URL,
