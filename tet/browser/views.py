@@ -11,7 +11,8 @@ import RAKE.RAKE as rake
 import operator
 import ckanapi
 import re
-
+import datetime
+import dateutil
 import os
 import pickle 
 try: 
@@ -386,13 +387,20 @@ def compute_completeness(stats):
     "creator_user_id","type","resources","num_resources","tags","groups","relationships_as_subject","organization","name","isopen",\
     "url","notes","owner_org","extras","license_url","title","revision_id"]
     metadata_fields = [key for key in stats["ds"] if key not in internal_attributes]
+    metadata_string = ""
+    for f in metadata_fields:
+        if stats["ds"][f] != "Not supplied":
+            metadata_string += str(stats["ds"][f]) 
     description_length = len(stats["ds"]["notes"])
-    stats["metadata"] = len(metadata_fields)/10.0 * 100 if len(metadata_fields) <= 10  else 100
+    stats["metadata"] = len(metadata_string)/50.0 * 100 if len(metadata_string) <= 50  else 100
     stats["description"] = description_length/600.0 * 100 if description_length <= 600 else 100
     if "fields" in stats:
         stats["fields"] = stats["fields"]/5.0 * 100 if stats["fields"] <= 5  else 100
     if "records" in stats:
         stats["records"] = stats["records"]/100.0 * 100 if stats["records"] <= 100  else 100
+    stats["license"] = "license_url" in stats["ds"] and stats["ds"]["license_url"] != ""
+    stats["version"] = "version" in stats["ds"] and stats["ds"]["version"] != ""
+    stats["last_updated"] = (datetime.datetime.now() -  dateutil.parser.parse(stats["ds"]["metadata_modified"])).days
     return stats
 
 def dataset(request, dataset_id):
