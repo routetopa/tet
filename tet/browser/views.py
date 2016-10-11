@@ -442,13 +442,17 @@ def dataset(request, dataset_id):
                 if resource["format"].lower() in ["csv","xls"]:
                     try:
                         resource_id = resource["id"]
-                        url = settings.CKAN_URL + "/api/action/datastore_search?resource_id=" + resource_id + "&limit=5"
+                        url = settings.CKAN_URL + "/api/action/datastore_search?resource_id=" + resource_id + "&limit=99999"
                         res = urlopen(url)
                         data = json.loads(res.read())
                         resource_fields = []
                         filter_list = ["long", "lat", "no.", "phone", "date","id", "code"] 
                         stats["fields"] = len(data["result"]["fields"])
                         stats["records"] = data["result"]["total"]
+                        df = json_normalize(data["result"]["records"])
+                        nullvalues = float(sum([v for v in df.isnull().sum()]))
+                        allvalues = float(len(df.index)*len(df.columns))
+                        stats["content"] = ((allvalues-nullvalues)/allvalues) * 100
                         for field in data["result"]["fields"]:
                             name = field["id"]
                             found = False 
