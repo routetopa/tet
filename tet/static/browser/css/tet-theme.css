@@ -722,6 +722,10 @@ input.js-zeroclipboard-target {
 
 
 /* Bootstrap 3 addons */
+.panel-group {
+
+}
+
 .panel {
   padding: 15px;
   margin-bottom: 20px;
