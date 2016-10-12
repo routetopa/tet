@@ -632,6 +632,9 @@ base-ajax-json-alasql-datalet {
 .dataset-details .dataset-quality .progress {
     margin-bottom: 0px;
     text-align: center;
+    -webkit-box-shadow: 0px 0px 3px 1px rgba(0,0,0,0.4) !important;
+    -moz-box-shadow: 0px 0px 3px 1px rgba(0,0,0,0.4) !important;
+    box-shadow: 0px 0px 3px 1px rgba(0,0,0,0.4) !important;
 }
 
 .dataset-details .dataset-quality th.text-center {
