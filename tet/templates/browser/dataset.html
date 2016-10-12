@@ -1,5 +1,6 @@
 {% extends "base.html" %}
 {% load i18n %}
+{% load progress_class %}
 {% get_current_language as LANGUAGE_CODE %}
 {% block title %} {% trans "Dataset details" %} {% endblock title %}
 
@@ -134,25 +135,7 @@
                                 </div>
                             </div>
 
-                            <div class="">
 
-                                <div class="dataset-description">
-                                    <h5>
-                                        <i class="fa fa-file-text-o" aria-hidden="true"></i> {% trans "Quality" %}
-                                    </h5>
-                                    <p class="text-justify">
-                                       <ol>
-                                        <li>Metadata : {{ completness.metadata }}</li>
-                                        <li>Description : {{ completness.description }}</li>
-                                        <li>Fields : {{ completness.fields }}</li>
-                                        <li>Records: {{ completness.records }}</li> 
-                                        <li>License : {{ completness.license }}</li> 
-                                        <li>Version : {{ completness.version }}</li> 
-                                        <li>Last updated : {{ completness.last_updated }} days ago </li> 
-                                        </ol>
-                                    </p>
-                                </div>
-                            </div>
 
                             <div class="">
 
@@ -167,6 +150,193 @@
 
                                 </div>
 
+                            </div>
+
+
+
+                            <div class="">
+
+                                <div class="dataset-quality">
+                                    <h5>
+                                        <i class="fa fa-certificate" aria-hidden="true"></i> {% trans "Dataset Quality" %}
+                                    </h5>
+
+                                    <div class="top30 span5">
+                                        <table class="table table-hover">
+                                          <tr>
+                                            <th width="35%" class="">{% trans "Indicator" %}</th>
+                                            <th width="25%" class="text-center">{% trans "Value" %}</th>
+                                            <th>&nbsp;</th>
+                                          </tr>
+
+                                              <tr>
+                                                <td>
+                                                    {% trans "Metadata" %}
+                                                </td>
+                                                <td>
+                                                    <div class="text-center">
+                                                        {{ completness.metadata|floatformat:"0" }}%
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <div class="progress">
+                                                        <div class="progress-bar progress-bar-{% progress_class completness.metadata %}" role="progressbar" aria-valuenow="{{ completness.metadata }}" aria-valuemin="0" aria-valuemax="100" style="width: {{ completness.metadata }}%;">
+                                                            &nbsp;
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                              </tr>
+
+
+                                              <tr>
+                                                <td>
+                                                    {% trans "Description" %}
+                                                </td>
+                                                <td>
+                                                    <div class="text-center">
+                                                        {{ completness.description|floatformat:"0" }}%
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <div class="progress">
+                                                        <div class="progress-bar progress-bar-small- progress-bar-{% progress_class completness.description %}" role="progressbar" aria-valuenow="{{ completness.description }}" aria-valuemin="0" aria-valuemax="100" style="width: {{ completness.description }}%;">
+                                                            &nbsp;
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                              </tr>
+
+
+                                              <tr>
+                                                <td>
+                                                    {% trans "Fields" %}
+                                                </td>
+                                                <td>
+                                                    <div class="text-center">
+                                                        {{ completness.fields|floatformat:"0" }}%
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <div class="progress">
+                                                        <div class="progress-bar progress-bar-small- progress-bar-{% progress_class completness.fields %}" role="progressbar" aria-valuenow="{{ completness.fields }}" aria-valuemin="0" aria-valuemax="100" style="width: {{ completness.fields }}%;">
+                                                            &nbsp;
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                              </tr>
+
+
+                                              <tr>
+                                                <td>
+                                                    {% trans "Records" %}
+                                                </td>
+                                                <td>
+                                                    <div class="text-center">
+                                                        {{ completness.records|floatformat:"0" }}%
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <div class="progress">
+                                                        <div class="progress-bar progress-bar-small- progress-bar-{% progress_class completness.records %}" role="progressbar" aria-valuenow="{{ completness.records }}" aria-valuemin="0" aria-valuemax="100" style="width: {{ completness.records }}%;">
+                                                            &nbsp;
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                              </tr>
+
+
+                                              <tr>
+                                                <td>
+                                                    {% trans "Content" %}
+                                                </td>
+                                                <td>
+                                                    <div class="text-center">
+                                                        {{ completness.content|floatformat:"0" }}%
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <div class="progress">
+                                                        <div class="progress-bar progress-bar-small- progress-bar-{% progress_class completness.content %}" role="progressbar" aria-valuenow="{{ completness.content }}" aria-valuemin="0" aria-valuemax="100" style="width: {{ completness.content }}%;">
+                                                            &nbsp;
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                              </tr>
+
+
+                                              <tr>
+                                                <td>
+                                                    {% trans "License" %}
+                                                </td>
+                                                <td>
+                                                    <div class="text-center">
+                                                        {% if completness.license %}
+                                                            <i class="fa fa-check very-good" aria-hidden="true"></i>
+                                                        {% else %}
+                                                            <i class="fa fa-times very-poor" aria-hidden="true"></i>
+                                                        {% endif %}
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <div class="text-center">
+                                                        {% if completness.license %}
+                                                            {% trans dataset.license_title %}
+                                                        {% else %}
+                                                            {% trans "Not provided" %}
+                                                        {% endif %}
+                                                    </div>
+                                                </td>
+                                              </tr>
+
+
+                                              <tr>
+                                                <td>
+                                                        {% trans "Version" %}
+                                                </td>
+                                                <td>
+                                                    <div class="text-center">
+                                                        {% if completness.version %}
+                                                            <i class="fa fa-check very-good" aria-hidden="true"></i>
+                                                        {% else %}
+                                                            <i class="fa fa-times very-poor" aria-hidden="true"></i>
+                                                        {% endif %}
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <div class="text-center">
+                                                        {% if completness.version %}
+                                                            {% trans dataset.version %}
+                                                        {% else %}
+                                                            {% trans "Not provided" %}
+                                                        {% endif %}
+                                                    </div>
+                                                </td>
+                                              </tr>
+
+
+                                              <tr>
+                                                <td>
+                                                    {% trans "Last updated" %}
+                                                </td>
+                                                <td>
+                                                    <div class="text-center">
+                                                        {{ completness.last_updated }}
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <div class="text-center">
+                                                        {% trans "days ago" %}
+                                                    </div>
+                                                </td>
+                                              </tr>
+
+                                        </table>
+
+                                    </div>
+
+                                    <span class="clearfix"></span>
+
+                                </div>
                             </div>
 
 
@@ -308,10 +478,10 @@
                                     <i class="fa fa-link" aria-hidden="true"></i> {% trans "Related Datasets" %}
                                 </h5>
 
-                                <ul class="dataset-files unstyled">
+                                <ul class="dataset-files">
                                 {% for ds in related_datasets %}
                                     <li>
-                                        <a href="/{{LANGUAGE_CODE}}/dataset/{{ds.id}}" aria-hidden="true" data-toggle="tooltip" data-placement="bottom" title="{{ds.notes|truncatewords:16}}"> <i class="fa fa-link" aria-hidden="true"></i> {{ds.title}}</a>
+                                        <a href="/{{LANGUAGE_CODE}}/dataset/{{ds.id}}" aria-hidden="true" data-toggle="tooltip" data-placement="bottom" title="{{ds.notes|truncatewords:16}}"> {{ds.title}}</a>
                                         <!-- <div> {{ds.notes|truncatewords:8}} </div> -->
                                     </li>
                                 {% endfor %}

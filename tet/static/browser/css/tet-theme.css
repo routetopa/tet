@@ -16,6 +16,24 @@
 .default-primary       { color: #2196F3; }
 .light-primary         { color: #BBDEFB; }
 
+/*
+ * Dataset quality indicator
+ */
+
+.very-poor { color: #FF0000; }
+.poor { color: #FFAA00; }
+.fair { color: #FFFF33; }
+.good { color: #99FF00; }
+.very-good { color: #00FF00; }
+
+.progress-bar-very-poor { background: #FF0000 !important; color: #111 !important; }
+.progress-bar-poor { background: #FFAA00 !important; color: #111 !important; }
+.progress-bar-fair { background: #FFFF33 !important; color: #111 !important; }
+.progress-bar-good { background: #99FF00 !important; color: #111 !important; }
+.progress-bar-very-good { background: #00FF00 !important; color: #111 !important; }
+
+
+
 .top5 { margin-top:5px !important; }
 .top7 { margin-top:7px !important; }
 .top10 { margin-top:10px !important; }
@@ -602,6 +620,19 @@ base-ajax-json-alasql-datalet {
 
 .spod-discussion h5 small {
     color: #2196F3;
+}
+
+.dataset-details .dataset-quality .dataset-quality td {
+    text-align: center;
+}
+
+.dataset-details .dataset-quality .progress {
+    margin-bottom: 0px;
+    text-align: center;
+}
+
+.dataset-details .dataset-quality th.text-center {
+    text-align: center !important;
 }
 
 /* Table view */
