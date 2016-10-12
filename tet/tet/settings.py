@@ -73,8 +73,9 @@ TEMPLATES = [
 
             ],
             'libraries': {
-                'keyvalue' : 'browser.templatetags.keyvalue',               #to add new tags module,
-                'translate_url' : 'browser.templatetags.translate_url',     #to add new tags module,
+                'keyvalue' : 'browser.templatetags.keyvalue',                       #to add new tags module,
+                'translate_url' : 'browser.templatetags.translate_url',             #to add new tags module,
+                'progress_class' : 'browser.templatetags.progress_class',           #to add new tags module,
             },
         },
     },
@@ -160,4 +161,4 @@ SPOD_URL = "http://spod.routetopa.eu"
 
 LOCATIONS_LIST = ["Dublin", "Leinster", "Cork", "Munster", "Limerick", "Waterford", "Kilkenny", "Galway", "Prato", "Paris", "Daan Haag"]
 
-API_KEY = "xxxx-xxxx-xxxx-xxxx"
+API_KEY = "a0cbafad66f63a04a50c4bbdeeba78ae7ae9b424"
