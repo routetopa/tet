@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'oidc_provider',
 ]
 
 MIDDLEWARE_CLASSES = [
@@ -161,3 +162,5 @@ SPOD_URL = "http://spod.routetopa.eu"
 LOCATIONS_LIST = ["Dublin", "Leinster", "Cork", "Munster", "Limerick", "Waterford", "Kilkenny", "Galway", "Prato", "Paris", "Daan Haag"]
 
 API_KEY = "xxxx-xxxx-xxxx-xxxx"
+
+LOGIN_URL = '/accounts/login/'

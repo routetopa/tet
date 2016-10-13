@@ -1,5 +1,5 @@
 from django.conf.urls import url
-
+from django.conf.urls import include
 from . import views
 
 # urlpatterns = [
@@ -22,6 +22,7 @@ urlpatterns = [
     url(r'^api/table/(?P<resource_id>[a-zA-Z0-9-]+)/(?P<field_id>[\w|\W]+)$', views.table_api, name='table_api'),
     url(r'^api/text/(?P<dataset_id>[a-zA-Z0-9-]+)/(?P<info_type>[\w|\W]+)$', views.text_api, name='text_api'),
     url(r'^api/typeahead$', views.typeahead, name='typeahead'),
+    url(r'^openid/', include('oidc_provider.urls', namespace='oidc_provider')),
 
 ]
 
