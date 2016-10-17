@@ -101,24 +101,34 @@
 
                     <div class="span6">
 
-                        <div class="dataset-description">
-                            <h5>
-                                <i class="fa fa-file-text-o" aria-hidden="true"></i>
-                                {% trans "Description" %}
-                            </h5>
-                            <p class="text-justify">
-                                {{ dataset.notes }}
-                            </p>
+
+                        <div class="panel panel-dataset">
+
+                            <div class="panel-heading">
+                                <h5>
+                                    <i class="fa fa-file-text-o" aria-hidden="true"></i>
+                                    {% trans "Description" %}
+                                </h5>
+                            </div>
+
+                            <div class="panel-body dataset-description">
+                                <p class="text-justify">
+                                    {{ dataset.notes }}
+                                </p>
+                            </div>
 
                         </div>
 
-                        <div class="dataset-metadata">
+                        <div class="panel panel-dataset">
 
-                            <h5>
-                                <i class="fa fa-info-circle" aria-hidden="true"></i>
-                                {% trans "Metadata" %}
-                            </h5>
-                            <div>
+                            <div class="panel-heading dataset-metadata">
+                                <h5>
+                                    <i class="fa fa-info-circle" aria-hidden="true"></i>
+                                    {% trans "Metadata" %}
+                                </h5>
+                            </div>
+
+                            <div class="panel-body">
                                 {{ metadata_box|safe }}
                             </div>
 
@@ -129,25 +139,32 @@
 
                     <div class="span6">
 
-                        <div>
+                        <div class="panel panel-dataset">
 
-                            <h5>
-                                <i class="fa fa-comments-o" aria-hidden="true"></i> {% trans "Discussions at SPOD" %}
-                            </h5>
+                            <div class="panel-heading">
 
-                            {% if spod_box_datasets %}
-                                {% for dataset in spod_box_datasets %}
-                                    {% include "browser/_dataset_discussion.html" with dataset=dataset %}
-                                {% endfor %}
-                            {% else %}
-                            <p>
-                                {% trans "This dataset has not been discussed in SPOD, be the first to discuss the dataset!" %}
-                            </p>
-                            <br/><br/>
-                            <p>
-                                <a href="{{ SPOD_URL }}/public-room" class="pull-right" data-original-title="" title=""> {% trans "Start the discussion" %}</a>
-                            </p>
+                                <h5>
+                                    <i class="fa fa-comments-o" aria-hidden="true"></i> {% trans "Discussions at SPOD" %}
+                                </h5>
+                            </div>
+
+                            <div class="panel-body">
+
+                                {% if spod_box_datasets %}
+                                    {% for dataset in spod_box_datasets %}
+                                        {% include "browser/_dataset_discussion.html" with dataset=dataset %}
+                                    {% endfor %}
+                                {% else %}
+                                <p>
+                                    {% trans "This dataset has not been discussed in SPOD, be the first to discuss the dataset!" %}
+                                </p>
+                                <br/><br/>
+                                <p>
+                                    <a href="{{ SPOD_URL }}/public-room" class="pull-right" data-original-title="" title=""> {% trans "Start the discussion" %}</a>
+                                </p>
                             {% endif %}
+
+                            </div>
 
                             <span class="clearfix"></span>
 
