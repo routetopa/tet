@@ -46,9 +46,9 @@
                                     <div class="item{% if forloop.counter == 1 %} active{% endif %}">
 
                                     {% if resource.1 %}
-                                       <columnchart-datalet data-url='{{freq_resource_id}}/{{resource.0}}' title="{{resource.0}}" x-axis-label="Range of values in the field {{resource.0}}" y-axis-label="Frequency" filters='[]' aggregators='[]' orders='[]' fields='["result,records,Range","result,records,Frequency"]'></columnchart-datalet>
+                                       <columnchart-datalet1 data-url='{{freq_resource_id}}/{{resource.0}}' title="{{resource.0}}" x-axis-label="Range of values in the field {{resource.0}}" y-axis-label="Frequency" filters='[]' aggregators='[]' orders='[]' fields='["result,records,Range","result,records,Frequency"]'></columnchart-datalet>
                                     {% else %}
-                                        <columnchart-datalet data-url='{{freq_resource_id}}/{{resource.0}}' title="{{resource.0}}" x-axis-label="Values in {{resource.0}} field" y-axis-label="Number of occurrences" filters='[]' aggregators='[]' orders='[]' fields='["result,records,Value","result,records,Count"]'></columnchart-datalet>
+                                        <columnchart-datalet1 data-url='{{freq_resource_id}}/{{resource.0}}' title="{{resource.0}}" x-axis-label="Values in {{resource.0}} field" y-axis-label="Number of occurrences" filters='[]' aggregators='[]' orders='[]' fields='["result,records,Value","result,records,Count"]'></columnchart-datalet>
                                     {% endif %}
                                     </div><!-- /Slide1 -->
                                 {% endfor %}
@@ -91,6 +91,13 @@
                             <a href="{% url 'dataset_as_table' dataset.id %}"><i class="fa fa-3x fa-table" aria-hidden="true" data-toggle="tooltip" data-placement="bottom" title="{% trans "View as table" %}"></i></a>
                             {% else %}
                             <a href="#" class="disabled"><i class="fa fa-3x fa-table" aria-hidden="true" data-toggle="tooltip" data-placement="bottom" title="{% trans "View as table - not available" %}"></i></a>
+                            {% endif %}
+                        </li>
+                        <li class="dataset-service">
+                            {% if dataset.has_table %}
+                            <a href="{% url 'dataset_as_summary' dataset.id %}"><i class="fa fa-3x fa-lightbulb-o" aria-hidden="true" data-toggle="tooltip" data-placement="bottom" title="{% trans "View the summary" %}"></i></a>
+                            {% else %}
+                            <a href="#" class="disabled"><i class="fa fa-3x fa-lightbulb-o" aria-hidden="true" data-toggle="tooltip" data-placement="bottom" title="{% trans "View the summary" %}"></i></a>
                             {% endif %}
                         </li>
                         <li class="dataset-service">

@@ -53,6 +53,9 @@ from django.core.cache import cache
 import shelve
 import logging
 from threading import Lock
+from matplotlib.backends.backend_agg import FigureCanvasAgg as FigureCanvas
+from matplotlib.figure import Figure
+import matplotlib.pyplot as plt
 
 mutex = Lock()
 logger = logging.getLogger(__name__)
@@ -471,7 +474,6 @@ def dataset(request, dataset_id):
                         break
                     except Exception as e:
                         # print(str(e))
-                        resource_id = None
                         resource_fields = None 
                         # raise Exception
         completness = compute_completeness(stats)
@@ -493,9 +495,32 @@ def dataset(request, dataset_id):
     }
 
     if resource_id:
-        context['resource_id'] = settings.CKAN_URL + "/api/action/datastore_search?resource_id=" + resource_id + "&limit=9999",
+        context['resource_id'] = resource_id
         context['freq_resource_id'] = "/en/api/table/" + resource_id
     return render(request, template_name, context)
+
+def box_plot(request, resource_id):
+    try:
+        url = settings.CKAN_URL + "/api/action/datastore_search?resource_id=" + resource_id + "&limit=99999"
+        res = urlopen(url)
+        data = json.loads(res.read())
+        df = json_normalize(data["result"]["records"])
+        fields = data["result"]["fields"]
+        numeric_fields = [f["id"] for f in fields if f["type"] == "numeric"]
+        df[numeric_fields] = df[numeric_fields].apply(pd.to_numeric)
+        del df["_id"] 
+        color = dict(boxes='#2196F3', whiskers='#2196F3', medians='#007DBE', caps='#2196F3')
+        box = df.plot.box(color=color)
+        plt.subplots_adjust(bottom=0.25)
+        plt.xticks(rotation=90)
+        fig = box.get_figure()
+        fig.set_facecolor('white')
+        canvas = FigureCanvas(fig)
+        response = HttpResponse(content_type='image/png')
+        canvas.print_png(response)
+        return response
+    except Exception, e:
+        return JsonResponse({'message': str(e)})
 
 
 def dataset_as_app(request, dataset_id):
@@ -549,6 +574,43 @@ def dataset_as_table(request, dataset_id):
         'API_LINK' : settings.CKAN_URL + "/api/action/datastore_search?resource_id=" + resource_id + "&limit=99999" 
      }
 
+    return render(request, template_name, context)
+
+def dataset_as_summary(request, dataset_id):
+    template_name = 'browser/summary.html'
+    resource_id = None
+    fields_description = None   
+    ckan_api_instance = ckanapi.RemoteCKAN(
+        settings.CKAN_URL,
+        user_agent='tetbrowser/1.0 (+http://tetbrowser.routetopa.eu)'
+    )
+    try:
+        dataset = ckan_api_instance.action.package_show(
+            id=dataset_id
+        )
+        if "resources" in dataset.keys():
+            for resource in dataset["resources"]:
+                if resource["format"].lower() in ["csv","xls"]:
+                    resource_id = resource["id"]
+                    url = settings.CKAN_URL + "/api/action/datastore_search?resource_id=" + resource_id + "&limit=99999"
+                    res = urlopen(url)
+                    data = json.loads(res.read())
+                    df = json_normalize(data["result"]["records"])
+                    fields = data["result"]["fields"]
+                    numeric_fields = [f["id"] for f in fields if f["type"] == "numeric"]
+                    df[numeric_fields] = df[numeric_fields].apply(pd.to_numeric)
+                    del df["_id"]
+                    desc = df.describe()
+                    fields_description ={}
+                    for d in desc:
+                        fields_description[d]=dict(desc[d])
+                    break
+
+    except Exception as e:
+        raise e
+    context = { "resource_id" : resource_id,
+        "fields_description" : fields_description
+    }
     return render(request, template_name, context)
 
 def cache_db(key, value=None):
