@@ -9,3 +9,4 @@ pyPdf
 watson_developer_cloud
 nltk
 django-oidc-provider
+matplotlib
