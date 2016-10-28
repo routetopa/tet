@@ -56,13 +56,13 @@ from threading import Lock
 from matplotlib.backends.backend_agg import FigureCanvasAgg as FigureCanvas
 from matplotlib.figure import Figure
 import matplotlib.pyplot as plt
-
+from django.contrib import messages
 mutex = Lock()
 logger = logging.getLogger(__name__)
-
 styles = getSampleStyleSheet()
 style_normal = styles['Normal']
 style_heading1 = styles['Heading1']
+error_template = "browser/error.html"
 
 def get_keywords(raw_text, stopwords_file):
     punctuation_exclude = set(string.punctuation)
@@ -101,7 +101,7 @@ def index(request):
         organizations_count_json = json.loads(res_organizations.read().decode('utf-8'))
         organizations_count = int(organizations_count_json['organization_count'])
 
-    except Exception, e:
+    except Exception as e:
         datasets_count = 0
         organizations_count = 0
         pass
@@ -128,7 +128,7 @@ def typeahead(request):
         for cat in data["categories"]:
             results["options"].append("Interested in " + cat)
         return JsonResponse(results)
-    except Exception, e:
+    except Exception as e:
         return JsonResponse({'success': False})
 
 def table_api(request, resource_id, field_id):
@@ -153,6 +153,7 @@ def table_api(request, resource_id, field_id):
             "limit":99999,
           }
         }
+
         for f in fields:
             if f["id"] == field_id:
                 break
@@ -181,16 +182,18 @@ def table_api(request, resource_id, field_id):
                   "Count" : item[1]
               }
               results["result"]["records"].append(record)
-              record_count += 1                 
+              record_count += 1 
+            results["result"]["fields"] = [ {"id":"Name", "type" : "text"},
+              {"id":"Value", "type" : "text"},
+              {"id":"count", "type" : "numeric"}
+            ]               
 
         results["result"]["total"] = record_count
         response =  JsonResponse(results)
         response["Access-Control-Allow-Origin"] = "*"
-        
 
         return response
-    except Exception:
-        raise Exception
+    except Exception as e:
         return JsonResponse({'success': False})
 
 def text_api(request, dataset_id, info_type):
@@ -251,7 +254,6 @@ def text_api(request, dataset_id, info_type):
         
         return response
     except Exception as e:
-        raise e
         return JsonResponse({'success': False})
 
 # TODO url param parsing
@@ -433,8 +435,9 @@ def dataset(request, dataset_id):
             url = settings.CKAN_URL + "/api/3/util/tet/get_recommended_datasets?pkg=" + dataset_id
             res = urlopen(url)
             related_datasets = json.loads(res.read())["datasets"]
-        except Exception:
-            pass
+        except Exception as e:
+            messages.add_message(request, messages.ERROR, e)
+            return render(request, error_template)
         if "resources" in dataset.keys():
             for resource in dataset["resources"]:
                 if resource["format"].lower() in ["csv","xls"]:
@@ -473,12 +476,11 @@ def dataset(request, dataset_id):
                         fields = data["result"]["fields"]
                         break
                     except Exception as e:
-                        # print(str(e))
                         resource_fields = None 
-                        # raise Exception
         completness = compute_completeness(stats)
     except Exception as e:
-        raise e
+        messages.add_message(request, messages.ERROR, e)
+        return render(request, error_template)
     if resource_id and len(resource_fields) < 1:
         resource_id = None
     context = {
@@ -559,9 +561,9 @@ def dataset_as_table(request, dataset_id):
                             url_pivottable = settings.CKAN_URL + "/dataset/" + dataset_id + "/resource/" + resource["id"] + "/view/" + view["id"]
                             break
                     break
-    except Exception:
-        raise Exception
-
+    except Exception as e:
+        messages.add_message(request, messages.ERROR, e)
+        return render(request, error_template)
     context = {
         "url_table": url_table,
         'url_pivottable': url_pivottable,
@@ -607,7 +609,8 @@ def dataset_as_summary(request, dataset_id):
                     break
 
     except Exception as e:
-        raise e
+        messages.add_message(request, messages.ERROR, e)
+        return render(request, error_template)
     context = { "resource_id" : resource_id,
         "fields_description" : fields_description
     }
@@ -677,4 +680,5 @@ def dataset_as_pdf(request, dataset_id):
                     }
                     return render(request, template_name, context)
     except Exception as e:
-        raise e
+        messages.add_message(request, messages.ERROR, e)
+        return render(request, error_template)

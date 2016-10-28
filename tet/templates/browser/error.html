@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% block title %} Dataset details {% endblock title %}
+
+{% block content %}
+<div>
+    <h1>{%trans "Server Error"%}:</h1>
+    <div>
+        <strong>{%trans "Reasons"%}</strong>
+        {% if messages %}
+            <ul class="messages">
+                {% for message in messages %}
+                    <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+
+    </div>
+</div>
+{% endblock content %}
