@@ -31,13 +31,9 @@
                 </div>
                 {% if resource_id or dataset.has_pdf %} 
                 <div class="row">
-
-                    <script type="text/javascript" src="https://cdn.jsdelivr.net/webcomponentsjs/0.7.16/webcomponents-lite.min.js"></script>
-                    <!--<script type="text/javascript" src="https://code.jquery.com/jquery-2.1.4.min.js"></script>-->
-                    <!-- REMOVE THE PREVIOUS SCRIPT TAGS IF YOUR PAGE ALREADY USES JQUERY AND POLYFILL LIBRARIES  -->
-                    <link rel="import" href="http://deep.routetopa.eu/COMPONENTS/datalets/columnchart-datalet/columnchart-datalet.html" />
-                    <link rel="import" href="http://deep.routetopa.eu/COMPONENTS/datalets/datatable-datalet/datatable-datalet.html" /> 
-                    <link rel="import" href="http://deep.routetopa.eu/COMPONENTS/datalets/barchart-datalet/barchart-datalet.html" /> 
+                    <link rel="import" href="http://deep.routetopa.eu/deep_1_9_rev/COMPONENTS/datalets/columnchart-datalet/columnchart-datalet.html" />
+                    <link rel="import" href="http://deep.routetopa.eu/deep_1_9_rev/COMPONENTS/datalets/datatable-datalet/datatable-datalet.html" /> 
+                    <link rel="import" href="http://deep.routetopa.eu/deep_1_9_rev/COMPONENTS/datalets/barchart-datalet/barchart-datalet.html" /> 
                     <div class="span12 -span10 -offset1">
                        
                         <div class="carousel carousel-fade slide" id="main-chart">
@@ -46,24 +42,24 @@
                                     <div class="item{% if forloop.counter == 1 %} active{% endif %}">
 
                                     {% if resource.1 %}
-                                       <columnchart-datalet1 data-url='{{freq_resource_id}}/{{resource.0}}' title="{{resource.0}}" x-axis-label="Range of values in the field {{resource.0}}" y-axis-label="Frequency" filters='[]' aggregators='[]' orders='[]' fields='["result,records,Range","result,records,Frequency"]'></columnchart-datalet>
+                                      <columnchart-datalet data-url='{{freq_resource_id}}/{{resource.0}}' selectedfields='[{"field":"XAxis","value":"Range","index":3},{"field":"NumericYAxis","value":"Frequency","index":1},null,null]' filters='[]' aggregators='[]' orders='[]' x-axis-label='Range of values in the field {{resource.0}}' y-axis-label='Frequency' suffix='' legend='topRight' data-labels='true' stack='false' theme='themeBase' fields='["Frequency","Name","Range"]'></columnchart-datalet>
                                     {% else %}
-                                        <columnchart-datalet1 data-url='{{freq_resource_id}}/{{resource.0}}' title="{{resource.0}}" x-axis-label="Values in {{resource.0}} field" y-axis-label="Number of occurrences" filters='[]' aggregators='[]' orders='[]' fields='["result,records,Value","result,records,Count"]'></columnchart-datalet>
+                                        <columnchart-datalet data-url='{{freq_resource_id}}/{{resource.0}}' selectedfields='[{"field":"XAxis","value":"Value","index":3},{"field":"NumericYAxis","value":"Count","index":1},null,null]' filters='[]' aggregators='[]' orders='[]' x-axis-label='Values in {{resource.0}} field' y-axis-label='Number of occurrences' suffix='' legend='topRight' data-labels='true' stack='false' theme='themeBase' fields='["Count","Name","Value"]'></columnchart-datalet>
                                     {% endif %}
                                     </div><!-- /Slide1 -->
                                 {% endfor %}
                                 {% if dataset.has_pdf %}
                                     <div class="item {% if not resource_id  %} active {% endif %}">
-                                        <barchart-datalet data-url="/en/api/text/{{dataset.id}}/concepts" description="" title="Concepts related to the document" x-axis-label="" y-axis-label="" suffix="" theme="" filters="[]" aggregators="[]" orders="[]" fields='["result,records,Name","result,records,Relevance"]'></barchart-datalet>
+                                        <barchart-datalet data-url='/en/api/text/{{dataset.id}}/concepts' selectedfields='[{"field":"XAxis","value":"Name","index":1},{"field":"NumericYAxis","value":"Relevance","index":1},null]' title="Concepts related to the document" filters='[]' aggregators='[]' orders='[]' x-axis-label='' y-axis-label='' suffix='' legend='topRight' data-labels='true' stack='false' theme='themeBase' fields='["Name","Relevance"]'></barchart-datalet>
                                     </div>
                                     <div class="item">
-                                        <barchart-datalet data-url="/en/api/text/{{dataset.id}}/entities" description="" title="Entities related to the document" x-axis-label="" y-axis-label="" suffix="" theme="" filters="[]" aggregators="[]" orders="[]" fields='["result,records,Name","result,records,Relevance"]'></barchart-datalet>
+                                         <barchart-datalet data-url='/en/api/text/{{dataset.id}}/entities' selectedfields='[{"field":"XAxis","value":"Name","index":1},{"field":"NumericYAxis","value":"Relevance","index":1},null]' title="Entities related to the document" filters='[]' aggregators='[]' orders='[]' x-axis-label='' y-axis-label='' suffix='' legend='topRight' data-labels='true' stack='false' theme='themeBase' fields='["Name","Relevance"]'></barchart-datalet>
                                     </div>
                                     <div class="item">
-                                        <barchart-datalet data-url="/en/api/text/{{dataset.id}}/keywords" description="" title="Keywords related to the document" x-axis-label="" y-axis-label="" suffix="" theme="" filters="[]" aggregators="[]" orders="[]" fields='["result,records,Name","result,records,Relevance"]'></barchart-datalet>
+                                        <barchart-datalet data-url='/en/api/text/{{dataset.id}}/entities' selectedfields='[{"field":"XAxis","value":"Name","index":1},{"field":"NumericYAxis","value":"Relevance","index":1},null]' title="Keywords related to the document" filters='[]' aggregators='[]' orders='[]' x-axis-label='' y-axis-label='' suffix='' legend='topRight' data-labels='true' stack='false' theme='themeBase' fields='["Name","Relevance"]'></barchart-datalet>
                                     </div>
                                     <div class="item">
-                                        <datatable-datalet data-url="/en/api/text/{{dataset.id}}/summary" description="" title="" filters="[]" aggregators="[]" orders="[]" fields='["result,records,Summary"]'></datatable-datalet>
+                                        <datatable-datalet data-url='http://localhost:8000/en/api/text/7a59d712-7f48-48b8-b099-4b34f02cfff4/summary' selectedfields='[{"field":"Column","value":"Summary","index":1}]' filters='[]' aggregators='[]' orders='[]' fields='["Summary"]'></datatable-datalet>
                                     </div>
                                 {% endif %}
 
