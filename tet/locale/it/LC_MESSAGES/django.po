@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-08-25 14:26+0000\n"
-"PO-Revision-Date: 2016-08-25 15:54+0100\n"
+"POT-Creation-Date: 2016-10-25 17:19+0100\n"
+"PO-Revision-Date: 2016-11-03 13:38+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: it_IT\n"
@@ -18,45 +18,50 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 "X-Generator: Poedit 1.8.8\n"
 
+#: browser/views.py:264 browser/views.py:265
+msgid "i am"
+msgstr "Io sono"
+
+#: browser/views.py:266 browser/views.py:267
+msgid "interested in"
+msgstr "Interessato a"
+
 #: templates/browser/_dataset_api_box.html:6
 msgid "API Link"
 msgstr "API collegamento"
 
 #: templates/browser/_dataset_as_search_result.html:18
+#: templates/browser/tabular.html:75
 msgid "View as chart"
 msgstr "Vedi come grafico"
 
 #: templates/browser/_dataset_as_search_result.html:22
-#: templates/browser/dataset.html:127
+#: templates/browser/dataset.html:100 templates/browser/dataset.html:422
 msgid "View as table"
 msgstr "Visualizza come tabella"
 
 #: templates/browser/_dataset_as_search_result.html:24
-#: templates/browser/dataset.html:129
+#: templates/browser/dataset.html:102 templates/browser/dataset.html:424
 msgid "View as table - not available"
 msgstr "Visualizza come tabella - non disponibile"
 
 #: templates/browser/_dataset_as_search_result.html:29
-#: templates/browser/dataset.html:134
+#: templates/browser/dataset.html:107 templates/browser/dataset.html:429
+#: templates/browser/tabular.html:79
 msgid "View as app"
 msgstr "Vedi come app"
 
 #: templates/browser/_dataset_as_search_result.html:31
-#: templates/browser/dataset.html:136
+#: templates/browser/dataset.html:109 templates/browser/dataset.html:431
+#: templates/browser/tabular.html:81
 msgid "View as app - not available"
 msgstr "vedere come app - non disponibile"
-
-#: templates/browser/_dataset_as_search_result.html:36
-#: templates/browser/_dataset_as_search_result.html:38
-#: templates/browser/dataset.html:141 templates/browser/dataset.html:143
-msgid "View as PDF"
-msgstr "Vedi come PDF"
 
 #: templates/browser/_dataset_as_search_result.html:52
 msgid "View raw data"
 msgstr "visualizzare i dati grezzi"
 
-#: templates/browser/_dataset_discussion.html:26
+#: templates/browser/_dataset_discussion.html:28
 msgid "Join the discussion"
 msgstr "partecipare alla discussione"
 
@@ -68,9 +73,9 @@ msgid ""
 "information about provenance."
 msgstr ""
 "Transparency-Enhancing Toolset (TET) è il portale di Open Data di nuova "
-"generazione con un insieme  di  strumenti che facilitano una migliore "
-"comprensione dei dati, fornendo ottimi collegamenti  ed indirizzi  ai "
-"dataset  correlati, e  fornisce  informazioni sulla provenienza dei dati."
+"generazione con un insieme di strumenti che facilitano una migliore "
+"comprensione dei dati, fornendo ottimi collegamenti ed indirizzi ai dataset "
+"correlati, e fornisce informazioni sulla provenienza dei dati."
 
 #: templates/browser/_footer.html:16
 msgid ""
@@ -78,58 +83,67 @@ msgid ""
 "from the European Union’s Horizon 2020 research and innovation programme "
 "under grant agreement No 645860."
 msgstr ""
+"<a href=\"http://routetopa.eu\">Il progetto ROUTE-TO-PA</a> E' stato "
+"finanziato dal programma di ricerca e innovazione H2020 dell'Unione European "
+"- grant agreement No 645860."
 
 #: templates/browser/_footer.html:21
 msgid ""
 "Powered by <a class=\"hide-text ckan-footer-logo\" href=\"http://ckan.org"
 "\">CKAN</a>"
 msgstr ""
+"Powered by <a class=\"hide-text ckan-footer-logo\" href=\"http://ckan.org"
+"\">CKAN</a>"
 
 #: templates/browser/_footer.html:27
 msgid ""
 "TET interface developed by <a class=\"hide-text insight-footer-logo\" href="
-"\"http://insight-centre.org/\">CKAN</a>"
+"\"http://insight-centre.org/\">Insight Centre</a>"
 msgstr ""
 
 #: templates/browser/_header.html:10
 msgid "Login"
-msgstr "Accesso"
+msgstr "Accedi"
 
 #: templates/browser/_header.html:15
 msgid "Home"
-msgstr "Casa"
+msgstr "Pagina iniziale"
 
-#: templates/browser/_header.html:15
+#: templates/browser/_header.html:17
 msgid "About"
 msgstr "Informazioni"
 
-#: templates/browser/_header.html:15
+#: templates/browser/_header.html:18
 msgid "Help"
 msgstr "Aiuto"
 
-#: templates/browser/_header.html:15
+#: templates/browser/_header.html:20
 msgid "Classic CKAN"
 msgstr "CKAN classico"
 
-#: templates/browser/_language_selector.html:11
-msgid "EN"
-msgstr ""
+#: templates/browser/_language_selector.html:10
+msgid "Language"
+msgstr "Lingua"
 
-#: templates/browser/_language_selector.html:12
-msgid "IT"
-msgstr ""
+#: templates/browser/_language_selector.html:13 tet/settings.py:122
+msgid "English"
+msgstr "Inglese"
 
-#: templates/browser/_language_selector.html:13
-msgid "NL"
-msgstr ""
+#: templates/browser/_language_selector.html:14 tet/settings.py:123
+msgid "Italian"
+msgstr "Italiano"
 
-#: templates/browser/_language_selector.html:14
-msgid "FR"
-msgstr ""
+#: templates/browser/_language_selector.html:15 tet/settings.py:125
+msgid "Dutch"
+msgstr "Olandese"
+
+#: templates/browser/_language_selector.html:16 tet/settings.py:124
+msgid "French"
+msgstr "Francese"
 
 #: templates/browser/_search.html:3
 msgid "Search for datasets"
-msgstr "Ricerca di insiemi di dati"
+msgstr "Ricerca tra i dataset"
 
 #: templates/browser/_search.html:6
 msgid "Search"
@@ -137,7 +151,7 @@ msgstr "Ricerca"
 
 #: templates/browser/_search_filters.html:6
 msgid "Refine by"
-msgstr "Ricerca in base a"
+msgstr "Restringi ricerca"
 
 #: templates/browser/_search_filters.html:15
 msgid "Location"
@@ -148,7 +162,7 @@ msgstr "Luogo"
 #: templates/browser/_search_filters.html:102
 #: templates/browser/_search_filters.html:135
 msgid "Show More"
-msgstr "Mostra di più"
+msgstr "Maggiori dettagli"
 
 #: templates/browser/_search_filters.html:50
 msgid "Period"
@@ -166,27 +180,112 @@ msgstr "Formato"
 msgid "Dataset details"
 msgstr "Dettagli dataset"
 
-#: templates/browser/dataset.html:85 templates/browser/tabular.html:44
+#: templates/browser/dataset.html:97 templates/browser/tabular.html:73
+msgid "View as: "
+msgstr "Vedi come:"
+
+#: templates/browser/dataset.html:114 templates/browser/dataset.html:436
+#: templates/browser/dataset.html:438 templates/browser/tabular.html:86
+msgid "View as PDF"
+msgstr "Vedi come PDF"
+
+#: templates/browser/dataset.html:116 templates/browser/tabular.html:88
+#, fuzzy
+#| msgid "View as app - not available"
+msgid "View as PDF - not available"
+msgstr "vedere come app - non disponibile"
+
+#: templates/browser/dataset.html:139 templates/browser/dataset.html:206
+#: templates/browser/tabular.html:110
 msgid "Description"
 msgstr "Descrizione"
 
-#: templates/browser/dataset.html:96 templates/browser/tabular.html:56
+#: templates/browser/dataset.html:156 templates/browser/dataset.html:187
+#: templates/browser/tabular.html:127
 msgid "Metadata"
 msgstr "Metadati"
 
-#: templates/browser/dataset.html:106
-msgid "Files"
-msgstr "File"
+#: templates/browser/dataset.html:173
+msgid "Dataset Quality"
+msgstr "Qualità dataset"
 
-#: templates/browser/dataset.html:121
+#: templates/browser/dataset.html:180
+msgid "Indicator"
+msgstr "Indicatore"
+
+#: templates/browser/dataset.html:181
+msgid "Value"
+msgstr "Valore"
+
+#: templates/browser/dataset.html:225
+msgid "Fields"
+msgstr "Campi"
+
+#: templates/browser/dataset.html:244
+msgid "Records"
+msgstr "Records"
+
+#: templates/browser/dataset.html:263
+msgid "Content"
+msgstr "Contenuto"
+
+#: templates/browser/dataset.html:282
+msgid "License"
+msgstr "Licenza"
+
+#: templates/browser/dataset.html:298 templates/browser/dataset.html:323
+msgid "Not provided"
+msgstr "Non fornito"
+
+#: templates/browser/dataset.html:307
+msgid "Version"
+msgstr "Versione"
+
+#: templates/browser/dataset.html:332
+msgid "Last updated"
+msgstr "Ultimo aggiornamento"
+
+#: templates/browser/dataset.html:341
+msgid "days ago"
+msgstr "giorni fa"
+
+#: templates/browser/dataset.html:359
+msgid "Tags"
+msgstr "Tags"
+
+#: templates/browser/dataset.html:381
+msgid "Table Structure"
+msgstr "Struttura Tabella"
+
+#: templates/browser/dataset.html:388
+msgid "Field name"
+msgstr "Nome Campo"
+
+#: templates/browser/dataset.html:389
+msgid "Type"
+msgstr "Tipo"
+
+#: templates/browser/dataset.html:415
 msgid "Available views"
 msgstr "Viste disponibili"
 
-#: templates/browser/dataset.html:155 templates/browser/tabular.html:91
-msgid "Discussions at SPOD"
-msgstr "Discussione a SPOD"
+#: templates/browser/dataset.html:456
+msgid "Share this page"
+msgstr "Condividi questa pagina"
 
-#: templates/browser/dataset.html:164 templates/browser/tabular.html:99
+#: templates/browser/dataset.html:463
+msgid ""
+"Use the icons below in order to share this page in your favourite Social "
+"Media."
+msgstr ""
+"Usa l'icona sotto per condividere questa pagina sul tuo Social Network "
+"favorito."
+
+#: templates/browser/dataset.html:478 templates/browser/tabular.html:147
+msgid "Discussions at SPOD"
+msgstr "Discussioni su SPOD"
+
+#: templates/browser/dataset.html:491 templates/browser/tabular.html:159
 msgid ""
 "This dataset has not been discussed in SPOD, be the first to discuss the "
 "dataset!"
@@ -194,17 +293,25 @@ msgstr ""
 "Questo set di dati non è stato discusso in SPOD, essere il primo a discutere "
 "l'insieme di dati!"
 
-#: templates/browser/dataset.html:168 templates/browser/tabular.html:103
+#: templates/browser/dataset.html:495 templates/browser/tabular.html:163
 msgid "Start the discussion"
-msgstr "Avviare la discussione"
+msgstr "Inizia la discussione"
+
+#: templates/browser/dataset.html:512
+msgid "Related Datasets"
+msgstr "Dataset collegati"
+
+#: templates/browser/dataset.html:539
+msgid "Files"
+msgstr "File"
 
 #: templates/browser/index.html:25
 msgid "Popular search phrases"
-msgstr "Popolari frasi di ricerca"
+msgstr "Frasi di ricerca più comuni"
 
 #: templates/browser/index.html:38
 msgid "TET search engine results are based on resources available at"
-msgstr "Di ricerca TET si basano su risorse disponibili a"
+msgstr "Le ricerce mediante TET si basano sulle risorse disponibili in"
 
 #: templates/browser/index.html:39
 msgid "Currently there are"
@@ -226,9 +333,33 @@ msgstr "organizzazione"
 msgid "organizations"
 msgstr "organizzazioni"
 
-#: templates/browser/pdf.html:32
+#: templates/browser/pdf.html:28
 msgid "PDF Preview"
-msgstr "PDF anteprima"
+msgstr "Anteprima PDF"
+
+#: templates/browser/pdf.html:39
+msgid "Summary"
+msgstr "Sommario"
+
+#: templates/browser/pdf.html:47
+msgid "Not available"
+msgstr "Non disponibile"
+
+#: templates/browser/pdf.html:57
+msgid "Entities"
+msgstr "Entità"
+
+#: templates/browser/pdf.html:66
+msgid "Concepts"
+msgstr "Concetti"
+
+#: templates/browser/pdf.html:75
+msgid "Keywords"
+msgstr "Parole chiave"
+
+#: templates/browser/pdf.html:84
+msgid "Dates"
+msgstr "Date"
 
 #: templates/browser/search.html:47
 msgid "Relevance"
@@ -248,36 +379,20 @@ msgstr "Nessun risultato trovato"
 
 #: templates/browser/search.html:71
 msgid "Please try another search."
-msgstr "Si prega di provare un'altra richiesta"
+msgstr "Si prega di provare con altri criteri"
 
-#: templates/browser/tabular.html:33
+#: templates/browser/tabular.html:29
 msgid "Tabular View"
 msgstr "Vista tabellare"
 
-#: templates/browser/tabular.html:74
+#: templates/browser/tabular.html:39
 msgid "Data Explorer"
 msgstr "Data Explorer"
 
-#: templates/browser/tabular.html:75
+#: templates/browser/tabular.html:40
 msgid "PivotTable"
 msgstr "Tabella pivot"
 
-#: templates/browser/tabular.html:76
+#: templates/browser/tabular.html:41
 msgid "SPOD Discussion"
 msgstr "SPOD Discussione"
-
-#: tet/settings.py:119
-msgid "English"
-msgstr "Inglese"
-
-#: tet/settings.py:120
-msgid "Italian"
-msgstr "Italiano"
-
-#: tet/settings.py:121
-msgid "French"
-msgstr "Francese"
-
-#: tet/settings.py:122
-msgid "Dutch"
-msgstr "Olandese"
