@@ -28,3 +28,5 @@ Getting Started
 1. Activate the virtualenv: ``source venv/bin/activate``
 2. Run the server: ``python manage.py runserver``
 3. Open website in browser at ``http://localhost:8000``
+
+Dvelopment of project is supported by European Commision through the [ROUTE-TO-PA project](http://routetopa.eu/)
