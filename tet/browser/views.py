@@ -140,6 +140,7 @@ def table_api(request, resource_id, field_id):
         fields = data["result"]["fields"] # type_unified TODO
         record_count = 0
         results = {
+          "help": "http://google.com",
           "success": True,
           "result" : {
             "resource_id": resource_id,
@@ -495,7 +496,6 @@ def dataset(request, dataset_id):
         'CKAN_URL': settings.CKAN_URL + "/dataset/" + dataset_id + "?r=" + request.get_full_path(),
         'fields' : resource_fields_to_text(fields)
     }
-
     if resource_id:
         context['resource_id'] = resource_id
         context['freq_resource_id'] = "/en/api/table/" + resource_id
@@ -515,7 +515,34 @@ def box_plot(request, resource_id):
         box = df.plot.box(color=color)
         plt.subplots_adjust(bottom=0.25)
         plt.xticks(rotation=90)
+        plt.tight_layout()
         fig = box.get_figure()
+        fig.set_facecolor('white')
+        canvas = FigureCanvas(fig)
+        response = HttpResponse(content_type='image/png')
+        canvas.print_png(response)
+        return response
+    except Exception, e:
+        return JsonResponse({'message': str(e)})
+
+def corr_mat(request, resource_id):
+    try:
+        url = settings.CKAN_URL + "/api/action/datastore_search?resource_id=" + resource_id + "&limit=99999"
+        res = urlopen(url)
+        data = json.loads(res.read())
+        df = json_normalize(data["result"]["records"])
+        fields = data["result"]["fields"]
+        numeric_fields = [f["id"] for f in fields if f["type"] == "numeric"]
+        df[numeric_fields] = df[numeric_fields].apply(pd.to_numeric)
+        del df["_id"] 
+        corr = df.corr()
+        fig, ax = plt.subplots()
+        cax = ax.matshow(corr)
+        fig.colorbar(cax)
+        plt.xticks(range(len(corr.columns)), corr.columns);
+        plt.yticks(range(len(corr.columns)), corr.columns);
+        plt.xticks(rotation=90)
+        plt.tight_layout()
         fig.set_facecolor('white')
         canvas = FigureCanvas(fig)
         response = HttpResponse(content_type='image/png')
