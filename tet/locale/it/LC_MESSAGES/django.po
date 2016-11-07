@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2016-11-07 09:18+0000\n"
-"PO-Revision-Date: 2016-11-07 09:26+0000\n"
+"PO-Revision-Date: 2016-11-07 16:10+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: it_IT\n"
@@ -28,12 +28,12 @@ msgstr "Interessato a"
 
 #: templates/browser/_dataset_api_box.html:6
 msgid "API Link"
-msgstr "API collegamento"
+msgstr "collegamento API"
 
 #: templates/browser/_dataset_as_search_result.html:18
 #: templates/browser/tabular.html:75
 msgid "View as chart"
-msgstr "Vedi come grafico"
+msgstr "Visualizza come grafico"
 
 #: templates/browser/_dataset_as_search_result.html:22
 #: templates/browser/dataset.html:87 templates/browser/dataset.html:416
@@ -49,21 +49,21 @@ msgstr "Visualizza come tabella - non disponibile"
 #: templates/browser/dataset.html:101 templates/browser/dataset.html:423
 #: templates/browser/tabular.html:79
 msgid "View as app"
-msgstr "Vedi come app"
+msgstr "Visualizza come app"
 
 #: templates/browser/_dataset_as_search_result.html:31
 #: templates/browser/dataset.html:103 templates/browser/dataset.html:425
 #: templates/browser/tabular.html:81
 msgid "View as app - not available"
-msgstr "vedere come app - non disponibile"
+msgstr "Visualizza come app - non disponibile"
 
 #: templates/browser/_dataset_as_search_result.html:52
 msgid "View raw data"
-msgstr "visualizzare i dati grezzi"
+msgstr "Visualizzare i dati grezzi"
 
 #: templates/browser/_dataset_discussion.html:28
 msgid "Join the discussion"
-msgstr "partecipare alla discussione"
+msgstr "Visualizza la discussione"
 
 #: templates/browser/_footer.html:15
 msgid ""
@@ -100,6 +100,8 @@ msgid ""
 "TET interface developed by <a class=\"hide-text insight-footer-logo\" href="
 "\"http://insight-centre.org/\">Insight Centre</a>"
 msgstr ""
+"Interfaccia TET sviluppata da <a class=“hide-text insight-footer-logo” "
+"href=“http://insight-centre.org/“>Insight Centre</a>"
 
 #: templates/browser/_header.html:10
 msgid "Login"
@@ -182,52 +184,52 @@ msgstr "Dettagli dataset"
 
 #: templates/browser/dataset.html:45
 msgid "Range of values in the field"
-msgstr ""
+msgstr "Intervallo di valori nel campo"
 
 #: templates/browser/dataset.html:45
 msgid "Frequency"
-msgstr ""
+msgstr "Frequenza"
 
 #: templates/browser/dataset.html:47
 msgid "Values in"
-msgstr ""
+msgstr "Valori in"
 
 #: templates/browser/dataset.html:47
 msgid "field"
-msgstr ""
+msgstr "campo"
 
 #: templates/browser/dataset.html:47
 msgid "Number of occurrences"
-msgstr ""
+msgstr "Numero di occorrenze"
 
 #: templates/browser/dataset.html:53
 msgid "Concepts related to the document"
-msgstr ""
+msgstr "Cocetti relativi al documento"
 
 #: templates/browser/dataset.html:56
 msgid "Entities related to the document"
-msgstr ""
+msgstr "Entita' relative al documento"
 
 #: templates/browser/dataset.html:59
 msgid "Keywords related to the document"
-msgstr ""
+msgstr "Parole chiave relative al documento"
 
 #: templates/browser/dataset.html:84 templates/browser/tabular.html:73
 msgid "View as: "
-msgstr "Vedi come:"
+msgstr "Visualizza come:"
 
 #: templates/browser/dataset.html:94 templates/browser/dataset.html:96
 msgid "View the summary"
-msgstr ""
+msgstr "Visualizza il sommario"
 
 #: templates/browser/dataset.html:108 templates/browser/dataset.html:430
 #: templates/browser/dataset.html:432 templates/browser/tabular.html:86
 msgid "View as PDF"
-msgstr "Vedi come PDF"
+msgstr "Visualizza come PDF"
 
 #: templates/browser/dataset.html:110 templates/browser/tabular.html:88
 msgid "View as PDF - not available"
-msgstr ""
+msgstr "Visualizza come PDF - non disponibile"
 
 #: templates/browser/dataset.html:133 templates/browser/dataset.html:200
 #: templates/browser/tabular.html:110
@@ -301,7 +303,7 @@ msgstr "Tipo"
 
 #: templates/browser/dataset.html:409
 msgid "Available views"
-msgstr "Viste disponibili"
+msgstr "Visualizzazioni disponibili"
 
 #: templates/browser/dataset.html:450 templates/browser/summary.html:126
 msgid "Share this page"
@@ -324,8 +326,8 @@ msgid ""
 "This dataset has not been discussed in SPOD, be the first to discuss the "
 "dataset!"
 msgstr ""
-"Questo set di dati non è stato discusso in SPOD, essere il primo a discutere "
-"l'insieme di dati!"
+"Questo set di dati non è stato ancora discusso in SPOD, inizia tu una "
+"discussione."
 
 #: templates/browser/dataset.html:489 templates/browser/tabular.html:163
 msgid "Start the discussion"
@@ -341,11 +343,11 @@ msgstr "File"
 
 #: templates/browser/error.html:8
 msgid "Server Error"
-msgstr ""
+msgstr "Errore del server"
 
 #: templates/browser/error.html:10
 msgid "Reasons"
-msgstr ""
+msgstr "Motivi"
 
 #: templates/browser/index.html:25
 msgid "Popular search phrases"
@@ -426,35 +428,35 @@ msgstr "Si prega di provare con altri criteri"
 
 #: templates/browser/summary.html:47
 msgid "The average value in field"
-msgstr ""
+msgstr "Valore medio nel campo"
 
 #: templates/browser/summary.html:47
 msgid "is"
-msgstr ""
+msgstr "è"
 
 #: templates/browser/summary.html:47
 msgid "The maximum value in the field is"
-msgstr ""
+msgstr "Il valore massimo nel campo è"
 
 #: templates/browser/summary.html:47
 msgid "and the minmum value in the field is"
-msgstr ""
+msgstr "e il valore minimo nel campo è"
 
 #: templates/browser/summary.html:58
 msgid "Details"
-msgstr ""
+msgstr "Dettagli"
 
 #: templates/browser/summary.html:89
 msgid "Box Plot"
-msgstr ""
+msgstr "Box Plot"
 
 #: templates/browser/summary.html:99
 msgid "How can I understand this?"
-msgstr ""
+msgstr "Come posso comprendere questo?"
 
 #: templates/browser/summary.html:109
 msgid "Correlation Matrix"
-msgstr ""
+msgstr "Matrice di correlazione"
 
 #: templates/browser/tabular.html:29
 msgid "Tabular View"
@@ -470,4 +472,4 @@ msgstr "Tabella pivot"
 
 #: templates/browser/tabular.html:41
 msgid "SPOD Discussion"
-msgstr "SPOD Discussione"
+msgstr "Discussione SPOD "
