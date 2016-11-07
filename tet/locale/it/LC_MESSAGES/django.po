@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-10-25 17:19+0100\n"
-"PO-Revision-Date: 2016-11-03 13:38+0000\n"
+"POT-Creation-Date: 2016-11-07 09:18+0000\n"
+"PO-Revision-Date: 2016-11-07 09:26+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: it_IT\n"
@@ -18,11 +18,11 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 "X-Generator: Poedit 1.8.8\n"
 
-#: browser/views.py:264 browser/views.py:265
+#: browser/views.py:269 browser/views.py:270
 msgid "i am"
 msgstr "Io sono"
 
-#: browser/views.py:266 browser/views.py:267
+#: browser/views.py:271 browser/views.py:272
 msgid "interested in"
 msgstr "Interessato a"
 
@@ -36,23 +36,23 @@ msgid "View as chart"
 msgstr "Vedi come grafico"
 
 #: templates/browser/_dataset_as_search_result.html:22
-#: templates/browser/dataset.html:100 templates/browser/dataset.html:422
+#: templates/browser/dataset.html:87 templates/browser/dataset.html:416
 msgid "View as table"
 msgstr "Visualizza come tabella"
 
 #: templates/browser/_dataset_as_search_result.html:24
-#: templates/browser/dataset.html:102 templates/browser/dataset.html:424
+#: templates/browser/dataset.html:89 templates/browser/dataset.html:418
 msgid "View as table - not available"
 msgstr "Visualizza come tabella - non disponibile"
 
 #: templates/browser/_dataset_as_search_result.html:29
-#: templates/browser/dataset.html:107 templates/browser/dataset.html:429
+#: templates/browser/dataset.html:101 templates/browser/dataset.html:423
 #: templates/browser/tabular.html:79
 msgid "View as app"
 msgstr "Vedi come app"
 
 #: templates/browser/_dataset_as_search_result.html:31
-#: templates/browser/dataset.html:109 templates/browser/dataset.html:431
+#: templates/browser/dataset.html:103 templates/browser/dataset.html:425
 #: templates/browser/tabular.html:81
 msgid "View as app - not available"
 msgstr "vedere come app - non disponibile"
@@ -180,100 +180,134 @@ msgstr "Formato"
 msgid "Dataset details"
 msgstr "Dettagli dataset"
 
-#: templates/browser/dataset.html:97 templates/browser/tabular.html:73
+#: templates/browser/dataset.html:45
+msgid "Range of values in the field"
+msgstr ""
+
+#: templates/browser/dataset.html:45
+msgid "Frequency"
+msgstr ""
+
+#: templates/browser/dataset.html:47
+msgid "Values in"
+msgstr ""
+
+#: templates/browser/dataset.html:47
+msgid "field"
+msgstr ""
+
+#: templates/browser/dataset.html:47
+msgid "Number of occurrences"
+msgstr ""
+
+#: templates/browser/dataset.html:53
+msgid "Concepts related to the document"
+msgstr ""
+
+#: templates/browser/dataset.html:56
+msgid "Entities related to the document"
+msgstr ""
+
+#: templates/browser/dataset.html:59
+msgid "Keywords related to the document"
+msgstr ""
+
+#: templates/browser/dataset.html:84 templates/browser/tabular.html:73
 msgid "View as: "
 msgstr "Vedi come:"
 
-#: templates/browser/dataset.html:114 templates/browser/dataset.html:436
-#: templates/browser/dataset.html:438 templates/browser/tabular.html:86
+#: templates/browser/dataset.html:94 templates/browser/dataset.html:96
+msgid "View the summary"
+msgstr ""
+
+#: templates/browser/dataset.html:108 templates/browser/dataset.html:430
+#: templates/browser/dataset.html:432 templates/browser/tabular.html:86
 msgid "View as PDF"
 msgstr "Vedi come PDF"
 
-#: templates/browser/dataset.html:116 templates/browser/tabular.html:88
-#, fuzzy
-#| msgid "View as app - not available"
+#: templates/browser/dataset.html:110 templates/browser/tabular.html:88
 msgid "View as PDF - not available"
-msgstr "vedere come app - non disponibile"
+msgstr ""
 
-#: templates/browser/dataset.html:139 templates/browser/dataset.html:206
+#: templates/browser/dataset.html:133 templates/browser/dataset.html:200
 #: templates/browser/tabular.html:110
 msgid "Description"
 msgstr "Descrizione"
 
-#: templates/browser/dataset.html:156 templates/browser/dataset.html:187
+#: templates/browser/dataset.html:150 templates/browser/dataset.html:181
 #: templates/browser/tabular.html:127
 msgid "Metadata"
 msgstr "Metadati"
 
-#: templates/browser/dataset.html:173
+#: templates/browser/dataset.html:167
 msgid "Dataset Quality"
 msgstr "Qualità dataset"
 
-#: templates/browser/dataset.html:180
+#: templates/browser/dataset.html:174
 msgid "Indicator"
 msgstr "Indicatore"
 
-#: templates/browser/dataset.html:181
+#: templates/browser/dataset.html:175
 msgid "Value"
 msgstr "Valore"
 
-#: templates/browser/dataset.html:225
+#: templates/browser/dataset.html:219
 msgid "Fields"
 msgstr "Campi"
 
-#: templates/browser/dataset.html:244
+#: templates/browser/dataset.html:238
 msgid "Records"
 msgstr "Records"
 
-#: templates/browser/dataset.html:263
+#: templates/browser/dataset.html:257
 msgid "Content"
 msgstr "Contenuto"
 
-#: templates/browser/dataset.html:282
+#: templates/browser/dataset.html:276
 msgid "License"
 msgstr "Licenza"
 
-#: templates/browser/dataset.html:298 templates/browser/dataset.html:323
+#: templates/browser/dataset.html:292 templates/browser/dataset.html:317
 msgid "Not provided"
 msgstr "Non fornito"
 
-#: templates/browser/dataset.html:307
+#: templates/browser/dataset.html:301
 msgid "Version"
 msgstr "Versione"
 
-#: templates/browser/dataset.html:332
+#: templates/browser/dataset.html:326
 msgid "Last updated"
 msgstr "Ultimo aggiornamento"
 
-#: templates/browser/dataset.html:341
+#: templates/browser/dataset.html:335
 msgid "days ago"
 msgstr "giorni fa"
 
-#: templates/browser/dataset.html:359
+#: templates/browser/dataset.html:353
 msgid "Tags"
 msgstr "Tags"
 
-#: templates/browser/dataset.html:381
+#: templates/browser/dataset.html:375
 msgid "Table Structure"
 msgstr "Struttura Tabella"
 
-#: templates/browser/dataset.html:388
+#: templates/browser/dataset.html:382 templates/browser/summary.html:64
 msgid "Field name"
 msgstr "Nome Campo"
 
-#: templates/browser/dataset.html:389
+#: templates/browser/dataset.html:383
 msgid "Type"
 msgstr "Tipo"
 
-#: templates/browser/dataset.html:415
+#: templates/browser/dataset.html:409
 msgid "Available views"
 msgstr "Viste disponibili"
 
-#: templates/browser/dataset.html:456
+#: templates/browser/dataset.html:450 templates/browser/summary.html:126
 msgid "Share this page"
 msgstr "Condividi questa pagina"
 
-#: templates/browser/dataset.html:463
+#: templates/browser/dataset.html:457 templates/browser/summary.html:133
 msgid ""
 "Use the icons below in order to share this page in your favourite Social "
 "Media."
@@ -281,11 +315,11 @@ msgstr ""
 "Usa l'icona sotto per condividere questa pagina sul tuo Social Network "
 "favorito."
 
-#: templates/browser/dataset.html:478 templates/browser/tabular.html:147
+#: templates/browser/dataset.html:472 templates/browser/tabular.html:147
 msgid "Discussions at SPOD"
 msgstr "Discussioni su SPOD"
 
-#: templates/browser/dataset.html:491 templates/browser/tabular.html:159
+#: templates/browser/dataset.html:485 templates/browser/tabular.html:159
 msgid ""
 "This dataset has not been discussed in SPOD, be the first to discuss the "
 "dataset!"
@@ -293,17 +327,25 @@ msgstr ""
 "Questo set di dati non è stato discusso in SPOD, essere il primo a discutere "
 "l'insieme di dati!"
 
-#: templates/browser/dataset.html:495 templates/browser/tabular.html:163
+#: templates/browser/dataset.html:489 templates/browser/tabular.html:163
 msgid "Start the discussion"
 msgstr "Inizia la discussione"
 
-#: templates/browser/dataset.html:512
+#: templates/browser/dataset.html:506
 msgid "Related Datasets"
 msgstr "Dataset collegati"
 
-#: templates/browser/dataset.html:539
+#: templates/browser/dataset.html:533
 msgid "Files"
 msgstr "File"
+
+#: templates/browser/error.html:8
+msgid "Server Error"
+msgstr ""
+
+#: templates/browser/error.html:10
+msgid "Reasons"
+msgstr ""
 
 #: templates/browser/index.html:25
 msgid "Popular search phrases"
@@ -337,7 +379,8 @@ msgstr "organizzazioni"
 msgid "PDF Preview"
 msgstr "Anteprima PDF"
 
-#: templates/browser/pdf.html:39
+#: templates/browser/pdf.html:39 templates/browser/summary.html:29
+#: templates/browser/summary.html:40 templates/browser/summary.html:65
 msgid "Summary"
 msgstr "Sommario"
 
@@ -380,6 +423,38 @@ msgstr "Nessun risultato trovato"
 #: templates/browser/search.html:71
 msgid "Please try another search."
 msgstr "Si prega di provare con altri criteri"
+
+#: templates/browser/summary.html:47
+msgid "The average value in field"
+msgstr ""
+
+#: templates/browser/summary.html:47
+msgid "is"
+msgstr ""
+
+#: templates/browser/summary.html:47
+msgid "The maximum value in the field is"
+msgstr ""
+
+#: templates/browser/summary.html:47
+msgid "and the minmum value in the field is"
+msgstr ""
+
+#: templates/browser/summary.html:58
+msgid "Details"
+msgstr ""
+
+#: templates/browser/summary.html:89
+msgid "Box Plot"
+msgstr ""
+
+#: templates/browser/summary.html:99
+msgid "How can I understand this?"
+msgstr ""
+
+#: templates/browser/summary.html:109
+msgid "Correlation Matrix"
+msgstr ""
 
 #: templates/browser/tabular.html:29
 msgid "Tabular View"
