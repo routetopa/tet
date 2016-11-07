@@ -1,5 +1,11 @@
+# -*- coding: utf-8 -*-
+
 from django.conf import settings
 from dateutil.parser import parse
+from django.utils.translation import ugettext as _
+from django.utils.translation import get_language
+
+import locale
 
 try: 
   from urllib2 import urlopen
@@ -19,32 +25,64 @@ def dataset_to_metadata_text(dataset):
     :return: string
     '''
 
-    # print(dataset)
+    current_lang = get_language()
 
-    text = "<p>This Dataset was created at <strong>" + parse(dataset["metadata_created"]).strftime("%d %B% %Y, %H:%M") + "</strong>"
-    text += " and last modified at <strong>" + parse(dataset["metadata_modified"]).strftime("%d %B% %Y, %H:%M") + "</strong>.</p> "
+    if current_lang == "it":
 
-    if dataset["license_title"]:
-        text += "<p>This Dataset is published under <strong>" + dataset["license_title"] + "</strong> license.</p> "
+        locale.setlocale(locale.LC_ALL, "it_IT")
 
-    if dataset["organization"]:
-        text += "<p>The data was published by <strong>" + dataset["organization"]["title"] + "</strong>.</p> "
+        text = u"<p>Questo Dataset è stato creato il <strong>" + parse(dataset["metadata_created"]).strftime("%d %B% %Y, %H:%M") + u"</strong>"
+        text += u" e l'ultima modifica è del <strong>" + parse(dataset["metadata_modified"]).strftime("%d %B% %Y, %H:%M") + u"</strong>.</p> "
 
-    if dataset["maintainer_email"]:
-        text += "<p>If you need more details, maintainer can be contacted at: <a href='#' data-original-title='' title=''><strong>" + dataset["maintainer_email"] + "</strong></a>.</p> "
 
-    if dataset["num_resources"] > 0:
-        text += "<p>The data is available in " + str(dataset["num_resources"]) + " format"
-        if dataset["num_resources"] > 1:
-            text += "s"
+        if dataset["license_title"]:
+            text += u"<p>Questo Dataset è soggetto a licenza di pubblicazione <strong>" + dataset["license_title"] + u"</strong></p> "
 
-        text += ": ";
+        if dataset["organization"]:
+            text += u"<p>I dati sono stati pubblicati da <strong>" + dataset["organization"]["title"] + u"</strong>.</p> "
 
-        # TODO direct link
-        for res in dataset["resources"]:
-            text += "<strong>" + res["format"] + "</strong> "
+        if dataset["maintainer_email"]:
+            text += u"<p>Se avete bisogno di ulteriori dettagli, manutentore può essere contattato all'indirizzo: <a href='#' data-original-title='' title=''><strong>" + dataset["maintainer_email"] + u"</strong></a>.</p> "
 
-        text += "</p> "
+        if dataset["num_resources"] > 0:
+            text += u"<p>I dati sono disponibili in " + str(dataset["num_resources"]) + u" format"
+            if dataset["num_resources"] > 1:
+                text += u"i"
+
+            text += u": ";
+
+            # TODO direct link
+            for res in dataset["resources"]:
+                text += u"<strong>" + res["format"] + u"</strong> "
+
+            text += u"</p> "
+
+    # default lang - "en"
+    else:
+        text = "<p>This Dataset was created at <strong>" + parse(dataset["metadata_created"]).strftime("%d %B% %Y, %H:%M") + "</strong>"
+        text += " and last modified at <strong>" + parse(dataset["metadata_modified"]).strftime("%d %B% %Y, %H:%M") + "</strong>.</p> "
+
+        if dataset["license_title"]:
+            text += "<p>This Dataset is published under <strong>" + dataset["license_title"] + "</strong> license.</p> "
+
+        if dataset["organization"]:
+            text += "<p>The data was published by <strong>" + dataset["organization"]["title"] + "</strong>.</p> "
+
+        if dataset["maintainer_email"]:
+            text += "<p>If you need more details, maintainer can be contacted at: <a href='#' data-original-title='' title=''><strong>" + dataset["maintainer_email"] + "</strong></a>.</p> "
+
+        if dataset["num_resources"] > 0:
+            text += "<p>The data is available in " + str(dataset["num_resources"]) + " format"
+            if dataset["num_resources"] > 1:
+                text += "s"
+
+            text += ": ";
+
+            # TODO direct link
+            for res in dataset["resources"]:
+                text += "<strong>" + res["format"] + "</strong> "
+
+            text += "</p> "
 
     return text
 
