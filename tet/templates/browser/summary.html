@@ -26,7 +26,7 @@
 
                 <div class="row">
 
-                    <h4 class="dataset-title"> Summary </small></h4>
+                    <h4 class="dataset-title"> {% trans "Summary" %} </small></h4>
 
                 </div>
 
@@ -44,7 +44,7 @@
                                 <p class="text-justify">
                                     <ul>
                                         {% for key, value in fields_description.items %} 
-                                            <li>The average value in field <code>{{key}}</code> is <strong>{{value.mean}}</strong>. The maximum value in the field is <strong>{{value.max}}</strong> and the minmum value in the field is <strong>{{value.min}}</strong></li>
+                                            <li>{% trans "The average value in field" %} <code>{{key}}</code> {% trans "is" %} <strong>{{value.mean}}</strong>. {% trans "The maximum value in the field is" %} <strong>{{value.max}}</strong> {% trans "and the minmum value in the field is" %} <strong>{{value.min}}</strong></li>
                                         {% endfor %}
                                     </ul>
                                 </p>

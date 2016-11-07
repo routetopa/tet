@@ -512,15 +512,16 @@ def box_plot(request, resource_id):
         df[numeric_fields] = df[numeric_fields].apply(pd.to_numeric)
         del df["_id"] 
         color = dict(boxes='#2196F3', whiskers='#2196F3', medians='#007DBE', caps='#2196F3')
-        box = df.plot.box(color=color)
-        plt.subplots_adjust(bottom=0.25)
-        plt.xticks(rotation=90)
-        plt.tight_layout()
-        fig = box.get_figure()
-        fig.set_facecolor('white')
-        canvas = FigureCanvas(fig)
-        response = HttpResponse(content_type='image/png')
-        canvas.print_png(response)
+        with mutex:
+            box = df.plot.box(color=color)
+            plt.subplots_adjust(bottom=0.25)
+            plt.xticks(rotation=90)
+            plt.tight_layout()
+            fig = box.get_figure()
+            fig.set_facecolor('white')
+            canvas = FigureCanvas(fig)
+            response = HttpResponse(content_type='image/png')
+            canvas.print_png(response)
         return response
     except Exception, e:
         return JsonResponse({'message': str(e)})
@@ -536,17 +537,18 @@ def corr_mat(request, resource_id):
         df[numeric_fields] = df[numeric_fields].apply(pd.to_numeric)
         del df["_id"] 
         corr = df.corr()
-        fig, ax = plt.subplots()
-        cax = ax.matshow(corr)
-        fig.colorbar(cax)
-        plt.xticks(range(len(corr.columns)), corr.columns);
-        plt.yticks(range(len(corr.columns)), corr.columns);
-        plt.xticks(rotation=90)
-        plt.tight_layout()
-        fig.set_facecolor('white')
-        canvas = FigureCanvas(fig)
-        response = HttpResponse(content_type='image/png')
-        canvas.print_png(response)
+        with mutex:
+            fig, ax = plt.subplots()
+            cax = ax.matshow(corr)
+            fig.colorbar(cax)
+            plt.xticks(range(len(corr.columns)), corr.columns);
+            plt.yticks(range(len(corr.columns)), corr.columns);
+            plt.xticks(rotation=90)
+            plt.tight_layout()
+            fig.set_facecolor('white')
+            canvas = FigureCanvas(fig)
+            response = HttpResponse(content_type='image/png')
+            canvas.print_png(response)
         return response
     except Exception, e:
         return JsonResponse({'message': str(e)})
