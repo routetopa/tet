@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2016-11-07 09:18+0000\n"
-"PO-Revision-Date: 2016-08-25 15:59+0100\n"
+"PO-Revision-Date: 2016-11-09 11:54+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: nl\n"
@@ -208,10 +208,8 @@ msgid "Keywords related to the document"
 msgstr ""
 
 #: templates/browser/dataset.html:84 templates/browser/tabular.html:73
-#, fuzzy
-#| msgid "View as app"
 msgid "View as: "
-msgstr "Bekijk als app"
+msgstr ""
 
 #: templates/browser/dataset.html:94 templates/browser/dataset.html:96
 msgid "View the summary"
@@ -223,10 +221,8 @@ msgid "View as PDF"
 msgstr "Bekijk als PDF"
 
 #: templates/browser/dataset.html:110 templates/browser/tabular.html:88
-#, fuzzy
-#| msgid "View as app - not available"
 msgid "View as PDF - not available"
-msgstr "Bekijk als app - niet beschikbaar"
+msgstr ""
 
 #: templates/browser/dataset.html:133 templates/browser/dataset.html:200
 #: templates/browser/tabular.html:110
@@ -239,10 +235,8 @@ msgid "Metadata"
 msgstr "Metadata"
 
 #: templates/browser/dataset.html:167
-#, fuzzy
-#| msgid "Dataset details"
 msgid "Dataset Quality"
-msgstr "dataset gegevens"
+msgstr ""
 
 #: templates/browser/dataset.html:174
 msgid "Indicator"
@@ -331,10 +325,8 @@ msgid "Start the discussion"
 msgstr "Start de discussie"
 
 #: templates/browser/dataset.html:506
-#, fuzzy
-#| msgid "dataset"
 msgid "Related Datasets"
-msgstr "dataset"
+msgstr ""
 
 #: templates/browser/dataset.html:533
 msgid "Files"
@@ -387,10 +379,8 @@ msgid "Summary"
 msgstr ""
 
 #: templates/browser/pdf.html:47
-#, fuzzy
-#| msgid "View as app - not available"
 msgid "Not available"
-msgstr "Bekijk als app - niet beschikbaar"
+msgstr ""
 
 #: templates/browser/pdf.html:57
 msgid "Entities"
@@ -405,10 +395,8 @@ msgid "Keywords"
 msgstr ""
 
 #: templates/browser/pdf.html:84
-#, fuzzy
-#| msgid "Date"
 msgid "Dates"
-msgstr "Datum"
+msgstr ""
 
 #: templates/browser/search.html:47
 msgid "Relevance"
@@ -447,10 +435,8 @@ msgid "and the minmum value in the field is"
 msgstr ""
 
 #: templates/browser/summary.html:58
-#, fuzzy
-#| msgid "Dataset details"
 msgid "Details"
-msgstr "dataset gegevens"
+msgstr ""
 
 #: templates/browser/summary.html:89
 msgid "Box Plot"

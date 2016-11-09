@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2016-11-07 09:18+0000\n"
-"PO-Revision-Date: 2016-08-25 16:01+0100\n"
+"PO-Revision-Date: 2016-11-09 12:00+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: fr\n"
@@ -208,10 +208,8 @@ msgid "Keywords related to the document"
 msgstr ""
 
 #: templates/browser/dataset.html:84 templates/browser/tabular.html:73
-#, fuzzy
-#| msgid "View as app"
 msgid "View as: "
-msgstr "Vue comme app"
+msgstr ""
 
 #: templates/browser/dataset.html:94 templates/browser/dataset.html:96
 msgid "View the summary"
@@ -223,10 +221,8 @@ msgid "View as PDF"
 msgstr "Voir en PDF"
 
 #: templates/browser/dataset.html:110 templates/browser/tabular.html:88
-#, fuzzy
-#| msgid "View as app - not available"
 msgid "View as PDF - not available"
-msgstr "Voir que l'application - non disponible"
+msgstr ""
 
 #: templates/browser/dataset.html:133 templates/browser/dataset.html:200
 #: templates/browser/tabular.html:110
@@ -239,10 +235,8 @@ msgid "Metadata"
 msgstr "Métadonnées"
 
 #: templates/browser/dataset.html:167
-#, fuzzy
-#| msgid "Dataset details"
 msgid "Dataset Quality"
-msgstr "Détails dataset"
+msgstr ""
 
 #: templates/browser/dataset.html:174
 msgid "Indicator"
@@ -331,10 +325,8 @@ msgid "Start the discussion"
 msgstr "Engager le débat"
 
 #: templates/browser/dataset.html:506
-#, fuzzy
-#| msgid "dataset"
 msgid "Related Datasets"
-msgstr "dataset"
+msgstr ""
 
 #: templates/browser/dataset.html:533
 msgid "Files"
@@ -388,10 +380,8 @@ msgid "Summary"
 msgstr ""
 
 #: templates/browser/pdf.html:47
-#, fuzzy
-#| msgid "View as app - not available"
 msgid "Not available"
-msgstr "Voir que l'application - non disponible"
+msgstr ""
 
 #: templates/browser/pdf.html:57
 msgid "Entities"
