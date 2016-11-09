@@ -92,6 +92,7 @@ def dataset_to_metadata_text(dataset):
 def get_rooms_for_dataset(dataset):
 
     rooms = []
+    rooms_ids = []
 
     if dataset["num_resources"] > 0:
         for res in dataset["resources"]:
@@ -107,7 +108,11 @@ def get_rooms_for_dataset(dataset):
                 j = json.loads(content)
 
                 if j["status"] == "success" and j["result"]:
-                    rooms.append(j["result"][0])
+                    for room in j["result"]:
+                        # check for unique rooms numbers
+                        if not room["id"] in rooms_ids:
+                            rooms.append(room)
+                            rooms_ids.append(room["id"])
             except Exception, e:
                 # do nothing
                 print("Error: " + str(e))
@@ -126,7 +131,6 @@ def dataset_to_spod(dataset):
 
             try:
                 url = settings.SPOD_URL + "/spodapi/roomsummary?id=" + str(room["id"])
-                print(url)
                 req = urlopen(url)
                 content = req.read().decode('utf8')
                 j = json.loads(content)
@@ -141,8 +145,6 @@ def dataset_to_spod(dataset):
                 # do nothing
                 print("Error: " + str(e))
                 pass
-
-    print(rooms)
 
     return rooms
 
