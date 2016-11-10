@@ -2,7 +2,7 @@
 
 {% load i18n %}
 
-{% block title %} Dataset details {% endblock title %}
+{% block title %} {% trans "Dataset details" %} - {% trans "Summary" %} {% endblock title %}
 
 {% block content %}
 
@@ -24,63 +24,14 @@
 
                 </div>
 
-                <div class="row">
-
-                    <h4 class="dataset-title"> {% trans "Summary" %} </small></h4>
-
+                <div class="">
+                    <h4 class="dataset-title"> {% trans "Summary" %}: {{ dataset.title }} </h4>
                 </div>
 
-                <div class="row">
+                <div class="row dataset-details">
 
                     <div class="span6">
-                        <div class="panel panel-dataset">
 
-                            <div class="dataset-description panel-heading">
-                                <h5>
-                                    <i class="fa fa-file-text-o" aria-hidden="true"></i> {% trans "Summary" %}
-                                </h5>
-                            </div>
-                            <div class="panel-body dataset-description">
-                                <p class="text-justify">
-                                    <ul>
-                                        {% for key, value in fields_description.items %} 
-                                            <li>{% trans "The average value in field" %} <code>{{key}}</code> {% trans "is" %} <strong>{{value.mean}}</strong>. {% trans "The maximum value in the field is" %} <strong>{{value.max}}</strong> {% trans "and the minmum value in the field is" %} <strong>{{value.min}}</strong></li>
-                                        {% endfor %}
-                                    </ul>
-                                </p>
-                            </div>
-
-                         </div>
-                        <div class="panel panel-dataset">
-
-                            <div class="dataset-description panel-heading">
-                                <h5>
-                                    <i class="fa fa-file-text-o" aria-hidden="true"></i> {% trans "Details" %}
-                                </h5>
-                            </div>
-                            <div class="panel-body dataset-description">
-                                <table class="table table-hover">
-                                      <tr>
-                                        <th>{% trans "Field name" %}</th>
-                                        <th>{% trans "Summary" %}</th>
-                                      </tr>
-                                      {% for key, value in fields_description.items %} 
-                                          <tr>
-                                            <td><code>{{key}}</code></td>
-                                            <td>
-                                                {% for k, v in value.items %}
-                                                    <strong>{{k}}</strong> = {{v}} 
-                                                {% endfor %}
-                                            </td>
-                                          </tr>
-                                       {% endfor %}
-                                    </table>
-                            </div>
-
-                         </div>
-
-                    </div>
-                    <div class="span6">
                         <div class="panel panel-dataset">
 
                             <div class="panel-heading">
@@ -93,14 +44,79 @@
 
                             <div class="panel-body">
                                 <div>
-                                    <img src="/api/graph/{{resource_id}}"></img>
+                                    <img src="/api/graph/{{resource_id}}" />
                                 </div>
-                                <div>
-                                    <a href="http://www.wellbeingatschool.org.nz/information-sheet/understanding-and-interpreting-box-plots">{% trans "How can I understand this?" %}</a>
-                                </div>
+
+                                <p class="top30 text-right">
+                                    <a class="" href="http://www.wellbeingatschool.org.nz/information-sheet/understanding-and-interpreting-box-plots/" target="_blank">{% trans "How can I understand this?" %}</a>
+                                </p>
+
                             </div>
 
                         </div>
+
+
+                        <div class="panel panel-dataset">
+
+                            <div class="dataset-description panel-heading">
+                                <h5>
+                                    <i class="fa fa-file-text-o" aria-hidden="true"></i> {% trans "Summary" %}
+                                </h5>
+                            </div>
+                            <div class="panel-body dataset-description">
+                                <p class="text-justify">
+                                    <ul class="unstyled">
+                                        {% for key, value in fields_description.items %}
+                                            <li class="top25">
+                                                <legend><h6><small>{{ key }}</small></h6></legend>
+                                                {% trans "The average value in field" %} <i>{{key}}</i>
+                                                {% trans "is" %} <strong>{{value.mean}}</strong>.
+                                                {% trans "The maximum value in the field is" %} <strong>{{value.max}}</strong>
+                                                {% trans "and the minmum value in the field is" %} <strong>{{value.min}}</strong>
+                                            </li>
+                                        {% endfor %}
+                                    </ul>
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="panel panel-dataset">
+
+                            <div class="dataset-description panel-heading">
+                                <h5>
+                                    <i class="fa fa-file-text-o" aria-hidden="true"></i> {% trans "Details" %}
+                                </h5>
+                            </div>
+                            <div class="panel-body dataset-description">
+                                <table class="table table-hover">
+                                    <tr>
+                                        <th>{% trans "Field name" %}</th>
+                                        <th>{% trans "Summary" %}</th>
+                                    </tr>
+                                    {% for key, value in fields_description.items %}
+                                    <tr>
+                                        <td>
+                                            <code>{{key}}</code>
+                                        </td>
+                                        <td>
+                                            {% for k, v in value.items %}
+                                                <strong>{{k}}</strong> = {{v}}
+                                            {% endfor %}
+                                        </td>
+                                    </tr>
+                                    {% endfor %}
+                                </table>
+                            </div>
+
+                         </div>
+
+                    </div>
+
+
+                    <div class="span6">
+
+
+
                         <div class="panel panel-dataset">
 
                             <div class="panel-heading">
@@ -113,11 +129,31 @@
 
                             <div class="panel-body">
                                 <div>
-                                    <img src="/api/graph/{{resource_id}}/corr"></img>
+                                    <img src="/api/graph/{{resource_id}}/corr" />
                                 </div>
+                                <p class="top30 text-right">
+                                    {# TODO: add link #}
+                                    <a class="" href="#" target="_blank">{% trans "" %} &nbsp; </a>
+                                </p>
                             </div>
 
                         </div>
+
+                        <div class="panel panel-dataset">
+
+                            <div class="dataset-description panel-heading">
+                                <h5>
+                                    <i class="fa fa-file-text-o" aria-hidden="true"></i> {% trans "Description" %}
+                                </h5>
+                            </div>
+                            <div class="panel-body dataset-description">
+                                <p class="text-justify">
+                                    {{ dataset.notes }}
+                                </p>
+                            </div>
+
+                        </div>
+
                         <div class="panel panel-dataset">
 
                             <div class="panel-heading">
@@ -141,9 +177,7 @@
                     </div>
 
                 </div>
-            
 
 
-            </div>
 
 {% endblock content %}
