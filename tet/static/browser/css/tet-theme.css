@@ -808,3 +808,11 @@ input.js-zeroclipboard-target {
   background-color: #d9edf7;
   border-color: #bce8f1;
 }
+
+/* Custom addons */
+.table-borderless {
+    margin: 0;
+}
+.table-borderless tr, .table-borderless td, .table-borderless th {
+    border: none;
+}
