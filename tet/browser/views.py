@@ -640,8 +640,11 @@ def dataset_as_summary(request, dataset_id):
     except Exception as e:
         messages.add_message(request, messages.ERROR, e)
         return render(request, error_template)
-    context = { "resource_id" : resource_id,
-        "fields_description" : fields_description
+
+    context = {
+        "resource_id" : resource_id,
+        "fields_description" : fields_description,
+        "dataset" : dataset
     }
     return render(request, template_name, context)
 
