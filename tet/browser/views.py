@@ -382,7 +382,6 @@ def search(request, query=False):
         'has_results': has_results,
         'search_results': search_results,
         'filters': filters,
-        'CKAN_URL': settings.CKAN_URL,
     }
 
     return render(request, template_name, context)
@@ -704,7 +703,6 @@ def dataset_as_pdf(request, dataset_id):
                     context = {
                        "dataset" : dataset,
                        "url" : resource["url"],
-                       'CKAN_URL': settings.CKAN_URL,
                        "text_analytics" : _text_analytics
                     }
                     return render(request, template_name, context)
