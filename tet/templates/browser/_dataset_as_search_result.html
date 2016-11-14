@@ -25,6 +25,13 @@
             {% endif %}
         </li>
         <li class="dataset-service">
+            {% if dataset.has_table %}
+            <a href="{% url 'dataset_as_summary' dataset.id %}"><i class="fa fa-lightbulb-o" aria-hidden="true" data-toggle="tooltip" data-placement="bottom" title="{% trans "View the summary" %}"></i></a>
+            {% else %}
+            <a href="#" class="disabled"><i class="fa fa-lightbulb-o" aria-hidden="true" data-toggle="tooltip" data-placement="bottom" title="{% trans "View the summary" %}"></i></a>
+            {% endif %}
+        </li>
+        <li class="dataset-service">
             {% if dataset.has_apps %}
             <a href="{% url 'dataset_as_app' dataset.id %}" class="disabled"><i class="fa fa-tablet" aria-hidden="true" data-toggle="tooltip" data-placement="bottom" title="{% trans "View as app" %}"></i></a>
             {% else %}
