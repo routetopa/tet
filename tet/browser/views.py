@@ -640,7 +640,8 @@ def dataset_as_summary(request, dataset_id):
     context = {
         "resource_id" : resource_id,
         "fields_description" : fields_description,
-        "dataset" : dataset
+        "dataset" : dataset,
+        'CKAN_URL': settings.CKAN_URL + "/dataset/" + dataset_id + "?r=" + request.get_full_path(),
     }
     return render(request, template_name, context)
 
