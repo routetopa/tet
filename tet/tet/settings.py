@@ -70,7 +70,7 @@ TEMPLATES = [
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
                 'django.template.context_processors.i18n',
-                # 'browser.context_processors.common_settings,'
+                'browser.context_processors.common_settings'
 
             ],
             'libraries': {
