@@ -91,7 +91,7 @@
 
                     {% for the in filters.themes %}
                         <li class="list-group-item{% if forloop.counter > 5 %} filter-hidden{% endif %}">
-                            <span class="result-label">{{ the }}</span>
+                            <span class="result-label">{% trans the %}</span>
                             <span class="results-count">( {% keyvalue filters.themes the %} )</span>
                             <input type="checkbox" class="pull-right" filter-key="category" filter-value="{{the|lower}}">
                         </li>
