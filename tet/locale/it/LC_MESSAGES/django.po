@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2016-11-07 09:18+0000\n"
-"PO-Revision-Date: 2016-11-07 16:10+0000\n"
+"PO-Revision-Date: 2016-11-14 10:28+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: it_IT\n"
@@ -473,3 +473,107 @@ msgstr "Tabella pivot"
 #: templates/browser/tabular.html:41
 msgid "SPOD Discussion"
 msgstr "Discussione SPOD "
+
+#. Roles & Categories
+msgid "Person with Disabilities"
+msgstr "Persone con disabilità"
+
+#. Roles & Categories
+msgid "Unemployed Person"
+msgstr "Disoccupato"
+
+#. Roles & Categories
+msgid "Resident"
+msgstr "Residente"
+
+#. Roles & Categories
+msgid "Economist"
+msgstr "Economista"
+
+#. Roles & Categories
+msgid "Statistician"
+msgstr "Statistico"
+
+#. Roles & Categories
+msgid "Data Scientist"
+msgstr "Scienziato"
+
+#. Roles & Categories
+msgid "Journalist"
+msgstr "Giornalista"
+
+#. Roles & Categories
+msgid "Businessman"
+msgstr "Imprenditore"
+
+#. Roles & Categories
+msgid "Investor"
+msgstr "Investitore"
+
+#. Roles & Categories
+msgid "Developer"
+msgstr "Sviluppatore"
+
+#. Roles & Categories
+msgid "Climate"
+msgstr "Clima"
+
+#. Roles & Categories
+msgid "Education"
+msgstr "Istruzione"
+
+#. Roles & Categories
+msgid "Finance"
+msgstr "Finanza"
+
+#. Roles & Categories
+msgid "Business"
+msgstr "Impresa"
+
+#. Roles & Categories
+msgid "Society"
+msgstr "Società"
+
+#. Roles & Categories
+msgid "Science"
+msgstr "Scienza"
+
+#. Roles & Categories
+msgid "Energy"
+msgstr "Ambiente"
+
+#. Roles & Categories
+msgid "Culture and Heritage"
+msgstr "Cultura e patrimonio"
+
+#. Roles & Categories
+msgid "Environment"
+msgstr "Ambiente"
+
+#. Roles & Categories
+msgid "Population"
+msgstr "Popolazione"
+
+#. Roles & Categories
+msgid "Health"
+msgstr "Salute"
+
+#. Roles & Categories
+msgid "Technology"
+msgstr "Tecnologia"
+
+#. Roles & Categories
+msgid "Crime and Justice"
+msgstr "Criminalità e Giustizia"
+
+#. Roles & Categories
+msgid "Agriculture"
+msgstr "Agricoltura"
+
+#. Roles & Categories
+msgid "Housing"
+msgstr "Alloggi"
+
+#. Roles & Categories
+msgid "Transport"
+msgstr "Trasporti"

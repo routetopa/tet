@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2016-11-07 09:18+0000\n"
-"PO-Revision-Date: 2016-11-14 09:56+0000\n"
+"PO-Revision-Date: 2016-11-14 10:15+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: nl\n"
@@ -467,6 +467,110 @@ msgstr "Draaitabel"
 #: templates/browser/tabular.html:41
 msgid "SPOD Discussion"
 msgstr "SPOD Discussie"
+
+#. Roles & Categories
+msgid "Person with Disabilities"
+msgstr "Mensen met een beperking"
+
+#. Roles & Categories
+msgid "Unemployed Person"
+msgstr "Op zoek naar een baan"
+
+#. Roles & Categories
+msgid "Resident"
+msgstr "Inwoner"
+
+#. Roles & Categories
+msgid "Economist"
+msgstr "Econoom"
+
+#. Roles & Categories
+msgid "Statistician"
+msgstr "Statistics"
+
+#. Roles & Categories
+msgid "Data Scientist"
+msgstr "Wetenschapper"
+
+#. Roles & Categories
+msgid "Journalist"
+msgstr "Journalist"
+
+#. Roles & Categories
+msgid "Businessman"
+msgstr "Ondernemer"
+
+#. Roles & Categories
+msgid "Investor"
+msgstr "Investeerder"
+
+#. Roles & Categories
+msgid "Developer"
+msgstr "Ontwerper"
+
+#. Roles & Categories
+msgid "Climate"
+msgstr "Klimaat"
+
+#. Roles & Categories
+msgid "Education"
+msgstr "Onderwijs"
+
+#. Roles & Categories
+msgid "Finance"
+msgstr "Financiën"
+
+#. Roles & Categories
+msgid "Business"
+msgstr "Bedrijfsleven"
+
+#. Roles & Categories
+msgid "Society"
+msgstr "Maatschappij"
+
+#. Roles & Categories
+msgid "Science"
+msgstr "Wetenschap"
+
+#. Roles & Categories
+msgid "Energy"
+msgstr "Ernergie"
+
+#. Roles & Categories
+msgid "Culture and Heritage"
+msgstr "Cultuur en Erfgoed"
+
+#. Roles & Categories
+msgid "Environment"
+msgstr "Milieu"
+
+#. Roles & Categories
+msgid "Population"
+msgstr "Demografie"
+
+#. Roles & Categories
+msgid "Health"
+msgstr "Gezondheid"
+
+#. Roles & Categories
+msgid "Technology"
+msgstr "Technologie"
+
+#. Roles & Categories
+msgid "Crime and Justice"
+msgstr "Ciminaliteit en Recht"
+
+#. Roles & Categories
+msgid "Agriculture"
+msgstr "Landbouw"
+
+#. Roles & Categories
+msgid "Housing"
+msgstr "Huisvesting"
+
+#. Roles & Categories
+msgid "Transport"
+msgstr "Vervoer"
 
 #~ msgid "EN"
 #~ msgstr "EN"
