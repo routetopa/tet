@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2016-11-07 09:18+0000\n"
-"PO-Revision-Date: 2016-11-09 11:54+0000\n"
+"PO-Revision-Date: 2016-11-14 09:56+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: nl\n"
@@ -20,11 +20,11 @@ msgstr ""
 
 #: browser/views.py:269 browser/views.py:270
 msgid "i am"
-msgstr ""
+msgstr "Ik ben"
 
 #: browser/views.py:271 browser/views.py:272
 msgid "interested in"
-msgstr ""
+msgstr "Geïnteresseerd in"
 
 #: templates/browser/_dataset_api_box.html:6
 msgid "API Link"
@@ -110,15 +110,15 @@ msgstr "Over"
 
 #: templates/browser/_header.html:18
 msgid "Help"
-msgstr "Helpen"
+msgstr "Hulp"
 
 #: templates/browser/_header.html:20
 msgid "Classic CKAN"
-msgstr "Classic CKAN"
+msgstr "Klassieke CKAN"
 
 #: templates/browser/_language_selector.html:10
 msgid "Language"
-msgstr ""
+msgstr "Taal"
 
 #: templates/browser/_language_selector.html:13 tet/settings.py:122
 msgid "English"
@@ -150,7 +150,7 @@ msgstr "Verfijn op"
 
 #: templates/browser/_search_filters.html:15
 msgid "Location"
-msgstr "plaats"
+msgstr "Locatie"
 
 #: templates/browser/_search_filters.html:32
 #: templates/browser/_search_filters.html:67
@@ -173,47 +173,47 @@ msgstr "Formaat"
 
 #: templates/browser/dataset.html:5
 msgid "Dataset details"
-msgstr "dataset gegevens"
+msgstr "Dataset gegevens"
 
 #: templates/browser/dataset.html:45
 msgid "Range of values in the field"
-msgstr ""
+msgstr "Bereik van de waarden in het veld"
 
 #: templates/browser/dataset.html:45
 msgid "Frequency"
-msgstr ""
+msgstr "Frequentie"
 
 #: templates/browser/dataset.html:47
 msgid "Values in"
-msgstr ""
+msgstr "Waardes in"
 
 #: templates/browser/dataset.html:47
 msgid "field"
-msgstr ""
+msgstr "Veld"
 
 #: templates/browser/dataset.html:47
 msgid "Number of occurrences"
-msgstr ""
+msgstr "Aantal voorvallen"
 
 #: templates/browser/dataset.html:53
 msgid "Concepts related to the document"
-msgstr ""
+msgstr "Concepten gerelateerd aan het document"
 
 #: templates/browser/dataset.html:56
 msgid "Entities related to the document"
-msgstr ""
+msgstr "Entiteiten gerelateerd aan het document"
 
 #: templates/browser/dataset.html:59
 msgid "Keywords related to the document"
-msgstr ""
+msgstr "Trefwoorden gerelateerd aan het document"
 
 #: templates/browser/dataset.html:84 templates/browser/tabular.html:73
 msgid "View as: "
-msgstr ""
+msgstr "Bekijk als:"
 
 #: templates/browser/dataset.html:94 templates/browser/dataset.html:96
 msgid "View the summary"
-msgstr ""
+msgstr "Bekijk de samenvatting"
 
 #: templates/browser/dataset.html:108 templates/browser/dataset.html:430
 #: templates/browser/dataset.html:432 templates/browser/tabular.html:86
@@ -222,7 +222,7 @@ msgstr "Bekijk als PDF"
 
 #: templates/browser/dataset.html:110 templates/browser/tabular.html:88
 msgid "View as PDF - not available"
-msgstr ""
+msgstr "Bekijk als PDF - niet beschikbaar"
 
 #: templates/browser/dataset.html:133 templates/browser/dataset.html:200
 #: templates/browser/tabular.html:110
@@ -236,63 +236,63 @@ msgstr "Metadata"
 
 #: templates/browser/dataset.html:167
 msgid "Dataset Quality"
-msgstr ""
+msgstr "Dataset kwaliteit"
 
 #: templates/browser/dataset.html:174
 msgid "Indicator"
-msgstr ""
+msgstr "Indicator"
 
 #: templates/browser/dataset.html:175
 msgid "Value"
-msgstr ""
+msgstr "Waardes in"
 
 #: templates/browser/dataset.html:219
 msgid "Fields"
-msgstr ""
+msgstr "Velden"
 
 #: templates/browser/dataset.html:238
 msgid "Records"
-msgstr ""
+msgstr "Archief"
 
 #: templates/browser/dataset.html:257
 msgid "Content"
-msgstr ""
+msgstr "Inhoud"
 
 #: templates/browser/dataset.html:276
 msgid "License"
-msgstr ""
+msgstr "Licentie"
 
 #: templates/browser/dataset.html:292 templates/browser/dataset.html:317
 msgid "Not provided"
-msgstr ""
+msgstr "Niet verleend"
 
 #: templates/browser/dataset.html:301
 msgid "Version"
-msgstr ""
+msgstr "Versie"
 
 #: templates/browser/dataset.html:326
 msgid "Last updated"
-msgstr ""
+msgstr "Laatst geüpdate"
 
 #: templates/browser/dataset.html:335
 msgid "days ago"
-msgstr ""
+msgstr "dagen geleden"
 
 #: templates/browser/dataset.html:353
 msgid "Tags"
-msgstr ""
+msgstr "Labels"
 
 #: templates/browser/dataset.html:375
 msgid "Table Structure"
-msgstr ""
+msgstr "Tabel Structuur"
 
 #: templates/browser/dataset.html:382 templates/browser/summary.html:64
 msgid "Field name"
-msgstr ""
+msgstr "Naam veld"
 
 #: templates/browser/dataset.html:383
 msgid "Type"
-msgstr ""
+msgstr "Type"
 
 #: templates/browser/dataset.html:409
 msgid "Available views"
@@ -300,13 +300,15 @@ msgstr "beschikbare weergaven"
 
 #: templates/browser/dataset.html:450 templates/browser/summary.html:126
 msgid "Share this page"
-msgstr ""
+msgstr "Deel deze pagina"
 
 #: templates/browser/dataset.html:457 templates/browser/summary.html:133
 msgid ""
 "Use the icons below in order to share this page in your favourite Social "
 "Media."
 msgstr ""
+"Gebruik de iconen hier onder om de pagine te delen op jouw favoriete Social "
+"Media."
 
 #: templates/browser/dataset.html:472 templates/browser/tabular.html:147
 msgid "Discussions at SPOD"
@@ -317,7 +319,7 @@ msgid ""
 "This dataset has not been discussed in SPOD, be the first to discuss the "
 "dataset!"
 msgstr ""
-"Deze dataset is niet besproken in SPOD, de eerste zijn om de dataset te "
+"Deze dataset is niet besproken in SPOD, wees de eerste om de dataset te "
 "bespreken!"
 
 #: templates/browser/dataset.html:489 templates/browser/tabular.html:163
@@ -326,7 +328,7 @@ msgstr "Start de discussie"
 
 #: templates/browser/dataset.html:506
 msgid "Related Datasets"
-msgstr ""
+msgstr "Gerelateerde datasets"
 
 #: templates/browser/dataset.html:533
 msgid "Files"
@@ -334,11 +336,11 @@ msgstr "Bestanden"
 
 #: templates/browser/error.html:8
 msgid "Server Error"
-msgstr ""
+msgstr "Server Fout"
 
 #: templates/browser/error.html:10
 msgid "Reasons"
-msgstr ""
+msgstr "Redenen"
 
 #: templates/browser/index.html:25
 msgid "Popular search phrases"
@@ -376,27 +378,27 @@ msgstr "PDF Voorbeeld"
 #: templates/browser/pdf.html:39 templates/browser/summary.html:29
 #: templates/browser/summary.html:40 templates/browser/summary.html:65
 msgid "Summary"
-msgstr ""
+msgstr "Samenvatting"
 
 #: templates/browser/pdf.html:47
 msgid "Not available"
-msgstr ""
+msgstr "Niet beschikbaar"
 
 #: templates/browser/pdf.html:57
 msgid "Entities"
-msgstr ""
+msgstr "Eenheden"
 
 #: templates/browser/pdf.html:66
 msgid "Concepts"
-msgstr ""
+msgstr "Concepten"
 
 #: templates/browser/pdf.html:75
 msgid "Keywords"
-msgstr ""
+msgstr "Trefwoorden"
 
 #: templates/browser/pdf.html:84
 msgid "Dates"
-msgstr ""
+msgstr "Datums"
 
 #: templates/browser/search.html:47
 msgid "Relevance"
@@ -420,35 +422,35 @@ msgstr "Probeer een andere zoekopdracht."
 
 #: templates/browser/summary.html:47
 msgid "The average value in field"
-msgstr ""
+msgstr "De gemiddelde waarde in veld"
 
 #: templates/browser/summary.html:47
 msgid "is"
-msgstr ""
+msgstr "is"
 
 #: templates/browser/summary.html:47
 msgid "The maximum value in the field is"
-msgstr ""
+msgstr "De maximum waarde in het veld is"
 
 #: templates/browser/summary.html:47
 msgid "and the minmum value in the field is"
-msgstr ""
+msgstr "en de minimum waarde in het veld is"
 
 #: templates/browser/summary.html:58
 msgid "Details"
-msgstr ""
+msgstr "Details"
 
 #: templates/browser/summary.html:89
 msgid "Box Plot"
-msgstr ""
+msgstr "Box Plot"
 
 #: templates/browser/summary.html:99
 msgid "How can I understand this?"
-msgstr ""
+msgstr "Hoe kan ik dit begrijpen?"
 
 #: templates/browser/summary.html:109
 msgid "Correlation Matrix"
-msgstr ""
+msgstr "Correlatie Matrix"
 
 #: templates/browser/tabular.html:29
 msgid "Tabular View"
@@ -456,15 +458,15 @@ msgstr "tabular View"
 
 #: templates/browser/tabular.html:39
 msgid "Data Explorer"
-msgstr "data Explorer"
+msgstr "Data Verkenner"
 
 #: templates/browser/tabular.html:40
 msgid "PivotTable"
-msgstr "draaitabel"
+msgstr "Draaitabel"
 
 #: templates/browser/tabular.html:41
 msgid "SPOD Discussion"
-msgstr "SPOD Discussion"
+msgstr "SPOD Discussie"
 
 #~ msgid "EN"
 #~ msgstr "EN"
