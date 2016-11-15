@@ -33,7 +33,6 @@
 .progress-bar-very-good { background: #00FF00 !important; color: #111 !important; }
 
 
-
 .top5 { margin-top:5px !important; }
 .top7 { margin-top:7px !important; }
 .top10 { margin-top:10px !important; }
@@ -41,6 +40,33 @@
 .top17 { margin-top:17px !important; }
 .top25 { margin-top:25px !important; }
 .top30 { margin-top:30px !important; }
+
+.rtpa-btn {
+	color: #FFFFFF;
+	text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
+	background-color: #2196F3;
+	*background-color: #2196F3;
+	background-image: -moz-linear-gradient(top, #1976D2, #2196F3);
+	background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#1976D2), to(#2196F3));
+	background-image: -webkit-linear-gradient(top, #1976D2, #2196F3);
+	background-image: -o-linear-gradient(top, #1976D2, #2196F3);
+	background-image: linear-gradient(to bottom, #1976D2, #2196F3);
+	background-repeat: repeat-x;
+	border-color: #2196F3;
+	border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);
+	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#1976D2', endColorstr='#2196F3', GradientType=0);
+	filter: progid:DXImageTransform.Microsoft.gradient(enabled=false);
+}
+.rtpa-btn:hover,
+.rtpa-btn:focus,
+.rtpa-btn:active,
+.rtpa-btn.active,
+.rtpa-btn.disabled,
+.rtpa-btn[disabled] {
+	color: #FFFFFF;
+	background-color: #2196F3;
+	*background-color: #003bb3;
+}
 
 body, html {
     font-family: 'Roboto', sans-serif;
@@ -154,7 +180,12 @@ body, html {
     padding-top: 15px;
 }
 
-.search-ui .main-search, 
+
+.search-ui .main-search {
+    border: 1px solid #1976d2;
+}
+
+.search-ui .main-search,
 .search-ui .main-search-btn {
     padding: 7px;
 }
