@@ -1,3 +1,4 @@
+{% load static %}
 {% load i18n %}
 
             <div class="navbar navbar-fixed-top">
@@ -5,11 +6,17 @@
                 <div class="navbar-inner">
                     <div class="container">
 
-<!--
+
                         <div class="pull-left">
-                            <a href="#" class="btn btn-primary-login" id="login-popup">{% trans "Login" %}</a>
+
+                            <a href="{% url "index" %}" class="rtpa-logo"></a>
+
+
+
+                            <!--<a href="#" class="btn btn-primary-login" id="login-popup">{% trans "Login" %}</a>-->
+
                         </div>
--->
+
 
                         <div class="pull-right head-buttons">
                             <a href="{% url "index" %}" class="btn-link">{% trans "Home" %}</a>
