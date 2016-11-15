@@ -164,20 +164,20 @@ def name_to_url(name):
 def resource_fields_to_text(resource_fields):
 
     field_switcher = {
-        "int": "Integer numbers, e.g 42, 7",
-        "int4": "Integer numbers, e.g 42, 7",
-        "numeric": "Numbers, e.g 1, 2.4, 4.7",
-        "float": "Floats, e.g. 1.61803",
-		"text": "Arbitrary text data, e.g. Some text",
-		"json": "Arbitrary nested json data",
-		"date": "Date without time, e.g 2016-5-25",
-		"time": "Time without date, e.g 12:06",
-		"timestamp": "Date and time, e.g 2016-05-01T02:43Z",
-		"bool": "Boolean values, e.g. true, 0",
+        "int": _("Integer numbers, e.g 42, 7"),
+        "int4": _("Integer numbers, e.g 42, 7"),
+        "numeric": _("Numbers, e.g 1, 2.4, 4.7"),
+        "float": _("Floats, e.g. 1.61803"),
+		"text": _("Arbitrary text data, e.g. Some text"),
+		"json": _("Arbitrary nested json data"),
+		"date": _("Date without time, e.g 2016-5-25"),
+		"time": _("Time without date, e.g 12:06"),
+		"timestamp": _("Date and time, e.g 2016-05-01T02:43Z"),
+		"bool": _("Boolean values, e.g. true, 0"),
     }
 
     if (resource_fields):
         for field in resource_fields:
-            field["type_unified"] =  field_switcher.get(field["type"], "Other: " + field["type"])
+            field["type_unified"] =  field_switcher.get(field["type"], _("Other") + ": " + field["type"])
 
     return resource_fields
