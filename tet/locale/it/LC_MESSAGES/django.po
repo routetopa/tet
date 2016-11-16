@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2016-11-07 09:18+0000\n"
-"PO-Revision-Date: 2016-11-14 10:28+0000\n"
+"PO-Revision-Date: 2016-11-16 10:16+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: it_IT\n"
@@ -204,7 +204,7 @@ msgstr "Numero di occorrenze"
 
 #: templates/browser/dataset.html:53
 msgid "Concepts related to the document"
-msgstr "Cocetti relativi al documento"
+msgstr "Concetti relativi al documento"
 
 #: templates/browser/dataset.html:56
 msgid "Entities related to the document"
@@ -355,7 +355,7 @@ msgstr "Frasi di ricerca più comuni"
 
 #: templates/browser/index.html:38
 msgid "TET search engine results are based on resources available at"
-msgstr "Le ricerce mediante TET si basano sulle risorse disponibili in"
+msgstr "Le ricerche mediante TET si basano sulle risorse disponibili in"
 
 #: templates/browser/index.html:39
 msgid "Currently there are"
@@ -577,3 +577,39 @@ msgstr "Alloggi"
 #. Roles & Categories
 msgid "Transport"
 msgstr "Trasporti"
+
+#. Metrics
+msgid "Integer numbers, e.g 42, 7"
+msgstr "Numeri interi, e.g 1, 2.4, 4.7"
+
+#. Metrics
+msgid "Numbers, e.g 1, 2.4, 4.7"
+msgstr "Numeri, e.g 1, 2.4, 4.7"
+
+#. Metrics
+msgid "Floats, e.g. 1.61803"
+msgstr "Numeri reali, e.g. 1.61803"
+
+#. Metrics
+msgid "Arbitrary text data, e.g. Some text"
+msgstr "Dato testuale arbitrario, e.g. Testo"
+
+#. Metrics
+msgid "Arbitrary nested json data"
+msgstr "Dato json nidificato arbitrario"
+
+#. Metrics
+msgid "Date without time, e.g 2016-5-25"
+msgstr "Data senza ora, e.g. 2016-5-25"
+
+#. Metrics
+msgid "Time without date, e.g 12:06"
+msgstr "Ora senza data, e.g. 12:06"
+
+#. Metrics
+msgid "Date and time, e.g 2016-05-01T02:43Z"
+msgstr "Data e ora, e.g. 2016-05-01T02:43Z"
+
+#. Metrics
+msgid "Boolean values, e.g. true, 0"
+msgstr "Valori booleani, e.g. vero, 0"
