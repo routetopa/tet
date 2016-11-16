@@ -386,6 +386,19 @@ def search(request, query=False):
 
     return render(request, template_name, context)
 
+def grading(number):
+    if number >= 90:
+        return "Good"
+    if number >= 80:
+        return "OK"
+    elif number >= 50:
+        return "Medium"
+    elif number >= 25:
+        return "Low"
+    else:
+        return "Very Low"
+
+
 def compute_completeness(stats):
     internal_attributes =["relationships_as_object","private","num_tags","id","metadata_created","metadata_modified","state",\
     "creator_user_id","type","resources","num_resources","tags","groups","relationships_as_subject","organization","name","isopen",\
@@ -397,11 +410,17 @@ def compute_completeness(stats):
             metadata_string += str(stats["ds"][f]) 
     description_length = len(stats["ds"]["notes"])
     stats["metadata"] = len(metadata_string)/50.0 * 100 if len(metadata_string) <= 50  else 100
+
     stats["description"] = description_length/600.0 * 100 if description_length <= 600 else 100
     if "fields" in stats:
         stats["fields"] = stats["fields"]/5.0 * 100 if stats["fields"] <= 5  else 100
     if "records" in stats:
         stats["records"] = stats["records"]/100.0 * 100 if stats["records"] <= 100  else 100
+    stats["metadata_label"] = grading(stats["metadata"])
+    stats["records_label"] = grading(stats["records"])
+    stats["fields_label"] = grading(stats["fields"])
+    stats["content_label"] = grading(stats["content"])
+    stats["description_label"] = grading(stats["description"])
     stats["license"] = "license_url" in stats["ds"] and stats["ds"]["license_url"] != ""
     stats["version"] = "version" in stats["ds"] and stats["ds"]["version"] != ""
     stats["last_updated"] = (datetime.datetime.now() -  dateutil.parser.parse(stats["ds"]["metadata_modified"])).days
