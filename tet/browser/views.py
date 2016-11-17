@@ -698,7 +698,7 @@ def text_analytics(dataset_id, url, notes):
             data = alchemy_language.combined(raw_text, extract="concepts dates title keywords relations entities", max_items=10)
             summary = set()
             for relation in data["relations"]:
-                if  relation["sentence"] not in summary:
+                if relation["sentence"] not in summary:
                     summary.add(relation["sentence"])
             data ["summary"] = summary
             cache_db(dataset_id,data)
