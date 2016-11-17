@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-11-07 09:18+0000\n"
-"PO-Revision-Date: 2016-11-16 10:16+0000\n"
+"POT-Creation-Date: 2016-11-17 13:52+0000\n"
+"PO-Revision-Date: 2016-11-17 13:58+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: it_IT\n"
@@ -18,13 +18,73 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 "X-Generator: Poedit 1.8.8\n"
 
-#: browser/views.py:269 browser/views.py:270
+#: browser/helpers.py:167 browser/helpers.py:168
+msgid "Integer numbers, e.g 42, 7"
+msgstr "Numeri interi, e.g 1, 2.4, 4.7"
+
+#: browser/helpers.py:169
+msgid "Numbers, e.g 1, 2.4, 4.7"
+msgstr "Numeri, e.g 1, 2.4, 4.7"
+
+#: browser/helpers.py:170
+msgid "Floats, e.g. 1.61803"
+msgstr "Numeri reali, e.g. 1.61803"
+
+#: browser/helpers.py:171
+msgid "Arbitrary text data, e.g. Some text"
+msgstr "Dato testuale arbitrario, e.g. Testo"
+
+#: browser/helpers.py:172
+msgid "Arbitrary nested json data"
+msgstr "Dato json nidificato arbitrario"
+
+#: browser/helpers.py:173
+msgid "Date without time, e.g 2016-5-25"
+msgstr "Data senza ora, e.g. 2016-5-25"
+
+#: browser/helpers.py:174
+msgid "Time without date, e.g 12:06"
+msgstr "Ora senza data, e.g. 12:06"
+
+#: browser/helpers.py:175
+msgid "Date and time, e.g 2016-05-01T02:43Z"
+msgstr "Data e ora, e.g. 2016-05-01T02:43Z"
+
+#: browser/helpers.py:176
+msgid "Boolean values, e.g. true, 0"
+msgstr "Valori booleani, e.g. vero, 0"
+
+#: browser/helpers.py:181
+msgid "Other"
+msgstr "Altro"
+
+#: browser/views.py:268 browser/views.py:269
 msgid "i am"
 msgstr "Io sono"
 
-#: browser/views.py:271 browser/views.py:272
+#: browser/views.py:270 browser/views.py:271
 msgid "interested in"
 msgstr "Interessato a"
+
+#: browser/views.py:391
+msgid "Very Poor"
+msgstr "Molto scarsa"
+
+#: browser/views.py:393
+msgid "Poor"
+msgstr "Scarsa"
+
+#: browser/views.py:395
+msgid "Fair"
+msgstr "Giusto"
+
+#: browser/views.py:397
+msgid "Good"
+msgstr "Buona"
+
+#: browser/views.py:399
+msgid "Very good"
+msgstr "Molto buona"
 
 #: templates/browser/_dataset_api_box.html:6
 msgid "API Link"
@@ -36,28 +96,35 @@ msgid "View as chart"
 msgstr "Visualizza come grafico"
 
 #: templates/browser/_dataset_as_search_result.html:22
-#: templates/browser/dataset.html:87 templates/browser/dataset.html:416
+#: templates/browser/dataset.html:86 templates/browser/dataset.html:415
 msgid "View as table"
 msgstr "Visualizza come tabella"
 
 #: templates/browser/_dataset_as_search_result.html:24
-#: templates/browser/dataset.html:89 templates/browser/dataset.html:418
+#: templates/browser/dataset.html:88 templates/browser/dataset.html:417
 msgid "View as table - not available"
 msgstr "Visualizza come tabella - non disponibile"
 
 #: templates/browser/_dataset_as_search_result.html:29
-#: templates/browser/dataset.html:101 templates/browser/dataset.html:423
-#: templates/browser/tabular.html:79
+#: templates/browser/_dataset_as_search_result.html:31
+#: templates/browser/dataset.html:93 templates/browser/dataset.html:95
+#: templates/browser/tabular.html:78
+msgid "View the summary"
+msgstr "Visualizza il sommario"
+
+#: templates/browser/_dataset_as_search_result.html:36
+#: templates/browser/dataset.html:100 templates/browser/dataset.html:422
+#: templates/browser/tabular.html:82
 msgid "View as app"
 msgstr "Visualizza come app"
 
-#: templates/browser/_dataset_as_search_result.html:31
-#: templates/browser/dataset.html:103 templates/browser/dataset.html:425
-#: templates/browser/tabular.html:81
+#: templates/browser/_dataset_as_search_result.html:38
+#: templates/browser/dataset.html:102 templates/browser/dataset.html:424
+#: templates/browser/tabular.html:84
 msgid "View as app - not available"
 msgstr "Visualizza come app - non disponibile"
 
-#: templates/browser/_dataset_as_search_result.html:52
+#: templates/browser/_dataset_as_search_result.html:59
 msgid "View raw data"
 msgstr "Visualizzare i dati grezzi"
 
@@ -103,25 +170,29 @@ msgstr ""
 "Interfaccia TET sviluppata da <a class=“hide-text insight-footer-logo” "
 "href=“http://insight-centre.org/“>Insight Centre</a>"
 
-#: templates/browser/_header.html:10
+#: templates/browser/_header.html:16
 msgid "Login"
 msgstr "Accedi"
 
-#: templates/browser/_header.html:15
+#: templates/browser/_header.html:22
 msgid "Home"
 msgstr "Pagina iniziale"
 
-#: templates/browser/_header.html:17
+#: templates/browser/_header.html:24
 msgid "About"
 msgstr "Informazioni"
 
-#: templates/browser/_header.html:18
+#: templates/browser/_header.html:25
 msgid "Help"
 msgstr "Aiuto"
 
-#: templates/browser/_header.html:20
+#: templates/browser/_header.html:27
 msgid "Classic CKAN"
 msgstr "CKAN classico"
+
+#: templates/browser/_header.html:28
+msgid "SPOD"
+msgstr "SPOD"
 
 #: templates/browser/_language_selector.html:10
 msgid "Language"
@@ -178,138 +249,134 @@ msgstr "Temi"
 msgid "Format"
 msgstr "Formato"
 
-#: templates/browser/dataset.html:5
+#: templates/browser/dataset.html:5 templates/browser/summary.html:5
 msgid "Dataset details"
 msgstr "Dettagli dataset"
 
-#: templates/browser/dataset.html:45
+#: templates/browser/dataset.html:44
 msgid "Range of values in the field"
 msgstr "Intervallo di valori nel campo"
 
-#: templates/browser/dataset.html:45
+#: templates/browser/dataset.html:44
 msgid "Frequency"
 msgstr "Frequenza"
 
-#: templates/browser/dataset.html:47
+#: templates/browser/dataset.html:46
 msgid "Values in"
 msgstr "Valori in"
 
-#: templates/browser/dataset.html:47
+#: templates/browser/dataset.html:46
 msgid "field"
 msgstr "campo"
 
-#: templates/browser/dataset.html:47
+#: templates/browser/dataset.html:46
 msgid "Number of occurrences"
 msgstr "Numero di occorrenze"
 
-#: templates/browser/dataset.html:53
+#: templates/browser/dataset.html:52
 msgid "Concepts related to the document"
 msgstr "Concetti relativi al documento"
 
-#: templates/browser/dataset.html:56
+#: templates/browser/dataset.html:55
 msgid "Entities related to the document"
 msgstr "Entita' relative al documento"
 
-#: templates/browser/dataset.html:59
+#: templates/browser/dataset.html:58
 msgid "Keywords related to the document"
 msgstr "Parole chiave relative al documento"
 
-#: templates/browser/dataset.html:84 templates/browser/tabular.html:73
+#: templates/browser/dataset.html:83 templates/browser/tabular.html:73
 msgid "View as: "
 msgstr "Visualizza come:"
 
-#: templates/browser/dataset.html:94 templates/browser/dataset.html:96
-msgid "View the summary"
-msgstr "Visualizza il sommario"
-
-#: templates/browser/dataset.html:108 templates/browser/dataset.html:430
-#: templates/browser/dataset.html:432 templates/browser/tabular.html:86
+#: templates/browser/dataset.html:107 templates/browser/dataset.html:429
+#: templates/browser/dataset.html:431 templates/browser/tabular.html:89
 msgid "View as PDF"
 msgstr "Visualizza come PDF"
 
-#: templates/browser/dataset.html:110 templates/browser/tabular.html:88
+#: templates/browser/dataset.html:109 templates/browser/tabular.html:91
 msgid "View as PDF - not available"
 msgstr "Visualizza come PDF - non disponibile"
 
-#: templates/browser/dataset.html:133 templates/browser/dataset.html:200
-#: templates/browser/tabular.html:110
+#: templates/browser/dataset.html:132 templates/browser/dataset.html:199
+#: templates/browser/summary.html:155 templates/browser/tabular.html:113
 msgid "Description"
 msgstr "Descrizione"
 
-#: templates/browser/dataset.html:150 templates/browser/dataset.html:181
-#: templates/browser/tabular.html:127
+#: templates/browser/dataset.html:149 templates/browser/dataset.html:180
+#: templates/browser/tabular.html:130
 msgid "Metadata"
 msgstr "Metadati"
 
-#: templates/browser/dataset.html:167
+#: templates/browser/dataset.html:166
 msgid "Dataset Quality"
 msgstr "Qualità dataset"
 
-#: templates/browser/dataset.html:174
+#: templates/browser/dataset.html:173
 msgid "Indicator"
 msgstr "Indicatore"
 
-#: templates/browser/dataset.html:175
+#: templates/browser/dataset.html:174
 msgid "Value"
 msgstr "Valore"
 
-#: templates/browser/dataset.html:219
+#: templates/browser/dataset.html:218
 msgid "Fields"
 msgstr "Campi"
 
-#: templates/browser/dataset.html:238
+#: templates/browser/dataset.html:237
 msgid "Records"
 msgstr "Records"
 
-#: templates/browser/dataset.html:257
+#: templates/browser/dataset.html:256
 msgid "Content"
 msgstr "Contenuto"
 
-#: templates/browser/dataset.html:276
+#: templates/browser/dataset.html:275
 msgid "License"
 msgstr "Licenza"
 
-#: templates/browser/dataset.html:292 templates/browser/dataset.html:317
+#: templates/browser/dataset.html:291 templates/browser/dataset.html:316
 msgid "Not provided"
 msgstr "Non fornito"
 
-#: templates/browser/dataset.html:301
+#: templates/browser/dataset.html:300
 msgid "Version"
 msgstr "Versione"
 
-#: templates/browser/dataset.html:326
+#: templates/browser/dataset.html:325
 msgid "Last updated"
 msgstr "Ultimo aggiornamento"
 
-#: templates/browser/dataset.html:335
+#: templates/browser/dataset.html:334
 msgid "days ago"
 msgstr "giorni fa"
 
-#: templates/browser/dataset.html:353
+#: templates/browser/dataset.html:352
 msgid "Tags"
 msgstr "Tags"
 
-#: templates/browser/dataset.html:375
+#: templates/browser/dataset.html:374
 msgid "Table Structure"
 msgstr "Struttura Tabella"
 
-#: templates/browser/dataset.html:382 templates/browser/summary.html:64
+#: templates/browser/dataset.html:381 templates/browser/summary.html:93
 msgid "Field name"
 msgstr "Nome Campo"
 
-#: templates/browser/dataset.html:383
+#: templates/browser/dataset.html:382
 msgid "Type"
 msgstr "Tipo"
 
-#: templates/browser/dataset.html:409
+#: templates/browser/dataset.html:408
 msgid "Available views"
 msgstr "Visualizzazioni disponibili"
 
-#: templates/browser/dataset.html:450 templates/browser/summary.html:126
+#: templates/browser/dataset.html:449 templates/browser/summary.html:171
 msgid "Share this page"
 msgstr "Condividi questa pagina"
 
-#: templates/browser/dataset.html:457 templates/browser/summary.html:133
+#: templates/browser/dataset.html:456 templates/browser/summary.html:178
 msgid ""
 "Use the icons below in order to share this page in your favourite Social "
 "Media."
@@ -317,11 +384,11 @@ msgstr ""
 "Usa l'icona sotto per condividere questa pagina sul tuo Social Network "
 "favorito."
 
-#: templates/browser/dataset.html:472 templates/browser/tabular.html:147
+#: templates/browser/dataset.html:471 templates/browser/tabular.html:150
 msgid "Discussions at SPOD"
 msgstr "Discussioni su SPOD"
 
-#: templates/browser/dataset.html:485 templates/browser/tabular.html:159
+#: templates/browser/dataset.html:484 templates/browser/tabular.html:162
 msgid ""
 "This dataset has not been discussed in SPOD, be the first to discuss the "
 "dataset!"
@@ -329,15 +396,15 @@ msgstr ""
 "Questo set di dati non è stato ancora discusso in SPOD, inizia tu una "
 "discussione."
 
-#: templates/browser/dataset.html:489 templates/browser/tabular.html:163
+#: templates/browser/dataset.html:488 templates/browser/tabular.html:166
 msgid "Start the discussion"
 msgstr "Inizia la discussione"
 
-#: templates/browser/dataset.html:506
+#: templates/browser/dataset.html:505
 msgid "Related Datasets"
 msgstr "Dataset collegati"
 
-#: templates/browser/dataset.html:533
+#: templates/browser/dataset.html:532
 msgid "Files"
 msgstr "File"
 
@@ -381,8 +448,9 @@ msgstr "organizzazioni"
 msgid "PDF Preview"
 msgstr "Anteprima PDF"
 
-#: templates/browser/pdf.html:39 templates/browser/summary.html:29
-#: templates/browser/summary.html:40 templates/browser/summary.html:65
+#: templates/browser/pdf.html:39 templates/browser/summary.html:5
+#: templates/browser/summary.html:28 templates/browser/summary.html:63
+#: templates/browser/summary.html:94
 msgid "Summary"
 msgstr "Sommario"
 
@@ -426,35 +494,35 @@ msgstr "Nessun risultato trovato"
 msgid "Please try another search."
 msgstr "Si prega di provare con altri criteri"
 
-#: templates/browser/summary.html:47
-msgid "The average value in field"
-msgstr "Valore medio nel campo"
-
-#: templates/browser/summary.html:47
-msgid "is"
-msgstr "è"
-
-#: templates/browser/summary.html:47
-msgid "The maximum value in the field is"
-msgstr "Il valore massimo nel campo è"
-
-#: templates/browser/summary.html:47
-msgid "and the minmum value in the field is"
-msgstr "e il valore minimo nel campo è"
-
-#: templates/browser/summary.html:58
-msgid "Details"
-msgstr "Dettagli"
-
-#: templates/browser/summary.html:89
+#: templates/browser/summary.html:40
 msgid "Box Plot"
 msgstr "Box Plot"
 
-#: templates/browser/summary.html:99
+#: templates/browser/summary.html:51
 msgid "How can I understand this?"
 msgstr "Come posso comprendere questo?"
 
-#: templates/browser/summary.html:109
+#: templates/browser/summary.html:72
+msgid "The average value in field"
+msgstr "Valore medio nel campo"
+
+#: templates/browser/summary.html:73
+msgid "is"
+msgstr "è"
+
+#: templates/browser/summary.html:74
+msgid "The maximum value in the field is"
+msgstr "Il valore massimo nel campo è"
+
+#: templates/browser/summary.html:75
+msgid "and the minmum value in the field is"
+msgstr "e il valore minimo nel campo è"
+
+#: templates/browser/summary.html:87
+msgid "Details"
+msgstr "Dettagli"
+
+#: templates/browser/summary.html:134
 msgid "Correlation Matrix"
 msgstr "Matrice di correlazione"
 
@@ -474,142 +542,80 @@ msgstr "Tabella pivot"
 msgid "SPOD Discussion"
 msgstr "Discussione SPOD "
 
-#. Roles & Categories
-msgid "Person with Disabilities"
-msgstr "Persone con disabilità"
+#~ msgid "Person with Disabilities"
+#~ msgstr "Persone con disabilità"
 
-#. Roles & Categories
-msgid "Unemployed Person"
-msgstr "Disoccupato"
+#~ msgid "Unemployed Person"
+#~ msgstr "Disoccupato"
 
-#. Roles & Categories
-msgid "Resident"
-msgstr "Residente"
+#~ msgid "Resident"
+#~ msgstr "Residente"
 
-#. Roles & Categories
-msgid "Economist"
-msgstr "Economista"
+#~ msgid "Economist"
+#~ msgstr "Economista"
 
-#. Roles & Categories
-msgid "Statistician"
-msgstr "Statistico"
+#~ msgid "Statistician"
+#~ msgstr "Statistico"
 
-#. Roles & Categories
-msgid "Data Scientist"
-msgstr "Scienziato"
+#~ msgid "Data Scientist"
+#~ msgstr "Scienziato"
 
-#. Roles & Categories
-msgid "Journalist"
-msgstr "Giornalista"
+#~ msgid "Journalist"
+#~ msgstr "Giornalista"
 
-#. Roles & Categories
-msgid "Businessman"
-msgstr "Imprenditore"
+#~ msgid "Businessman"
+#~ msgstr "Imprenditore"
 
-#. Roles & Categories
-msgid "Investor"
-msgstr "Investitore"
+#~ msgid "Investor"
+#~ msgstr "Investitore"
 
-#. Roles & Categories
-msgid "Developer"
-msgstr "Sviluppatore"
+#~ msgid "Developer"
+#~ msgstr "Sviluppatore"
 
-#. Roles & Categories
-msgid "Climate"
-msgstr "Clima"
+#~ msgid "Climate"
+#~ msgstr "Clima"
 
-#. Roles & Categories
-msgid "Education"
-msgstr "Istruzione"
+#~ msgid "Education"
+#~ msgstr "Istruzione"
 
-#. Roles & Categories
-msgid "Finance"
-msgstr "Finanza"
+#~ msgid "Finance"
+#~ msgstr "Finanza"
 
-#. Roles & Categories
-msgid "Business"
-msgstr "Impresa"
+#~ msgid "Business"
+#~ msgstr "Impresa"
 
-#. Roles & Categories
-msgid "Society"
-msgstr "Società"
+#~ msgid "Society"
+#~ msgstr "Società"
 
-#. Roles & Categories
-msgid "Science"
-msgstr "Scienza"
+#~ msgid "Science"
+#~ msgstr "Scienza"
 
-#. Roles & Categories
-msgid "Energy"
-msgstr "Ambiente"
+#~ msgid "Energy"
+#~ msgstr "Ambiente"
 
-#. Roles & Categories
-msgid "Culture and Heritage"
-msgstr "Cultura e patrimonio"
+#~ msgid "Culture and Heritage"
+#~ msgstr "Cultura e patrimonio"
 
-#. Roles & Categories
-msgid "Environment"
-msgstr "Ambiente"
+#~ msgid "Environment"
+#~ msgstr "Ambiente"
 
-#. Roles & Categories
-msgid "Population"
-msgstr "Popolazione"
+#~ msgid "Population"
+#~ msgstr "Popolazione"
 
-#. Roles & Categories
-msgid "Health"
-msgstr "Salute"
+#~ msgid "Health"
+#~ msgstr "Salute"
 
-#. Roles & Categories
-msgid "Technology"
-msgstr "Tecnologia"
+#~ msgid "Technology"
+#~ msgstr "Tecnologia"
 
-#. Roles & Categories
-msgid "Crime and Justice"
-msgstr "Criminalità e Giustizia"
+#~ msgid "Crime and Justice"
+#~ msgstr "Criminalità e Giustizia"
 
-#. Roles & Categories
-msgid "Agriculture"
-msgstr "Agricoltura"
+#~ msgid "Agriculture"
+#~ msgstr "Agricoltura"
 
-#. Roles & Categories
-msgid "Housing"
-msgstr "Alloggi"
+#~ msgid "Housing"
+#~ msgstr "Alloggi"
 
-#. Roles & Categories
-msgid "Transport"
-msgstr "Trasporti"
-
-#. Metrics
-msgid "Integer numbers, e.g 42, 7"
-msgstr "Numeri interi, e.g 1, 2.4, 4.7"
-
-#. Metrics
-msgid "Numbers, e.g 1, 2.4, 4.7"
-msgstr "Numeri, e.g 1, 2.4, 4.7"
-
-#. Metrics
-msgid "Floats, e.g. 1.61803"
-msgstr "Numeri reali, e.g. 1.61803"
-
-#. Metrics
-msgid "Arbitrary text data, e.g. Some text"
-msgstr "Dato testuale arbitrario, e.g. Testo"
-
-#. Metrics
-msgid "Arbitrary nested json data"
-msgstr "Dato json nidificato arbitrario"
-
-#. Metrics
-msgid "Date without time, e.g 2016-5-25"
-msgstr "Data senza ora, e.g. 2016-5-25"
-
-#. Metrics
-msgid "Time without date, e.g 12:06"
-msgstr "Ora senza data, e.g. 12:06"
-
-#. Metrics
-msgid "Date and time, e.g 2016-05-01T02:43Z"
-msgstr "Data e ora, e.g. 2016-05-01T02:43Z"
-
-#. Metrics
-msgid "Boolean values, e.g. true, 0"
-msgstr "Valori booleani, e.g. vero, 0"
+#~ msgid "Transport"
+#~ msgstr "Trasporti"
