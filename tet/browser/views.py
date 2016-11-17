@@ -387,16 +387,16 @@ def search(request, query=False):
     return render(request, template_name, context)
 
 def grading(number):
-    if number >= 90:
-        return "Good"
-    if number >= 80:
-        return "OK"
-    elif number >= 50:
-        return "Medium"
-    elif number >= 25:
-        return "Low"
+    if number < 35:
+        return _("Very Poor")
+    if number < 55:
+        return _("Poor")
+    elif number < 75:
+        return _("Fair")
+    elif number < 95:
+        return _("Good")
     else:
-        return "Very Low"
+        return _("Very good")
 
 
 def compute_completeness(stats):
