@@ -131,7 +131,7 @@ TIME_ZONE = 'GMT'
 
 USE_I18N = True
 
-USE_L10N = False
+USE_L10N = True
 
 USE_TZ = True
 
@@ -166,3 +166,8 @@ LOCATIONS_LIST = ["Dublin", "Leinster", "Cork", "Munster", "Limerick", "Waterfor
 API_KEY = "xxxx-xxxx-xxxx-xxxx"
 
 LOGIN_URL = '/accounts/login/'
+
+INDICATORS =[
+  { "title" : "Dublin City Spendings", 
+  "query":"SELECT \"ServiceType\" as key, sum(\"AdoptedbyCouncil2014\") as value from \"31cc6276-62d9-4bec-9fcc-0f0acb2a6662\" Group By \"ServiceType\""}
+]

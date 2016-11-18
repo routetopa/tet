@@ -22,7 +22,7 @@ try:
   unicode = unicode
 except ImportError: 
   from urllib.request import urlopen
-
+import urllib
 import json
 from .helpers import dataset_to_metadata_text, dataset_to_spod, name_to_url, resource_fields_to_text
 from io import BytesIO
@@ -129,6 +129,29 @@ def typeahead(request):
         return JsonResponse(results)
     except Exception as e:
         return JsonResponse({'success': False})
+
+def cards(request):
+    try:
+        results = {
+          "success": True,
+          "cards": []
+        }
+        try:
+            for indicator in settings.INDICATORS:
+                try:
+                    url = settings.CKAN_URL + "/api/action/datastore_search_sql?sql=" + urllib.quote(indicator["query"])
+                    res = urlopen(url)
+                    data = json.loads(res.read().decode('utf-8'))
+                    for kw in data["result"]["records"]:
+                        kw["title"] = indicator["title"]
+                        results["cards"].append(kw)
+                except Exception:
+                    pass
+        except Exception as e:
+            pass
+        return JsonResponse(results)
+    except Exception as e:
+        return JsonResponse({'success': False, "message" : str(e)})
 
 def table_api(request, resource_id, field_id):
     try:
