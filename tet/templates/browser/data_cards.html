@@ -1,0 +1,56 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% load progress_class %}
+
+{% block title %} {% trans "Data Cards" %} {% endblock title %}
+
+{% block content %}
+
+
+                <div class="container">
+
+                    <div class="row search-ui">
+
+                        <div class="span8 offset3 text-left">
+
+                            <div class="row">
+
+                                {% include "browser/_search.html" with query=query %}
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <div class="row">
+                    <h4 class="dataset-title"> {% trans "Data Cards" %} </h4>
+                </div>
+
+
+                <div class="row">
+                    {Details goes here} Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque et bibendum risus.
+                    In est massa, gravida nec eros sodales, rutrum venenatis eros. Fusce eu convallis enim.
+                    Curabitur laoreet mi quam, ut vulputate lorem feugiat sit amet. Vivamus eleifend venenatis augue a fermentum.
+                    Nulla tincidunt ac felis a fermentum.
+                </div>
+
+                <div class="row top25">
+
+                {% if cards %}
+                    <ul class="datacards unstyled">
+
+                    {% for card in cards %}
+                        <li>
+                            {{ card }}
+                        </li>
+                    {% endfor %}
+
+                    </ul>
+                {% endif %}
+
+                </div>
+
+{% endblock content %}
