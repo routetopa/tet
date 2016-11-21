@@ -752,3 +752,28 @@ def dataset_as_pdf(request, dataset_id):
     except Exception as e:
         messages.add_message(request, messages.ERROR, e)
         return render(request, error_template)
+
+def data_cards(request):
+    template_name = 'browser/data_cards.html'
+    cards = []
+
+    # TODO move to helper function
+    try:
+        for indicator in settings.INDICATORS:
+            try:
+                url = settings.CKAN_URL + "/api/action/datastore_search_sql?sql=" + urllib.quote(indicator["query"])
+                res = urlopen(url)
+                data = json.loads(res.read().decode('utf-8'))
+                for kw in data["result"]["records"]:
+                    kw["title"] = indicator["title"]
+                    cards.append(kw)
+            except Exception as e:
+                pass
+    except Exception as e:
+        pass
+
+    context = {
+        'cards': cards,
+    }
+
+    return render(request, template_name, context)
