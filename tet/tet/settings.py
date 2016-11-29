@@ -166,3 +166,5 @@ LOCATIONS_LIST = ["Dublin", "Leinster", "Cork", "Munster", "Limerick", "Waterfor
 API_KEY = "xxxx-xxxx-xxxx-xxxx"
 
 LOGIN_URL = '/accounts/login/'
+
+SOM_API_URL = "" 
