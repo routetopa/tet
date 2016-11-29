@@ -2,6 +2,31 @@ var SEARCH_MODE = "AND"
 
 $(document).ready(function(){
     $('[data-toggle="tooltip"]').tooltip();
+    if($( "#ds-rc-slider" ).size()){ 
+        var ds_id = $( "#ds-id" ).val();
+        var ds_url = $( "#ds-url" ).val();
+        var api_url = $( "#ds-api-url" ).val();
+        function fetch_data(value){
+             $("#ds-rc-output").html("<em>Loading...</em>")
+              url =  api_url +"/get/" + ds_id + "/" + value;
+              $.get(url, function(data){
+                 html = ""
+                 for (d in data["result"]){
+                    html += "<li><a href='" + ds_url + data["result"][d]["id"] +"'>" + data["result"][d]["title"] + "</a></li>";
+                 }
+                 $("#ds-rc-output").html("<ul class='dataset-files'>"+ html +"</ul>")
+             });
+        }
+        var ds_slider = $( "#ds-rc-slider" ).slider({
+                   max: 10,
+                   value: 1,
+                   min:1,
+                   slide: function( event, ui ) {
+                     fetch_data(ui.value)
+                   }   
+        });
+        fetch_data(1);
+    }
 
     if ( $('.js-zeroclipboard-btn').size() ){
         var client = new ZeroClipboard( $(".js-zeroclipboard-btn") );

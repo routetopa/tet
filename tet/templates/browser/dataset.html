@@ -508,7 +508,15 @@
                                 </div>
 
                                 <div class="panel-body">
-
+                                    {% if SOM_API_URL %}
+                                    <div id="ds-rc-slider"></div>
+                                    <div id="ds-rc-output"></div>
+                                    <div>
+                                        <input type="hidden" id="ds-id" value="{{dataset_id}}"/>
+                                        <input type="hidden" id="ds-url" value="/{{LANGUAGE_CODE}}/dataset/"/>
+                                        <input type="hidden" id="ds-api-url" value="{{SOM_API_URL}}"/>
+                                    </div>
+                                    {% else %}
                                     <ul class="dataset-files">
                                     {% for ds in related_datasets %}
                                         <li>
@@ -517,6 +525,7 @@
                                         </li>
                                     {% endfor %}
                                     </ul>
+                                    {% endif %}
 
                                 </div>
 
