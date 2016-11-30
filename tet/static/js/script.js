@@ -45,6 +45,41 @@ $(function () {
         item: '<li class="span5"><a href="#"></a></li>'
     });
     
+    //SQL editor
+    if($("#query-editor").length > 0){
+        var editor = ace.edit("query-editor");
+        editor.getSession().setMode("ace/mode/sql");
+        $("#exe-query").click(function(e){
+            sql_api = $("#query-api").val() + "?sql=" + encodeURIComponent(editor.getValue());
+            $("#query-output").html("");
+            var jqxhr = $.get(sql_api, function (data){
+                var tr = "";
+                var table = "";
+                if (data["success"] == true){
+                   for(field in data["result"]["fields"]){
+                    if (data["result"]["fields"][field]["id"] .startsWith("_")) continue;
+                     tr += "<th>" + data["result"]["fields"][field]["id"] + "</th>";
+                   }
+                }
+                table += "<tr>" + tr + "</tr>";
+                tr=""
+                for(record  in data["result"]["records"]){
+                   for(field in data["result"]["fields"]){
+                    var field_id = data["result"]["fields"][field]["id"];
+                    if (field_id.startsWith("_")) continue;
+                    tr += "<td>" + data["result"]["records"][record][field_id] + "</td>"
+                   }
+                   table += "<tr>" + tr + "</tr>";
+                   tr=""
+                }
+                table = "<table class='table table-hover' width='100%'>"  + table + "</table>";
+                $("#query-output").html(table);
+            }).fail(function() {
+                $("#query-output").html('<div class="alert alert-danger"><strong>Error</strong> Failed to excute the query </div>');
+            });;
+        });
+    }
+
     // Results filters
     $('.expand-btn').click(function () {
         $(this).parent().parent().children('.filter-hidden').fadeIn('slow')
