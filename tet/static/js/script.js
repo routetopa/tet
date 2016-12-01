@@ -2,6 +2,31 @@ var SEARCH_MODE = "AND"
 
 $(document).ready(function(){
     $('[data-toggle="tooltip"]').tooltip();
+    if($( "#ds-rc-slider" ).size()){ 
+        var ds_id = $( "#ds-id" ).val();
+        var ds_url = $( "#ds-url" ).val();
+        var api_url = $( "#ds-api-url" ).val();
+        function fetch_data(value){
+             $("#ds-rc-output").html("<em>Loading...</em>")
+              url =  api_url +"/get/" + ds_id + "/" + value;
+              $.get(url, function(data){
+                 html = ""
+                 for (d in data["result"]){
+                    html += "<li><a href='" + ds_url + data["result"][d]["id"] +"'>" + data["result"][d]["title"] + "</a></li>";
+                 }
+                 $("#ds-rc-output").html("<ul class='dataset-files'>"+ html +"</ul>")
+             });
+        }
+        var ds_slider = $( "#ds-rc-slider" ).slider({
+                   max: 10,
+                   value: 1,
+                   min:1,
+                   slide: function( event, ui ) {
+                     fetch_data(ui.value)
+                   }   
+        });
+        fetch_data(1);
+    }
 
     if ( $('.js-zeroclipboard-btn').size() ){
         var client = new ZeroClipboard( $(".js-zeroclipboard-btn") );
@@ -45,6 +70,41 @@ $(function () {
         item: '<li class="span5"><a href="#"></a></li>'
     });
     
+    //SQL editor
+    if($("#query-editor").length > 0){
+        var editor = ace.edit("query-editor");
+        editor.getSession().setMode("ace/mode/sql");
+        $("#exe-query").click(function(e){
+            sql_api = $("#query-api").val() + "?sql=" + encodeURIComponent(editor.getValue());
+            $("#query-output").html("");
+            var jqxhr = $.get(sql_api, function (data){
+                var tr = "";
+                var table = "";
+                if (data["success"] == true){
+                   for(field in data["result"]["fields"]){
+                    if (data["result"]["fields"][field]["id"] .startsWith("_")) continue;
+                     tr += "<th>" + data["result"]["fields"][field]["id"] + "</th>";
+                   }
+                }
+                table += "<tr>" + tr + "</tr>";
+                tr=""
+                for(record  in data["result"]["records"]){
+                   for(field in data["result"]["fields"]){
+                    var field_id = data["result"]["fields"][field]["id"];
+                    if (field_id.startsWith("_")) continue;
+                    tr += "<td>" + data["result"]["records"][record][field_id] + "</td>"
+                   }
+                   table += "<tr>" + tr + "</tr>";
+                   tr=""
+                }
+                table = "<table class='table table-hover' width='100%'>"  + table + "</table>";
+                $("#query-output").html(table);
+            }).fail(function() {
+                $("#query-output").html('<div class="alert alert-danger"><strong>Error</strong> Failed to excute the query </div>');
+            });;
+        });
+    }
+
     // Results filters
     $('.expand-btn').click(function () {
         $(this).parent().parent().children('.filter-hidden').fadeIn('slow')

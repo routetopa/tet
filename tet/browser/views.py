@@ -640,7 +640,9 @@ def dataset_as_table(request, dataset_id):
         'metadata_box': dataset_to_metadata_text(dataset),
         'spod_box_datasets': dataset_to_spod(dataset),
         'CKAN_URL': settings.CKAN_URL + "/dataset/" + dataset_id + "?r=" + request.get_full_path(),
-        'API_LINK' : settings.CKAN_URL + "/api/action/datastore_search?resource_id=" + resource_id + "&limit=99999" 
+        'API_LINK' : settings.CKAN_URL + "/api/action/datastore_search?resource_id=" + resource_id + "&limit=99999", 
+        'QUERY_API': settings.CKAN_URL + "/api/action/datastore_search_sql",
+        'resource_id' : resource_id
      }
 
     return render(request, template_name, context)
