@@ -757,7 +757,7 @@ def dataset_as_pdf(request, dataset_id):
 
 def data_cards(request):
     template_name = 'browser/data_cards.html'
-    cards = []
+    indicators = []
 
     # TODO move to helper function
     try:
@@ -766,16 +766,23 @@ def data_cards(request):
                 url = settings.CKAN_URL + "/api/action/datastore_search_sql?sql=" + urllib.quote(indicator["query"])
                 res = urlopen(url)
                 data = json.loads(res.read().decode('utf-8'))
+
+                results = []
+
                 for kw in data["result"]["records"]:
                     kw["title"] = indicator["title"]
-                    cards.append(kw)
+                    results.append(kw)
+
+                # TODO add class / icon in config model
+                indicators.append({"key": indicator["title"], "cards": results, "class": "TODO"})
+
             except Exception as e:
                 pass
     except Exception as e:
         pass
 
     context = {
-        'cards': cards,
+        'indicators': indicators,
     }
 
     return render(request, template_name, context)
