@@ -1,0 +1,73 @@
+{% extends "base.html" %}
+
+{% load i18n %}
+
+{% block title %} Dataset details {% endblock title %}
+
+{{ x }}
+
+{% block content %}
+
+                <div class="container">
+
+                    <div class="row search-ui">
+
+                        <div class="span8 offset3 text-left">
+
+                            <div class="row">
+
+                                {% include "browser/_search.html" with query=query %}
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <div class="row">
+
+                    <h4 class="dataset-title"> {% trans "Merge Datasets" %}</h4>
+                    <h5 class="dataset-title">  </h5>
+
+                </div>
+
+
+                <div class="row">
+                    <table class="table">
+                        <tr>
+                            <th width="90%"> {% trans "Files" %} </th>
+                            <th> {% trans "Merge" %} </th>
+                        </tr>
+                    </table>
+                        {% for key, value in dataset_groups.items %}
+                            <form method="post">
+                                {% csrf_token %}
+                                <table>
+                                    <tr>
+                                        <td width="90%">
+                                            {% for ds in value %}
+                                                <div><input name="selected_rs" type="checkbox" value="{{ds.resource_id}}"/>{{ds.title}} - {{ds.name}}</div>
+                                            {% endfor %}
+                                        </td>
+                                        <td>
+                                            {% if key == "other" %}
+                                                <b> {% trans "Incompatible files can't be merged" %} </b>
+                                            {% else %}
+                                                <button type="submit" name="merge" class="span2 pull-right btn main-search-btn rtpa-btn"> <i class="fa fa-compress" aria-hidden="true"></i> {% trans "Combine Datasets" %} </button>
+                                                <button type="submit" name="analyse" class="span2 pull-right btn main-search-btn rtpa-btn"> <i class="fa fa-line-chart" aria-hidden="true"></i> {% trans "Analyse" %} </button>
+
+                                            {% endif %}
+                                        </td>
+                                    </tr>
+                                </table>
+                            </form>
+                        {% endfor %}
+                    
+
+                    </div>
+
+            </div>
+
+{% endblock content %}

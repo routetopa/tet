@@ -26,6 +26,7 @@ urlpatterns = [
     url(r'^api/text/(?P<dataset_id>[a-zA-Z0-9-]+)/(?P<info_type>[\w|\W]+)$', views.text_api, name='text_api'),
     url(r'^api/typeahead$', views.typeahead, name='typeahead'),
     url(r'^api/cards$', views.cards, name='cards'),
+    url(r'^combine$', views.combine, name='combine'),
     url(r'^openid/', include('oidc_provider.urls', namespace='oidc_provider')),
 
 ]
