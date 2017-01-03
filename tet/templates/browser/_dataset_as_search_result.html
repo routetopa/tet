@@ -5,6 +5,7 @@
     <div class="dataset-content">
 
         <h3 class="dataset-heading">
+            <input type="checkbox" value="{{dataset.id}}" name="selected_datasets">
             <a href="{% url 'dataset' dataset.id %}">{{ dataset.title|safe }}</a>
         </h3>
 
