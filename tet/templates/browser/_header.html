@@ -11,9 +11,14 @@
 
                             <a href="{% url "index" %}" class="rtpa-logo"></a>
 
+                        </div>
 
-
-                            <!--<a href="#" class="btn btn-primary-login" id="login-popup">{% trans "Login" %}</a>-->
+                        <div class="pull-left head-buttons">
+                            {% if user.is_anonymous %}
+                                <a href="#" class="btn btn-primary-login" id="login-popup">{% trans "Login" %}</a>
+                            {% else %}
+                                <a href="{% url 'django.contrib.auth.views.logout' %}" class="btn btn-primary-login" id="login-popup">{% trans "Logout" %}</a>
+                            {% endif %}
 
                         </div>
 
