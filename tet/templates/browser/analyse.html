@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+
+{% load i18n %}
+
+{% block title %} Analysis using PivotTable  {% endblock title %}
+
+{{ x }}
+
+{% block content %}
+
+                <div class="container">
+
+                    <div class="row search-ui">
+
+                        <div class="span8 offset3 text-left">
+
+                            <div class="row">
+
+                                {% include "browser/_search.html" with query=query %}
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <div class="row">
+
+                    <h4 class="dataset-title"> {% trans "PivotTable View" %}</h4>
+                    <h5 class="dataset-title">  </h5>
+
+                </div>
+
+
+                <div class="row">
+                    <input id="ds-merged" type="hidden" value="{{RESOURCE_URL}}"/>  
+                    <div id="output" style="margin: 30px;">
+
+                </div>
+
+            </div>
+
+{% endblock content %}

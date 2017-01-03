@@ -30,7 +30,7 @@ from dateutil.parser import parse
 
 from django.core.urlresolvers import reverse
 from django.conf import settings
-from django.http import HttpResponse, HttpResponseRedirect, Http404, JsonResponse
+from django.http import HttpResponse, HttpResponseRedirect, Http404, JsonResponse, StreamingHttpResponse
 from django.shortcuts import get_object_or_404, render
 from django.utils.html import strip_tags
 from django.views import generic
@@ -591,6 +591,105 @@ def corr_mat(request, resource_id):
         return response
     except Exception, e:
         return JsonResponse({'message': str(e)})
+
+def get_dataset(dataset_id):
+    ckan_api_instance = ckanapi.RemoteCKAN(
+        settings.CKAN_URL,
+        user_agent='tetbrowser/1.0 (+http://tetbrowser.routetopa.eu)'
+    )
+    url = settings.CKAN_URL + "/dataset/" + dataset_id
+    resource_id = None
+    try:
+        dataset = ckan_api_instance.action.package_show(
+            id=dataset_id
+        )
+        return dataset
+    except Exception as e:
+        return None
+
+def get_resource_data(resource_id, limit = 0):
+        url = settings.CKAN_URL + "/api/action/datastore_search?resource_id=" + resource_id + "&limit=" + str(limit)
+        res = urlopen(url)
+        return json.loads(res.read())
+
+def exe_sql(sql):
+        url = settings.CKAN_URL + "/api/action/datastore_search_sql?sql=" + urllib.quote(sql)
+        res = urlopen(url)
+        return json.loads(res.read().decode('utf-8'))
+
+def combine(request):
+    template_name = 'browser/merge.html'
+    selected_datasets =[]
+    groups = {"other": []}
+    try:
+        if 'merge' in request.POST:
+            rs = request.POST.getlist('selected_rs')
+            if len(rs) > 0:
+                sql = ""
+                for r in rs:
+                    if len(sql) > 0:
+                        sql += " UNION "
+                    sql += "SELECT * from \"" + r + "\""
+                data = exe_sql(sql)
+                df = json_normalize(data["result"]["records"])
+                del df["_id"]
+                del df["_full_text"]
+                fields = data["result"]["fields"]
+                headers = [field["id"]for field in fields ].remove("_id")
+                sio = StringIO()
+                df.to_csv(sio,  index=False)
+                filename = "merged.csv"
+                workbook = sio.getvalue()
+                response = StreamingHttpResponse(workbook, content_type='text/csv')
+                response['Content-Disposition'] = 'attachment; filename=%s' % filename
+                return response
+
+        if 'analyse' in request.POST:
+            rs = request.POST.getlist('selected_rs')
+            if len(rs) > 0:
+                sql = ""
+                for r in rs:
+                    if len(sql) > 0:
+                        sql += " UNION "
+                    sql += "SELECT * from \"" + r + "\""
+                url = settings.CKAN_URL + "/api/action/datastore_search_sql?sql=" + urllib.quote(sql)
+                context = {
+                    "RESOURCE_URL" : url
+                }
+                template_name = 'browser/analyse.html'
+                return render(request, template_name, context)
+
+        if 'mark_read' in request.POST:
+            selected_datasets = request.POST.getlist('selected_datasets')
+            for dataset_id in selected_datasets:
+                dataset = get_dataset(dataset_id)
+                if "resources" in dataset.keys():
+                    for resource in dataset["resources"]:
+                        if resource["format"].lower() in ["csv","xls"]:
+                            resource_id = resource["id"]
+                            print(resource_id)                    
+                            try:
+                                fields =  "_".join([f["id"] for f in get_resource_data(resource_id)["result"]["fields"]])
+                            except Exception:
+                                fields = "other"
+                            if fields not in groups.keys():
+                                groups[fields] =[]
+                            groups[fields].append({"title": dataset["title"], "resource_id": resource_id, "name": resource["name"]})
+                else:
+                    groups["other"].append(dataset)
+        for g in groups.keys():
+            if len(groups[g]) < 2:
+                if g == "other":
+                    continue
+                groups["other"].extend(groups[g])
+                del groups[g]
+    except Exception, e:
+        return JsonResponse({'message': str(e)})
+    context = {
+        "dataset_groups" : groups
+     }
+
+    return render(request, template_name, context)
 
 
 def dataset_as_app(request, dataset_id):

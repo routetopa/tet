@@ -28,6 +28,19 @@ $(document).ready(function(){
         fetch_data(1);
     }
 
+    if ( $('#ds-merged').size() ){
+        var ds_merged = $( "#ds-merged" ).val();
+        var response = $.getJSON(ds_merged, function(data) {
+            console.log(data);
+            var derivers = $.pivotUtilities.derivers;
+            var renderers = $.extend(
+                            $.pivotUtilities.renderers,
+                            $.pivotUtilities.c3_renderers,
+                            $.pivotUtilities.d3_renderers
+                            );
+            $("#output").pivotUI(data.result.records, { renderers: renderers});    
+        });
+    }
     if ( $('.js-zeroclipboard-btn').size() ){
         var client = new ZeroClipboard( $(".js-zeroclipboard-btn") );
     }
