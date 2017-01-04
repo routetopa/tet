@@ -154,10 +154,17 @@ def cards(request):
         return JsonResponse({'success': False, "message" : str(e)})
 
 def table_api(request, resource_id, field_id):
+    url = settings.CKAN_URL +  "/api/action/datastore_search_sql?sql=" + urllib.quote("SELECT \"" + field_id + "\" FROM \"" + resource_id + "\"")
+    return column_summary(url, field_id)
+
+def query_api(request, query, field_id):
+    url = settings.CKAN_URL + "/api/action/datastore_search_sql?sql=" + urllib.quote(query)
+    return column_summary(url, field_id)
+
+def column_summary(url, field_id):
     try:
-        url = settings.CKAN_URL + "/api/action/datastore_search?resource_id=" + resource_id + "&limit=99999"
         res = urlopen(url)
-        data = json.loads(res.read())
+        data = json.loads(res.read().decode('utf-8'))
         temp_data = json_normalize(data["result"]["records"])
         fields = data["result"]["fields"] # type_unified TODO
         record_count = 0
@@ -165,7 +172,6 @@ def table_api(request, resource_id, field_id):
           "help": "http://google.com",
           "success": True,
           "result" : {
-            "resource_id": resource_id,
             "records" : [],
             "fields" : [
               {"id":"Name", "type" : "text"},
@@ -655,7 +661,8 @@ def combine(request):
                 url = settings.CKAN_URL + "/api/action/datastore_search_sql?sql=" + urllib.quote(sql)
                 context = {
                     "RESOURCE_URL" : url,
-                    "ACTION" : "analyse"
+                    "ACTION" : "analyse",
+                    
                 }
                 template_name = 'browser/analyse.html'
                 return render(request, template_name, context)
@@ -669,10 +676,47 @@ def combine(request):
                         sql += " UNION "
                     sql += "SELECT * from \"" + r + "\""
                 url = settings.CKAN_URL + "/api/action/datastore_search_sql?sql=" + urllib.quote(sql)
+
                 context = {
                     "RESOURCE_URL" : url,
                     "ACTION" : "view"
                 }
+
+                template_name = 'browser/analyse.html'
+                return render(request, template_name, context)
+
+        if 'chart' in request.POST:
+            rs = request.POST.getlist('selected_rs')
+            if len(rs) > 0:
+                sql = ""
+                for r in rs:
+                    if len(sql) > 0:
+                        sql += " UNION "
+                    sql += "SELECT * from \"" + r + "\""
+                url = settings.CKAN_URL + "/api/action/datastore_search_sql?sql=" + urllib.quote(sql)
+                data = get_resource_data(rs[0])
+                resource_fields = []
+                filter_list = ["long", "lat", "no.", "phone", "date","id", "code"] 
+                for field in data["result"]["fields"]:
+                    name = field["id"]
+                    found = False 
+                    for f in filter_list:
+                        if f in name.lower():
+                            found = True 
+                    if found:
+                        continue
+                    if field["type"] == "numeric":
+                        resource_fields.append((name, True))
+                    elif field["type"] == "text":
+                        resource_fields.append((name, False))
+                    else:
+                        pass
+                context = {
+                    "RESOURCE_URL" : url,
+                    "ACTION" : "chart",
+                    "resource_fields" : resource_fields
+                }
+                context['freq_resource_id'] = "/en/api/query/" + urllib.quote(sql)
                 template_name = 'browser/analyse.html'
                 return render(request, template_name, context)
 
@@ -683,8 +727,7 @@ def combine(request):
                 if "resources" in dataset.keys():
                     for resource in dataset["resources"]:
                         if resource["format"].lower() in ["csv","xls"]:
-                            resource_id = resource["id"]
-                            print(resource_id)                    
+                            resource_id = resource["id"]                 
                             try:
                                 fields =  "_".join([f["id"] for f in get_resource_data(resource_id)["result"]["fields"]])
                             except Exception:
