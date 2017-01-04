@@ -31,15 +31,29 @@ $(document).ready(function(){
     if ( $('#ds-merged').size() ){
         var ds_merged = $( "#ds-merged" ).val();
         var response = $.getJSON(ds_merged, function(data) {
-            console.log(data);
-            var derivers = $.pivotUtilities.derivers;
-            var renderers = $.extend(
-                            $.pivotUtilities.renderers,
-                            $.pivotUtilities.c3_renderers,
-                            $.pivotUtilities.d3_renderers
-                            );
-            $("#output").pivotUI(data.result.records, { renderers: renderers});    
-        });
+                if ($("#output").size() > 0){
+                    var derivers = $.pivotUtilities.derivers;
+                    var renderers = $.extend(
+                                    $.pivotUtilities.renderers,
+                                    $.pivotUtilities.c3_renderers,
+                                    $.pivotUtilities.d3_renderers
+                                    );
+                    $("#output").pivotUI(data.result.records, { renderers: renderers});    
+
+                }else{
+                    columns = []
+                    for (field in data.result.fields){
+                        field_name = data.result.fields[field].id;
+                        if (!field_name.startsWith("_")){
+                            columns.push({ "data" : field_name })
+                        }
+                    }
+                    $('#ds-table').DataTable( {
+                        data: data.result.records,
+                        columns: columns
+                    });
+                }
+            });
     }
     if ( $('.js-zeroclipboard-btn').size() ){
         var client = new ZeroClipboard( $(".js-zeroclipboard-btn") );

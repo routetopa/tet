@@ -654,7 +654,24 @@ def combine(request):
                     sql += "SELECT * from \"" + r + "\""
                 url = settings.CKAN_URL + "/api/action/datastore_search_sql?sql=" + urllib.quote(sql)
                 context = {
-                    "RESOURCE_URL" : url
+                    "RESOURCE_URL" : url,
+                    "ACTION" : "analyse"
+                }
+                template_name = 'browser/analyse.html'
+                return render(request, template_name, context)
+
+        if 'view' in request.POST:
+            rs = request.POST.getlist('selected_rs')
+            if len(rs) > 0:
+                sql = ""
+                for r in rs:
+                    if len(sql) > 0:
+                        sql += " UNION "
+                    sql += "SELECT * from \"" + r + "\""
+                url = settings.CKAN_URL + "/api/action/datastore_search_sql?sql=" + urllib.quote(sql)
+                context = {
+                    "RESOURCE_URL" : url,
+                    "ACTION" : "view"
                 }
                 template_name = 'browser/analyse.html'
                 return render(request, template_name, context)
