@@ -25,7 +25,7 @@
                     </div>
 
                 </div>
-
+                {% if ACTION == "analyse" %}
                 <div class="row">
 
                     <h4 class="dataset-title"> {% trans "PivotTable View" %}</h4>
@@ -38,8 +38,27 @@
                     <input id="ds-merged" type="hidden" value="{{RESOURCE_URL}}"/>  
                     <div id="output" style="margin: 30px;">
 
+
+
+                </div>
+                {% endif %}
+
+                {% if ACTION == "view" %}
+                <div class="row">
+
+                    <h4 class="dataset-title"> {% trans "Table View" %}</h4>
+                    <h5 class="dataset-title">  </h5>
+
                 </div>
 
+
+                <div class="row">
+                    <input id="ds-merged" type="hidden" value="{{RESOURCE_URL}}"/>  
+                    <table id="ds-table" class="display" width="100%"></table>
+                </div>
+                {% endif %}
+
+               
             </div>
 
 {% endblock content %}
