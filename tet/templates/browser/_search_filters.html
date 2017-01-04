@@ -3,143 +3,175 @@
 
 {% if filters %}
 
-    <h3>{% trans "Refine by" %}</h3>
 
-    {% if filters.locations %}
 
-    <div class="panel-group">
-        <div class="">
-            <div class="">
-                <h5 class="">
-                    <a data-toggle="collapse" href="#"> <i class="fa fa-map-marker" aria-hidden="true"></i>
-                        {% trans "Location" %}
-                    </a>
-                </h5>
+    <!-- Centered Tabs -->
+    <ul class="nav nav-tabs nav-justified">
+        <li class="active">
+            <a href="#refine" data-toggle="tab">{% trans "Refine results" %}</a>
+        </li>
+        <li class="">
+            <a href="#combine" data-toggle="tab">{% trans "Combine datasets" %}</a>
+        </li>
+    </ul>
+
+
+
+    <div class="tab-content">
+        <div id="refine" class="tab-pane fade in active">
+
+            {% if filters.locations %}
+
+            <div class="panel-group">
+                <div class="">
+                    <div class="">
+                        <h5 class="">
+                            <a data-toggle="collapse" href="#"> <i class="fa fa-map-marker" aria-hidden="true"></i>
+                                {% trans "Location" %}
+                            </a>
+                        </h5>
+                    </div>
+                    <div class="panel-collapse">
+                        <ul class="list-group unstyled">
+
+                            {% for loc in filters.locations %}
+                                <li class="list-group-item{% if forloop.counter > 5 %} filter-hidden{% endif %}">
+                                    <span class="result-label">{{ loc }}</span>
+                                    <span class="results-count">( {% keyvalue filters.locations loc %} )</span>
+                                    <input type="checkbox" class="pull-right" filter-key="location" filter-value="{{loc|lower}}">
+                                </li>
+                            {% endfor %}
+
+                                <li class="expand">
+                            {% if filters.locations|length > 5 %}
+                                    <a class="expand-btn pull-right">  {% trans "Show More" %} <i class="fa fa-caret-down"></i> </a>
+                            {% endif %}
+                                </li>
+
+                        </ul>
+                    </div>
+                </div>
             </div>
-            <div class="panel-collapse">
-                <ul class="list-group unstyled">
 
-                    {% for loc in filters.locations %}
-                        <li class="list-group-item{% if forloop.counter > 5 %} filter-hidden{% endif %}">
-                            <span class="result-label">{{ loc }}</span>
-                            <span class="results-count">( {% keyvalue filters.locations loc %} )</span>
-                            <input type="checkbox" class="pull-right" filter-key="location" filter-value="{{loc|lower}}">
-                        </li>
-                    {% endfor %}
+            {% endif %}
 
-                        <li class="expand">
-                    {% if filters.locations|length > 5 %}
-                            <a class="expand-btn pull-right">  {% trans "Show More" %} <i class="fa fa-caret-down"></i> </a>
-                    {% endif %}
-                        </li>
+            {% if filters.periods %}
 
-                </ul>
+            <div class="panel-group">
+                <div class="">
+                    <div class="">
+                        <h5 class="">
+                            <a data-toggle="collapse" href="#"><i class="fa fa-calendar" aria-hidden="true"></i>
+                                {% trans "Period" %}
+                            </a>
+                        </h5>
+                    </div>
+                    <div class="panel-collapse">
+                        <ul class="list-group unstyled">
+
+                            {% for per in filters.periods %}
+                                <li class="list-group-item{% if forloop.counter > 5 %} filter-hidden{% endif %}">
+                                    <span class="result-label">{{ per }}</span>
+                                    <span class="results-count">( {% keyvalue filters.periods per %} )</span>
+                                    <input type="checkbox" class="pull-right" filter-key="year" filter-value="{{per}}">
+                                </li>
+                            {% endfor %}
+
+                            {% if filters.periods|length > 5 %}
+                                <li class="expand">
+                                    <a class="expand-btn pull-right">  {% trans "Show More" %} <i class="fa fa-caret-down"></i> </a>
+                                </li>
+                            {% endif %}
+
+                        </ul>
+                    </div>
+                </div>
             </div>
+
+            {% endif %}
+
+            {% if filters.themes %}
+
+            <div class="panel-group">
+                <div class="">
+                    <div class="">
+                        <h5 class="">
+                            <a data-toggle="collapse" href="#"><i class="fa fa-tags" aria-hidden="true"></i>
+                                {% trans "Themes" %}
+                            </a>
+                        </h5>
+                    </div>
+                    <div class="panel-collapse">
+                        <ul class="list-group unstyled">
+
+                            {% for the in filters.themes %}
+                                <li class="list-group-item{% if forloop.counter > 5 %} filter-hidden{% endif %}">
+                                    <span class="result-label">{% trans the %}</span>
+                                    <span class="results-count">( {% keyvalue filters.themes the %} )</span>
+                                    <input type="checkbox" class="pull-right" filter-key="category" filter-value="{{the|lower}}">
+                                </li>
+                            {% endfor %}
+
+                            {% if filters.themes|length > 5 %}
+                                <li class="expand">
+                                    <a class="expand-btn pull-right">  {% trans "Show More" %} <i class="fa fa-caret-down"></i> </a>
+                                </li>
+                            {% endif %}
+
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            {% endif %}
+
+            <div class="panel-group">
+                <div class="">
+                    <div class="">
+                        <h5 class="">
+                            <a data-toggle="collapse" href="#"><i class="fa fa-files-o" aria-hidden="true"></i>
+                                {% trans "Format" %}
+                            </a>
+                        </h5>
+                    </div>
+                    <div class="panel-collapse">
+                        <ul class="list-group unstyled">
+
+                            {% for for in filters.formats %}
+                                <li class="list-group-item{% if forloop.counter > 5 %} filter-hidden{% endif %}">
+                                    <span class="label result-label" data-format="{{for|lower}}">{{ for }}</span>
+                                    <span class="results-count">( {% keyvalue filters.formats for %} )</span>
+                                    <input type="checkbox" class="pull-right" filter-key="format" filter-value="{{for|lower}}">
+                                </li>
+                            {% endfor %}
+
+                            {% if filters.formats|length > 5 %}
+                                <li class="expand">
+                                    <a class="expand-btn pull-right">  {% trans "Show More" %} <i class="fa fa-caret-down"></i> </a>
+                                </li>
+                            {% endif %}
+
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
         </div>
+
+        <div id="combine" class="tab-pane fade">
+            <h3>Menu 1</h3>
+            <p>
+                <form method="post" action="/en/combine">
+                    {% csrf_token %}
+                    <div>
+                        <button type="submit" name="mark_read" class="span2 pull-right btn main-search-btn rtpa-btn"> <i class="fa fa-compress" aria-hidden="true"></i> {% trans "Combine Datasets" %} </button>
+                    </div>
+                </form>
+            </p>
+        </div>
+
     </div>
 
-    {% endif %}
-
-    {% if filters.periods %}
-
-    <div class="panel-group">
-        <div class="">
-            <div class="">
-                <h5 class="">
-                    <a data-toggle="collapse" href="#"><i class="fa fa-calendar" aria-hidden="true"></i>
-                        {% trans "Period" %}
-                    </a>
-                </h5>
-            </div>
-            <div class="panel-collapse">
-                <ul class="list-group unstyled">
-
-                    {% for per in filters.periods %}
-                        <li class="list-group-item{% if forloop.counter > 5 %} filter-hidden{% endif %}">
-                            <span class="result-label">{{ per }}</span>
-                            <span class="results-count">( {% keyvalue filters.periods per %} )</span>
-                            <input type="checkbox" class="pull-right" filter-key="year" filter-value="{{per}}">
-                        </li>
-                    {% endfor %}
-
-                    {% if filters.periods|length > 5 %}
-                        <li class="expand">
-                            <a class="expand-btn pull-right">  {% trans "Show More" %} <i class="fa fa-caret-down"></i> </a>
-                        </li>
-                    {% endif %}
-
-                </ul>
-            </div>
-        </div>
-    </div>
-
-    {% endif %}
-
-    {% if filters.themes %}
-
-    <div class="panel-group">
-        <div class="">
-            <div class="">
-                <h5 class="">
-                    <a data-toggle="collapse" href="#"><i class="fa fa-tags" aria-hidden="true"></i>
-                        {% trans "Themes" %}
-                    </a>
-                </h5>
-            </div>
-            <div class="panel-collapse">
-                <ul class="list-group unstyled">
-
-                    {% for the in filters.themes %}
-                        <li class="list-group-item{% if forloop.counter > 5 %} filter-hidden{% endif %}">
-                            <span class="result-label">{% trans the %}</span>
-                            <span class="results-count">( {% keyvalue filters.themes the %} )</span>
-                            <input type="checkbox" class="pull-right" filter-key="category" filter-value="{{the|lower}}">
-                        </li>
-                    {% endfor %}
-
-                    {% if filters.themes|length > 5 %}
-                        <li class="expand">
-                            <a class="expand-btn pull-right">  {% trans "Show More" %} <i class="fa fa-caret-down"></i> </a>
-                        </li>
-                    {% endif %}
-
-                </ul>
-            </div>
-        </div>
-    </div>
-
-    {% endif %}
-
-    <div class="panel-group">
-        <div class="">
-            <div class="">
-                <h5 class="">
-                    <a data-toggle="collapse" href="#"><i class="fa fa-files-o" aria-hidden="true"></i>
-                        {% trans "Format" %}
-                    </a>
-                </h5>
-            </div>
-            <div class="panel-collapse">
-                <ul class="list-group unstyled">
-
-                    {% for for in filters.formats %}
-                        <li class="list-group-item{% if forloop.counter > 5 %} filter-hidden{% endif %}">
-                            <span class="label result-label" data-format="{{for|lower}}">{{ for }}</span>
-                            <span class="results-count">( {% keyvalue filters.formats for %} )</span>
-                            <input type="checkbox" class="pull-right" filter-key="format" filter-value="{{for|lower}}">
-                        </li>
-                    {% endfor %}
-
-                    {% if filters.formats|length > 5 %}
-                        <li class="expand">
-                            <a class="expand-btn pull-right">  {% trans "Show More" %} <i class="fa fa-caret-down"></i> </a>
-                        </li>
-                    {% endif %}
-
-                </ul>
-            </div>
-        </div>
-    </div>
 {% endif %}
 
 <!--
