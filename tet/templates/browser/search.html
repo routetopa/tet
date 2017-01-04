@@ -49,19 +49,14 @@
                             <div class="span2 text-right"><a href="#" id="sort-btn-date" class="sort-btn">{% trans "Date" %} <i class="fa fa-sort-amount-asc" aria-hidden="true"></i></a></div>
 
                         </div>
-                        <form method="post" action="/en/combine">
-                            {% csrf_token %}
-                            <div>
-                                <button type="submit" name="mark_read" class="span2 pull-right btn main-search-btn rtpa-btn"> <i class="fa fa-compress" aria-hidden="true"></i> {% trans "Combine Datasets" %} </button>
-                            </div>
-                            <ul class="dataset-list unstyled">
 
-                                {% for dataset in search_results %}
-                                    {% include "browser/_dataset_as_search_result.html" with dataset=dataset %}
-                                {% endfor %}
+                        <ul class="dataset-list unstyled">
 
-                            </ul>
-                        </form>
+                            {% for dataset in search_results %}
+                                {% include "browser/_dataset_as_search_result.html" with dataset=dataset %}
+                            {% endfor %}
+
+                        </ul>
 
                     </div>
 
