@@ -1,8 +1,11 @@
 var SEARCH_MODE = "AND"
 
 $(document).ready(function(){
+
     $('[data-toggle="tooltip"]').tooltip();
-    if($( "#ds-rc-slider" ).size()){ 
+    $('[data-toggle="tab"]').tab();
+
+    if($( "#ds-rc-slider" ).size()){
         var ds_id = $( "#ds-id" ).val();
         var ds_url = $( "#ds-url" ).val();
         var api_url = $( "#ds-api-url" ).val();
