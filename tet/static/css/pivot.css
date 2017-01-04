@@ -1,20 +1,20 @@
 .pvtUi { color: #333; }
 
- body {font-family: Verdana;}
-            .node {
-              border: solid 1px white;
-              font: 10px sans-serif;
-              line-height: 12px;
-              overflow: hidden;
-              position: absolute;
-              text-indent: 2px;
-            }
+.node {
+  border: solid 1px white;
+  font: 10px sans-serif;
+  line-height: 12px;
+  overflow: hidden;
+  position: absolute;
+  text-indent: 2px;
+}
 
 table.pvtTable {
     font-size: 8pt;
     text-align: left;
     border-collapse: collapse;
 }
+
 table.pvtTable tr th, table.pvtTable tr th {
     background-color: #e6EEEE;
     border: 1px solid #CDCDCD;
