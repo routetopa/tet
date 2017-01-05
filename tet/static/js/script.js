@@ -1,4 +1,5 @@
 var SEARCH_MODE = "AND"
+var csrftoken = getCookie('csrftoken');
 
 $(document).ready(function(){
 
@@ -312,3 +313,42 @@ $(function () {
     }
 
 })(jQuery)
+
+function getCookie(name) {
+    var cookieValue = null;
+    if (document.cookie && document.cookie !== '') {
+        var cookies = document.cookie.split(';');
+        for (var i = 0; i < cookies.length; i++) {
+            var cookie = jQuery.trim(cookies[i]);
+            // Does this cookie string begin with the name we want?
+            if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                break;
+            }
+        }
+    }
+    return cookieValue;
+}
+
+// jquery extend function
+// http://stackoverflow.com/a/23347795/536535
+$.extend(
+{
+    redirectPost: function(location, args)
+    {
+        var form = $('<form></form>');
+        form.attr("method", "post");
+        form.attr("action", location);
+
+        $.each( args, function( key, value ) {
+            var field = $('<input></input>');
+
+            field.attr("type", "hidden");
+            field.attr("name", key);
+            field.attr("value", value);
+
+            form.append(field);
+        });
+        $(form).appendTo('body').submit();
+    }
+});
