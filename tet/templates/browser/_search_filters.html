@@ -159,15 +159,20 @@
         </div>
 
         <div id="combine" class="tab-pane fade">
-            <h3>Menu 1</h3>
-            <p>
-                <form method="post" action="/en/combine">
-                    {% csrf_token %}
-                    <div>
-                        <button type="submit" name="mark_read" class="span2 pull-right btn main-search-btn rtpa-btn"> <i class="fa fa-compress" aria-hidden="true"></i> {% trans "Combine Datasets" %} </button>
-                    </div>
-                </form>
-            </p>
+
+            <div class="alert alert-info" style="display: none;">
+              <strong> <i class="fa fa-info-circle" aria-hidden="true"></i> </strong>  <br/>
+              <small>{% trans "Please select one or more elements from tle list" %} </small>
+            </div>
+
+            <p>{% trans "This feature allow to merge multiple datasets." %}</p>
+
+            <div>
+                <button type="submit" id="combineDatasets" name="combine" class="pull-left btn main-search-btn rtpa-btn top20">
+                    <i class="fa fa-compress" aria-hidden="true"></i>
+                    {% trans "Combine Datasets" %}
+                </button>
+            </div>
         </div>
 
     </div>
