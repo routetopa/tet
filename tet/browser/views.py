@@ -635,7 +635,7 @@ def combine(request):
                 for r in rs:
                     if len(sql) > 0:
                         sql += " UNION "
-                    sql += "SELECT * from \"" + r + "\""
+                    sql += "SELECT * , '" + r.split(",")[1] + "' as File from \"" + r.split(",")[0] + "\""
                 data = exe_sql(sql)
                 df = json_normalize(data["result"]["records"])
                 del df["_id"]
@@ -657,7 +657,7 @@ def combine(request):
                 for r in rs:
                     if len(sql) > 0:
                         sql += " UNION "
-                    sql += "SELECT * from \"" + r + "\""
+                    sql += "SELECT * , '" + r.split(",")[1] + "' as File from \"" + r.split(",")[0] + "\""
                 url = settings.CKAN_URL + "/api/action/datastore_search_sql?sql=" + urllib.quote(sql)
                 context = {
                     "RESOURCE_URL" : url,
@@ -674,7 +674,7 @@ def combine(request):
                 for r in rs:
                     if len(sql) > 0:
                         sql += " UNION "
-                    sql += "SELECT * from \"" + r + "\""
+                    sql += "SELECT * , '" + r.split(",")[1] + "' as File from \"" + r.split(",")[0] + "\""
                 url = settings.CKAN_URL + "/api/action/datastore_search_sql?sql=" + urllib.quote(sql)
 
                 context = {

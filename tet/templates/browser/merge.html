@@ -48,7 +48,7 @@
                                     <tr>
                                         <td width="90%">
                                             {% for ds in value %}
-                                                <div><input name="selected_rs" type="checkbox" value="{{ds.resource_id}}"/>{{ds.title}} - {{ds.name}}</div>
+                                                <div><input name="selected_rs" type="checkbox" value="{{ds.resource_id}},{{ds.name}}"/>{{ds.title}} - {{ds.name}}</div>
                                             {% endfor %}
                                         </td>
                                         <td>
