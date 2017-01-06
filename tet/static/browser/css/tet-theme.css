@@ -222,6 +222,12 @@ body, html {
     clear: both;
 }
 
+#search-results .select_dataset {
+    margin-right: 5px;
+    margin-top: -4px;
+    display: none;
+}
+
 .dataset-resources li {
     display: inline;
 }

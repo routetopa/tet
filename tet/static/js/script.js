@@ -155,7 +155,14 @@ $(function () {
         return false;
     });
 
+    // Refine / Combine tab
+    $('#combineDatasetsTab').click(function () {
+        $('#search-results .select_dataset').fadeIn('slow')
+    });
 
+    $('#refineDatasetsTab').click(function () {
+        $('#search-results .select_dataset').hide()
+    });
 
     // Results filters
     $('.expand-btn').click(function () {
