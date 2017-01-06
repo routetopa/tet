@@ -692,9 +692,9 @@ def combine(request):
                 for r in rs:
                     if len(sql) > 0:
                         sql += " UNION "
-                    sql += "SELECT * from \"" + r + "\""
+                    sql += "SELECT * from \"" + r.split(",")[0] + "\""
                 url = settings.CKAN_URL + "/api/action/datastore_search_sql?sql=" + urllib.quote(sql)
-                data = get_resource_data(rs[0])
+                data = get_resource_data(rs[0].split(",")[0])
                 resource_fields = []
                 filter_list = ["long", "lat", "no.", "phone", "date","id", "code"] 
                 for field in data["result"]["fields"]:
