@@ -49,7 +49,7 @@ $(document).ready(function(){
                     for (field in data.result.fields){
                         field_name = data.result.fields[field].id;
                         if (!field_name.startsWith("_")){
-                            columns.push({ "data" : field_name })
+                            columns.push({ "data" : field_name , "title" : field_name  })
                         }
                     }
                     $('#ds-table').DataTable( {
