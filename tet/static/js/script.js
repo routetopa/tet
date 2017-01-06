@@ -136,6 +136,27 @@ $(function () {
         });
     }
 
+
+    // Combine Datasets
+    $('#combineDatasets').click(function () {
+
+        $(this).parent().siblings('.alert').hide();
+
+        var selected_datasets = $("input[name='selected_datasets']:checked");
+
+        if (selected_datasets.length > 0){
+
+            return true
+
+        } else {
+            $(this).parent().siblings('.alert').fadeIn('slow');
+        }
+
+        return false;
+    });
+
+
+
     // Results filters
     $('.expand-btn').click(function () {
         $(this).parent().parent().children('.filter-hidden').fadeIn('slow')
