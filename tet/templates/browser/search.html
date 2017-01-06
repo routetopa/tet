@@ -34,36 +34,37 @@
 
                 <div class="row">
 
-                    <div class="span3" id="results-filter">
-                        {% include "browser/_search_filters.html" with filters=filters %}
-                    </div>
+                    <form method="post" action="{% url 'combine' %}">
 
-                    <div class="span9" id="search-results">
+                        <div class="span3" id="results-filter">
+                            {% include "browser/_search_filters.html" with filters=filters %}
+                        </div>
 
-                        <div class="row order-by-header">
+                        <div class="span9" id="search-results">
 
-                            <div class="span3 text-left"><h3>Results: <span id="results_count">{{search_results|length}}</span></h3></div>
+                            <div class="row order-by-header">
 
-                            <div class="span2 text-right active-filter"><a href="#" id="sort-btn-relevance" class="sort-btn">{% trans "Relevance" %} <i class="fa fa-sort-amount-asc" aria-hidden="true"></i></a></div>
-                            <div class="span2 text-right"><a href="#" id="sort-btn-name" class="sort-btn">{% trans "Name" %} <i class="fa fa-sort-amount-desc" aria-hidden="true"></i></a></div>
-                            <div class="span2 text-right"><a href="#" id="sort-btn-date" class="sort-btn">{% trans "Date" %} <i class="fa fa-sort-amount-asc" aria-hidden="true"></i></a></div>
+                                <div class="span3 text-left"><h3>Results: <span id="results_count">{{search_results|length}}</span></h3></div>
+
+                                <div class="span2 text-right active-filter"><a href="#" id="sort-btn-relevance" class="sort-btn">{% trans "Relevance" %} <i class="fa fa-sort-amount-asc" aria-hidden="true"></i></a></div>
+                                <div class="span2 text-right"><a href="#" id="sort-btn-name" class="sort-btn">{% trans "Name" %} <i class="fa fa-sort-amount-desc" aria-hidden="true"></i></a></div>
+                                <div class="span2 text-right"><a href="#" id="sort-btn-date" class="sort-btn">{% trans "Date" %} <i class="fa fa-sort-amount-asc" aria-hidden="true"></i></a></div>
+
+                            </div>
+
+                                {% csrf_token %}
+
+                                <ul class="dataset-list unstyled">
+
+                                    {% for dataset in search_results %}
+                                        {% include "browser/_dataset_as_search_result.html" with dataset=dataset %}
+                                    {% endfor %}
+
+                                </ul>
 
                         </div>
-                        <form method="post" action="/en/combine">
-                            {% csrf_token %}
-                            <div>
-                                <button type="submit" name="mark_read" class="span2 pull-right btn main-search-btn rtpa-btn"> <i class="fa fa-compress" aria-hidden="true"></i> {% trans "Combine Datasets" %} </button>
-                            </div>
-                            <ul class="dataset-list unstyled">
 
-                                {% for dataset in search_results %}
-                                    {% include "browser/_dataset_as_search_result.html" with dataset=dataset %}
-                                {% endfor %}
-
-                            </ul>
-                        </form>
-
-                    </div>
+                    </form>
 
                 </div>
 

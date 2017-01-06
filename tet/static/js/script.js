@@ -1,8 +1,12 @@
 var SEARCH_MODE = "AND"
+var csrftoken = getCookie('csrftoken');
 
 $(document).ready(function(){
+
     $('[data-toggle="tooltip"]').tooltip();
-    if($( "#ds-rc-slider" ).size()){ 
+    $('[data-toggle="tab"]').tab();
+
+    if($( "#ds-rc-slider" ).size()){
         var ds_id = $( "#ds-id" ).val();
         var ds_url = $( "#ds-url" ).val();
         var api_url = $( "#ds-api-url" ).val();
@@ -131,6 +135,34 @@ $(function () {
             });;
         });
     }
+
+
+    // Combine Datasets
+    $('#combineDatasets').click(function () {
+
+        $(this).parent().siblings('.alert').hide();
+
+        var selected_datasets = $("input[name='selected_datasets']:checked");
+
+        if (selected_datasets.length > 0){
+
+            return true
+
+        } else {
+            $(this).parent().siblings('.alert').fadeIn('slow');
+        }
+
+        return false;
+    });
+
+    // Refine / Combine tab
+    $('#combineDatasetsTab').click(function () {
+        $('#search-results .select_dataset').fadeIn('slow')
+    });
+
+    $('#refineDatasetsTab').click(function () {
+        $('#search-results .select_dataset').hide()
+    });
 
     // Results filters
     $('.expand-btn').click(function () {
@@ -309,3 +341,42 @@ $(function () {
     }
 
 })(jQuery)
+
+function getCookie(name) {
+    var cookieValue = null;
+    if (document.cookie && document.cookie !== '') {
+        var cookies = document.cookie.split(';');
+        for (var i = 0; i < cookies.length; i++) {
+            var cookie = jQuery.trim(cookies[i]);
+            // Does this cookie string begin with the name we want?
+            if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                break;
+            }
+        }
+    }
+    return cookieValue;
+}
+
+// jquery extend function
+// http://stackoverflow.com/a/23347795/536535
+$.extend(
+{
+    redirectPost: function(location, args)
+    {
+        var form = $('<form></form>');
+        form.attr("method", "post");
+        form.attr("action", location);
+
+        $.each( args, function( key, value ) {
+            var field = $('<input></input>');
+
+            field.attr("type", "hidden");
+            field.attr("name", key);
+            field.attr("value", value);
+
+            form.append(field);
+        });
+        $(form).appendTo('body').submit();
+    }
+});
