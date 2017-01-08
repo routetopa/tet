@@ -39,7 +39,7 @@
 
                         <table class="table top30">
                             <tr>
-                                <th width="80%"> {% trans "Files" %} </th>
+                                <th width="70%"> {% trans "Files" %} </th>
                                 <th> {% trans "Actions" %} </th>
                             </tr>
                         </table>
@@ -47,27 +47,39 @@
                                 <form method="post">
                                     {% csrf_token %}
                                     <table class="table table-striped top20">
-                                        <td width="80%">
-                                            {% for ds in value %}
-                                                <div class="top10">
-                                                    <input name="selected_rs" type="checkbox" value="{{ds.resource_id}},{{ds.name}}"/>
-
-                                                    <span class="label result-label" data-format="{{ds.format|lower}}">{{ ds.format }}</span>
-
-                                                    <span> {{ds.title}} - {{ds.name}} </span>
-                                                </div>
-                                            {% endfor %}
-                                        </td>
-                                        <td>
+                                        <tr
                                             {% if key == "other" %}
-                                                <b> {% trans "Incompatible files can't be merged" %} </b>
-                                            {% else %}
-                                                <button type="submit" name="merge" class="span2 top10 btn main-search-btn rtpa-btn"> <i class="fa fa-compress" aria-hidden="true"></i> {% trans "Combine Datasets" %} </button>
-                                                <button type="submit" name="view" class="span2 top10 btn main-search-btn rtpa-btn"> <i class="fa fa-table" aria-hidden="true"></i> {% trans "View" %} </button>
-                                                <button type="submit" name="chart" class="span2 top10 btn main-search-btn rtpa-btn"> <i class="fa fa-bar-chart" aria-hidden="true"></i> {% trans "Chart" %} </button>
-                                                <button type="submit" name="analyse" class="span2 top10 btn main-search-btn rtpa-btn"> <i class="fa fa-line-chart" aria-hidden="true"></i> {% trans "Analyse" %} </button>
+                                                class="error"
                                             {% endif %}
-                                        </td>
+                                        >
+                                            <td width="70%">
+                                                {% for ds in value %}
+                                                    <div class="top10">
+
+                                                        {% if key != "other" %}
+                                                            <input name="selected_rs" type="checkbox" value="{{ds.resource_id}},{{ds.name}}"/>
+                                                        {% endif %}
+
+                                                        <span class="label result-label" data-format="{{ds.format|lower}}">{{ ds.format }}</span>
+
+                                                        <span> {{ds.title}} - {{ds.name}} </span>
+                                                    </div>
+                                                {% endfor %}
+                                            </td>
+                                            <td>
+                                                {% if key == "other" %}
+                                                    <div class="top10">
+                                                        <i class="fa fa-exclamation" aria-hidden="true"></i>
+                                                        {% trans "Incompatible files can't be merged" %}
+                                                    </div>
+                                                {% else %}
+                                                    <button type="submit" name="merge" class="span2 top10 btn main-search-btn rtpa-btn"> <i class="fa fa-compress" aria-hidden="true"></i> {% trans "Combine Datasets" %} </button>
+                                                    <button type="submit" name="view" class="span2 top10 btn main-search-btn rtpa-btn"> <i class="fa fa-table" aria-hidden="true"></i> {% trans "View" %} </button>
+                                                    <button type="submit" name="chart" class="span2 top10 btn main-search-btn rtpa-btn"> <i class="fa fa-bar-chart" aria-hidden="true"></i> {% trans "Chart" %} </button>
+                                                    <button type="submit" name="analyse" class="span2 top10 btn main-search-btn rtpa-btn"> <i class="fa fa-line-chart" aria-hidden="true"></i> {% trans "Analyse" %} </button>
+                                                {% endif %}
+                                            </td>
+                                        </tr>
                                     </table>
                                 </form>
                             {% endfor %}
