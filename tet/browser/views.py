@@ -733,8 +733,9 @@ def combine(request):
                             except Exception:
                                 fields = "other"
                             if fields not in groups.keys():
-                                groups[fields] =[]
-                            groups[fields].append({"title": dataset["title"], "resource_id": resource_id, "name": resource["name"]})
+                                groups[fields] = []
+                            groups[fields].append({"title": dataset["title"], "resource_id": resource_id, "name": resource["name"], "format": resource["format"]})
+
                 else:
                     groups["other"].append(dataset)
         for g in groups.keys():

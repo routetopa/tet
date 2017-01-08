@@ -776,6 +776,15 @@ input.js-zeroclipboard-target {
 
 }
 
+/* Merging */
+
+.merging input[type="checkbox"] {
+    margin-right: 7px;
+}
+
+.merging .result-label {
+    margin-right: 7px !important;
+}
 
 
 /* Bootstrap 3 addons */
