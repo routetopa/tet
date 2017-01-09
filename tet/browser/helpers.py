@@ -166,6 +166,9 @@ def name_to_url(name):
 
 def resource_fields_to_text(resource_fields):
 
+    if not resource_fields:
+        return None
+
     field_switcher = {
         "int": _("Integer numbers, e.g 42, 7"),
         "int4": _("Integer numbers, e.g 42, 7"),

@@ -10,3 +10,9 @@ watson_developer_cloud
 nltk
 django-oidc-provider
 matplotlib
+six
+pysolr
+pyparsing
+cycler
+pycrypto
+crypto
