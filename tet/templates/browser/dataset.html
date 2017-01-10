@@ -512,13 +512,20 @@
 
                                 <div class="panel-body">
                                     {% if SOM_API_URL %}
-                                    <div id="ds-rc-slider"></div>
-                                    <div id="ds-rc-output"></div>
-                                    <div>
-                                        <input type="hidden" id="ds-id" value="{{dataset_id}}"/>
-                                        <input type="hidden" id="ds-url" value="/{{LANGUAGE_CODE}}/dataset/"/>
-                                        <input type="hidden" id="ds-api-url" value="{{SOM_API_URL}}"/>
-                                    </div>
+
+                                        <div id="ds-rc-slider"></div>
+
+                                        <div>
+                                            {% trans "Please use the slider in order to update the results." %}
+                                        </div>
+
+                                        <div id="ds-rc-output"></div>
+                                        <div>
+                                            <input type="hidden" id="ds-id" value="{{dataset_id}}"/>
+                                            <input type="hidden" id="ds-url" value="/{{LANGUAGE_CODE}}/dataset/"/>
+                                            <input type="hidden" id="ds-api-url" value="{{SOM_API_URL}}"/>
+                                        </div>
+
                                     {% else %}
                                     <ul class="dataset-files">
                                     {% for ds in related_datasets %}
@@ -552,7 +559,7 @@
                                     {% for resource in dataset.resources %}
                                         <li> <span class="label" data-format="{{resource.format|lower}}">{{ resource.format }}</span> <a href="{{resource.url}}"> <i class="fa fa-external-link" aria-hidden="true"></i> {{resource.name}}</a></li>
                                     {% endfor %}
-                                    </ul>3
+                                    </ul>
 
                                 </div>
 
