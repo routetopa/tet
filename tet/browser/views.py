@@ -429,6 +429,10 @@ def grading(number):
 
 
 def compute_completeness(stats):
+    print(stats)
+    if stats is {}:
+        return None 
+
     internal_attributes =["relationships_as_object","private","num_tags","id","metadata_created","metadata_modified","state",\
     "creator_user_id","type","resources","num_resources","tags","groups","relationships_as_subject","organization","name","isopen",\
     "url","notes","owner_org","extras","license_url","title","revision_id"]
@@ -443,12 +447,11 @@ def compute_completeness(stats):
     stats["description"] = description_length/600.0 * 100 if description_length <= 600 else 100
     if "fields" in stats:
         stats["fields"] = stats["fields"]/5.0 * 100 if stats["fields"] <= 5  else 100
-    if "records" in stats:
         stats["records"] = stats["records"]/100.0 * 100 if stats["records"] <= 100  else 100
+        stats["records_label"] = grading(stats["records"])
+        stats["fields_label"] = grading(stats["fields"])
+        stats["content_label"] = grading(stats["content"])
     stats["metadata_label"] = grading(stats["metadata"])
-    stats["records_label"] = grading(stats["records"])
-    stats["fields_label"] = grading(stats["fields"])
-    stats["content_label"] = grading(stats["content"])
     stats["description_label"] = grading(stats["description"])
     stats["license"] = "license_url" in stats["ds"] and stats["ds"]["license_url"] != ""
     stats["version"] = "version" in stats["ds"] and stats["ds"]["version"] != ""

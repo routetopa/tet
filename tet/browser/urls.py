@@ -28,7 +28,5 @@ urlpatterns = [
     url(r'^api/typeahead$', views.typeahead, name='typeahead'),
     url(r'^api/cards$', views.cards, name='cards'),
     url(r'^combine$', views.combine, name='combine'),
-    url(r'^openid/', include('oidc_provider.urls', namespace='oidc_provider')),
-
 ]
 
