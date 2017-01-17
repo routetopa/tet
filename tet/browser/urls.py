@@ -21,11 +21,12 @@ urlpatterns = [
     url(r'^dataset/(?P<dataset_id>[a-zA-Z0-9-]+)/summary$', views.dataset_as_summary, name='dataset_as_summary'),
         # ex: /dataset/abc-123-id/table
     url(r'^api/table/(?P<resource_id>[a-zA-Z0-9-]+)/(?P<field_id>[\w|\W]+)$', views.table_api, name='table_api'),
+    url(r'^api/query/(?P<query>[\w|\W]+)/(?P<field_id>[\w|\W]+)$', views.query_api, name='query_api'),
     url(r'^api/graph/(?P<resource_id>[a-zA-Z0-9-]+)$', views.box_plot, name='graph_api'),
     url(r'^api/graph/(?P<resource_id>[a-zA-Z0-9-]+)/corr$', views.corr_mat, name='corr_graph_api'),
     url(r'^api/text/(?P<dataset_id>[a-zA-Z0-9-]+)/(?P<info_type>[\w|\W]+)$', views.text_api, name='text_api'),
     url(r'^api/typeahead$', views.typeahead, name='typeahead'),
-    url(r'^openid/', include('oidc_provider.urls', namespace='oidc_provider')),
-
+    url(r'^api/cards$', views.cards, name='cards'),
+    url(r'^combine$', views.combine, name='combine'),
 ]
 

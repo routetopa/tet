@@ -1,0 +1,103 @@
+{% extends "base.html" %}
+
+{% load i18n %}
+
+{% block title %} Analysis using PivotTable  {% endblock title %}
+
+{{ x }}
+
+{% block content %}
+
+                <div class="container">
+
+                    <div class="row search-ui">
+
+                        <div class="span8 offset3 text-left">
+
+                            <div class="row">
+
+                                {% include "browser/_search.html" with query=query %}
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+                {% if ACTION == "analyse" %}
+                <div class="row">
+
+                    <h4 class="dataset-title"> {% trans "PivotTable View" %}</h4>
+                    <h5 class="dataset-title">  </h5>
+
+                </div>
+
+
+                <div class="row">
+                    <input id="ds-merged" type="hidden" value="{{RESOURCE_URL}}"/>  
+                    <div id="output" style="margin: 30px;">
+
+
+
+                </div>
+                {% endif %}
+
+                {% if ACTION == "view" %}
+                <div class="row">
+
+                    <h4 class="dataset-title"> {% trans "Table View" %}</h4>
+                    <h5 class="dataset-title">  </h5>
+
+                </div>
+
+
+                <div class="row">
+                    <input id="ds-merged" type="hidden" value="{{RESOURCE_URL}}"/>  
+                    <table id="ds-table" class="display" width="100%"></table>
+                </div>
+                {% endif %}
+
+                {% if ACTION == "chart" %}
+                <div class="row">
+
+                    <h4 class="dataset-title"> {% trans "Charts" %}</h4>
+                    <h5 class="dataset-title">  </h5>
+
+                </div>
+                <div class="row">
+                    <link rel="import" href="http://deep.routetopa.eu/deep_1_9_rev/COMPONENTS/datalets/columnchart-datalet/columnchart-datalet.html" />
+                    <link rel="import" href="http://deep.routetopa.eu/deep_1_9_rev/COMPONENTS/datalets/datatable-datalet/datatable-datalet.html" /> 
+                    <link rel="import" href="http://deep.routetopa.eu/deep_1_9_rev/COMPONENTS/datalets/barchart-datalet/barchart-datalet.html" /> 
+                    <div class="span12 -span10 -offset1">
+                       
+                        <div class="carousel carousel-fade slide" id="main-chart">
+                            <div class="carousel-inner">
+                                {% for resource in resource_fields %}
+                                    <div class="item{% if forloop.counter == 1 %} active{% endif %}">
+
+                                    {% if resource.1 %}
+                                      <columnchart-datalet data-url='{{freq_resource_id}}/{{resource.0}}' selectedfields='[{"field":"XAxis","value":"Range","index":3},{"field":"NumericYAxis","value":"Frequency","index":1},null,null]' filters='[]' aggregators='[]' orders='[]' x-axis-label='{% trans "Range of values in the field" %} "{{resource.0}}"' y-axis-label='{% trans "Frequency" %}' suffix='' legend='topRight' data-labels='true' stack='false' theme='themeBase' fields='["Frequency","Name","Range"]'></columnchart-datalet>
+                                    {% else %}
+                                        <columnchart-datalet data-url='{{freq_resource_id}}/{{resource.0}}' selectedfields='[{"field":"XAxis","value":"Value","index":3},{"field":"NumericYAxis","value":"Count","index":1},null,null]' filters='[]' aggregators='[]' orders='[]' x-axis-label='{% trans "Values in" %} {% trans "field" %} "{{resource.0}}"' y-axis-label='{% trans "Number of occurrences" %}' suffix='' legend='topRight' data-labels='true' stack='false' theme='themeBase' fields='["Count","Name","Value"]'></columnchart-datalet>
+                                    {% endif %}
+                                    </div><!-- /Slide1 -->
+                                {% endfor %}
+                                
+
+                            </div>
+
+                            <div class="control-box">
+                                <a data-slide="prev" href="#main-chart" class="carousel-control left">‹</a>
+                                <a data-slide="next" href="#main-chart" class="carousel-control right">›</a>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+                {% endif%}
+               
+            </div>
+
+{% endblock content %}

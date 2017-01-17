@@ -25,16 +25,21 @@
     <link rel=stylesheet type=text/css href="{% static 'css/jssocials-theme-tet.css' %}" />
 
     <link rel=stylesheet type=text/css href="{% static 'browser/css/tet-theme.css' %}" />
+    <link rel=stylesheet type=text/css href="{% static 'css/c3.css' %}" />
+    <link rel=stylesheet type=text/css href="{% static 'css/pivot.css' %}" />
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.13/css/jquery.dataTables.min.css">
 
     <!-- FontAwesome -->
     <link rel=stylesheet type=text/css href="{% static 'css/font-awesome.min.css' %}" />
-
+    <link href="https://code.jquery.com/ui/1.10.4/themes/ui-lightness/jquery-ui.css" rel="stylesheet">
+    
     {% endblock styles %}
 
     {% block scripts %}
     <script type="text/javascript" src="http://deep.routetopa.eu/deep_1_9_rev/COMPONENTS/bower_components/webcomponentsjs/webcomponents-lite.min.js"></script>
     <!--<script type="text/javascript" src="{% static 'js/jquery.min.js' %}"></script>-->
     <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
 
     <script src="{% static 'js/widgets.js' %}"></script>
     <script src="{% static 'js/bootstrap-transition.js' %}"></script>
@@ -56,7 +61,18 @@
 
     <script src="{% static 'js/jssocials.min.js' %}"></script>
 
+    <script src="{% static 'js/ace.js' %}"></script>
+
+    <script src="{% static 'js/d3.js' %}"></script>
+    <script src="{% static 'js/c3.js' %}"></script>
+    <script src="{% static 'js/pivot.js' %}"></script>
+    <script src="{% static 'js/d3_renderers.js' %}"></script>
+    <script src="{% static 'js/c3_renderers.js' %}"></script>
+    <script type="text/javascript" language="javascript" src="https://cdn.datatables.net/1.10.13/js/jquery.dataTables.min.js"></script>
+
+
     <script src="{% static 'js/script.js' %}"></script>
+
 
     {% endblock scripts %}
 

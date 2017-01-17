@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2016-11-07 09:18+0000\n"
-"PO-Revision-Date: 2016-11-14 10:15+0000\n"
+"PO-Revision-Date: 2016-11-15 17:23+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: nl\n"
@@ -66,34 +66,19 @@ msgid "Join the discussion"
 msgstr "Discussieer mee"
 
 #: templates/browser/_footer.html:15
-msgid ""
-"Transparency-Enhancing Toolset (TET) is the next-generation open data portal "
-"containing set of tools that facilitate a better understanding of the data "
-"by providing connections and links to related datasets, and providing "
-"information about provenance."
-msgstr ""
-"Transparantie-Enhancing Toolset (TET) is de volgende generatie open data "
-"portaal met daarin set van tools die een beter begrip van de gegevens te "
-"vergemakkelijken door middel van verbindingen en links naar verwante "
-"datasets, en het verstrekken van informatie over de herkomst."
+msgid "Transparency-Enhancing Toolset (TET) is the next-generation open data portal containing set of tools that facilitate a better understanding of the data by providing connections and links to related datasets, and providing information about provenance."
+msgstr "Transparantie-Enhancing Toolset (TET) is de volgende generatie open data portaal met daarin set van tools die een beter begrip van de gegevens te vergemakkelijken door middel van verbindingen en links naar verwante datasets, en het verstrekken van informatie over de herkomst."
 
 #: templates/browser/_footer.html:16
-msgid ""
-"<a href=\"http://routetopa.eu\">ROUTE-TO-PA project</a> has received funding "
-"from the European Union’s Horizon 2020 research and innovation programme "
-"under grant agreement No 645860."
+msgid "<a href=\"http://routetopa.eu\">ROUTE-TO-PA project</a> has received funding from the European Union’s Horizon 2020 research and innovation programme under grant agreement No 645860."
 msgstr ""
 
 #: templates/browser/_footer.html:21
-msgid ""
-"Powered by <a class=\"hide-text ckan-footer-logo\" href=\"http://ckan.org"
-"\">CKAN</a>"
+msgid "Powered by <a class=\"hide-text ckan-footer-logo\" href=\"http://ckan.org\">CKAN</a>"
 msgstr ""
 
 #: templates/browser/_footer.html:27
-msgid ""
-"TET interface developed by <a class=\"hide-text insight-footer-logo\" href="
-"\"http://insight-centre.org/\">Insight Centre</a>"
+msgid "TET interface developed by <a class=\"hide-text insight-footer-logo\" href=\"http://insight-centre.org/\">Insight Centre</a>"
 msgstr ""
 
 #: templates/browser/_header.html:10
@@ -303,24 +288,16 @@ msgid "Share this page"
 msgstr "Deel deze pagina"
 
 #: templates/browser/dataset.html:457 templates/browser/summary.html:133
-msgid ""
-"Use the icons below in order to share this page in your favourite Social "
-"Media."
-msgstr ""
-"Gebruik de iconen hier onder om de pagine te delen op jouw favoriete Social "
-"Media."
+msgid "Use the icons below in order to share this page in your favourite Social Media."
+msgstr "Gebruik de iconen hier onder om de pagine te delen op jouw favoriete Social Media."
 
 #: templates/browser/dataset.html:472 templates/browser/tabular.html:147
 msgid "Discussions at SPOD"
 msgstr "Discussies op SPOD"
 
 #: templates/browser/dataset.html:485 templates/browser/tabular.html:159
-msgid ""
-"This dataset has not been discussed in SPOD, be the first to discuss the "
-"dataset!"
-msgstr ""
-"Deze dataset is niet besproken in SPOD, wees de eerste om de dataset te "
-"bespreken!"
+msgid "This dataset has not been discussed in SPOD, be the first to discuss the dataset!"
+msgstr "Deze dataset is niet besproken in SPOD, wees de eerste om de dataset te bespreken!"
 
 #: templates/browser/dataset.html:489 templates/browser/tabular.html:163
 msgid "Start the discussion"
@@ -348,8 +325,7 @@ msgstr "Populaire zoektermen"
 
 #: templates/browser/index.html:38
 msgid "TET search engine results are based on resources available at"
-msgstr ""
-"TET zoekmachine resultaten zijn gebaseerd op de beschikbare middelen op"
+msgstr "TET zoekmachine resultaten zijn gebaseerd op de beschikbare middelen op"
 
 #: templates/browser/index.html:39
 msgid "Currently there are"
@@ -571,6 +547,42 @@ msgstr "Huisvesting"
 #. Roles & Categories
 msgid "Transport"
 msgstr "Vervoer"
+
+#. Metrics
+msgid "Integer numbers, e.g 42, 7"
+msgstr "Gehele getallen, bv. 42, 7"
+
+#. Metrics
+msgid "Numbers, e.g 1, 2.4, 4.7"
+msgstr "Getallen, bv. 1, 2.4, 4.7"
+
+#. Metrics
+msgid "Floats, e.g. 1.61803"
+msgstr "Floats, e.g. 1.61803"
+
+#. Metrics
+msgid "Arbitrary text data, e.g. Some text"
+msgstr "Arbitraire tekst data, bv. een stukje tekst"
+
+#. Metrics
+msgid "Arbitrary nested json data"
+msgstr "Arbitraire genestelde json data"
+
+#. Metrics
+msgid "Date without time, e.g 2016-5-25"
+msgstr "Data zonder tijd, bv. 2016-5-25"
+
+#. Metrics
+msgid "Time without date, e.g 12:06"
+msgstr "Tijd zonder datum, bv. 12:06"
+
+#. Metrics
+msgid "Date and time, e.g 2016-05-01T02:43Z"
+msgstr "Datum en tijd, bv. 2016-05-01T02:43Z"
+
+#. Metrics
+msgid "Boolean values, e.g. true, 0"
+msgstr "Booleaanse waarden, bv. waar, 0"
 
 #~ msgid "EN"
 #~ msgstr "EN"

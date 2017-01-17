@@ -22,7 +22,7 @@ try:
   unicode = unicode
 except ImportError: 
   from urllib.request import urlopen
-
+import urllib
 import json
 from .helpers import dataset_to_metadata_text, dataset_to_spod, name_to_url, resource_fields_to_text
 from io import BytesIO
@@ -30,7 +30,7 @@ from dateutil.parser import parse
 
 from django.core.urlresolvers import reverse
 from django.conf import settings
-from django.http import HttpResponse, HttpResponseRedirect, Http404, JsonResponse
+from django.http import HttpResponse, HttpResponseRedirect, Http404, JsonResponse, StreamingHttpResponse
 from django.shortcuts import get_object_or_404, render
 from django.utils.html import strip_tags
 from django.views import generic
@@ -130,11 +130,41 @@ def typeahead(request):
     except Exception as e:
         return JsonResponse({'success': False})
 
-def table_api(request, resource_id, field_id):
+def cards(request):
     try:
-        url = settings.CKAN_URL + "/api/action/datastore_search?resource_id=" + resource_id + "&limit=99999"
+        results = {
+          "success": True,
+          "cards": []
+        }
+        try:
+            for indicator in settings.INDICATORS:
+                try:
+                    url = settings.CKAN_URL + "/api/action/datastore_search_sql?sql=" + urllib.quote(indicator["query"])
+                    res = urlopen(url)
+                    data = json.loads(res.read().decode('utf-8'))
+                    for kw in data["result"]["records"]:
+                        kw["title"] = indicator["title"]
+                        results["cards"].append(kw)
+                except Exception:
+                    pass
+        except Exception as e:
+            pass
+        return JsonResponse(results)
+    except Exception as e:
+        return JsonResponse({'success': False, "message" : str(e)})
+
+def table_api(request, resource_id, field_id):
+    url = settings.CKAN_URL +  "/api/action/datastore_search_sql?sql=" + urllib.quote("SELECT \"" + field_id + "\" FROM \"" + resource_id + "\"")
+    return column_summary(url, field_id)
+
+def query_api(request, query, field_id):
+    url = settings.CKAN_URL + "/api/action/datastore_search_sql?sql=" + urllib.quote(query)
+    return column_summary(url, field_id)
+
+def column_summary(url, field_id):
+    try:
         res = urlopen(url)
-        data = json.loads(res.read())
+        data = json.loads(res.read().decode('utf-8'))
         temp_data = json_normalize(data["result"]["records"])
         fields = data["result"]["fields"] # type_unified TODO
         record_count = 0
@@ -142,7 +172,6 @@ def table_api(request, resource_id, field_id):
           "help": "http://google.com",
           "success": True,
           "result" : {
-            "resource_id": resource_id,
             "records" : [],
             "fields" : [
               {"id":"Name", "type" : "text"},
@@ -400,6 +429,10 @@ def grading(number):
 
 
 def compute_completeness(stats):
+    print(stats)
+    if stats is {}:
+        return None 
+
     internal_attributes =["relationships_as_object","private","num_tags","id","metadata_created","metadata_modified","state",\
     "creator_user_id","type","resources","num_resources","tags","groups","relationships_as_subject","organization","name","isopen",\
     "url","notes","owner_org","extras","license_url","title","revision_id"]
@@ -414,12 +447,11 @@ def compute_completeness(stats):
     stats["description"] = description_length/600.0 * 100 if description_length <= 600 else 100
     if "fields" in stats:
         stats["fields"] = stats["fields"]/5.0 * 100 if stats["fields"] <= 5  else 100
-    if "records" in stats:
         stats["records"] = stats["records"]/100.0 * 100 if stats["records"] <= 100  else 100
+        stats["records_label"] = grading(stats["records"])
+        stats["fields_label"] = grading(stats["fields"])
+        stats["content_label"] = grading(stats["content"])
     stats["metadata_label"] = grading(stats["metadata"])
-    stats["records_label"] = grading(stats["records"])
-    stats["fields_label"] = grading(stats["fields"])
-    stats["content_label"] = grading(stats["content"])
     stats["description_label"] = grading(stats["description"])
     stats["license"] = "license_url" in stats["ds"] and stats["ds"]["license_url"] != ""
     stats["version"] = "version" in stats["ds"] and stats["ds"]["version"] != ""
@@ -569,6 +601,160 @@ def corr_mat(request, resource_id):
     except Exception, e:
         return JsonResponse({'message': str(e)})
 
+def get_dataset(dataset_id):
+    ckan_api_instance = ckanapi.RemoteCKAN(
+        settings.CKAN_URL,
+        user_agent='tetbrowser/1.0 (+http://tetbrowser.routetopa.eu)'
+    )
+    url = settings.CKAN_URL + "/dataset/" + dataset_id
+    resource_id = None
+    try:
+        dataset = ckan_api_instance.action.package_show(
+            id=dataset_id
+        )
+        return dataset
+    except Exception as e:
+        return None
+
+def get_resource_data(resource_id, limit = 0):
+        url = settings.CKAN_URL + "/api/action/datastore_search?resource_id=" + resource_id + "&limit=" + str(limit)
+        res = urlopen(url)
+        return json.loads(res.read())
+
+def exe_sql(sql):
+        url = settings.CKAN_URL + "/api/action/datastore_search_sql?sql=" + urllib.quote(sql)
+        res = urlopen(url)
+        return json.loads(res.read().decode('utf-8'))
+
+def combine(request):
+    template_name = 'browser/merge.html'
+    selected_datasets =[]
+    groups = {"other": []}
+    try:
+        if 'merge' in request.POST:
+            rs = request.POST.getlist('selected_rs')
+            if len(rs) > 0:
+                sql = ""
+                for r in rs:
+                    if len(sql) > 0:
+                        sql += " UNION "
+                    sql += "SELECT * , '" + r.split(",")[1] + "' as File from \"" + r.split(",")[0] + "\""
+                data = exe_sql(sql)
+                df = json_normalize(data["result"]["records"])
+                del df["_id"]
+                del df["_full_text"]
+                fields = data["result"]["fields"]
+                headers = [field["id"]for field in fields ].remove("_id")
+                sio = StringIO()
+                df.to_csv(sio,  index=False)
+                filename = "merged.csv"
+                workbook = sio.getvalue()
+                response = StreamingHttpResponse(workbook, content_type='text/csv')
+                response['Content-Disposition'] = 'attachment; filename=%s' % filename
+                return response
+
+        if 'analyse' in request.POST:
+            rs = request.POST.getlist('selected_rs')
+            if len(rs) > 0:
+                sql = ""
+                for r in rs:
+                    if len(sql) > 0:
+                        sql += " UNION "
+                    sql += "SELECT * , '" + r.split(",")[1] + "' as File from \"" + r.split(",")[0] + "\""
+                url = settings.CKAN_URL + "/api/action/datastore_search_sql?sql=" + urllib.quote(sql)
+                context = {
+                    "RESOURCE_URL" : url,
+                    "ACTION" : "analyse",
+                    
+                }
+                template_name = 'browser/analyse.html'
+                return render(request, template_name, context)
+
+        if 'view' in request.POST:
+            rs = request.POST.getlist('selected_rs')
+            if len(rs) > 0:
+                sql = ""
+                for r in rs:
+                    if len(sql) > 0:
+                        sql += " UNION "
+                    sql += "SELECT * , '" + r.split(",")[1] + "' as File from \"" + r.split(",")[0] + "\""
+                url = settings.CKAN_URL + "/api/action/datastore_search_sql?sql=" + urllib.quote(sql)
+
+                context = {
+                    "RESOURCE_URL" : url,
+                    "ACTION" : "view"
+                }
+
+                template_name = 'browser/analyse.html'
+                return render(request, template_name, context)
+
+        if 'chart' in request.POST:
+            rs = request.POST.getlist('selected_rs')
+            if len(rs) > 0:
+                sql = ""
+                for r in rs:
+                    if len(sql) > 0:
+                        sql += " UNION "
+                    sql += "SELECT * from \"" + r.split(",")[0] + "\""
+                url = settings.CKAN_URL + "/api/action/datastore_search_sql?sql=" + urllib.quote(sql)
+                data = get_resource_data(rs[0].split(",")[0])
+                resource_fields = []
+                filter_list = ["long", "lat", "no.", "phone", "date","id", "code"] 
+                for field in data["result"]["fields"]:
+                    name = field["id"]
+                    found = False 
+                    for f in filter_list:
+                        if f in name.lower():
+                            found = True 
+                    if found:
+                        continue
+                    if field["type"] == "numeric":
+                        resource_fields.append((name, True))
+                    elif field["type"] == "text":
+                        resource_fields.append((name, False))
+                    else:
+                        pass
+                context = {
+                    "RESOURCE_URL" : url,
+                    "ACTION" : "chart",
+                    "resource_fields" : resource_fields
+                }
+                context['freq_resource_id'] = "/en/api/query/" + urllib.quote(sql)
+                template_name = 'browser/analyse.html'
+                return render(request, template_name, context)
+
+        if 'mark_read' in request.POST:
+            selected_datasets = request.POST.getlist('selected_datasets')
+            for dataset_id in selected_datasets:
+                dataset = get_dataset(dataset_id)
+                if "resources" in dataset.keys():
+                    for resource in dataset["resources"]:
+                        if resource["format"].lower() in ["csv","xls"]:
+                            resource_id = resource["id"]                 
+                            try:
+                                fields =  "_".join([f["id"] for f in get_resource_data(resource_id)["result"]["fields"]])
+                            except Exception:
+                                fields = "other"
+                            if fields not in groups.keys():
+                                groups[fields] = []
+                            groups[fields].append({"title": dataset["title"], "resource_id": resource_id, "name": resource["name"], "format": resource["format"]})
+
+                else:
+                    groups["other"].append(dataset)
+        for g in groups.keys():
+            if len(groups[g]) < 2:
+                if g == "other":
+                    continue
+                groups["other"].extend(groups[g])
+                del groups[g]
+    except Exception, e:
+        return JsonResponse({'message': str(e)})
+    context = {
+        "dataset_groups" : groups
+     }
+
+    return render(request, template_name, context)
+
 
 def dataset_as_app(request, dataset_id):
     return HttpResponse(dataset_id + ' as_app')
@@ -617,7 +803,9 @@ def dataset_as_table(request, dataset_id):
         'metadata_box': dataset_to_metadata_text(dataset),
         'spod_box_datasets': dataset_to_spod(dataset),
         'CKAN_URL': settings.CKAN_URL + "/dataset/" + dataset_id + "?r=" + request.get_full_path(),
-        'API_LINK' : settings.CKAN_URL + "/api/action/datastore_search?resource_id=" + resource_id + "&limit=99999" 
+        'API_LINK' : settings.CKAN_URL + "/api/action/datastore_search?resource_id=" + resource_id + "&limit=99999", 
+        'QUERY_API': settings.CKAN_URL + "/api/action/datastore_search_sql",
+        'resource_id' : resource_id
      }
 
     return render(request, template_name, context)
@@ -729,3 +917,35 @@ def dataset_as_pdf(request, dataset_id):
     except Exception as e:
         messages.add_message(request, messages.ERROR, e)
         return render(request, error_template)
+
+def data_cards(request):
+    template_name = 'browser/data_cards.html'
+    indicators = []
+
+    # TODO move to helper function
+    try:
+        for indicator in settings.INDICATORS:
+            try:
+                url = settings.CKAN_URL + "/api/action/datastore_search_sql?sql=" + urllib.quote(indicator["query"])
+                res = urlopen(url)
+                data = json.loads(res.read().decode('utf-8'))
+
+                results = []
+
+                for kw in data["result"]["records"]:
+                    kw["title"] = indicator["title"]
+                    results.append(kw)
+
+                # TODO add class / icon in config model
+                indicators.append({"key": indicator["title"], "cards": results, "class": "TODO"})
+
+            except Exception as e:
+                pass
+    except Exception as e:
+        pass
+
+    context = {
+        'indicators': indicators,
+    }
+
+    return render(request, template_name, context)

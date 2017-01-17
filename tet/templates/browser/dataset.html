@@ -169,31 +169,31 @@
 
                                 <div class="panel-body dataset-description dataset-quality top30 span5">
                                     <table class="table table-hover">
-                                      <tr>
-                                        <th width="35%" class="">{% trans "Indicator" %}</th>
-                                        <th width="25%" class="">{% trans "Value" %}</th>
-                                        <th>&nbsp;</th>
-                                      </tr>
+                                        <tr>
+                                            <th width="35%" class="">{% trans "Indicator" %}</th>
+                                            <th width="25%" class="">{% trans "Value" %}</th>
+                                            <th>&nbsp;</th>
+                                        </tr>
 
-                                          <tr>
-                                            <td>
-                                                {% trans "Metadata" %}
-                                            </td>
-                                            <td>
-                                                <div class="">
-                                                    {{ completness.metadata_label }}
-                                                </div>
-                                            </td>
-                                            <td>
-                                                <div class="progress">
-                                                    <div class="progress-bar progress-bar-{% progress_class completness.metadata %}" role="progressbar" aria-valuenow="{{ completness.metadata }}" aria-valuemin="0" aria-valuemax="100" style="width: {{ completness.metadata }}%;">
-                                                        &nbsp;
-                                                    </div>
-                                                </div>
-                                            </td>
-                                          </tr>
+                                         <tr>
+                                             <td>
+                                                 {% trans "Metadata" %}
+                                             </td>
+                                             <td>
+                                                 <div class="">
+                                                     {{ completness.metadata_label }}
+                                                 </div>
+                                             </td>
+                                             <td>
+                                                 <div class="progress">
+                                                     <div class="progress-bar progress-bar-{% progress_class completness.metadata %}" role="progressbar" aria-valuenow="{{ completness.metadata }}" aria-valuemin="0" aria-valuemax="100" style="width: {{ completness.metadata }}%;">
+                                                         &nbsp;
+                                                     </div>
+                                                 </div>
+                                             </td>
+                                         </tr>
 
-
+<!--
                                           <tr>
                                             <td>
                                                 {% trans "Description" %}
@@ -211,8 +211,9 @@
                                                 </div>
                                             </td>
                                           </tr>
+-->
 
-
+<!--
                                           <tr>
                                             <td>
                                                 {% trans "Fields" %}
@@ -230,8 +231,10 @@
                                                 </div>
                                             </td>
                                           </tr>
+-->
 
 
+<!--
                                           <tr>
                                             <td>
                                                 {% trans "Records" %}
@@ -249,7 +252,7 @@
                                                 </div>
                                             </td>
                                           </tr>
-
+-->
 
                                           <tr>
                                             <td>
@@ -508,7 +511,15 @@
                                 </div>
 
                                 <div class="panel-body">
-
+                                    {% if SOM_API_URL %}
+                                    <div id="ds-rc-slider"></div>
+                                    <div id="ds-rc-output"></div>
+                                    <div>
+                                        <input type="hidden" id="ds-id" value="{{dataset_id}}"/>
+                                        <input type="hidden" id="ds-url" value="/{{LANGUAGE_CODE}}/dataset/"/>
+                                        <input type="hidden" id="ds-api-url" value="{{SOM_API_URL}}"/>
+                                    </div>
+                                    {% else %}
                                     <ul class="dataset-files">
                                     {% for ds in related_datasets %}
                                         <li>
@@ -517,6 +528,7 @@
                                         </li>
                                     {% endfor %}
                                     </ul>
+                                    {% endif %}
 
                                 </div>
 
@@ -540,7 +552,7 @@
                                     {% for resource in dataset.resources %}
                                         <li> <span class="label" data-format="{{resource.format|lower}}">{{ resource.format }}</span> <a href="{{resource.url}}"> <i class="fa fa-external-link" aria-hidden="true"></i> {{resource.name}}</a></li>
                                     {% endfor %}
-                                    </ul>
+                                    </ul>3
 
                                 </div>
 
