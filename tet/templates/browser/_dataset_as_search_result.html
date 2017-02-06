@@ -57,7 +57,7 @@
         {# limit resources to 8 links #}
         {% for resource in dataset.resources|slice:":8" %}
             <li>
-                <a href="{{ resource.url }}" target="_blank" class="label" data-toggle="tooltip" data-placement="bottom" title="{% trans "View raw data" %}" data-format="{{ resource.format|lower }}">{{ resource.format }}</a>
+                <a href="{{ resource.url }}" target="_blank" class="label" data-toggle="tooltip" data-placement="bottom" title="{% trans "View" %}: {{ resource.name }}" data-format="{{ resource.format|lower }}">{{ resource.format }}</a>
             </li>
         {% endfor %}
 
