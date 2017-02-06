@@ -1,4 +1,4 @@
-django-tet-ui
+django-tet-ui - 2.5
 ===============
 
 TET interface developed for ROUTE-TO-PA project
