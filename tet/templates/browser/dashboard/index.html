@@ -29,10 +29,7 @@
                     <h4 class="dataset-title"> {% trans "Data Dashboard" %} </h4>
 
                     <p>
-                        Lorem ipsum dolor sit amet, sed eu esse laoreet tibique. Ad cum ornatus phaedrum voluptatibus,
-                        partem accommodare voluptatibus sea id. In pri veri definitiones, congue utroque voluptatibus
-                        an ius. Cu elitr nostrum tractatos pri. Vim te mutat vulputate, ad modus fugit quo. Vel justo
-                        aliquip in, purto nullam oportere at est.
+                        Presented charts are grouped into 5 main categories of key indicators.
                     </p>
                 </div>
 
@@ -50,18 +47,6 @@
                         <div id="chart_unemployment_rate">
                         </div>
 
-
-
-
-
-
-
-
-
-
-
-
-
                     </div>
 
                 </div>
@@ -70,12 +55,11 @@
 
                     <div class="">
 
-                        <h4 class="pull-right"> Economics <i class="fa fa-money" aria-hidden="true"></i></h4>
+                        <h4 class=""> <i class="fa fa-money" aria-hidden="true"></i> Economics </h4>
                         <div class="clearfix"></div>
 
                         <p class="top20">
-                            {introduction} Lorem ipsum dolor sit amet, sed eu esse laoreet tibique. Ad cum ornatus phaedrum voluptatibus,
-                            partem accommodare voluptatibus sea id.
+
                         </p>
                     </div>
                 </div>
@@ -86,10 +70,23 @@
 
                         <h4> <i class="fa fa-home" aria-hidden="true"></i> Housing </h4>
 
-                        <p class="top20">
-                            {introduction} Dolor sit amet, sed eu esse laoreet tibique. Ad cum ornatus phaedrum voluptatibus,
-                            partem accommodare voluptatibus sea id. In pri veri definitiones, congue utroque voluptatibus.
-                        </p>
+                        <h6 class="top20">
+                            {% trans "Residential Property Price Index (2005 = 100)" %}
+                        </h6>
+                        <small>{% trans "Data source" %}: <a href="http://dkm.ie/en/publications/dublin_economic_monitor">Dublin Economic Monitor / Dublinked</a></small>
+
+                        <div id="residential_property_price_index">
+                        </div>
+
+
+                        <h6 class="top20">
+                            {% trans "Residential Rents" %}
+                        </h6>
+                        <small>{% trans "Data source" %}: <a href="http://dkm.ie/en/publications/dublin_economic_monitor">Dublin Economic Monitor / Dublinked</a></small>
+
+                        <div id="residental_rents">
+                        </div>
+
 
 
                     </div>
@@ -100,11 +97,11 @@
 
                     <div class="">
 
-                        <h4 class="pull-right"> Education <i class="fa fa-graduation-cap" aria-hidden="true"></i></h4>
+                        <h4 class=""> <i class="fa fa-graduation-cap" aria-hidden="true"></i> Education </h4>
                         <div class="clearfix"></div>
 
                         <p class="top20">
-                            {introduction} Lorem ipsum dolor sit amet, sed eu esse laoreet tibique. Ad cum ornatus phaedrum voluptatibus.
+
                         </p>
                     </div>
                 </div>
@@ -117,18 +114,13 @@
                         <h4> <i class="fa fa-shield" aria-hidden="true"></i> Safety </h4>
 
                         <p class="top20">
-                            {introduction}  Partem accommodare voluptatibus sea id. In pri veri definitiones, congue utroque voluptatibus
-                            an ius. Cu elitr nostrum tractatos pri. Vim te mutat vulputate, ad modus fugit quo.
-                        </p>
 
+                        </p>
 
                     </div>
 
                 </div>
 
             </div>
-
-
-
 
 {% endblock content %}
