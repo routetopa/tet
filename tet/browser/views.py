@@ -949,3 +949,12 @@ def data_cards(request):
     }
 
     return render(request, template_name, context)
+
+def dashboard(request):
+    template_name = 'browser/dashboard/index.html'
+
+    context = {
+
+    }
+
+    return render(request, template_name, context)

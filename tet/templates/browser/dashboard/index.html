@@ -1,0 +1,117 @@
+{% extends "base.html" %}
+
+{% load i18n %}
+{% load staticfiles %}
+
+{% get_current_language as LANGUAGE_CODE %}
+
+{% block title %} {% trans "Data Dashboard" %} {% endblock title %}
+
+{% block scripts %}
+
+    <script src="{% static 'd3/d3.min.js' %}"></script>
+    <script src="{% static 'browser/js/dashboard.js' %}"></script>
+
+    <link rel=stylesheet type=text/css href="{% static 'browser/css/tet-d3.css' %}" />
+
+    {{ block.super }}
+
+{% endblock scripts %}
+
+{% block content %}
+
+            <div class="container">
+
+                <div class="row">
+                    <h4 class="dataset-title"> {% trans "Data Dashboard" %} </h4>
+
+                    <p>
+                        Lorem ipsum dolor sit amet, sed eu esse laoreet tibique. Ad cum ornatus phaedrum voluptatibus,
+                        partem accommodare voluptatibus sea id. In pri veri definitiones, congue utroque voluptatibus
+                        an ius. Cu elitr nostrum tractatos pri. Vim te mutat vulputate, ad modus fugit quo. Vel justo
+                        aliquip in, purto nullam oportere at est.
+                    </p>
+                </div>
+
+                <div class="row">
+
+                    <div class="">
+
+                        <h4> <i class="fa fa-users" aria-hidden="true"></i> Social </h4>
+
+                        <p class="top20">
+                            {introduction} Accommodare voluptatibus sea id. In pri veri definitiones, congue utroque voluptatibus
+                            an ius. Cu elitr nostrum tractatos pri. Vim te mutat vulputate.
+                        </p>
+
+
+                    </div>
+
+                </div>
+
+                <div class="row">
+
+                    <div class="">
+
+                        <h4 class="pull-right"> Economics <i class="fa fa-money" aria-hidden="true"></i></h4>
+                        <div class="clearfix"></div>
+
+                        <p class="top20">
+                            {introduction} Lorem ipsum dolor sit amet, sed eu esse laoreet tibique. Ad cum ornatus phaedrum voluptatibus,
+                            partem accommodare voluptatibus sea id.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="row">
+
+                    <div class="">
+
+                        <h4> <i class="fa fa-home" aria-hidden="true"></i> Housing </h4>
+
+                        <p class="top20">
+                            {introduction} Dolor sit amet, sed eu esse laoreet tibique. Ad cum ornatus phaedrum voluptatibus,
+                            partem accommodare voluptatibus sea id. In pri veri definitiones, congue utroque voluptatibus.
+                        </p>
+
+
+                    </div>
+
+                </div>
+
+                <div class="row">
+
+                    <div class="">
+
+                        <h4 class="pull-right"> Education <i class="fa fa-graduation-cap" aria-hidden="true"></i></h4>
+                        <div class="clearfix"></div>
+
+                        <p class="top20">
+                            {introduction} Lorem ipsum dolor sit amet, sed eu esse laoreet tibique. Ad cum ornatus phaedrum voluptatibus.
+                        </p>
+                    </div>
+                </div>
+
+
+                <div class="row">
+
+                    <div class="">
+
+                        <h4> <i class="fa fa-shield" aria-hidden="true"></i> Safety </h4>
+
+                        <p class="top20">
+                            {introduction}  Partem accommodare voluptatibus sea id. In pri veri definitiones, congue utroque voluptatibus
+                            an ius. Cu elitr nostrum tractatos pri. Vim te mutat vulputate, ad modus fugit quo.
+                        </p>
+
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+
+
+{% endblock content %}
