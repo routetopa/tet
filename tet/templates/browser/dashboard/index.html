@@ -11,10 +11,12 @@
 
     {{ block.super }}
 
-    <script src="{% static 'js/d3/d3.min.js' %}"></script>
+    <script src="{% static 'js/d3.js' %}"></script>
+    <script src="{% static 'js/c3.js' %}"></script>
 
     <script src="{% static 'browser/js/dashboard.js' %}"></script>
 
+    <link rel=stylesheet type=text/css href="{% static 'css/c3.css' %}" />
     <link rel=stylesheet type=text/css href="{% static 'browser/css/tet-d3.css' %}" />
 
 {% endblock scripts %}
@@ -46,7 +48,6 @@
                         <small>{% trans "Data source" %}: <a href="http://dkm.ie/en/publications/dublin_economic_monitor">Dublin Economic Monitor / Dublinked</a></small>
 
                         <div id="chart_unemployment_rate">
-                          <svg></svg>
                         </div>
 
 
