@@ -526,7 +526,7 @@ def dataset(request, dataset_id):
                         fields = data["result"]["fields"]
                         break
                     except Exception as e:
-                        resource_fields = None 
+                        resource_fields = []
         completness = compute_completeness(stats)
     except Exception as e:
         messages.add_message(request, messages.ERROR, e)
