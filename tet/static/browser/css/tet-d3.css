@@ -1,0 +1,19 @@
+.figure path {
+    stroke: steelblue;
+    stroke-width: 2;
+    fill: none;
+}
+
+.figure .axis path,
+.figure .axis line {
+    fill: none;
+    stroke: grey;
+    stroke-width: 1;
+    shape-rendering: crispEdges;
+}
+
+.figure .legend {
+    font-size: 16px;
+    font-weight: bold;
+    text-anchor: start;
+}
