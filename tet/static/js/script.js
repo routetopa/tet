@@ -382,3 +382,39 @@ $.extend(
         $(form).appendTo('body').submit();
     }
 });
+
+function detectAnomaly(){
+    var api_url = $( "#api-link" ).val();
+    var field_name = $( "#field-name" ).val();
+    $("#anomaly-output").html("<b>Loading...</b>")
+    var response = $.getJSON(api_url, function(data) {
+        data["x"] = "_id";
+        data["y"] = field_name;
+        json = JSON.stringify(data);
+        var url = "http://vmrtpa05.deri.ie:8002/detectAnomalies/lof";
+        var dataType ="aplication/json";
+        $.ajax({
+            type: "POST",
+            url: url,
+            data: json,
+            success: function(data){
+                 json = JSON.parse(data);
+                 if (json["result"].length == 0){
+                    $("#anomaly-output").html("<div class='alert alert-success'>No anomaly detected</div>");
+                    return
+                 }
+                 var table = "<tr><th>" + field_name + "</th></tr>";
+                 for( amomaly  in json["result"]){
+                    table += "<tr><td>" + json["result"][amomaly][2] + "</td></tr>";
+                 }
+                 table = "<table class='table table-hover'>" + table + "</table>";
+                 table = "<div class='alert alert-error'>The following values are detected as potential anomalies</div>" + table;
+                 $("#anomaly-output").html(table);
+            },
+            dataType: "text",
+            contentType: "application/json; charset=utf-8",
+        });
+        
+    });
+}
+
