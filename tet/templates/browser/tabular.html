@@ -30,8 +30,7 @@
                     <h5 class="dataset-title">  </h5>
 
                 </div>
-
-
+                
                 <div class="row">
                     <div>
 
@@ -39,6 +38,7 @@
                             <li role="presentation" class="active"><a href="#explorer" aria-controls="explorer" role="tab" data-toggle="tab">{% trans "Data Explorer" %}</a></li>
                             <li role="presentation"><a href="#pivottable" aria-controls="pivottable" role="tab" data-toggle="tab">{% trans "PivotTable" %}</a></li>
                              <li role="presentation"><a href="#sqlquery" aria-controls="sqlquery" role="tab" data-toggle="tab">{% trans "SQL Query" %}</a></li>
+                             <li role="presentation"><a href="#anomaly-detect" aria-controls="anomaly-detect" role="tab" data-toggle="tab">{% trans "Anomaly Detection" %}</a></li>
                             <!--<li role="presentation"><a href="#discuss" aria-controls="discuss" role="tab" data-toggle="tab">{% trans "SPOD Discussion" %}</a></li>-->
                         </ul>
 
@@ -61,6 +61,21 @@
                                 <div>
                                     <div id="query-output"></div>
                                 </div>
+                            </div>
+
+                            <div role="tabpanel" class="tab-pane" id="anomaly-detect">
+                               <span>
+                                 {% trans "Select a field name : " %}
+                               </span>
+                               <input id="api-link" type="hidden" value="{{API_LINK}}" />
+                               <select id="field-name">
+                                   {% for f in numeric_fields %}
+                                        <option value="{{f}}">{{f}}</option>
+                                   {% endfor %}
+                               </select>
+                               <button onclick="detectAnomaly()" name="merge" class="span2 pull-right btn main-search-btn rtpa-btn"> <i class="fa fa-bug" aria-hidden="true"></i> {% trans "Detect Anomaly" %} </button>
+                               <div id="anomaly-output">
+                               </div>
                             </div>
 <!--
                             <div role="tabpanel" class="tab-pane" id="discuss">

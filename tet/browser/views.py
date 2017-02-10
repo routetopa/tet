@@ -770,6 +770,7 @@ def dataset_as_table(request, dataset_id):
     url_table = None
     url_pivottable = None
     resource_id = None
+    numeric_fields = None
     try:
         dataset = ckan_api_instance.action.package_show(
             id=dataset_id
@@ -783,6 +784,11 @@ def dataset_as_table(request, dataset_id):
                 if resource["format"].lower() in ["csv","xls"]:
                     views = ckan_api_instance.action.resource_view_list(id=resource["id"])
                     resource_id = resource["id"]
+                    url = settings.CKAN_URL + "/api/action/datastore_search?resource_id=" + resource_id + "&limit=1"
+                    res = urlopen(url)
+                    data = json.loads(res.read())
+                    fields = data["result"]["fields"]
+                    numeric_fields = [f["id"] for f in fields if f["type"] == "numeric"]
                     for view in views:
                         if (view["view_type"]=="recline_view"):
                             url_table = settings.CKAN_URL + "/dataset/" + dataset_id + "/resource/" + resource["id"] + "/view/" + view["id"]
@@ -805,7 +811,8 @@ def dataset_as_table(request, dataset_id):
         'CKAN_URL': settings.CKAN_URL + "/dataset/" + dataset_id + "?r=" + request.get_full_path(),
         'API_LINK' : settings.CKAN_URL + "/api/action/datastore_search?resource_id=" + resource_id + "&limit=99999", 
         'QUERY_API': settings.CKAN_URL + "/api/action/datastore_search_sql",
-        'resource_id' : resource_id
+        'resource_id' : resource_id,
+        "numeric_fields" : numeric_fields
      }
 
     return render(request, template_name, context)
