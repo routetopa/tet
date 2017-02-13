@@ -1,8 +1,17 @@
 {% extends "base.html" %}
 
+{% load staticfiles %}
 {% load i18n %}
 
-{% block title %} Dataset details {% endblock title %}
+{% block title %} {% trans "Dataset details" %} {% endblock title %}
+
+{% block scripts %}
+
+    {{ block.super }}
+
+    <script src="{% static 'browser/js/anomaly-detection.js' %}"></script>
+
+{% endblock scripts %}
 
 {% block content %}
 
@@ -74,8 +83,15 @@
                                    {% endfor %}
                                </select>
                                <button onclick="detectAnomaly()" name="merge" class="span2 pull-right btn main-search-btn rtpa-btn"> <i class="fa fa-bug" aria-hidden="true"></i> {% trans "Detect Anomaly" %} </button>
+
                                <div id="anomaly-output">
+
                                </div>
+
+                                <div id="anomaly-chart">
+
+                                </div>
+
                             </div>
 <!--
                             <div role="tabpanel" class="tab-pane" id="discuss">

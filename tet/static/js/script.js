@@ -382,7 +382,7 @@ $.extend(
         $(form).appendTo('body').submit();
     }
 });
-
+/*
 function detectAnomaly(){
     var api_url = $( "#api-link" ).val();
     var field_name = $( "#field-name" ).val();
@@ -414,7 +414,7 @@ function detectAnomaly(){
             dataType: "text",
             contentType: "application/json; charset=utf-8",
         });
-        
+
     });
 }
-
+*/
