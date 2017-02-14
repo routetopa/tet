@@ -786,6 +786,12 @@ input.js-zeroclipboard-target {
     margin-right: 7px !important;
 }
 
+/* Anomaly detection */
+
+.anomalyDetectionResults {
+   display: none;
+}
+
 
 /* Bootstrap 3 addons */
 .panel-group {

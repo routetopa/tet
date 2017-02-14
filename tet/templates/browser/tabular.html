@@ -74,6 +74,8 @@
 
                             <div role="tabpanel" class="tab-pane" id="anomaly-detect">
 
+                                <h4>{% trans "Anomaly detection" %}</h4>
+
                                 <p class="top20 text-justify">
                                     Anomaly detection web service implemented for rtpa project is based on the Local Outlier Factor Algorithm (LOF).
                                     LOF algorithm is unsupervised nearest neighborhood  based anomaly detection algorithm widely used for multivariate anomaly detection.
@@ -113,12 +115,19 @@
 
                                 <input id="api-link" type="hidden" value="{{API_LINK}}" />
 
-                                <div id="anomaly-chart" class="top20">
+                                <div class="clearfix"></div>
 
-                                </div>
+                                <div class="anomalyDetectionResults top30">
 
-                                <div id="anomaly-output" class="top20">
+                                    <h5 class="top20">{% trans "Anomaly visualisation" %}</h5>
+                                    <div id="anomaly-chart" class="top20">
+                                        <i class="fa fa-spinner fa-spin" style="font-size:24px"></i>
+                                    </div>
 
+                                    <h5 class="top20">{% trans "Anomaly table" %}</h5>
+                                    <div id="anomaly-output" class="top20">
+                                        <i class="fa fa-spinner fa-spin" style="font-size:24px"></i>
+                                    </div>
                                 </div>
 
                             </div>

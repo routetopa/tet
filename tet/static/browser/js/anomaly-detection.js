@@ -14,7 +14,10 @@ function detectAnomaly(){
     var api_url = $( "#api-link" ).val();
     var field_name = $( "#field-name" ).val();
 
-    $("#anomaly-output").html("<b>Loading...</b>")
+    // $("#anomaly-output").html("<b>Loading...</b>")
+
+    $(".anomalyDetectionResults").show();
+
     var response = $.getJSON(api_url, function(data) {
         data["x"] = "_id";
         data["y"] = field_name;
@@ -36,18 +39,21 @@ function detectAnomaly(){
             success: function(data){
                  json = JSON.parse(data);
                  if (json["result"].length == 0){
-                    $("#anomaly-output").html("<div class='alert alert-success'>No anomaly detected</div>");
+                    $("#anomaly-output").html("<div class='alert alert-success top20'>No anomaly detected</div>");
                     return
                  }
+
                  var table = "<tr><th>" + field_name + "</th>";
                  table += "<th> Score </td></tr>";
 
                  for( anomaly  in json["result"]){
-                    table += "<tr><td>" + json["result"][anomaly][2] + "</td><td>" + json["result"][anomaly][0] + "</td></tr>";
+                    if (json["result"][anomaly][2] > 1){
+                        table += "<tr><td>" + json["result"][anomaly][2] + "</td><td>" + json["result"][anomaly][0] + "</td></tr>";
+                    }
                  }
 
                  table = "<table class='table table-hover'>" + table + "</table>";
-                 table = "<div class='alert alert-error'>The following values are detected as potential anomalies</div>" + table;
+                 table = "<div class='alert alert-error top20'>The following values are detected as potential anomalies</div>" + table;
 
                  $("#anomaly-output").html(table);
 
