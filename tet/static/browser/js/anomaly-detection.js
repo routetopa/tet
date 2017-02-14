@@ -1,3 +1,13 @@
+$(document).ready(function() {
+
+    $('#scoreTolerance').bootstrapSlider({
+        formatter: function(value) {
+            return 'Current value: ' + value;
+        }
+    });
+
+});
+
 function detectAnomaly(){
 
     var source_data;
@@ -29,8 +39,8 @@ function detectAnomaly(){
                     $("#anomaly-output").html("<div class='alert alert-success'>No anomaly detected</div>");
                     return
                  }
-                 var table = "<tr><th>" + field_name + "</th></tr>";
-                 table += "<tr><th> Score </td></tr>";
+                 var table = "<tr><th>" + field_name + "</th>";
+                 table += "<th> Score </td></tr>";
 
                  for( anomaly  in json["result"]){
                     table += "<tr><td>" + json["result"][anomaly][2] + "</td><td>" + json["result"][anomaly][0] + "</td></tr>";

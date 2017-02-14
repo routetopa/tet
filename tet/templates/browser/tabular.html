@@ -73,22 +73,51 @@
                             </div>
 
                             <div role="tabpanel" class="tab-pane" id="anomaly-detect">
-                               <span>
-                                 {% trans "Select a field name : " %}
-                               </span>
-                               <input id="api-link" type="hidden" value="{{API_LINK}}" />
-                               <select id="field-name">
-                                   {% for f in numeric_fields %}
-                                        <option value="{{f}}">{{f}}</option>
-                                   {% endfor %}
-                               </select>
-                               <button onclick="detectAnomaly()" name="merge" class="span2 pull-right btn main-search-btn rtpa-btn"> <i class="fa fa-bug" aria-hidden="true"></i> {% trans "Detect Anomaly" %} </button>
 
-                               <div id="anomaly-output">
+                                <p class="top20 text-justify">
+                                    Anomaly detection web service implemented for rtpa project is based on the Local Outlier Factor Algorithm (LOF).
+                                    LOF algorithm is unsupervised nearest neighborhood  based anomaly detection algorithm widely used for multivariate anomaly detection.
+                                    The LOF score is thus basically a ratio of local densities. The normal instances, which densities are as big as the densities of their
+                                    neighbors, get a score of about 1.0. Anomalies, which have a low local density, will result in larger scores.
+                                    <a href="https://en.wikipedia.org/wiki/Local_outlier_factor" target="_blank">{% trans "Read more" %}</a>.
+                                </p>
 
-                               </div>
+                                <p class="top20">
+                                    <span class="span2 text-left">
+                                        {% trans "Select a field name " %}:
+                                    </span>
 
-                                <div id="anomaly-chart">
+                                    <span class="offset1 ">
+                                        <select id="field-name">
+                                            {% for f in numeric_fields %}
+                                                <option value="{{f}}">{{f}}</option>
+                                            {% endfor %}
+                                        </select>
+                                    </span>
+
+                                </p>
+
+                                <p class="top20">
+                                    <span class="span2 text-left">
+                                        {% trans "Adjust the tolerance" %}:
+                                    </span>
+
+                                    <span class="offset1 ">
+                                        <input id="scoreTolerance" data-slider-id='scoreTolerance' type="text" data-slider-min="0" data-slider-max="1" data-slider-step="0.05" data-slider-value="0.2"/>
+                                    </span>
+                                </p>
+
+                                <p class="top20">
+                                    <button onclick="detectAnomaly()" name="merge" class="span2 btn main-search-btn rtpa-btn"> <i class="fa fa-bug" aria-hidden="true"></i> {% trans "Detect Anomaly" %} </button>
+                                </p>
+
+                                <input id="api-link" type="hidden" value="{{API_LINK}}" />
+
+                                <div id="anomaly-chart" class="top20">
+
+                                </div>
+
+                                <div id="anomaly-output" class="top20">
 
                                 </div>
 
