@@ -32,6 +32,7 @@ function detectAnomaly(){
         var x_axis = data["x"]
         var y_axis = data["y"]
         var score_tolerance = 0.2
+        var data_source_dimensions = []
 
         source_data = data;
 
@@ -41,27 +42,45 @@ function detectAnomaly(){
             data: json,
             success: function(data){
 
-                 json = JSON.parse(data);
+                json = JSON.parse(data);
 
-                 if (json["result"].length == 0) {
+                if (json["result"].length == 0) {
 
-                    $(".anomalyDetectionResults").hide();
-                    $(".noAnomalyDetected").fadeIn();
+                   $(".anomalyDetectionResults").hide();
+                   $(".noAnomalyDetected").fadeIn();
 
-                    return false;
+                   return false;
 
-                 }
+                }
 
-                 var table = "<tr><th>" + field_name + "</th>";
-                 table += "<th> Score </td></tr>";
+                var table = "<tr><thead>"
 
-                 for( anomaly  in json["result"]){
-                    if (json["result"][anomaly][0] > 1.0){
-                        table += "<tr><td>" + json["result"][anomaly][2] + "</td><td>" + json["result"][anomaly][0] + "</td></tr>";
+                data_source_dimensions = []
+                for (field in source_data.result.fields){
+                    data_source_dimensions.push(source_data.result.fields[field].id)
+                    table += "<th>" + source_data.result.fields[field].id + "</th>"
+                }
+
+                table += "<th> Anomaly Score </th> </thead> </tr>";
+
+                console.log(source_data.result.records);
+
+                for (index in json["result"]){
+                    if (json["result"][index][0] > 1.0){
+
+                        table += "<tr>";
+
+                        for (dimension in data_source_dimensions) {
+                            table += "<td>" + source_data.result.records[index][data_source_dimensions[dimension]] + "</td>"
+                        }
+
+                        table += "<td>" + json["result"][index][0] + "</td>"
+                        table += "</tr>"
+
                     }
-                 }
+                }
 
-                 table = "<table class='table table-hover'>" + table + "</table>";
+                 table = "<table class='span12 table table-hover table-striped table-anomalies'>" + table + "</table>";
                  table = "<div class='alert alert-error top20'>The following values are detected as potential anomalies</div>" + table;
 
                  $("#anomaly-output").html(table);
@@ -102,7 +121,7 @@ function detectAnomaly(){
                         r: function(d) {
 
                             if (d.id == "Anomaly"){
-                                return 4 * column_as[d.index - 1];
+                                return 4 * column_as[d.index + 1];
                             }
                             return 3;
 
@@ -179,6 +198,8 @@ function detectAnomaly(){
                         },
                     }
                 });
+
+                $(".anomalyChatsControls").fadeIn();
 
             },
             dataType: "text",

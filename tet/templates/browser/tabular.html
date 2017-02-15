@@ -96,10 +96,11 @@
 
                                 <div class="anomalyDetectionResults top30">
 
-                                    <div class="top20 anomalyChatsControls">
+                                    <div class="top20">
 
-                                        <div class="row">
+                                        <div class="row anomalyChatsControls">
 
+                                            <div class="row">
                                                 <div class="span6">
 
                                                     <span class="span2 text-left">
@@ -116,47 +117,48 @@
 
                                                 </div>
 
-                                        <div class="span6">
+                                                <div class="span6">
 
-                                            <div class="offset1">
+                                                    <div class="offset1">
 
-                                                <button ionclick="updateChartType('scatter')" name="" class="btn rtpa-btn"> <i class="fa fa-bugxx" aria-hidden="true"></i> {% trans "Scatter Plot" %} </button>
-                                                <button ionclick="detectAnomaly('line')" name="" class="btn rtpa-btn"> <i class="fa fa-bugxx" aria-hidden="true"></i> {% trans "Line Chart" %} </button>
-                                                <button ionclick="detectAnomaly('bar')" name="" class="btn rtpa-btn"> <i class="fa fa-bugxx" aria-hidden="true"></i> {% trans "Bar chart" %} </button>
+                                                        <button ionclick="updateChartType('scatter')" name="" class="btn rtpa-btn"> <i class="fa fa-bugxx" aria-hidden="true"></i> {% trans "Scatter Plot" %} </button>
+                                                        <button ionclick="detectAnomaly('line')" name="" class="btn rtpa-btn"> <i class="fa fa-bugxx" aria-hidden="true"></i> {% trans "Line Chart" %} </button>
+                                                        <button ionclick="detectAnomaly('bar')" name="" class="btn rtpa-btn"> <i class="fa fa-bugxx" aria-hidden="true"></i> {% trans "Bar chart" %} </button>
 
+                                                    </div>
+
+                                                </div>
+                                            </div>
+
+                                            <div class="row">
+                                                <div class="span6 top20">
+                                                    <span class="span2 text-left">
+                                                        {% trans "Adjust the tolerance" %}:
+                                                    </span>
+
+                                                    <span class="offset1 ">
+                                                        <input id="scoreTolerance" data-slider-id='scoreTolerance' type="text" data-slider-min="0" data-slider-max="1" data-slider-step="0.05" data-slider-value="0.2"/>
+                                                    </span>
+                                                </div>
                                             </div>
 
                                         </div>
 
+                                        <h5 class="top20">{% trans "Anomaly visualisation" %}</h5>
+                                        <div id="dimension-chart" class="top20">
+                                            <i class="fa fa-spinner fa-spin" style="font-size:24px"></i>
                                         </div>
 
-                                    </p>
+                                        <div id="anomaly-chart" class="top20">
+                                            <i class="fa fa-spinner fa-spin" style="font-size:24px"></i>
+                                        </div>
 
-                                    <p class="top20">
-                                        <span class="span2 text-left">
-                                            {% trans "Adjust the tolerance" %}:
-                                        </span>
+                                        <h5 class="top20">{% trans "Anomaly table" %}</h5>
+                                        <div id="anomaly-output" class="top20">
+                                            <i class="fa fa-spinner fa-spin" style="font-size:24px"></i>
+                                        </div>
 
-                                        <span class="offset1 ">
-                                            <input id="scoreTolerance" data-slider-id='scoreTolerance' type="text" data-slider-min="0" data-slider-max="1" data-slider-step="0.05" data-slider-value="0.2"/>
-                                        </span>
-                                    </p>
-
-                                    <h5 class="top20">{% trans "Anomaly visualisation" %}</h5>
-                                    <div id="dimension-chart" class="top20">
-                                        <i class="fa fa-spinner fa-spin" style="font-size:24px"></i>
                                     </div>
-
-                                    <div id="anomaly-chart" class="top20">
-                                        <i class="fa fa-spinner fa-spin" style="font-size:24px"></i>
-                                    </div>
-
-                                    <h5 class="top20">{% trans "Anomaly table" %}</h5>
-                                    <div id="anomaly-output" class="top20">
-                                        <i class="fa fa-spinner fa-spin" style="font-size:24px"></i>
-                                    </div>
-
-                                </div>
 
                             </div>
 <!--

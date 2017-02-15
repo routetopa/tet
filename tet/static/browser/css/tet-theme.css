@@ -800,7 +800,9 @@ input.js-zeroclipboard-target {
    display: none;
 }
 
-
+.table-anomalies {
+    font-size: 80%;
+}
 
 /* Bootstrap 3 addons */
 .panel-group {
