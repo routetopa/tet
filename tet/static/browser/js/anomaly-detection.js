@@ -1,3 +1,10 @@
+var anomaly_chart;
+var dimension_chart;
+
+var x_axis
+var y_axis
+var score_tolerance = 0.2
+
 $(document).ready(function() {
 
     $('#scoreTolerance').bootstrapSlider({
@@ -10,6 +17,11 @@ $(document).ready(function() {
     });
 
 });
+
+function updateChartType(type = 'scatter' ){
+    // TODO enum values
+    dimension_chart.transform(type, y_axis);
+}
 
 function detectAnomaly(){
 
@@ -26,12 +38,13 @@ function detectAnomaly(){
         data["y"] = field_name;
         json = JSON.stringify(data);
 
+        // TODO dynamic links
         var url = "http://vmrtpa05.deri.ie:8002/detectAnomalies/lof";
         var dataType ="aplication/json";
 
-        var x_axis = data["x"]
-        var y_axis = data["y"]
-        var score_tolerance = 0.2
+        x_axis = data["x"]
+        y_axis = data["y"]
+
         var data_source_dimensions = []
 
         source_data = data;
@@ -62,8 +75,6 @@ function detectAnomaly(){
                 }
 
                 table += "<th> Anomaly Score </th> </thead> </tr>";
-
-                console.log(source_data.result.records);
 
                 for (index in json["result"]){
                     if (json["result"][index][0] > 1.0){
@@ -115,7 +126,7 @@ function detectAnomaly(){
                 column_a.unshift("Anomaly")
                 column_as.unshift("Anomaly Score")
 
-                var dimension_chart = c3.generate({
+                dimension_chart = c3.generate({
                     bindto: '#dimension-chart',
                     point: {
                         r: function(d) {
@@ -159,7 +170,7 @@ function detectAnomaly(){
                     }
                 });
 
-                var anomaly_chart = c3.generate({
+                anomaly_chart = c3.generate({
                     bindto: '#anomaly-chart',
                     data: {
                         x: x_axis,
