@@ -792,6 +792,15 @@ input.js-zeroclipboard-target {
    display: none;
 }
 
+.anomalyChatsControls {
+   display: none;
+}
+
+.noAnomalyDetected {
+   display: none;
+}
+
+
 
 /* Bootstrap 3 addons */
 .panel-group {

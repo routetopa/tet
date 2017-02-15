@@ -2,6 +2,9 @@ $(document).ready(function() {
 
     $('#scoreTolerance').bootstrapSlider({
         formatter: function(value) {
+            if (value == 1){
+                value = "1+";
+            }
             return 'Current value: ' + value;
         }
     });
@@ -14,9 +17,9 @@ function detectAnomaly(){
     var api_url = $( "#api-link" ).val();
     var field_name = $( "#field-name" ).val();
 
-    // $("#anomaly-output").html("<b>Loading...</b>")
+    $(".anomalyDetectionResults").fadeIn();
+    $("#detectAnomaly").fadeOut();
 
-    $(".anomalyDetectionResults").show();
 
     var response = $.getJSON(api_url, function(data) {
         data["x"] = "_id";
@@ -37,10 +40,16 @@ function detectAnomaly(){
             url: url,
             data: json,
             success: function(data){
+
                  json = JSON.parse(data);
-                 if (json["result"].length == 0){
-                    $("#anomaly-output").html("<div class='alert alert-success top20'>No anomaly detected</div>");
-                    return
+
+                 if (json["result"].length == 0) {
+
+                    $(".anomalyDetectionResults").hide();
+                    $(".noAnomalyDetected").fadeIn();
+
+                    return false;
+
                  }
 
                  var table = "<tr><th>" + field_name + "</th>";
@@ -87,15 +96,13 @@ function detectAnomaly(){
                 column_a.unshift("Anomaly")
                 column_as.unshift("Anomaly Score")
 
-
                 var dimension_chart = c3.generate({
                     bindto: '#dimension-chart',
                     point: {
                         r: function(d) {
 
                             if (d.id == "Anomaly"){
-                                //console.log(d, 5 + ( column_as[d.index] * 5 ), 5 + ( column_as[d.index] * 2), column_as[d.index])
-                                return 3 * column_as[d.index - 1];
+                                return 4 * column_as[d.index - 1];
                             }
                             return 3;
 
@@ -107,9 +114,7 @@ function detectAnomaly(){
                             column_x,
                             column_y,
                             column_a,
-                            // column_as,
                         ],
-                        // hide: ['Anomaly Score'],
                         type: 'scatter'
                     },
                     grid: {
@@ -174,7 +179,6 @@ function detectAnomaly(){
                         },
                     }
                 });
-
 
             },
             dataType: "text",
