@@ -85,39 +85,62 @@
                                 </p>
 
                                 <p class="top20">
-                                    <span class="span2 text-left">
-                                        {% trans "Select a field name " %}:
-                                    </span>
-
-                                    <span class="offset1 ">
-                                        <select id="field-name">
-                                            {% for f in numeric_fields %}
-                                                <option value="{{f}}">{{f}}</option>
-                                            {% endfor %}
-                                        </select>
-                                    </span>
-
-                                </p>
-
-                                <p class="top20">
-                                    <span class="span2 text-left">
-                                        {% trans "Adjust the tolerance" %}:
-                                    </span>
-
-                                    <span class="offset1 ">
-                                        <input id="scoreTolerance" data-slider-id='scoreTolerance' type="text" data-slider-min="0" data-slider-max="1" data-slider-step="0.05" data-slider-value="0.2"/>
-                                    </span>
-                                </p>
-
-                                <p class="top20">
-                                    <button onclick="detectAnomaly()" name="merge" class="span2 btn main-search-btn rtpa-btn"> <i class="fa fa-bug" aria-hidden="true"></i> {% trans "Detect Anomaly" %} </button>
+                                    <button id="detectAnomaly" onclick="detectAnomaly()" name="" class="span2 btn main-search-btn rtpa-btn"> <i class="fa fa-bug" aria-hidden="true"></i> {% trans "Detect Anomaly" %} </button>
                                 </p>
 
                                 <input id="api-link" type="hidden" value="{{API_LINK}}" />
 
                                 <div class="clearfix"></div>
 
+                                <div class='alert alert-success noAnomalyDetected'>{% trans "No anomaly detected" %}</div>
+
                                 <div class="anomalyDetectionResults top30">
+
+                                    <div class="top20 anomalyChatsControls">
+
+                                        <div class="row">
+
+                                                <div class="span6">
+
+                                                    <span class="span2 text-left">
+                                                        {% trans "Select a field name " %}:
+                                                    </span>
+
+                                                    <span class="offset1 ">
+                                                        <select id="field-name">
+                                                            {% for f in numeric_fields %}
+                                                                <option value="{{f}}">{{f}}</option>
+                                                            {% endfor %}
+                                                        </select>
+                                                    </span>
+
+                                                </div>
+
+                                        <div class="span6">
+
+                                            <div class="offset1">
+
+                                                <button ionclick="updateChartType('scatter')" name="" class="btn rtpa-btn"> <i class="fa fa-bugxx" aria-hidden="true"></i> {% trans "Scatter Plot" %} </button>
+                                                <button ionclick="detectAnomaly('line')" name="" class="btn rtpa-btn"> <i class="fa fa-bugxx" aria-hidden="true"></i> {% trans "Line Chart" %} </button>
+                                                <button ionclick="detectAnomaly('bar')" name="" class="btn rtpa-btn"> <i class="fa fa-bugxx" aria-hidden="true"></i> {% trans "Bar chart" %} </button>
+
+                                            </div>
+
+                                        </div>
+
+                                        </div>
+
+                                    </p>
+
+                                    <p class="top20">
+                                        <span class="span2 text-left">
+                                            {% trans "Adjust the tolerance" %}:
+                                        </span>
+
+                                        <span class="offset1 ">
+                                            <input id="scoreTolerance" data-slider-id='scoreTolerance' type="text" data-slider-min="0" data-slider-max="1" data-slider-step="0.05" data-slider-value="0.2"/>
+                                        </span>
+                                    </p>
 
                                     <h5 class="top20">{% trans "Anomaly visualisation" %}</h5>
                                     <div id="dimension-chart" class="top20">
@@ -132,6 +155,7 @@
                                     <div id="anomaly-output" class="top20">
                                         <i class="fa fa-spinner fa-spin" style="font-size:24px"></i>
                                     </div>
+
                                 </div>
 
                             </div>
