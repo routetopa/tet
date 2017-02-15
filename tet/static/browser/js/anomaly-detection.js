@@ -47,7 +47,7 @@ function detectAnomaly(){
                  table += "<th> Score </td></tr>";
 
                  for( anomaly  in json["result"]){
-                    if (json["result"][anomaly][2] > 1){
+                    if (json["result"][anomaly][0] > 1.0){
                         table += "<tr><td>" + json["result"][anomaly][2] + "</td><td>" + json["result"][anomaly][0] + "</td></tr>";
                     }
                  }
@@ -58,9 +58,10 @@ function detectAnomaly(){
                  $("#anomaly-output").html(table);
 
                 // Pares the data for the chart
-                var column_x = []
-                var column_y = []
-                var column_a = []
+                var column_x    = []
+                var column_y    = []
+                var column_a    = []
+                var column_as   = []
 
                 //json["result"][i][j] :: j
                 // 0 - score
@@ -72,6 +73,8 @@ function detectAnomaly(){
                 {
                     column_x[i] = source_data.result.records[i][x_axis];
                     column_y[i] = source_data.result.records[i][y_axis];
+                    column_as[i] = json["result"][i][0];
+
                     if ( json["result"][i][0] > 1 + score_tolerance ){
                         column_a[i] = json["result"][i][2];
                     } else {
@@ -79,24 +82,20 @@ function detectAnomaly(){
                     }
                 }
 
-
                 column_x.unshift(x_axis)
                 column_y.unshift(y_axis)
                 column_a.unshift("Anomaly")
+                column_as.unshift("Anomaly Score")
 
 
-                // Parse Y
-
-                // Parse Anomalies
-
-
-                var anomaly_chart = c3.generate({
-                    bindto: '#anomaly-chart',
+                var dimension_chart = c3.generate({
+                    bindto: '#dimension-chart',
                     point: {
                         r: function(d) {
-                            console.log(d)
+
                             if (d.id == "Anomaly"){
-                                return 5; // d.value * 5;
+                                //console.log(d, 5 + ( column_as[d.index] * 5 ), 5 + ( column_as[d.index] * 2), column_as[d.index])
+                                return 3 * column_as[d.index - 1];
                             }
                             return 3;
 
@@ -108,8 +107,41 @@ function detectAnomaly(){
                             column_x,
                             column_y,
                             column_a,
-                            // [ 'Anomaly' , null ,2, 1]
+                            // column_as,
+                        ],
+                        // hide: ['Anomaly Score'],
+                        type: 'scatter'
+                    },
+                    grid: {
+                        x: {
+                            show: false
+                        },
+                        y: {
+                            show: true
+                        }
+                    },
+                    axis: {
+                        x: {
+                            type: 'category',
+                            show: true,
+                            tick: {
+                                rotate: 75,
+                                multiline: false
+                            },
+                            }
+                    },
+                    color: {
+                        pattern: [ '#66A4E0', "#FF360C" ]
+                    }
+                });
 
+                var anomaly_chart = c3.generate({
+                    bindto: '#anomaly-chart',
+                    data: {
+                        x: x_axis,
+                        columns: [
+                            column_x,
+                            column_as,
                         ],
                         type: 'scatter'
                     },
@@ -132,7 +164,14 @@ function detectAnomaly(){
                             }
                     },
                     color: {
-                        pattern: [ '#5FE00B', "#d80026" ]
+                        pattern: [ '#FF360C' ]
+                    },
+                    subchart: {
+                        show: true,
+                        onbrush: function (d) {
+                            dimension_chart.zoom(d);
+                            anomaly_chart.zoom(d);
+                        },
                     }
                 });
 
