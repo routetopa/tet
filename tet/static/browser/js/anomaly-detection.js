@@ -1,22 +1,59 @@
 var anomaly_chart;
 var dimension_chart;
+var source_data;
 
 var x_axis
 var y_axis
-var score_tolerance = 0.2
+var score_tolerance = 0.5
 
 $(document).ready(function() {
 
     $('#scoreTolerance').bootstrapSlider({
         formatter: function(value) {
-            if (value == 1){
-                value = "1+";
+
+            if (value == 2){
+                value = "2+";
             }
+
             return 'Current value: ' + value;
-        }
+        },
+    });
+
+
+    $("#scoreTolerance").on("slideStop", function(slideEvt) {
+        updateChartTolerance(slideEvt.value)
     });
 
 });
+
+function updateChartTolerance(tolerance = 0.5 ){
+
+    // updating anomaly chart
+    var column_a = []
+
+    // Adjust anomalies table
+    for(i=0; i < source_data.result.records.length; i++)
+    {
+
+        if ( json["result"][i][0] > 1 + tolerance ){
+            column_a[i] = json["result"][i][2];
+        } else {
+            column_a[i] = null;
+        }
+    }
+
+    column_a.unshift("Anomaly")
+
+    dimension_chart.load({
+        columns: [
+            column_a
+        ],
+    });
+
+
+    // updating anomaly table
+    // TODO update table
+}
 
 function updateChartType(type = 'scatter' ){
     // TODO enum values
@@ -25,7 +62,6 @@ function updateChartType(type = 'scatter' ){
 
 function detectAnomaly(){
 
-    var source_data;
     var api_url = $( "#api-link" ).val();
     var field_name = $( "#field-name" ).val();
 
