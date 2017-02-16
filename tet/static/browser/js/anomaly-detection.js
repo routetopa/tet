@@ -22,11 +22,12 @@ $(document).ready(function() {
 
     $("#scoreTolerance").on("slideStop", function(slideEvt) {
         updateChartTolerance(slideEvt.value)
+        updateTableTolerance(slideEvt.value)
     });
 
 });
 
-function updateChartTolerance(tolerance = 0.5 ){
+function updateChartTolerance(tolerance = 0.5){
 
     // updating anomaly chart
     var column_a = []
@@ -50,14 +51,28 @@ function updateChartTolerance(tolerance = 0.5 ){
         ],
     });
 
-
-    // updating anomaly table
-    // TODO update table
+    return false
 }
 
 function updateChartType(type = 'scatter' ){
     // TODO enum values
     dimension_chart.transform(type, y_axis);
+}
+
+function updateTableTolerance(tolerance = 0.5){
+
+    // updating anomaly table
+    $('.table-anomalies tr.anomaly').hide();
+
+    $(".table-anomalies tr.anomaly").each(function () {
+
+        if ( $(this).attr("anomaly-score") >= tolerance + 1 ){
+            $(this).show();
+        }
+
+    });
+
+    return false
 }
 
 function detectAnomaly(){
@@ -67,7 +82,6 @@ function detectAnomaly(){
 
     $(".anomalyDetectionResults").fadeIn();
     $("#detectAnomaly").fadeOut();
-
 
     var response = $.getJSON(api_url, function(data) {
         data["x"] = "_id";
@@ -115,7 +129,7 @@ function detectAnomaly(){
                 for (index in json["result"]){
                     if (json["result"][index][0] > 1.0){
 
-                        table += "<tr>";
+                        table += "<tr class='anomaly' anomaly-score='" + json["result"][index][0] + "'>";
 
                         for (dimension in data_source_dimensions) {
                             table += "<td>" + source_data.result.records[index][data_source_dimensions[dimension]] + "</td>"
@@ -127,7 +141,7 @@ function detectAnomaly(){
                     }
                 }
 
-                 table = "<table class='span12 table table-hover table-striped table-anomalies'>" + table + "</table>";
+                 table = "<table class='span12 table table-hover -table-striped table-anomalies'>" + table + "</table>";
                  table = "<div class='alert alert-error top20'>The following values are detected as potential anomalies</div>" + table;
 
                  $("#anomaly-output").html(table);
@@ -197,7 +211,7 @@ function detectAnomaly(){
                             show: true,
                             tick: {
                                 rotate: 75,
-                                multiline: false
+                                multiline: false,
                             },
                             }
                     },
@@ -230,7 +244,7 @@ function detectAnomaly(){
                             show: true,
                             tick: {
                                 rotate: 75,
-                                multiline: false
+                                multiline: false,
                             },
                             }
                     },
