@@ -86,10 +86,12 @@ function detectAnomaly(){
     var response = $.getJSON(api_url, function(data) {
         data["x"] = "_id";
         data["y"] = field_name;
+        data["analysisFeatures"] = [];
+
         json = JSON.stringify(data);
 
         // TODO dynamic links
-        var url = "http://vmrtpa05.deri.ie:8002/detectAnomalies/lof";
+        var url = "http://vmrtpa05.deri.ie:8003/detectAnomalies/lof";
         var dataType ="aplication/json";
 
         x_axis = data["x"]
@@ -199,10 +201,10 @@ function detectAnomaly(){
                     },
                     grid: {
                         x: {
-                            show: false
+                            show: false,
                         },
                         y: {
-                            show: true
+                            show: true,
                         }
                     },
                     axis: {
@@ -213,7 +215,10 @@ function detectAnomaly(){
                                 rotate: 75,
                                 multiline: false,
                             },
-                            }
+                        },
+                        y: {
+                            inner: true
+                        }
                     },
                     color: {
                         pattern: [ '#66A4E0', "#FF360C" ]
@@ -222,31 +227,33 @@ function detectAnomaly(){
 
                 anomaly_chart = c3.generate({
                     bindto: '#anomaly-chart',
+                    grid: {
+                        x: {
+                            show: false,
+                        },
+                        y: {
+                            show: true,
+                        }
+                    },
                     data: {
                         x: x_axis,
                         columns: [
                             column_x,
-                            column_as,
+                            column_as
                         ],
-                        type: 'scatter'
-                    },
-                    grid: {
-                        x: {
-                            show: false
-                        },
-                        y: {
-                            show: true
-                        }
+                        //type: 'scatter'
                     },
                     axis: {
                         x: {
                             type: 'category',
-                            show: true,
                             tick: {
                                 rotate: 75,
                                 multiline: false,
                             },
-                            }
+                        },
+                        y: {
+                            inner: true
+                        }
                     },
                     color: {
                         pattern: [ '#FF360C' ]
