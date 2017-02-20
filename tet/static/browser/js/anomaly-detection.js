@@ -24,8 +24,11 @@ $(document).ready(function() {
 
 
     $("#scoreTolerance").on("slideStop", function(slideEvt) {
-        updateChartTolerance(slideEvt.value)
-        updateTableTolerance(slideEvt.value)
+
+        score_tolerance = slideEvt.value
+
+        updateChartTolerance(score_tolerance)
+        updateTableTolerance(score_tolerance)
     });
 
     $( "#field-name" ).change(function() {
@@ -45,7 +48,8 @@ function updateChartTolerance(tolerance = 0.5){
     {
 
         if ( json["result"][i][0] > 1 + tolerance ){
-            column_a[i] = json["result"][i][2];
+            // column_a[i] = json["result"][i][2];
+            column_a[i] = source_data.result.records[i][y_axis];
         } else {
             column_a[i] = null;
         }
