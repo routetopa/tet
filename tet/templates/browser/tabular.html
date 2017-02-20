@@ -101,12 +101,24 @@
 
                                         <h5 class="top20">{% trans "Anomaly summary" %}</h5>
                                         <div id="anomaly-summary" class="top20">
-                                            <ul>
-                                                <li>{% trans "Number of anomalies detected" %}: <span>-</span></li>
-                                                <li>{% trans "Number of global anomalies detected" %}: <span>-</span></li>
-                                                <li>{% trans "Number of local anomalies detected" %}: <span>-</span></li>
-                                                <li>{% trans "Highest anomaly score value" %}: <span>-</span></li>
-                                            </ul>
+
+                                            <div class="row">
+                                                <span class="span4">{% trans "Number of anomalies detected" %}: </span>
+                                                <span class="span2" id="noOfAnomalies">-</span>
+                                            </div>
+                                            <div class="row">
+                                                <span class="span4">{% trans "Number of global anomalies detected" %}: </span>
+                                                <span class="span2" id="noOfGlobalAnomalies">-</span>
+                                            </div>
+                                            <div class="row">
+                                                <span class="span4">{% trans "Number of local anomalies detected" %}: </span>
+                                                <span class="span2" id="noOfLocalAnomalies">-</span>
+                                            </div>
+                                            <div class="row">
+                                                <span class="span4">{% trans "Highest anomaly score value" %}: </span>
+                                                <span class="span2" id="highestAnomalyScore">-</span>
+                                            </div>
+
                                         </div>
 
                                         <h5 class="top20">{% trans "Results adjustment" %}</h5>

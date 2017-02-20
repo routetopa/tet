@@ -3,11 +3,18 @@ var dimension_chart;
 var source_data;
 var data_source_dimensions = []
 
+var number_of_anomalies;
+var number_of_local_anomalies;
+var number_of_global_anomalies;
+var highest_anomaly_score;
+
 var x_axis
 var y_axis
 var score_tolerance = 0.5
 
 var column_as = []
+
+var json
 
 $(document).ready(function() {
 
@@ -22,13 +29,14 @@ $(document).ready(function() {
         },
     });
 
-
     $("#scoreTolerance").on("slideStop", function(slideEvt) {
 
         score_tolerance = slideEvt.value
 
         updateChartTolerance(score_tolerance)
         updateTableTolerance(score_tolerance)
+        updateAnomalyMetrics(score_tolerance)
+
     });
 
     $( "#field-name" ).change(function() {
@@ -37,6 +45,51 @@ $(document).ready(function() {
     });
 
 });
+
+function updateAnomalyMetrics(tolerance = 0.5){
+
+    var anomalies = []
+
+
+    number_of_anomalies = 0;
+    number_of_local_anomalies = 0;
+    number_of_global_anomalies = 0;
+    highest_anomaly_score = 0;
+
+    // Adjust anomalies table
+    for(i=0; i < source_data.result.records.length; i++)
+    {
+
+        if ( json["result"][i][0] > 1 + tolerance ){
+
+            number_of_anomalies++
+
+            anomalies.push(json["result"][i][0])
+
+            if (json["result"][i][3] == 'local'){
+                number_of_local_anomalies++
+            }
+
+            if (json["result"][i][3] == 'global'){
+                number_of_global_anomalies++
+            }
+
+        }
+    }
+
+    if (number_of_anomalies > 0){
+        highest_anomaly_score = Math.max.apply(Math, anomalies);
+    } else {
+        highest_anomaly_score = "-";
+    }
+
+
+    $('#noOfAnomalies').html(number_of_anomalies);
+    $('#noOfGlobalAnomalies').html(number_of_global_anomalies);
+    $('#noOfLocalAnomalies').html(number_of_local_anomalies);
+    $('#highestAnomalyScore').html(highest_anomaly_score);
+
+}
 
 function updateChartTolerance(tolerance = 0.5){
 
@@ -240,6 +293,7 @@ function detectAnomaly(){
                 $("#anomaly-output").html(table);
 
                 updateTableTolerance(score_tolerance)
+                updateAnomalyMetrics(score_tolerance)
 
                 // Pares the data for the chart
                 var column_x    = []
