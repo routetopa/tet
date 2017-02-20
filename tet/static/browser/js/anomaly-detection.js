@@ -1,10 +1,13 @@
 var anomaly_chart;
 var dimension_chart;
 var source_data;
+var data_source_dimensions = []
 
 var x_axis
 var y_axis
 var score_tolerance = 0.5
+
+var column_as = []
 
 $(document).ready(function() {
 
@@ -23,6 +26,11 @@ $(document).ready(function() {
     $("#scoreTolerance").on("slideStop", function(slideEvt) {
         updateChartTolerance(slideEvt.value)
         updateTableTolerance(slideEvt.value)
+    });
+
+    $( "#field-name" ).change(function() {
+        updateChartDimension( $(this).val() )
+        return false
     });
 
 });
@@ -75,6 +83,87 @@ function updateTableTolerance(tolerance = 0.5){
     return false
 }
 
+function updateChartDimension(field_name){
+    if ( data_source_dimensions.indexOf(field_name) >= 0 ){
+
+        var column_x  = []
+        var column_y  = []
+        var column_a  = []
+
+        var current_y = y_axis;
+
+        y_axis = field_name;
+
+        for (i=0; i < source_data.result.records.length; i++){
+
+            column_y[i] = source_data.result.records[i][y_axis];
+            column_x[i] = source_data.result.records[i][x_axis];
+
+            if ( json["result"][i][0] > 1 + score_tolerance ){
+                column_a[i] = column_y[i];
+            } else {
+                column_a[i] = null;
+            }
+
+        }
+
+        column_x.unshift(x_axis)
+        column_y.unshift(y_axis)
+        column_a.unshift("Anomaly")
+
+        // TODO replace with load()
+        dimension_chart = dimension_chart.destroy();
+
+        dimension_chart = c3.generate({
+            bindto: '#dimension-chart',
+            point: {
+                r: function(d) {
+
+                    if (d.id == "Anomaly"){
+                        return 4 * column_as[d.index + 1];
+                    }
+                    return 3;
+
+                }
+            },
+            data: {
+                x: x_axis,
+                columns: [
+                    column_x,
+                    column_y,
+                    column_a,
+                ],
+                type: 'scatter'
+            },
+            grid: {
+                x: {
+                    show: false,
+                },
+                y: {
+                    show: true,
+                }
+            },
+            axis: {
+                x: {
+                    type: 'category',
+                    show: true,
+                    tick: {
+                        rotate: 75,
+                        multiline: false,
+                    },
+                },
+                y: {
+                    inner: true
+                }
+            },
+            color: {
+                pattern: [ '#66A4E0', "#FF360C" ]
+            }
+        });
+    }
+}
+
+
 function detectAnomaly(){
 
     var api_url = $( "#api-link" ).val();
@@ -96,8 +185,6 @@ function detectAnomaly(){
 
         x_axis = data["x"]
         y_axis = data["y"]
-
-        var data_source_dimensions = []
 
         source_data = data;
 
@@ -143,21 +230,24 @@ function detectAnomaly(){
                     }
                 }
 
-                 table = "<table class='span12 table table-hover -table-striped table-anomalies'>" + table + "</table>";
-                 table = "<div class='alert alert-error top20'>The following values are detected as potential anomalies</div>" + table;
+                table = "<table class='span12 table table-hover -table-striped table-anomalies'>" + table + "</table>";
+                table = "<div class='alert alert-error top20'>The following values are detected as potential anomalies</div>" + table;
 
-                 $("#anomaly-output").html(table);
+                $("#anomaly-output").html(table);
+
+                updateTableTolerance(score_tolerance)
 
                 // Pares the data for the chart
                 var column_x    = []
                 var column_y    = []
                 var column_a    = []
-                var column_as   = []
+                column_as       = []
 
                 //json["result"][i][j] :: j
                 // 0 - score
                 // 1 - x
                 // 2 - y
+                // 3 - type (?) // TODO check updated API
 
                 // Parse X + Y + make Anomalies null
                 for(i=0; i < source_data.result.records.length; i++)
