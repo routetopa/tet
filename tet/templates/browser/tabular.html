@@ -98,7 +98,6 @@
 
                                     <div class="top20">
 
-
                                         <h5 class="top20">{% trans "Anomaly summary" %}</h5>
                                         <div id="anomaly-summary" class="top20">
 
@@ -117,6 +116,32 @@
                                             <div class="row">
                                                 <span class="span4">{% trans "Highest anomaly score value" %}: </span>
                                                 <span class="span2" id="highestAnomalyScore">-</span>
+                                            </div>
+
+                                        </div>
+
+                                        <h5 class="top20">{% trans "Anomaly detection configuration" %}</h5>
+                                        <div id="anomaly-configuration" class="row top20">
+
+                                            <div class="span12">
+                                                <p>By default all the columns are used to calculate the anomaly score. You can re-calculate the scores by selecting the fields.</p>
+                                            </div>
+
+                                            <div class="span12">
+
+                                                <div id="anomalyConfigurationAlert" class="alert alert-info">
+                                                  <strong><i class="fa fa-info" aria-hidden="true"></i></strong> {% trans "Please select at least one item" %}.
+                                                </div>
+
+                                                {% for f in resource_fields %}
+                                                    <label class="checkbox">
+                                                        <input type="checkbox" value="{{f.id}}"> {{f.id}} - <small><i>{% trans f.type %}</i></small>
+                                                    </label>
+                                                {% endfor %}
+                                            </div>
+
+                                            <div class="span12 top20">
+                                                <button id="recalculateAnomaly" onclick="recalculateAnomaly()" name="" class="span2 btn main-search-btn rtpa-btn"> <i class="fa fa-cogs" aria-hidden="true"></i> {% trans "Recalculate Results" %} </button>
                                             </div>
 
                                         </div>
