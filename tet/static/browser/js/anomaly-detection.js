@@ -21,8 +21,8 @@ $(document).ready(function() {
     $('#scoreTolerance').bootstrapSlider({
         formatter: function(value) {
 
-            if (value == 2){
-                value = "2+";
+            if (value == 5){
+                value = "5+";
             }
 
             return 'Current value: ' + value;
@@ -177,7 +177,7 @@ function updateChartDimension(field_name){
                 r: function(d) {
 
                     if (d.id == "Anomaly"){
-                        return 4 * column_as[d.index + 1];
+                        return 3 * column_as[d.index + 1];
                     }
                     return 3;
 
@@ -207,6 +207,9 @@ function updateChartDimension(field_name){
                     tick: {
                         rotate: 75,
                         multiline: false,
+                        culling: {
+                            max: 40 // the number of tick texts will be adjusted to less than this value
+                        }
                     },
                 },
                 y: {
@@ -362,6 +365,9 @@ function detectAnomaly(){
                             tick: {
                                 rotate: 75,
                                 multiline: false,
+                                culling: {
+                                    max: 40 // the number of tick texts will be adjusted to less than this value
+                                }
                             },
                         },
                         y: {
@@ -397,6 +403,9 @@ function detectAnomaly(){
                             tick: {
                                 rotate: 75,
                                 multiline: false,
+                                culling: {
+                                    max: 40 // the number of tick texts will be adjusted to less than this value
+                                }
                             },
                         },
                         y: {
@@ -423,4 +432,9 @@ function detectAnomaly(){
         });
 
     });
+}
+
+function recalculateAnomaly() {
+  $('#anomalyConfigurationAlert').hide();
+  $('#anomalyConfigurationAlert').fadeIn();
 }
