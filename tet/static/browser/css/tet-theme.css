@@ -792,11 +792,15 @@ input.js-zeroclipboard-target {
    display: none;
 }
 
-.anomalyChatsControls {
+.anomalyChartsControls {
    display: none;
 }
 
-.noAnomalyDetected {
+#noAnomalyDetected {
+   display: none;
+}
+
+.anomalyConfigurationAlert {
    display: none;
 }
 
