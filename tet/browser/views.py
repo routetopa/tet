@@ -626,6 +626,27 @@ def exe_sql(sql):
         res = urlopen(url)
         return json.loads(res.read().decode('utf-8'))
 
+def download(request):
+    sql = None
+    if request.method == 'POST':
+        sql = request.POST.get("sql", "")
+        data = exe_sql(sql)
+        df = pd.DataFrame()
+        if len(data["result"]["records"]) > 0:
+            df = json_normalize(data["result"]["records"])
+            del df["_id"]
+            del df["_full_text"]
+            fields = data["result"]["fields"]
+            headers = [field["id"]for field in fields ].remove("_id")
+        sio = StringIO()
+        df.to_csv(sio,  index=False)
+        filename = "data.csv"
+        workbook = sio.getvalue()
+        response = StreamingHttpResponse(workbook, content_type='text/csv')
+        response['Content-Disposition'] = 'attachment; filename=%s' % filename
+        return response
+
+
 def combine(request):
     template_name = 'browser/merge.html'
     selected_datasets =[]

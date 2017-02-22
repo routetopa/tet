@@ -28,6 +28,7 @@ urlpatterns = [
     url(r'^api/typeahead$', views.typeahead, name='typeahead'),
     url(r'^api/cards$', views.cards, name='cards'),
     url(r'^combine$', views.combine, name='combine'),
+    url(r'^download$', views.download, name='download'),
     # data dashboard
     url(r'^dashboard$', views.dashboard, name='dashboard'),
 ]

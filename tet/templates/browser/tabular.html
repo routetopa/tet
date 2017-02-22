@@ -66,8 +66,21 @@
                                <form class="navbar-form">
                                     <input id="query-api" type="hidden" value="{{ QUERY_API }}"/>
                                     <button id="exe-query" type="button" class="btn btn-primary pull-right">Run</button>
+                                    <button id="download" type="button" class="btn btn-primary pull-right">Download</button>
+                                    <button id="trigger" type="button" class="btn btn-primary pull-right">Trigger</button>
                                 </form>
-                                <div></div>
+                                <div id="trigger-form" style="display: none;">
+                                    <form>
+                                      <fieldset>
+                                        <legend>Create Trigger</legend>
+                                        <label>Notification</label>
+                                        <textarea id="trigger-text" rows="3" placeholder="Overspending Budget"></textarea>
+                                        <label id="trigger-email">Email</label>
+                                        <input id="email" type="email" placeholder="user@routetopa.eu">
+                                        <button id="trigger-create" class="btn">Create</button>
+                                      </fieldset>
+                                    </form>
+                                </div>
                                 <div>
                                     <div id="query-output"></div>
                                 </div>
