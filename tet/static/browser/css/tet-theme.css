@@ -808,6 +808,24 @@ input.js-zeroclipboard-target {
     font-size: 80%;
 }
 
+/* SQL Query */
+
+#query-editor {
+    padding-bottom: 15px;
+}
+
+#query-output {
+    margin-top: 15px;
+}
+
+.sqlQueryNavbar {
+
+}
+
+.sqlQueryNavbar button {
+    margin-left: 15px;
+}
+
 /* Bootstrap 3 addons */
 .panel-group {
 

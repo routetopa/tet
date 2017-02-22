@@ -62,22 +62,23 @@
                             </div>
 
                             <div role="tabpanel" class="tab-pane" id="sqlquery">
-                               <div id="query-editor" ></div>
-                               <form class="navbar-form">
-                                    <input id="query-api" type="hidden" value="{{ QUERY_API }}"/>
-                                    <button id="exe-query" type="button" class="btn btn-primary pull-right">Run</button>
-                                    <button id="download" type="button" class="btn btn-primary pull-right">Download</button>
-                                    <button id="trigger" type="button" class="btn btn-primary pull-right">Trigger</button>
+                               <div id="query-editor"></div>
+                               <form class="sqlQueryNavbar navbar-form">
+                                   <input id="query-api" type="hidden" value="{{ QUERY_API }}"/>
+
+                                   <button id="trigger" type="button" class="btn rtpa-btn pull-right"><i class="fa fa-bell-o" aria-hidden="true"></i> {% trans 'Trigger' %}</button>
+                                   <button id="download" type="button" class="btn rtpa-btn pull-right"><i class="fa fa-download" aria-hidden="true"></i> {% trans 'Download' %}</button>
+                                   <button id="exe-query" type="button" class="btn rtpa-btn pull-right"><i class="fa fa-play" aria-hidden="true"></i> {% trans 'Run' %}</button>
                                 </form>
                                 <div id="trigger-form" style="display: none;">
                                     <form>
                                       <fieldset>
-                                        <legend>Create Trigger</legend>
-                                        <label>Notification</label>
-                                        <textarea id="trigger-text" rows="3" placeholder="Overspending Budget"></textarea>
-                                        <label id="trigger-email">Email</label>
+                                        <legend>{% trans 'Create Trigger' %}</legend>
+                                        <label>{% trans 'Notification' %}</label>
+                                        <textarea id="trigger-text" rows="3" placeholder="{% trans 'Overspending Budget' %}"></textarea>
+                                        <label id="trigger-email">{% trans 'Email' %}</label>
                                         <input id="email" type="email" placeholder="user@routetopa.eu">
-                                        <button id="trigger-create" class="btn">Create</button>
+                                        <button id="trigger-create" class="btn">{% trans 'Create' %}</button>
                                       </fieldset>
                                     </form>
                                 </div>
