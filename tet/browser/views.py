@@ -646,6 +646,15 @@ def download(request):
         response['Content-Disposition'] = 'attachment; filename=%s' % filename
         return response
 
+def create_trigger(request):
+    if request.method == 'POST':
+        sql = request.POST.get("sql", "")
+        email = request.POST.get("email", "")
+        notification =  request.POST.get("notification", "")
+        print(sql)
+        print(email)
+        print(notification)
+        return JsonResponse({"status" : "okay"})
 
 def combine(request):
     template_name = 'browser/merge.html'

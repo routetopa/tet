@@ -71,13 +71,13 @@
                                    <button id="exe-query" type="button" class="btn rtpa-btn pull-right"><i class="fa fa-play" aria-hidden="true"></i> {% trans 'Run' %}</button>
                                 </form>
                                 <div id="trigger-form" style="display: none;">
-                                    <form>
+                                    <form id="trigger-create-form">
                                       <fieldset>
                                         <legend>{% trans 'Create Trigger' %}</legend>
                                         <label>{% trans 'Notification' %}</label>
-                                        <textarea id="trigger-text" rows="3" placeholder="{% trans 'Overspending Budget' %}"></textarea>
-                                        <label id="trigger-email">{% trans 'Email' %}</label>
-                                        <input id="email" type="email" placeholder="user@routetopa.eu">
+                                        <textarea id="trigger-text" rows="3" placeholder="{% trans 'Overspending in budget' %}"></textarea>
+                                        <label>{% trans 'Email' %}</label>
+                                        <input id="trigger-email" type="email" placeholder="user@routetopa.eu">
                                         <button id="trigger-create" class="btn">{% trans 'Create' %}</button>
                                       </fieldset>
                                     </form>

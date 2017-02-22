@@ -29,6 +29,7 @@ urlpatterns = [
     url(r'^api/cards$', views.cards, name='cards'),
     url(r'^combine$', views.combine, name='combine'),
     url(r'^download$', views.download, name='download'),
+    url(r'^create_trigger$', views.create_trigger, name='create_trigger'),
     # data dashboard
     url(r'^dashboard$', views.dashboard, name='dashboard'),
 ]

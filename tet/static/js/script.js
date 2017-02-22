@@ -104,6 +104,10 @@ $(function () {
         item: '<li class="span5"><a href="#"></a></li>'
     });
     
+    $("#trigger-create-form").submit(function(e){
+        e.preventDefault(e);
+    });
+
     //Query Builder
     if($("#query-editor").length > 0){
 
@@ -138,7 +142,26 @@ $(function () {
         });
 
         $("#trigger-create").click(function(e){
-             alert("trigger created")
+            var sql = $('#query-editor').queryBuilder('getSQL').sql;
+            sql = 'SELECT  * from  ' + '"' + resource_id + '" WHERE ' +sql;
+            sql = sql.replace(new RegExp("_", 'g'), '"');
+            email = $("#trigger-email").val()
+            notification = $("#trigger-text").val()
+            $.ajax({
+                url: '/en/create_trigger',
+                type: 'POST',
+                data: {
+                    "sql":sql,
+                    "email": email,
+                    "notification" : notification,
+                    'csrfmiddlewaretoken': csrftoken
+                },
+                dataType: 'json',
+                success: function (result){
+                    console.log(result);
+                    alert(result);
+                }
+            });
         });
 
 
