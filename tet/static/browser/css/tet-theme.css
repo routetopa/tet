@@ -796,7 +796,7 @@ input.js-zeroclipboard-target {
    display: none;
 }
 
-#noAnomalyDetected {
+.noAnomalyDetected {
    display: none;
 }
 
