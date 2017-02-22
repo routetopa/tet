@@ -35,7 +35,7 @@ def dataset_to_metadata_text(dataset):
             # do nothing
             pass
 
-        text = u"<p>Questo Dataset è stato creato il <strong>" + parse(dataset["metadata_created"]).strftime("%d %B% %Y, %H:%M") + u"</strong>"
+        text = u"<p>Questo Dataset è stato creato il <strong>" + parse(dataset["metadata_created"]).strftime("%d %B %Y, %H:%M") + u"</strong>"
         text += u" e l'ultima modifica è del <strong>" + parse(dataset["metadata_modified"]).strftime("%d %B% %Y, %H:%M") + u"</strong>.</p> "
 
         if dataset["license_title"]:
@@ -62,7 +62,7 @@ def dataset_to_metadata_text(dataset):
 
     # default lang - "en"
     else:
-        text = "<p>This Dataset was created at <strong>" + parse(dataset["metadata_created"]).strftime("%d %B% %Y, %H:%M") + "</strong>"
+        text = "<p>This Dataset was created at <strong>" + parse(dataset["metadata_created"]).strftime("%d %B %Y, %H:%M") + "</strong>"
         text += " and last modified at <strong>" + parse(dataset["metadata_modified"]).strftime("%d %B% %Y, %H:%M") + "</strong>.</p> "
 
         if dataset["license_title"]:
