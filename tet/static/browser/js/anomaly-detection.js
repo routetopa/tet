@@ -40,6 +40,7 @@ $(document).ready(function() {
     });
 
     $( "#field-name" ).change(function() {
+        y_axis = $(this).val();
         updateChartDimension( $(this).val() )
         return false
     });
@@ -49,7 +50,6 @@ $(document).ready(function() {
 function updateAnomalyMetrics(tolerance = 0.5){
 
     var anomalies = []
-
 
     number_of_anomalies = 0;
     number_of_local_anomalies = 0;
@@ -78,11 +78,10 @@ function updateAnomalyMetrics(tolerance = 0.5){
     }
 
     if (number_of_anomalies > 0){
-        highest_anomaly_score = Math.max.apply(Math, anomalies);
+        highest_anomaly_score = Math.max.apply(Math, anomalies).toFixed(3);
     } else {
         highest_anomaly_score = "-";
     }
-
 
     $('#noOfAnomalies').html(number_of_anomalies);
     $('#noOfGlobalAnomalies').html(number_of_global_anomalies);
@@ -106,6 +105,7 @@ function updateChartTolerance(tolerance = 0.5){
         } else {
             column_a[i] = null;
         }
+
     }
 
     column_a.unshift("Anomaly")
