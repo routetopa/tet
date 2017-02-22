@@ -204,14 +204,19 @@
 
                                                     <div class="span6">
 
-                                                        <div id="anomalyConfigurationAlert" class="alert alert-info">
+                                                        <div class="anomalyConfigurationAlert alert alert-info">
                                                           <strong><i class="fa fa-info" aria-hidden="true"></i></strong> {% trans "Please select at least one item" %}.
                                                         </div>
 
-                                                        {% for f in resource_fields %}
-                                                            <label class="checkbox">
-                                                                <input type="checkbox" value="{{f.id}}"> {{f.id}} - <small><i>{% trans f.type %}</i></small>
+                                                            <label class="checkbox" style="display: none;">
+                                                                <input type="checkbox" value="_id" class="anomalyDimensionCheckbox" checked="checked"> _id - <small><i>int4</i></small>
                                                             </label>
+                                                        {% for f in resource_fields %}
+                                                            {% if f.id != '_id' %}
+                                                                <label class="checkbox">
+                                                                    <input type="checkbox" value="{{f.id}}" class="anomalyDimensionCheckbox"> {{f.id}} - <small><i>{% trans f.type %}</i></small>
+                                                                </label>
+                                                            {% endif %}
                                                         {% endfor %}
                                                     </div>
 
