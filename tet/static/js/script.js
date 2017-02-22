@@ -103,12 +103,41 @@ $(function () {
         item: '<li class="span5"><a href="#"></a></li>'
     });
     
-    //SQL editor
+    //Query Builder
     if($("#query-editor").length > 0){
-        var editor = ace.edit("query-editor");
-        editor.getSession().setMode("ace/mode/sql");
+
+        url = $( "#api-link" ).val();
+        
+        $.get(url, function(data){
+            resource_id = data.result.resource_id;
+            var to_be_removed = 0;
+            for (field in data.result.fields){
+                if (data.result.fields[field]["id"] == '_id'){
+                    to_be_removed = field
+                    continue;
+                }
+                data.result.fields[field]["label"] = data.result.fields[field]["id"];
+                data.result.fields[field]["id"] = "_" + data.result.fields[field]["id"] + "_";
+                if (data.result.fields[field]["type"] == "int4"){
+                    data.result.fields[field]["type"] = "integer"
+                }
+                if (data.result.fields[field]["type"] == "text"){
+                    data.result.fields[field]["type"] = "string"
+                }
+                if (data.result.fields[field]["type"] == "numeric"){
+                    data.result.fields[field]["type"] = "double"
+                }
+            }
+            data.result.fields.splice(to_be_removed, 1);
+            $("#query-editor").queryBuilder({filters:data.result.fields});
+        });
+
+
         $("#exe-query").click(function(e){
-            sql_api = $("#query-api").val() + "?sql=" + encodeURIComponent(editor.getValue());
+            var sql = $('#query-editor').queryBuilder('getSQL').sql;
+            sql = 'SELECT  * from  ' + '"' + resource_id + '" WHERE ' +sql;
+            sql = sql.replace(new RegExp("_", 'g'), '"');
+            sql_api = $("#query-api").val() + "?sql=" + encodeURIComponent(sql);
             $("#query-output").html("");
             var jqxhr = $.get(sql_api, function (data){
                 var tr = "";

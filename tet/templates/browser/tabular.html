@@ -46,7 +46,7 @@
                         <ul class="nav nav-tabs" role="tablist">
                             <li role="presentation" class="active"><a href="#explorer" aria-controls="explorer" role="tab" data-toggle="tab">{% trans "Data Explorer" %}</a></li>
                             <li role="presentation"><a href="#pivottable" aria-controls="pivottable" role="tab" data-toggle="tab">{% trans "PivotTable" %}</a></li>
-                             <li role="presentation"><a href="#sqlquery" aria-controls="sqlquery" role="tab" data-toggle="tab">{% trans "SQL Query" %}</a></li>
+                             <li role="presentation"><a href="#sqlquery" aria-controls="sqlquery" role="tab" data-toggle="tab">{% trans "Query" %}</a></li>
                              <li role="presentation"><a href="#anomaly-detect" aria-controls="anomaly-detect" role="tab" data-toggle="tab">{% trans "Anomaly Detection" %}</a></li>
                             <!--<li role="presentation"><a href="#discuss" aria-controls="discuss" role="tab" data-toggle="tab">{% trans "SPOD Discussion" %}</a></li>-->
                         </ul>
@@ -62,11 +62,12 @@
                             </div>
 
                             <div role="tabpanel" class="tab-pane" id="sqlquery">
-                               <div id="query-editor" style="height: 100px;">SELECT  * from "{{ resource_id }}" LIMIT 10</div>
-                               <div>
+                               <div id="query-editor" ></div>
+                               <form class="navbar-form">
                                     <input id="query-api" type="hidden" value="{{ QUERY_API }}"/>
                                     <button id="exe-query" type="button" class="btn btn-primary pull-right">Run</button>
-                                </div>
+                                </form>
+                                <div></div>
                                 <div>
                                     <div id="query-output"></div>
                                 </div>
