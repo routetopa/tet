@@ -93,6 +93,7 @@ $(document).ready(function(){
 });
 
 $(function () {
+
     //type ahead
     $('.main-search').typeahead({
         source: function (query, process) {
@@ -132,6 +133,24 @@ $(function () {
             $("#query-editor").queryBuilder({filters:data.result.fields});
         });
 
+        $("#trigger").click(function(e){
+             $( "#trigger-form" ).toggle( "slow", function() {});
+        });
+
+        $("#trigger-create").click(function(e){
+             alert("trigger created")
+        });
+
+
+        $("#download").click(function(e){
+            var sql = $('#query-editor').queryBuilder('getSQL').sql;
+            sql = 'SELECT  * from  ' + '"' + resource_id + '" WHERE ' +sql;
+            sql = sql.replace(new RegExp("_", 'g'), '"');
+            var form = $('<form></form>').attr('action', '/en/download').attr('method', 'post');
+            form.append($("<input></input>").attr('type', 'hidden').attr('name', 'sql').attr('value', sql));
+            form.append($("<input></input>").attr('type', 'hidden').attr('name', 'csrfmiddlewaretoken').attr('value', csrftoken));
+            form.appendTo('body').submit().remove();
+        });
 
         $("#exe-query").click(function(e){
             var sql = $('#query-editor').queryBuilder('getSQL').sql;
