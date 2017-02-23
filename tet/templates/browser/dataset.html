@@ -92,7 +92,7 @@
                             {% if dataset.has_table %}
                             <a href="{% url 'dataset_as_summary' dataset.id %}"><i class="fa fa-3x fa-lightbulb-o" aria-hidden="true" data-toggle="tooltip" data-placement="bottom" title="{% trans "View the summary" %}"></i></a>
                             {% else %}
-                            <a href="#" class="disabled"><i class="fa fa-3x fa-lightbulb-o" aria-hidden="true" data-toggle="tooltip" data-placement="bottom" title="{% trans "View the summary" %}"></i></a>
+                            <a href="#" class="disabled"><i class="fa fa-3x fa-lightbulb-o" aria-hidden="true" data-toggle="tooltip" data-placement="bottom" title="{% trans "View the summary - not available" %}"></i></a>
                             {% endif %}
                         </li>
                         <li class="dataset-service">
