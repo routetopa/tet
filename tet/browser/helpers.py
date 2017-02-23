@@ -27,6 +27,17 @@ def dataset_to_metadata_text(dataset):
 
     current_lang = get_language()
 
+    # count + remove URL type resources (null)
+    resources_types = {}
+    for res in dataset["resources"]:
+        if res["format"]:
+            if res["format"] in resources_types:
+                resources_types[res["format"]] += 1
+            else:
+                resources_types[res["format"]] = 1
+
+    number_of_resources_types = len(resources_types)
+
     if current_lang == "it":
 
         try:
@@ -35,7 +46,7 @@ def dataset_to_metadata_text(dataset):
             # do nothing
             pass
 
-        text = u"<p>Questo Dataset è stato creato il <strong>" + parse(dataset["metadata_created"]).strftime("%d %B% %Y, %H:%M") + u"</strong>"
+        text = u"<p>Questo Dataset è stato creato il <strong>" + parse(dataset["metadata_created"]).strftime("%d %B %Y, %H:%M") + u"</strong>"
         text += u" e l'ultima modifica è del <strong>" + parse(dataset["metadata_modified"]).strftime("%d %B% %Y, %H:%M") + u"</strong>.</p> "
 
         if dataset["license_title"]:
@@ -47,22 +58,22 @@ def dataset_to_metadata_text(dataset):
         if dataset["maintainer_email"]:
             text += u"<p>Se avete bisogno di ulteriori dettagli, manutentore può essere contattato all'indirizzo: <a href='#' data-original-title='' title=''><strong>" + dataset["maintainer_email"] + u"</strong></a>.</p> "
 
-        if dataset["num_resources"] > 0:
-            text += u"<p>I dati sono disponibili in " + str(dataset["num_resources"]) + u" format"
-            if dataset["num_resources"] > 1:
+        if number_of_resources_types > 0:
+            text += u"<p>I dati sono disponibili in " + str(number_of_resources_types) + u" format"
+            if number_of_resources_types > 1:
                 text += u"i"
 
             text += u": ";
 
             # TODO direct link
-            for res in dataset["resources"]:
-                text += u"<strong>" + res["format"] + u"</strong> "
+            for res in resources_types:
+                text += u"<strong>" + res + u"</strong> "
 
             text += u"</p> "
 
     # default lang - "en"
     else:
-        text = "<p>This Dataset was created at <strong>" + parse(dataset["metadata_created"]).strftime("%d %B% %Y, %H:%M") + "</strong>"
+        text = "<p>This Dataset was created at <strong>" + parse(dataset["metadata_created"]).strftime("%d %B %Y, %H:%M") + "</strong>"
         text += " and last modified at <strong>" + parse(dataset["metadata_modified"]).strftime("%d %B% %Y, %H:%M") + "</strong>.</p> "
 
         if dataset["license_title"]:
@@ -74,16 +85,16 @@ def dataset_to_metadata_text(dataset):
         if dataset["maintainer_email"]:
             text += "<p>If you need more details, maintainer can be contacted at: <a href='#' data-original-title='' title=''><strong>" + dataset["maintainer_email"] + "</strong></a>.</p> "
 
-        if dataset["num_resources"] > 0:
-            text += "<p>The data is available in " + str(dataset["num_resources"]) + " format"
-            if dataset["num_resources"] > 1:
+        if number_of_resources_types > 0:
+            text += "<p>The data is available in " + str(number_of_resources_types) + " format"
+            if number_of_resources_types > 1:
                 text += "s"
 
             text += ": ";
 
             # TODO direct link
-            for res in dataset["resources"]:
-                text += "<strong>" + res["format"] + "</strong> "
+            for res in resources_types:
+                text += "<strong>" + res + "</strong> "
 
             text += "</p> "
 
@@ -104,7 +115,7 @@ def get_rooms_for_dataset(dataset):
                 url = settings.SPOD_URL + "/spodapi/roomsusingdataset?data-url=" + \
                 settings.CKAN_URL + "/api/action/datastore_search?resource_id=" + res["id"]
 
-                print(url)
+                # print(url)
 
                 req = urlopen(url)
                 content = req.read().decode('utf8')
