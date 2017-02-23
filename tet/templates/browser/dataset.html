@@ -327,14 +327,10 @@
                                             <td>
                                                 {% trans "Last updated" %}
                                             </td>
-                                            <td>
+                                            <td colspan="2">
                                                 <div class="text-center">
-                                                    {{ completness.last_updated }}
-                                                </div>
-                                            </td>
-                                            <td>
-                                                <div class="text-center">
-                                                    {% trans "days ago" %}
+                                                    <!-- TODO localisation support -->
+                                                    {{ completness.date_updated|timesince }} {% trans "ago" %}
                                                 </div>
                                             </td>
                                           </tr>

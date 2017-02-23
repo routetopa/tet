@@ -457,7 +457,8 @@ def compute_completeness(stats):
     stats["description_label"] = grading(stats["description"])
     stats["license"] = "license_url" in stats["ds"] and stats["ds"]["license_url"] != ""
     stats["version"] = "version" in stats["ds"] and stats["ds"]["version"] != ""
-    stats["last_updated"] = (datetime.datetime.now() -  dateutil.parser.parse(stats["ds"]["metadata_modified"])).days
+    stats["date_updated"] = dateutil.parser.parse(stats["ds"]["metadata_modified"])
+    stats["last_updated"] = (datetime.datetime.now() - stats["date_updated"]).days
     return stats
 
 def dataset(request, dataset_id):
