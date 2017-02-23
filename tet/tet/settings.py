@@ -173,3 +173,5 @@ INDICATORS =[
 ]
 
 SOM_API_URL = "" 
+
+DB = "triggers.db"

@@ -66,7 +66,7 @@
                                <form class="sqlQueryNavbar navbar-form">
                                    <input id="query-api" type="hidden" value="{{ QUERY_API }}"/>
 
-                                   <button id="trigger" type="button" class="btn rtpa-btn pull-right"><i class="fa fa-bell-o" aria-hidden="true"></i> {% trans 'Trigger' %}</button>
+                                   <button id="trigger" type="button" class="btn rtpa-btn pull-right"><i class="fa fa-bell-o" aria-hidden="true"></i> {% trans 'Alert' %}</button>
                                    <button id="download" type="button" class="btn rtpa-btn pull-right"><i class="fa fa-download" aria-hidden="true"></i> {% trans 'Download' %}</button>
                                    <button id="exe-query" type="button" class="btn rtpa-btn pull-right"><i class="fa fa-play" aria-hidden="true"></i> {% trans 'Run' %}</button>
                                 </form>
@@ -81,6 +81,7 @@
                                         <button id="trigger-create" class="btn">{% trans 'Create' %}</button>
                                       </fieldset>
                                     </form>
+                                    <div id="trigger-output"></div>
                                 </div>
                                 <div>
                                     <div id="query-output"></div>
