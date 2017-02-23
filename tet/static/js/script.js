@@ -161,7 +161,9 @@ $(function () {
                 success: function (result){
                     if (result.success){
                         $("#trigger-output").html('<div class="alert alert-success">' + result.message + '</div>');
-                        $( "#trigger-form" ).toggle( 1000, function() {});
+                        $( "#trigger-form" ).toggle( 1300, function() {
+                            $("#trigger-output").html('');
+                        });
                     }else{
                         $("#trigger-output").html('<div class="alert alert-error">' + result.message + '</div>');
                     }

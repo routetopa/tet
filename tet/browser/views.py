@@ -693,10 +693,10 @@ def create_trigger(request):
             print(str(e))
             success = False
             message = _("Error: " + str(e))
-            return JsonResponse({
-                "success" : success,
-                "message" : message
-            })
+        return JsonResponse({
+            "success" : success,
+            "message" : message
+        })
 
 
 def combine(request):
