@@ -57,6 +57,8 @@ from matplotlib.backends.backend_agg import FigureCanvasAgg as FigureCanvas
 from matplotlib.figure import Figure
 import matplotlib.pyplot as plt
 from django.contrib import messages
+import sqlite3
+
 mutex = Lock()
 logger = logging.getLogger(__name__)
 styles = getSampleStyleSheet()
@@ -648,13 +650,54 @@ def download(request):
 
 def create_trigger(request):
     if request.method == 'POST':
+        success  = True
+        message = ""
         sql = request.POST.get("sql", "")
         email = request.POST.get("email", "")
         notification =  request.POST.get("notification", "")
-        print(sql)
-        print(email)
-        print(notification)
-        return JsonResponse({"status" : "okay"})
+        if email == "":
+            message = _("Email")
+            success = False
+        if notification == "":
+            if not success:
+                message += " " + _("and") + " "
+            message += _("Notification\n")
+            success = False
+
+        if not success:
+            message = _("Missing: ") +  message
+            return JsonResponse({
+            "success" : success,
+            "message" : message
+            })
+
+        message = _("Alert created successfully") 
+        try:
+            conn = sqlite3.connect(settings.DB)
+            c = conn.cursor()
+            c.execute('''SELECT name FROM sqlite_master WHERE type='table' AND name='triggers';''')
+            if not c.fetchone():
+                c.execute('''CREATE TABLE triggers (id INTEGER PRIMARY KEY,email text, notification text, query text)''')
+            try:
+                c.execute("""INSERT INTO  triggers VALUES (NULL, ?,?,?)""",(email, notification,sql))
+                conn.commit()
+            except Exception as e:
+                success = False
+                message = _("Error: " + str(e))
+                conn.rollback()
+                return JsonResponse({
+                    "success" : success,
+                    "message" : message
+                })
+        except Exception as e:
+            print(str(e))
+            success = False
+            message = _("Error: " + str(e))
+            return JsonResponse({
+                "success" : success,
+                "message" : message
+            })
+
 
 def combine(request):
     template_name = 'browser/merge.html'

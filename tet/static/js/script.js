@@ -147,6 +147,7 @@ $(function () {
             sql = sql.replace(new RegExp("_", 'g'), '"');
             email = $("#trigger-email").val()
             notification = $("#trigger-text").val()
+            $("#trigger-create").prop('disabled', true);
             $.ajax({
                 url: '/en/create_trigger',
                 type: 'POST',
@@ -158,9 +159,17 @@ $(function () {
                 },
                 dataType: 'json',
                 success: function (result){
-                    console.log(result);
-                    alert(result);
+                    if (result.success){
+                        $("#trigger-output").html('<div class="alert alert-success">' + result.message + '</div>');
+                        $( "#trigger-form" ).toggle( 1000, function() {});
+                    }else{
+                        $("#trigger-output").html('<div class="alert alert-error">' + result.message + '</div>');
+                    }
+                    $("#trigger-create").prop('disabled', false);
                 }
+            }).fail(function() {
+                $("#trigger-output").html('<div class="alert alert-error">Failed</div>');
+                $("#trigger-create").prop('disabled', false);
             });
         });
 
