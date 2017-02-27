@@ -234,8 +234,8 @@ body, html {
 
 .dataset-resources li .label {
     margin-right: 10px !important;
-    opacity: 0.2;
-    filter: alpha(opacity=20); /* For IE8 and earlier */
+    opacity: 0.4;
+    filter: alpha(opacity=40); /* For IE8 and earlier */
 }
 .dataset-resources li .label:hover {
     opacity: 0.8;

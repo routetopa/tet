@@ -84,6 +84,8 @@ $(document).ready(function(){
         shares: ["email", "twitter", "facebook", "googleplus"] // TODO SPOD share
     });
 
+    $("#social-sharing").jsSocials("shareOption", "googleplus", "logo", "fa fa-google-plus");
+
     // auto-adjust chart area
     $('#main-chart').on('slid', function() {
         $(window).trigger('resize');

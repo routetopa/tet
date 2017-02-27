@@ -457,7 +457,8 @@ def compute_completeness(stats):
     stats["description_label"] = grading(stats["description"])
     stats["license"] = "license_url" in stats["ds"] and stats["ds"]["license_url"] != ""
     stats["version"] = "version" in stats["ds"] and stats["ds"]["version"] != ""
-    stats["last_updated"] = (datetime.datetime.now() -  dateutil.parser.parse(stats["ds"]["metadata_modified"])).days
+    stats["date_updated"] = dateutil.parser.parse(stats["ds"]["metadata_modified"])
+    stats["last_updated"] = (datetime.datetime.now() - stats["date_updated"]).days
     return stats
 
 def dataset(request, dataset_id):
@@ -864,6 +865,7 @@ def dataset_as_table(request, dataset_id):
                     data = json.loads(res.read())
                     resource_fields = data["result"]["fields"]
                     numeric_fields = [f["id"] for f in resource_fields if f["type"] == "numeric"]
+
                     for view in views:
                         if (view["view_type"]=="recline_view"):
                             url_table = settings.CKAN_URL + "/dataset/" + dataset_id + "/resource/" + resource["id"] + "/view/" + view["id"]
@@ -871,6 +873,9 @@ def dataset_as_table(request, dataset_id):
                     for view in views:
                         if (view["view_type"]=="pivottable"):
                             url_pivottable = settings.CKAN_URL + "/dataset/" + dataset_id + "/resource/" + resource["id"] + "/view/" + view["id"]
+                            pivot_resource_url = settings.CKAN_URL + "/api/action/datastore_search?resource_id=" + resource_id + "&limit=9999"
+                            pivot_res = urlopen(pivot_resource_url)
+                            pivot_resource_json = json.loads(pivot_res.read())
                             break
                     break
     except Exception as e:
@@ -888,7 +893,8 @@ def dataset_as_table(request, dataset_id):
         'QUERY_API': settings.CKAN_URL + "/api/action/datastore_search_sql",
         'resource_id' : resource_id,
         'resource_fields' : resource_fields,
-        'numeric_fields' : numeric_fields
+        'numeric_fields' : numeric_fields,
+        'pivot_resource_json': json.dumps(pivot_resource_json['result']['records']),
      }
 
     return render(request, template_name, context)
