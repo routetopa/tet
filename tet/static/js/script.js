@@ -143,7 +143,6 @@ $(function () {
 
         $("#trigger-create").click(function(e){
             var sql = $('#query-editor').queryBuilder('getSQL').sql;
-            sql = 'SELECT  * from  ' + '"' + resource_id + '" WHERE ' +sql;
             sql = sql.replace(new RegExp("_", 'g'), '"');
             email = $("#trigger-email").val()
             notification = $("#trigger-text").val()
