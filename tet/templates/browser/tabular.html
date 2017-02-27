@@ -46,7 +46,8 @@
                         <ul class="nav nav-tabs" role="tablist">
                             <li role="presentation" class="active"><a href="#explorer" aria-controls="explorer" role="tab" data-toggle="tab">{% trans "Data Explorer" %}</a></li>
                             <li role="presentation"><a href="#pivottable" aria-controls="pivottable" role="tab" data-toggle="tab">{% trans "PivotTable" %}</a></li>
-                             <li role="presentation"><a href="#sqlquery" aria-controls="sqlquery" role="tab" data-toggle="tab">{% trans "Query" %}</a></li>
+                             <li role="presentation"><a href="#simplequery" aria-controls="simplequery" role="tab" data-toggle="tab">{% trans "Query" %}</a></li>
+                             <li role="presentation"><a href="#sqlquery" aria-controls="sqlquery" role="tab" data-toggle="tab">{% trans "SQL Query" %}</a></li>
                              <li role="presentation"><a href="#anomaly-detect" aria-controls="anomaly-detect" role="tab" data-toggle="tab">{% trans "Anomaly Detection" %}</a></li>
                             <!--<li role="presentation"><a href="#discuss" aria-controls="discuss" role="tab" data-toggle="tab">{% trans "SPOD Discussion" %}</a></li>-->
                         </ul>
@@ -94,9 +95,9 @@
 
                             </div>
 
-                            <div role="tabpanel" class="tab-pane" id="sqlquery">
+                            <div role="tabpanel" class="tab-pane" id="simplequery">
                                <div id="query-editor"></div>
-                               <form class="sqlQueryNavbar navbar-form">
+                               <form class="simplequeryNavbar navbar-form">
                                    <input id="query-api" type="hidden" value="{{ QUERY_API }}"/>
 
                                    <button id="trigger" type="button" class="btn rtpa-btn pull-right"><i class="fa fa-bell-o" aria-hidden="true"></i> {% trans 'Alert' %}</button>
@@ -118,6 +119,16 @@
                                 </div>
                                 <div>
                                     <div id="query-output"></div>
+                                </div>
+                            </div>
+
+                            <div role="tabpanel" class="tab-pane" id="sqlquery">
+                               <div id="adv-query-editor" style="height: 100px;">SELECT  * from "{{ resource_id }}" LIMIT 10</div>
+                               <div>
+                                    <button id="adv-exe-query" type="button" class="btn btn-primary pull-right">Run</button>
+                                </div>
+                                <div>
+                                    <div id="adv-query-output"></div>
                                 </div>
                             </div>
 

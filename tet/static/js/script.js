@@ -105,7 +105,51 @@ $(function () {
         },
         item: '<li class="span5"><a href="#"></a></li>'
     });
+
     
+    //SQL editor
+    if($("#adv-query-editor").length > 0){
+        var editor = ace.edit("adv-query-editor");
+        editor.getSession().setMode("ace/mode/sql");
+
+        $('a[href=#sqlquery]').click(function (e) {
+            var sql = $('#query-editor').queryBuilder('getSQL').sql;
+            sql = 'SELECT  * from  ' + '"' + resource_id + '" WHERE ' +sql;
+            sql = sql.replace(new RegExp("_", 'g'), '"');
+            editor.setValue(sql, 1)
+        });
+        
+        $("#adv-exe-query").click(function(e){
+            sql_api = $("#query-api").val() + "?sql=" + encodeURIComponent(editor.getValue());
+            $("#adv-query-output").html("");
+            var jqxhr = $.get(sql_api, function (data){
+                var tr = "";
+                var table = "";
+                if (data["success"] == true){
+                   for(field in data["result"]["fields"]){
+                    if (data["result"]["fields"][field]["id"] .startsWith("_")) continue;
+                     tr += "<th>" + data["result"]["fields"][field]["id"] + "</th>";
+                   }
+                }
+                table += "<tr>" + tr + "</tr>";
+                tr=""
+                for(record  in data["result"]["records"]){
+                   for(field in data["result"]["fields"]){
+                    var field_id = data["result"]["fields"][field]["id"];
+                    if (field_id.startsWith("_")) continue;
+                    tr += "<td>" + data["result"]["records"][record][field_id] + "</td>"
+                   }
+                   table += "<tr>" + tr + "</tr>";
+                   tr=""
+                }
+                table = "<table class='table table-hover' width='100%'>"  + table + "</table>";
+                $("#adv-query-output").html(table);
+            }).fail(function() {
+                $("#adv-query-output").html('<div class="alert alert-danger"><strong>Error</strong> Failed to excute the query </div>');
+            });;
+        });
+    }
+
     $("#trigger-create-form").submit(function(e){
         e.preventDefault(e);
     });
