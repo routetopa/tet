@@ -804,6 +804,10 @@ input.js-zeroclipboard-target {
    display: none;
 }
 
+#recalculateAnomaly {
+   display: none;
+}
+
 .table-anomalies {
     font-size: 80%;
 }

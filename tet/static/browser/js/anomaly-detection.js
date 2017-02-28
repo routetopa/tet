@@ -425,6 +425,7 @@ function detectAnomaly(){
                 });
 
                 $(".anomalyChatsControls").fadeIn();
+                $("#recalculateAnomaly").fadeIn();
 
             },
             dataType: "text",
