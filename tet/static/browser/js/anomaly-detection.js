@@ -446,6 +446,20 @@ function recalculateAnomaly() {
 
         var analysisFeatures = []
 
+        dimension_chart.destroy()
+        anomaly_chart.destroy()
+
+        // charts
+        $('#dimension-chart').html('<i class="fa fa-spinner fa-spin" style="font-size:24px"></i>');
+        $('#anomaly-chart').html('<i class="fa fa-spinner fa-spin" style="font-size:24px"></i>');
+        $("#anomaly-output").html('<i class="fa fa-spinner fa-spin" style="font-size:24px"></i>');
+
+        // scores
+        $("#noOfAnomalies").html('<i class="fa fa-spinner fa-spin"></i>');
+        $("#noOfGlobalAnomalies").html('<i class="fa fa-spinner fa-spin"></i>');
+        $("#noOfLocalAnomalies").html('<i class="fa fa-spinner fa-spin"></i>');
+        $("#highestAnomalyScore").html('<i class="fa fa-spinner fa-spin"></i>');
+
         $('input.anomalyDimensionCheckbox:checked').each( function(){
             analysisFeatures.push( $(this).val() )
         })
@@ -548,9 +562,6 @@ function recalculateAnomaly() {
                     column_y.unshift(y_axis)
                     column_a.unshift("Anomaly")
                     column_as.unshift("Anomaly Score")
-
-                    dimension_chart.destroy()
-                    anomaly_chart.destroy()
 
                     dimension_chart = c3.generate({
                         bindto: '#dimension-chart',

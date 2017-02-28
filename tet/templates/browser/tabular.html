@@ -132,7 +132,7 @@
                             <div role="tabpanel" class="tab-pane" id="sqlquery">
                                <div id="adv-query-editor" style="height: 100px;">SELECT  * from "{{ resource_id }}" LIMIT 10</div>
                                <div>
-                                    <button id="adv-exe-query" type="button" class="btn btn-primary pull-right">Run</button>
+                                    <button id="adv-exe-query" type="button" class="btn btn-primary pull-right">{% trans 'Run' %}</button>
                                 </div>
                                 <div>
                                     <div id="adv-query-output"></div>
@@ -241,19 +241,19 @@
 
                                                     <div class="row">
                                                         <span class="span4">{% trans "Number of anomalies detected" %}: </span>
-                                                        <span class="span2" id="noOfAnomalies">-</span>
+                                                        <span class="span2" id="noOfAnomalies"><i class="fa fa-spinner fa-spin"></i></span>
                                                     </div>
                                                     <div class="row">
                                                         <span class="span4">{% trans "Number of global anomalies detected" %}: </span>
-                                                        <span class="span2" id="noOfGlobalAnomalies">-</span>
+                                                        <span class="span2" id="noOfGlobalAnomalies"><i class="fa fa-spinner fa-spin"></i></span>
                                                     </div>
                                                     <div class="row">
                                                         <span class="span4">{% trans "Number of local anomalies detected" %}: </span>
-                                                        <span class="span2" id="noOfLocalAnomalies">-</span>
+                                                        <span class="span2" id="noOfLocalAnomalies"><i class="fa fa-spinner fa-spin"></i></span>
                                                     </div>
                                                     <div class="row">
                                                         <span class="span4">{% trans "Highest anomaly score value" %}: </span>
-                                                        <span class="span2" id="highestAnomalyScore">-</span>
+                                                        <span class="span2" id="highestAnomalyScore"><i class="fa fa-spinner fa-spin"></i></span>
                                                     </div>
 
                                                 </div>
