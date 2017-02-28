@@ -1,4 +1,11 @@
-.pvtUi { color: #333; }
+.pvtUi {
+    color: #212121;
+    background: #fefeff;
+}
+
+.pvtRenderer {
+    margin-top: 6px;
+}
 
 .node {
   border: solid 1px white;
@@ -16,8 +23,9 @@ table.pvtTable {
 }
 
 table.pvtTable tr th, table.pvtTable tr th {
-    background-color: #e6EEEE;
-    border: 1px solid #CDCDCD;
+    background: #BBDEFB;
+    border: 1px solid #2196F3;
+    color: #212121;
     font-size: 8pt;
     padding: 5px;
 }
@@ -40,10 +48,10 @@ table.pvtTable tr td {
 .pvtAggregator { margin-bottom: 5px ;}
 
 .pvtAxisContainer, .pvtVals {
-    border: 1px solid gray;
-    background: #EEE;
-    padding: 5px;
-    min-width: 20px;
+    border: 1px solid #bbdefb;
+    background: #ebf5fe;
+    padding: 7px;
+    min-width: 40px;
     min-height: 20px;
 }
 .pvtAxisContainer li {
@@ -61,18 +69,20 @@ table.pvtTable tr td {
 
 .pvtAxisContainer li span.pvtAttr {
     -webkit-text-size-adjust: 100%;
-    background: #F3F3F3;
-    border: 1px solid #DEDEDE;
-    padding: 2px 5px;
+    background: #2196F3;
+    border: 1px solid #1976D2;
+    color: #FFF;
+    padding: 5px;
     white-space:nowrap;
-    -webkit-border-radius: 5px;
-    -moz-border-radius: 5px;
-    border-radius: 5px;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius: 3px;
+    font-size: 85%;
 }
 
 .pvtTriangle {
-    cursor:pointer;
-    color: grey;
+    cursor: pointer;
+    color: #FFF;
 }
 
 .pvtHorizList li { display: inline; }
