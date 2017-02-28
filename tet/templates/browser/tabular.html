@@ -3,6 +3,8 @@
 {% load staticfiles %}
 {% load i18n %}
 
+{% get_current_language as LANGUAGE_CODE %}
+
 {% block title %} {% trans "Dataset details" %} {% endblock title %}
 
 {% block scripts %}
@@ -73,9 +75,12 @@
                                     <a href="https://en.wikipedia.org/wiki/Pivot_table" target="_blank">{% trans "Read more" %}</a>.
                                 </p>
 
-                                <div id="pivot-table-output" class="top20">
-                                    <div class="left"><i class="fa fa-spinner fa-spin"></i> {% trans "Loading" %}...</div>
+                                <div class="row">
+                                    <div id="pivot-table-output" class="span12 top20">
+                                        <div class="left"><i class="fa fa-spinner fa-spin"></i> {% trans "Loading" %}...</div>
+                                    </div>
                                 </div>
+
 
                                 {% if pivot_resource_json %}
 
@@ -87,7 +92,9 @@
                                                     $.pivotUtilities.renderers,
                                                     $.pivotUtilities.c3_renderers
                                                 )
-                                            }
+                                            },
+                                            false,
+                                            "{{ LANGUAGE_CODE|lower}}"
                                         );
                                     </script>
 
