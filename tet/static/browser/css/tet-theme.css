@@ -818,11 +818,11 @@ input.js-zeroclipboard-target {
     margin-top: 15px;
 }
 
-.sqlQueryNavbar {
+#sqlquery {
 
 }
 
-.sqlQueryNavbar button {
+#simplequery button {
     margin-left: 15px;
 }
 
