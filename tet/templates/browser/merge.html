@@ -48,7 +48,7 @@
                                     {% csrf_token %}
                                     <table class="table table-striped top20">
                                         <tr
-                                            {% if key == "other" %}
+                                            {% if key == "other" and value %}
                                                 class="error"
                                             {% endif %}
                                         >
@@ -67,12 +67,13 @@
                                                 {% endfor %}
                                             </td>
                                             <td>
-                                                {% if key == "other" %}
+                                                {% if key == "other" and value %}
                                                     <div class="top10">
                                                         <i class="fa fa-exclamation" aria-hidden="true"></i>
                                                         {% trans "Incompatible files can't be merged" %}
+
                                                     </div>
-                                                {% else %}
+                                                {% elif key != "other" %}
                                                     <button type="submit" name="view" class="span3 top10 btn main-search-btn rtpa-btn"> <i class="fa fa-table" aria-hidden="true"></i> {% trans "View as table" %} </button>
                                                     <button type="submit" name="chart" class="span3 top10 btn main-search-btn rtpa-btn"> <i class="fa fa-bar-chart" aria-hidden="true"></i> {% trans "Explore as chart" %} </button>
                                                     <button type="submit" name="analyse" class="span3 top10 btn main-search-btn rtpa-btn"> <i class="fa fa-line-chart" aria-hidden="true"></i> {% trans "Analyse in PivotTable" %} </button>
