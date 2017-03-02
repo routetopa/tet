@@ -300,6 +300,13 @@ $(function () {
     $('.expand-btn').click(function () {
         $(this).parent().parent().children('.filter-hidden').fadeIn('slow')
         $(this).hide()
+        $(this).siblings('.reduce-btn').fadeIn('slow')
+    });
+
+    $('.reduce-btn').click(function () {
+        $(this).parent().parent().children('.filter-hidden').fadeOut('slow')
+        $(this).hide()
+        $(this).siblings('.expand-btn').fadeIn('slow')
     });
 
     // Results order
