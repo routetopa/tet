@@ -1,7 +1,10 @@
 var SEARCH_MODE = "AND"
 var csrftoken = getCookie('csrftoken');
+var CURRENT_LANGUAGE = 'en'
 
 $(document).ready(function(){
+
+    CURRENT_LANGUAGE = $('#currentLanguage').val();
 
     $('[data-toggle="tooltip"]').tooltip(
         {html: true}
@@ -18,7 +21,7 @@ $(document).ready(function(){
                                     $.pivotUtilities.c3_renderers,
                                     $.pivotUtilities.d3_renderers
                                     );
-                    $("#output").pivotUI(data.result.records, { renderers: renderers});    
+                    $("#output").pivotUI(data.result.records, { renderers: renderers}, false, CURRENT_LANGUAGE);
 
                 }else{
                     columns = []

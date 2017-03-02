@@ -8,6 +8,7 @@
             <li class="dropdown">
                 <a href="#" class="lang_item dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
                     <span class="_lang_{{ LANGUAGE_CODE }} "> <i class="fa fa-language" aria-hidden="true"></i> {% trans "Language" %} </span>
+                    <input id="currentLanguage" value="{{ LANGUAGE_CODE|lower }}" style="display:none" >
                 </a>
                 <ul class="lang-dropdown-menu dropdown-menu" role="menu">
                     <li class="lang_item"><a class="_lang_en" href="{% translate_url en %}" class="btn-link">English</a></li>
