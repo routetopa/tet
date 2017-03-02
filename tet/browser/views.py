@@ -797,7 +797,7 @@ def combine(request):
                 template_name = 'browser/analyse.html'
                 return render(request, template_name, context)
 
-        if 'mark_read' in request.POST:
+        if 'combine_datasets' in request.POST:
             selected_datasets = request.POST.getlist('selected_datasets')
             for dataset_id in selected_datasets:
                 dataset = get_dataset(dataset_id)
