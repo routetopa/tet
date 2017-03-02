@@ -142,7 +142,7 @@
 
                             {% for for in filters.formats %}
                                 <li class="list-group-item{% if forloop.counter > 5 %} filter-hidden{% endif %}">
-                                    <span class="label result-label" data-format="{{for|lower}}">{{ for }}</span>
+                                    <span class="label result-label" data-format="{{for|lower}}" title="{{ for }}">{{ for|truncatechars:15 }}</span>
                                     <span class="results-count">( {% keyvalue filters.formats for %} )</span>
                                     <input type="checkbox" class="pull-right" filter-key="format" filter-value="{{for|lower}}">
                                 </li>
