@@ -23,7 +23,7 @@ $(document).ready(function(){
                                     );
                     $("#output").pivotUI(data.result.records, { renderers: renderers}, false, CURRENT_LANGUAGE);
 
-                }else{
+                } else {
                     columns = []
                     for (field in data.result.fields){
                         field_name = data.result.fields[field].id;
