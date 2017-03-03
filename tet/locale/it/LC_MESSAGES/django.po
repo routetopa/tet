@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-03-01 11:01+0000\n"
-"PO-Revision-Date: 2017-03-01 13:00+0000\n"
+"POT-Creation-Date: 2017-03-03 10:04+0000\n"
+"PO-Revision-Date: 2017-03-03 10:04+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: it_IT\n"
@@ -86,7 +86,7 @@ msgstr "Buona"
 msgid "Very good"
 msgstr "Molto buona"
 
-#: browser/views.py:660 templates/browser/tabular.html:120
+#: browser/views.py:660 templates/browser/tabular.html:119
 msgid "Email"
 msgstr "Email"
 
@@ -115,13 +115,13 @@ msgid "API Link"
 msgstr "collegamento API"
 
 #: templates/browser/_dataset_as_search_result.html:19
-#: templates/browser/tabular.html:339
+#: templates/browser/tabular.html:337
 msgid "View as chart"
 msgstr "Visualizza come grafico"
 
 #: templates/browser/_dataset_as_search_result.html:23
 #: templates/browser/dataset.html:86 templates/browser/dataset.html:413
-#: templates/browser/merge.html:76
+#: templates/browser/merge.html:77
 msgid "View as table"
 msgstr "Visualizza come tabella"
 
@@ -131,7 +131,7 @@ msgid "View as table - not available"
 msgstr "Visualizza come tabella - non disponibile"
 
 #: templates/browser/_dataset_as_search_result.html:30
-#: templates/browser/dataset.html:93 templates/browser/tabular.html:342
+#: templates/browser/dataset.html:93 templates/browser/tabular.html:340
 msgid "View the summary"
 msgstr "Visualizza il sommario"
 
@@ -142,24 +142,24 @@ msgstr "Visualizza il sommario - non disponibile"
 
 #: templates/browser/_dataset_as_search_result.html:37
 #: templates/browser/dataset.html:100 templates/browser/dataset.html:420
-#: templates/browser/tabular.html:346
+#: templates/browser/tabular.html:344
 msgid "View as app"
 msgstr "Visualizza come app"
 
 #: templates/browser/_dataset_as_search_result.html:39
 #: templates/browser/dataset.html:102 templates/browser/dataset.html:422
-#: templates/browser/tabular.html:348
+#: templates/browser/tabular.html:346
 msgid "View as app - not available"
 msgstr "Visualizza come app - non disponibile"
 
 #: templates/browser/_dataset_as_search_result.html:44
 #: templates/browser/dataset.html:107 templates/browser/dataset.html:427
-#: templates/browser/dataset.html:429 templates/browser/tabular.html:353
+#: templates/browser/dataset.html:429 templates/browser/tabular.html:351
 msgid "View as PDF"
 msgstr "Visualizza come PDF"
 
 #: templates/browser/_dataset_as_search_result.html:46
-#: templates/browser/dataset.html:109 templates/browser/tabular.html:355
+#: templates/browser/dataset.html:109 templates/browser/tabular.html:353
 msgid "View as PDF - not available"
 msgstr "Visualizza come PDF - non disponibile"
 
@@ -262,33 +262,40 @@ msgid "Location"
 msgstr "Luogo"
 
 #: templates/browser/_search_filters.html:47
-#: templates/browser/_search_filters.html:82
-#: templates/browser/_search_filters.html:117
-#: templates/browser/_search_filters.html:150
+#: templates/browser/_search_filters.html:83
+#: templates/browser/_search_filters.html:119
+#: templates/browser/_search_filters.html:153
 msgid "Show More"
 msgstr "Maggiori dettagli"
 
-#: templates/browser/_search_filters.html:65
+#: templates/browser/_search_filters.html:48
+#: templates/browser/_search_filters.html:84
+#: templates/browser/_search_filters.html:120
+#: templates/browser/_search_filters.html:154
+msgid "Show Less"
+msgstr "Meno dettagli"
+
+#: templates/browser/_search_filters.html:66
 msgid "Period"
 msgstr "Periodo"
 
-#: templates/browser/_search_filters.html:100
+#: templates/browser/_search_filters.html:102
 msgid "Themes"
 msgstr "Temi"
 
-#: templates/browser/_search_filters.html:133
+#: templates/browser/_search_filters.html:136
 msgid "Format"
 msgstr "Formato"
 
-#: templates/browser/_search_filters.html:165
+#: templates/browser/_search_filters.html:169
 msgid "Please select one or more elements from tle list"
 msgstr "Seleziona uno o più elementi dalla lista"
 
-#: templates/browser/_search_filters.html:168
+#: templates/browser/_search_filters.html:172
 msgid "This feature allow to merge multiple datasets."
 msgstr "Questa funzione consente di unire molteplici dataset."
 
-#: templates/browser/_search_filters.html:173
+#: templates/browser/_search_filters.html:177
 msgid "Combine Datasets"
 msgstr "Combinazione dataset"
 
@@ -376,17 +383,17 @@ msgstr "Entita' relative al documento"
 msgid "Keywords related to the document"
 msgstr "Parole chiave relative al documento"
 
-#: templates/browser/dataset.html:83 templates/browser/tabular.html:337
+#: templates/browser/dataset.html:83 templates/browser/tabular.html:335
 msgid "View as: "
 msgstr "Visualizza come:"
 
 #: templates/browser/dataset.html:132 templates/browser/dataset.html:199
-#: templates/browser/summary.html:154 templates/browser/tabular.html:377
+#: templates/browser/summary.html:154 templates/browser/tabular.html:375
 msgid "Description"
 msgstr "Descrizione"
 
 #: templates/browser/dataset.html:149 templates/browser/dataset.html:180
-#: templates/browser/tabular.html:394
+#: templates/browser/tabular.html:392
 msgid "Metadata"
 msgstr "Metadati"
 
@@ -466,11 +473,11 @@ msgstr ""
 "Usa l'icona sotto per condividere questa pagina sul tuo Social Network "
 "favorito."
 
-#: templates/browser/dataset.html:469 templates/browser/tabular.html:414
+#: templates/browser/dataset.html:469 templates/browser/tabular.html:412
 msgid "Discussions at SPOD"
 msgstr "Discussioni su SPOD"
 
-#: templates/browser/dataset.html:482 templates/browser/tabular.html:426
+#: templates/browser/dataset.html:482 templates/browser/tabular.html:424
 msgid ""
 "This dataset has not been discussed in SPOD, be the first to discuss the "
 "dataset!"
@@ -478,7 +485,7 @@ msgstr ""
 "Questo set di dati non è stato ancora discusso in SPOD, inizia tu una "
 "discussione."
 
-#: templates/browser/dataset.html:486 templates/browser/tabular.html:430
+#: templates/browser/dataset.html:486 templates/browser/tabular.html:428
 msgid "Start the discussion"
 msgstr "Inizia la discussione"
 
@@ -490,7 +497,7 @@ msgstr "Dataset collegati"
 msgid "Please use the slider in order to update the results."
 msgstr "Per favore utilizza il cursore per aggiornare i risultati"
 
-#: templates/browser/dataset.html:546 templates/browser/merge.html:42
+#: templates/browser/dataset.html:546 templates/browser/merge.html:43
 msgid "Files"
 msgstr "File"
 
@@ -526,11 +533,11 @@ msgstr "organizzazione"
 msgid "organizations"
 msgstr "organizzazioni"
 
-#: templates/browser/merge.html:32
+#: templates/browser/merge.html:30
 msgid "Merge Datasets"
 msgstr "Unione dei dataset"
 
-#: templates/browser/merge.html:34
+#: templates/browser/merge.html:32
 msgid ""
 "Please select desired files and use action buttons in order to see the "
 "results."
@@ -538,7 +545,7 @@ msgstr ""
 "Per favore seleziona i file desiderati ed usa i bottoni di azione per vedere "
 "i risultati."
 
-#: templates/browser/merge.html:43
+#: templates/browser/merge.html:44
 msgid "Actions"
 msgstr "Azioni"
 
@@ -546,15 +553,15 @@ msgstr "Azioni"
 msgid "Incompatible files can't be merged"
 msgstr "File incompatibili, non possono essere combinati"
 
-#: templates/browser/merge.html:77
+#: templates/browser/merge.html:78
 msgid "Explore as chart"
 msgstr "Esplora come grafico"
 
-#: templates/browser/merge.html:78
+#: templates/browser/merge.html:79
 msgid "Analyse in PivotTable"
 msgstr "Analizza nella Tabella Pivot"
 
-#: templates/browser/merge.html:79
+#: templates/browser/merge.html:80
 msgid "Download combined datasets"
 msgstr "Scarica i dataset combinati"
 
@@ -672,119 +679,168 @@ msgstr "Discussione SPOD "
 msgid "PivotTable visualisation"
 msgstr "Visualizzazione Tabella Pivot"
 
-#: templates/browser/tabular.html:75 templates/browser/tabular.html:151
+#: templates/browser/tabular.html:71
+msgid ""
+"A pivot table is a data summarization tool. Among other functions, a pivot "
+"table can automatically sort, count, total or average the data stored in one "
+"table, displaying the results in a second table showing the summarized data."
+msgstr ""
+"Una tabella pivot è uno strumento di riepilogo dei dati. Tra le altre "
+"funzioni, una tabella pivot può automaticamente ordinare, contare, calcolare "
+"totale o media dei dati memorizzati in una tabella, visualizzando i "
+"risultati in una seconda tabella che mostra i dati riassunti."
+
+#: templates/browser/tabular.html:72
+msgid ""
+"Pivot tables are also useful for quickly creating unweighted cross "
+"tabulations."
+msgstr ""
+"Le tabelle pivot sono utili anche per creare rapidamente tabulazioni "
+"incrociate non ponderate."
+
+#: templates/browser/tabular.html:73
+msgid ""
+"The user sets up and changes the summary's structure by dragging and "
+"dropping fields graphically. This 'rotation' or pivoting of the summary "
+"table gives the concept its name."
+msgstr ""
+"L'utente può impostare e cambiare la struttura della sintesi trascinando "
+"graficamente i campi. Questa \"rotazione\" o pivoting della tabella di "
+"sintesi ne giustifica il nome."
+
+#: templates/browser/tabular.html:74 templates/browser/tabular.html:149
 msgid "Read more"
 msgstr "Leggi di più"
 
-#: templates/browser/tabular.html:80
+#: templates/browser/tabular.html:79
 msgid "Loading"
 msgstr "Caricamento"
 
-#: templates/browser/tabular.html:110
+#: templates/browser/tabular.html:109
 msgid "Alert"
 msgstr "Allerta"
 
-#: templates/browser/tabular.html:111
+#: templates/browser/tabular.html:110
 msgid "Download"
 msgstr "Scarica"
 
-#: templates/browser/tabular.html:112 templates/browser/tabular.html:135
+#: templates/browser/tabular.html:111 templates/browser/tabular.html:134
 msgid "Run"
 msgstr "Esegui"
 
-#: templates/browser/tabular.html:117
+#: templates/browser/tabular.html:116
 msgid "Create Trigger"
 msgstr "Crea innesco"
 
-#: templates/browser/tabular.html:118
+#: templates/browser/tabular.html:117
 msgid "Notification"
 msgstr "Notifica"
 
-#: templates/browser/tabular.html:119
+#: templates/browser/tabular.html:118
 msgid "Overspending in budget"
 msgstr "Eccesso di spesa nel budget"
 
-#: templates/browser/tabular.html:122
+#: templates/browser/tabular.html:121
 msgid "Create"
 msgstr "Crea"
 
-#: templates/browser/tabular.html:144
+#: templates/browser/tabular.html:143
 msgid "Anomaly detection"
 msgstr "Rilevamento anomalia"
 
-#: templates/browser/tabular.html:155
+#: templates/browser/tabular.html:146
+msgid ""
+"Anomaly detection web service implemented for ROUTE-TO-PA project is based "
+"on the Local Outlier Factor Algorithm (LOF)."
+msgstr ""
+
+#: templates/browser/tabular.html:147
+msgid ""
+"LOF algorithm is unsupervised nearest neighborhood  based anomaly detection "
+"algorithm widely used for multivariate anomaly detection."
+msgstr ""
+
+#: templates/browser/tabular.html:148
+msgid ""
+"The LOF score is thus basically a ratio of local densities. The normal "
+"instances, which densities are as big as the densities of their neighbors, "
+"get a score of about 1.0. Anomalies, which have a low local density, will "
+"result in larger scores."
+msgstr ""
+
+#: templates/browser/tabular.html:153
 msgid "Detect Anomaly"
 msgstr "Rilevamento anomalia"
 
-#: templates/browser/tabular.html:162
+#: templates/browser/tabular.html:160
 msgid "No anomaly detected"
 msgstr "Nessuna anomalia rilevata"
 
-#: templates/browser/tabular.html:172
+#: templates/browser/tabular.html:170
 msgid "Results adjustment"
 msgstr "Aggiustamento risultati"
 
-#: templates/browser/tabular.html:181
+#: templates/browser/tabular.html:179
 msgid "Select a field name for visualisation"
 msgstr "Seleziona un campo per la visualizzazione"
 
-#: templates/browser/tabular.html:199
+#: templates/browser/tabular.html:197
 msgid "Change visualisation type"
 msgstr "Cambia tipo di visualizzazione"
 
-#: templates/browser/tabular.html:207
+#: templates/browser/tabular.html:205
 msgid "Scatter Plot"
 msgstr "Scatter Plot"
 
-#: templates/browser/tabular.html:208
+#: templates/browser/tabular.html:206
 msgid "Line Chart"
 msgstr "Line Chart"
 
-#: templates/browser/tabular.html:209
+#: templates/browser/tabular.html:207
 msgid "Bar chart"
 msgstr "Bar Chart"
 
-#: templates/browser/tabular.html:221
+#: templates/browser/tabular.html:219
 msgid "Adjust the tolerance threshold value"
 msgstr "Aggiusta la soglia di tolleranza"
 
-#: templates/browser/tabular.html:239
+#: templates/browser/tabular.html:237
 msgid "Anomaly summary"
 msgstr "Riassunto anomalie"
 
-#: templates/browser/tabular.html:243
+#: templates/browser/tabular.html:241
 msgid "Number of anomalies detected"
 msgstr "Numero di anomalie rilevate"
 
-#: templates/browser/tabular.html:247
+#: templates/browser/tabular.html:245
 msgid "Number of global anomalies detected"
 msgstr "Numero di anomalie globali rilevate"
 
-#: templates/browser/tabular.html:251
+#: templates/browser/tabular.html:249
 msgid "Number of local anomalies detected"
 msgstr "Numero di anomalie locali rilevate"
 
-#: templates/browser/tabular.html:255
+#: templates/browser/tabular.html:253
 msgid "Highest anomaly score value"
 msgstr "Valore massimo punteggio anomalia"
 
-#: templates/browser/tabular.html:265
+#: templates/browser/tabular.html:263
 msgid "Anomaly detection configuration"
 msgstr "Configurazione rilevamento anomalia"
 
-#: templates/browser/tabular.html:275
+#: templates/browser/tabular.html:273
 msgid "Please select at least one item"
 msgstr "Per favore seleziona almeno un elemento"
 
-#: templates/browser/tabular.html:291
+#: templates/browser/tabular.html:289
 msgid "Recalculate Results"
 msgstr "Ricalcola i risultati"
 
-#: templates/browser/tabular.html:300
+#: templates/browser/tabular.html:298
 msgid "Anomaly visualisation"
 msgstr "Visualizzazione anomalia"
 
-#: templates/browser/tabular.html:309
+#: templates/browser/tabular.html:307
 msgid "Anomaly table"
 msgstr "Tabella anomalia"
 
