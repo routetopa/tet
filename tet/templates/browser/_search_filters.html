@@ -169,7 +169,10 @@
               <small>{% trans "Please select one or more elements from tle list" %} </small>
             </div>
 
-            <p>{% trans "This feature allow to merge multiple datasets." %}</p>
+            <p>
+                {% trans "This feature allow to combine one or more datasets." %}
+                {% trans "Only datasets with the compatible schema can be merged." %}
+            </p>
 
             <div>
                 <button type="submit" id="combineDatasets" name="combine_datasets" value="combine_datasets" class="pull-left btn main-search-btn rtpa-btn top20">
