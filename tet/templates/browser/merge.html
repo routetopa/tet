@@ -4,8 +4,6 @@
 
 {% block title %} Dataset details {% endblock title %}
 
-{{ x }}
-
 {% block content %}
 
                 <div class="container">
@@ -37,22 +35,22 @@
 
                     <div class="row">
 
-                        <table class="table top30">
-                            <tr>
-                                <th width="70%"> {% trans "Files" %} </th>
-                                <th> {% trans "Actions" %} </th>
+                        <table class="table table-striped top20">
+
+                            <tr class="">
+                                <th class="span10 text-center"> {% trans "Files" %} </th>
+                                <th class="span2 text-center"> {% trans "Actions" %} </th>
                             </tr>
-                        </table>
+
                             {% for key, value in dataset_groups.items %}
                                 <form method="post">
                                     {% csrf_token %}
-                                    <table class="table table-striped top20">
                                         <tr
                                             {% if key == "other" and value %}
                                                 class="error"
                                             {% endif %}
                                         >
-                                            <td width="70%">
+                                            <td class="">
                                                 {% for ds in value %}
                                                     <div class="top10">
 
@@ -66,7 +64,7 @@
                                                     </div>
                                                 {% endfor %}
                                             </td>
-                                            <td>
+                                            <td class="">
                                                 {% if key == "other" and value %}
                                                     <div class="top10">
                                                         <i class="fa fa-exclamation" aria-hidden="true"></i>
@@ -81,11 +79,10 @@
                                                 {% endif %}
                                             </td>
                                         </tr>
-                                    </table>
                                 </form>
                             {% endfor %}
 
-
+                        </table>
                     </div>
 
                 </div>
