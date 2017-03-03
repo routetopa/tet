@@ -916,9 +916,16 @@ input.js-zeroclipboard-target {
 }
 
 /* Custom addons */
+th.text-center, td.text-center {
+    text-align: center !important;
+}
+
 .table-borderless {
     margin: 0;
+    background: none !important;
+
 }
 .table-borderless tr, .table-borderless td, .table-borderless th {
     border: none;
+    background: none !important;
 }
