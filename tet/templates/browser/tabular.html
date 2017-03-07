@@ -90,7 +90,28 @@
                                                 renderers: $.extend(
                                                     $.pivotUtilities.renderers,
                                                     $.pivotUtilities.c3_renderers
-                                                )
+                                                ),
+                                                rendererOptions: {
+                                                    c3: {
+                                                        // TODO custom legend
+                                                        legend: {
+                                                            // show: false,
+                                                            position: "right"
+                                                        },
+                                                        axis: {
+                                                            x: {
+                                                                show: true,
+                                                                tick: {
+                                                                    rotate: 75,
+                                                                    multiline: false,
+                                                                    culling: {
+                                                                        max: 40 // the number of tick texts will be adjusted to less than this value
+                                                                    }
+                                                                }
+                                                            }
+                                                        }
+                                                    }
+                                                }
                                             },
                                             false,
                                             "{{ LANGUAGE_CODE|lower}}"
