@@ -108,9 +108,13 @@ def index(request):
         organizations_count = 0
         pass
 
+#    if not ( settings.TET_SIMPLE_HOMEPAGE ):
+
+
     context = {
         'datasets_count': datasets_count,
         'organizations_count': organizations_count,
+        'TET_SIMPLE_HOMEPAGE': settings.TET_SIMPLE_HOMEPAGE
     }
 
     return render(request, template_name, context)
@@ -383,7 +387,7 @@ def search(request, query=False):
                     if resource["format"].lower() in ["csv","xls"]:
                         dataset["has_table"] = True
 
-                    if resource["format"].lower()  == "pdf":
+                    if resource["format"].lower() == "pdf":
                         dataset["has_pdf"] = True
 
                     if resource["format"] not in formats:
@@ -505,7 +509,7 @@ def dataset(request, dataset_id):
                         res = urlopen(url)
                         data = json.loads(res.read())
                         resource_fields = []
-                        filter_list = ["long", "lat", "no.", "phone", "date","id", "code"] 
+                        filter_list = ["long", "lat", "no.", "phone", "date","id", "code"]
                         stats["fields"] = len(data["result"]["fields"])
                         stats["records"] = data["result"]["total"]
                         df = json_normalize(data["result"]["records"])
