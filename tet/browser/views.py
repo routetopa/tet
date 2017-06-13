@@ -90,6 +90,12 @@ def get_keywords_from_pdf(url, stopwords_file):
 def index(request):
 
     template_name = 'browser/index.html'
+
+    organizations = {}
+    tags = {}
+    roles = {}
+    categories = {}
+
     try:
 
         url_datasets = settings.CKAN_URL + "/api/3/stats/dataset_count"
@@ -108,13 +114,20 @@ def index(request):
         organizations_count = 0
         pass
 
-#    if not ( settings.TET_SIMPLE_HOMEPAGE ):
-
+    if not ( settings.TET_SIMPLE_HOMEPAGE ):
+        try:
+            print ('todo')
+        except Exception as e:
+            pass
 
     context = {
         'datasets_count': datasets_count,
         'organizations_count': organizations_count,
-        'TET_SIMPLE_HOMEPAGE': settings.TET_SIMPLE_HOMEPAGE
+        'TET_SIMPLE_HOMEPAGE': settings.TET_SIMPLE_HOMEPAGE,
+        'organizations': organizations,
+        'tags': tags,
+        'roles': roles,
+        'categories': categories
     }
 
     return render(request, template_name, context)
