@@ -98,15 +98,15 @@ def index(request):
 
     try:
 
-        url_datasets = settings.CKAN_URL + "/api/3/stats/dataset_count"
-        url_organizations = settings.CKAN_URL + "/api/3/stats/organization_count"
+        url_datasets_count = settings.CKAN_URL + "/api/3/stats/dataset_count"
+        url_organizations_count = settings.CKAN_URL + "/api/3/stats/organization_count"
 
-        res_datasets = urlopen(url_datasets)
-        datasets_count_json = json.loads(res_datasets.read().decode('utf-8'))
+        res_datasets_count = urlopen(url_datasets_count)
+        datasets_count_json = json.loads(res_datasets_count.read().decode('utf-8'))
         datasets_count = int(datasets_count_json['dataset_count'])
 
-        res_organizations = urlopen(url_organizations)
-        organizations_count_json = json.loads(res_organizations.read().decode('utf-8'))
+        res_organizations_count = urlopen(url_organizations_count)
+        organizations_count_json = json.loads(res_organizations_count.read().decode('utf-8'))
         organizations_count = int(organizations_count_json['organization_count'])
 
     except Exception as e:
@@ -115,10 +115,22 @@ def index(request):
         pass
 
     if not ( settings.TET_SIMPLE_HOMEPAGE ):
-        try:
-            print ('todo')
-        except Exception as e:
-            pass
+        #try:
+
+            # organizations
+            url_organizations = settings.CKAN_URL + '/api/action/package_search?facet.field=["tags"]&facet.limit=10&rows=0'
+            res_organizations = urlopen(url_organizations)
+            res_organizations_json = json.loads(res_organizations.read().decode('utf-8'))
+            if (res_organizations_json['success'] == True):
+                organizations = res_organizations_json['result']['facets']['tags']
+
+            # tags
+            url_tags = settings.CKAN_URL + '/api/action/package_search?facet.field=["tags"]&facet.limit=10&rows=0'
+            res_tags = urlopen(url_tags)
+            res_tags_json = json.loads(res_tags.read().decode('utf-8'))
+            if (res_tags_json['success'] == True):
+                tags = res_tags_json['result']['facets']['tags']
+
 
     context = {
         'datasets_count': datasets_count,
