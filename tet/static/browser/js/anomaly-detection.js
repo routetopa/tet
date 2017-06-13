@@ -60,17 +60,17 @@ function updateAnomalyMetrics(tolerance = 0.5){
     for(i=0; i < source_data.result.records.length; i++)
     {
 
-        if ( json["result"][i][0] > 1 + tolerance ){
+        if ( json[i][2] > 1 + tolerance ){
 
             number_of_anomalies++
 
-            anomalies.push(json["result"][i][0])
+            anomalies.push(json[i][2])
 
-            if (json["result"][i][3] == 'local'){
+            if (json[i][3] == 'local'){
                 number_of_local_anomalies++
             }
 
-            if (json["result"][i][3] == 'global'){
+            if (json[i][3] == 'global'){
                 number_of_global_anomalies++
             }
 
@@ -99,7 +99,7 @@ function updateChartTolerance(tolerance = 0.5){
     for(i=0; i < source_data.result.records.length; i++)
     {
 
-        if ( json["result"][i][0] > 1 + tolerance ){
+        if ( json[i][2] > 1 + tolerance ){
             // column_a[i] = json["result"][i][2];
             column_a[i] = source_data.result.records[i][y_axis];
         } else {
@@ -156,7 +156,7 @@ function updateChartDimension(field_name){
             column_y[i] = source_data.result.records[i][y_axis];
             column_x[i] = source_data.result.records[i][x_axis];
 
-            if ( json["result"][i][0] > 1 + score_tolerance ){
+            if ( json[i][2] > 1 + score_tolerance ){
                 column_a[i] = column_y[i];
             } else {
                 column_a[i] = null;
@@ -241,7 +241,7 @@ function detectAnomaly(){
         json = JSON.stringify(data);
 
         // TODO dynamic links
-        var url = "http://vmrtpa05.deri.ie:8003/detectAnomalies/lof";
+        var url = "http://10.2.17.8:8888/detectAnomalies/lof";
         var dataType ="aplication/json";
 
         x_axis = data["x"]
@@ -257,7 +257,7 @@ function detectAnomaly(){
 
                 json = JSON.parse(data);
 
-                if (json["result"].length == 0) {
+                if (json.length == 0) {
 
                    $(".anomalyDetectionResults").hide();
                    $(".noAnomalyDetected").fadeIn();
@@ -276,16 +276,18 @@ function detectAnomaly(){
 
                 table += "<th> Anomaly Score </th> </thead> </tr>";
 
-                for (index in json["result"]){
-                    if (json["result"][index][0] > 1.0){
+                for (index in json){
+                    //console.log(index,json[index])
+                    if (json[index][2] > 1.0){
 
-                        table += "<tr class='anomaly' anomaly-score='" + json["result"][index][0] + "'>";
+
+                        table += "<tr class='anomaly' anomaly-score='" + json[index][2] + "'>";
 
                         for (dimension in data_source_dimensions) {
                             table += "<td>" + source_data.result.records[index][data_source_dimensions[dimension]] + "</td>"
                         }
 
-                        table += "<td>" + json["result"][index][0] + "</td>"
+                        table += "<td>" + json[index][2] + "</td>"
                         table += "</tr>"
 
                     }
@@ -306,20 +308,20 @@ function detectAnomaly(){
                 column_as       = []
 
                 //json["result"][i][j] :: j
-                // 0 - score
-                // 1 - x
-                // 2 - y
-                // 3 - type (?) // TODO check updated API
+                // 0 - _id
+                // 1 - FirstNumericColumn
+                // 2 - Score
+                // 3 - flag (type) // TODO check updated API
 
                 // Parse X + Y + make Anomalies null
                 for(i=0; i < source_data.result.records.length; i++)
                 {
                     column_x[i] = source_data.result.records[i][x_axis];
                     column_y[i] = source_data.result.records[i][y_axis];
-                    column_as[i] = json["result"][i][0];
-
-                    if ( json["result"][i][0] > 1 + score_tolerance ){
-                        column_a[i] = json["result"][i][2];
+                    column_as[i] = json[i][2];
+                    console.log()
+                    if ( json[i][2] > 1 + score_tolerance ){
+                        column_a[i] = json[i][1];
                     } else {
                         column_a[i] = null;
                     }
@@ -329,6 +331,7 @@ function detectAnomaly(){
                 column_y.unshift(y_axis)
                 column_a.unshift("Anomaly")
                 column_as.unshift("Anomaly Score")
+
 
                 dimension_chart = c3.generate({
                     bindto: '#dimension-chart',
@@ -477,7 +480,7 @@ function recalculateAnomaly() {
             json = JSON.stringify(data);
 
             // TODO dynamic links
-            var url = "http://vmrtpa05.deri.ie:8003/detectAnomalies/lof";
+            var url = "http://10.2.17.8:8888/detectAnomalies/lof";
             var dataType ="aplication/json";
 
             x_axis = data["x"]
@@ -493,7 +496,7 @@ function recalculateAnomaly() {
 
                     json = JSON.parse(data);
 
-                    if (json["result"].length == 0) {
+                    if (json.length == 0) {
 
                        $(".anomalyDetectionResults").hide();
                        $(".noAnomalyDetected").fadeIn();
@@ -512,16 +515,17 @@ function recalculateAnomaly() {
 
                     table += "<th> Anomaly Score </th> </thead> </tr>";
 
-                    for (index in json["result"]){
-                        if (json["result"][index][0] > 1.0){
+                    for (index in json){
+                        if (json[index][2] > 1.0){
 
-                            table += "<tr class='anomaly' anomaly-score='" + json["result"][index][0] + "'>";
+
+                            table += "<tr class='anomaly' anomaly-score='" + json[index][2] + "'>";
 
                             for (dimension in data_source_dimensions) {
                                 table += "<td>" + source_data.result.records[index][data_source_dimensions[dimension]] + "</td>"
                             }
 
-                            table += "<td>" + json["result"][index][0] + "</td>"
+                            table += "<td>" + json[index][2] + "</td>"
                             table += "</tr>"
 
                         }
@@ -542,20 +546,20 @@ function recalculateAnomaly() {
                     column_as       = []
 
                     //json["result"][i][j] :: j
-                    // 0 - score
-                    // 1 - x
-                    // 2 - y
-                    // 3 - type (?) // TODO check updated API
+                    // 0 - _id
+                    // 1 - FirstNumericColumn
+                    // 2 - Score
+                    // 3 - flag (type) // TODO check updated API TODO check updated API
 
                     // Parse X + Y + make Anomalies null
                     for(i=0; i < source_data.result.records.length; i++)
                     {
                         column_x[i] = source_data.result.records[i][x_axis];
                         column_y[i] = source_data.result.records[i][y_axis];
-                        column_as[i] = json["result"][i][0];
+                        column_as[i] = json[i][2];
 
-                        if ( json["result"][i][0] > 1 + score_tolerance ){
-                            column_a[i] = json["result"][i][2];
+                        if ( json[i][2] > 1 + score_tolerance ){
+                            column_a[i] = json[i][1];
                         } else {
                             column_a[i] = null;
                         }
@@ -565,6 +569,7 @@ function recalculateAnomaly() {
                     column_y.unshift(y_axis)
                     column_a.unshift("Anomaly")
                     column_as.unshift("Anomaly Score")
+
 
                     dimension_chart = c3.generate({
                         bindto: '#dimension-chart',
