@@ -7,7 +7,7 @@
                 <div id="homepage-search" class="container">
 
                     {% if not TET_SIMPLE_HOMEPAGE %}
-                        <ul class="nav nav-pills">
+                        <ul class="nav nav-pills top30 pull-right">
                             <li class="active">
                                 <a data-toggle="tab" href="#homepage-search-tab"><i class="fa fa-search"></i></a>
                             </li>
@@ -18,9 +18,9 @@
                     {% endif %}
 
 
-                    <div class="tab-content">
+                    <div class="tab-content top30">
 
-                        <div id="homepage-search-tab" class="tab-pane fade in active">
+                        <div id="homepage-search-tab" class="tab-pane fade in active top30">
                             <div class="row text-center tet-search-image">
                                 <img class="img-circle" alt="140x140" src="{% static 'browser/images/tet-search-graphics.png' %}" style="width: auto; height: 240px;">
                             </div>
@@ -37,7 +37,7 @@
 
                                     <div class="row">
 
-                                        <div class="span8 Xoffset2 text-center" style="margin-top: 55px">
+                                        <div class="span8 text-center" style="margin-top: 55px">
                                             <small>
                                                 {% trans "TET search engine results are based on resources available at" %} <a href="{{ CKAN_URL }}" target="_blank">{{ CKAN_URL }}</a>. <br/>
                                                 {% if datasets_count > 0 %}
@@ -53,9 +53,9 @@
 
                         </div>
 
-                        <div id="homepage-categories-tab" class="tab-pane fade">
-                            <h3>{% trans "Browse" %}</h3>
-                            <p>...</p>
+                        <div id="homepage-categories-tab" class="tab-pane fade top30 span8 offset2">
+                            <h5>{% trans "Browse available resources" %}</h5>
+                            {% include "browser/_homepage_filters.html" with query=query %}
                         </div>
 
                     </div>
