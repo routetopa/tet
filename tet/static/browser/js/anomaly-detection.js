@@ -235,6 +235,7 @@ function detectAnomaly(){
     var response = $.getJSON(api_url, function(data) {
         data["x"] = "_id";
         data["y"] = field_name;
+        data["resource_url"] = api_url;
         data["analysisFeatures"] = [];
 
         json = JSON.stringify(data);
@@ -470,6 +471,7 @@ function recalculateAnomaly() {
         var response = $.getJSON(api_url, function(data) {
             data["x"] = "_id";
             data["y"] = field_name;
+            data["resource_url"] = api_url;
             data["analysisFeatures"] = analysisFeatures;
 
             json = JSON.stringify(data);
