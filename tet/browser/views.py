@@ -118,19 +118,32 @@ def index(request):
         #try:
 
             # organizations
-            url_organizations = settings.CKAN_URL + '/api/action/package_search?facet.field=["tags"]&facet.limit=10&rows=0'
+            # TODO order by package_count
+            url_organizations = settings.CKAN_URL + '/api/action/organization_list?all_fields=true&facet.field=["organization"]&facet.limit=10&rows=0&sort=package_count,asc'
             res_organizations = urlopen(url_organizations)
             res_organizations_json = json.loads(res_organizations.read().decode('utf-8'))
+
             if (res_organizations_json['success'] == True):
-                organizations = res_organizations_json['result']['facets']['tags']
+                organizations = res_organizations_json['result']
 
             # tags
+            # TODO order by package_count
             url_tags = settings.CKAN_URL + '/api/action/package_search?facet.field=["tags"]&facet.limit=10&rows=0'
             res_tags = urlopen(url_tags)
             res_tags_json = json.loads(res_tags.read().decode('utf-8'))
             if (res_tags_json['success'] == True):
                 tags = res_tags_json['result']['facets']['tags']
 
+            # roles
+
+
+
+
+            # categories
+
+
+        #except Exception as e:
+        #    pass
 
     context = {
         'datasets_count': datasets_count,

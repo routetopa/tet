@@ -1,8 +1,10 @@
 {% load i18n %}
+{% load keyvalue %}
 
 <div class="row-fluid">
     <div class="span6">
 
+        {% if organizations %}
         <div>
             <div class="">
                 <h5 class="">
@@ -10,18 +12,22 @@
                         {% trans "Publishers" %}
                     </a>
                 </h5>
-                <ul class="unstyled top15">
+                <ul class="top15">
+                    {% for organization in organizations %}
                     <li class="nav-item">
-                        <a href="/search/?" title="">
+                        <a href="/search/?organization={{ organization }}" title="{{ organization|title }}">
 
-                            <span></span>
+                            <span>{{ organization.display_name|title }} <small>({{organization.package_count}})</small></span>
                         </a>
                     </li>
+                    {% endfor %}
                 </ul>
             </div>
 
         </div>
+        {% endif %}
 
+        {% if tags %}
         <div>
             <div class="">
                 <h5 class="">
@@ -30,9 +36,21 @@
                     </a>
                 </h5>
             </div>
-
-
         </div>
+
+        <ul class="top15">
+
+            {% for tag in tags %}
+            <li class="nav-item">
+                <a href="/search/?tag={{ tag }}" title="{{ tag|title }}">
+
+                    <span>{{ tag|title }} <small>({% keyvalue tags tag %})</small></span>
+                </a>
+            </li>
+            {% endfor %}
+        </ul>
+
+        {% endif %}
 
     </div>
     <div class="span6">
