@@ -91,10 +91,10 @@ def index(request):
 
     template_name = 'browser/index.html'
 
-    organizations = {}
-    tags = {}
-    roles = {}
-    categories = {}
+    organizations = []
+    tags = []
+    roles = []
+    categories = []
 
     try:
 
@@ -115,11 +115,11 @@ def index(request):
         pass
 
     if not ( settings.TET_SIMPLE_HOMEPAGE ):
-        #try:
+        # try:
 
             # organizations
             # TODO order by package_count
-            url_organizations = settings.CKAN_URL + '/api/action/organization_list?all_fields=true&facet.field=["organization"]&facet.limit=10&rows=0&sort=package_count,asc'
+            url_organizations = settings.CKAN_URL + '/api/action/organization_list?all_fields=true&facet.field=["organization"]&facet.limit=10&rows=0&order_by=package_count'
             res_organizations = urlopen(url_organizations)
             res_organizations_json = json.loads(res_organizations.read().decode('utf-8'))
 
@@ -134,16 +134,21 @@ def index(request):
             if (res_tags_json['success'] == True):
                 tags = res_tags_json['result']['facets']['tags']
 
-            # roles
+            try:
+                # roles and categories
+                # TODO Requires TET extension - note
+                url_tet_rc = settings.CKAN_URL + "/api/3/util/tet/getconfig"
+                tet_rc_res = urlopen(url_tet_rc)
+                tet_rc_res_json = json.loads(tet_rc_res.read())
+                for role in tet_rc_res_json["roles"]:
+                    roles.append(role)
+                for category in tet_rc_res_json["categories"]:
+                    categories.append(category)
 
-
-
-
-            # categories
-
-
-        #except Exception as e:
-        #    pass
+            # TODO HttpError handling
+            # TODO load default values from JSON / config
+            except Exception as e:
+                pass
 
     context = {
         'datasets_count': datasets_count,

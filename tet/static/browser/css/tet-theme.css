@@ -191,6 +191,15 @@ body, html {
     padding: 7px;
 }
 
+#homepage-search ul li.nav-item {
+    margin: 5px 0;
+}
+
+.homepage-filter {
+    margin-top: 40px;
+    color: #2196F3;
+}
+
 #homepage-search .search-ui .main-search {
     border-top-left-radius: 14px;
     border-bottom-left-radius: 14px;
@@ -928,4 +937,29 @@ th.text-center, td.text-center {
 .table-borderless tr, .table-borderless td, .table-borderless th {
     border: none;
     background: none !important;
+}
+
+/* bullet list */
+ul.list,
+ul.list li {
+  padding: 0;
+  margin: 0;
+  list-style: none;
+}
+
+ul.list {
+  margin: 2em 0;
+}
+
+ul.list li {
+  margin: 1em;
+  margin-left: 3em;
+}
+
+ul.list li:before {
+  content: '\f006';
+  font-family: 'FontAwesome';
+  float: left;
+  margin-left: -1.5em;
+  color: #0074D9;
 }

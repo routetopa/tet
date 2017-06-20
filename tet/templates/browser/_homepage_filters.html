@@ -7,7 +7,7 @@
         {% if organizations %}
         <div>
             <div class="">
-                <h5 class="">
+                <h5 class="homepage-filter">
                     <a data-toggle="collapse" href="#"> <i class="fa fa-institution" aria-hidden="true"></i>
                         {% trans "Publishers" %}
                     </a>
@@ -15,7 +15,7 @@
                 <ul class="top15">
                     {% for organization in organizations %}
                     <li class="nav-item">
-                        <a href="/search/?organization={{ organization }}" title="{{ organization|title }}">
+                        <a href="/search/?organization={{ organization.name }}" title="{{ organization.name|title }}">
 
                             <span>{{ organization.display_name|title }} <small>({{organization.package_count}})</small></span>
                         </a>
@@ -30,7 +30,7 @@
         {% if tags %}
         <div>
             <div class="">
-                <h5 class="">
+                <h5 class="homepage-filter">
                     <a data-toggle="collapse" href="#"> <i class="fa fa-tags" aria-hidden="true"></i>
                         {% trans "Tags" %}
                     </a>
@@ -52,42 +52,15 @@
 
         {% endif %}
 
-    </div>
-    <div class="span6">
-
         <div>
             <div class="">
-                <h5 class="">
-                    <a data-toggle="collapse" href="#"> <i class="fa fa-group" aria-hidden="true"></i>
-                        {% trans "Roles" %}
-                    </a>
-                </h5>
-            </div>
-
-
-        </div>
-
-        <div>
-            <div class="">
-                <h5 class="">
-                    <a data-toggle="collapse" href="#"> <i class="fa fa-list" aria-hidden="true"></i>
-                        {% trans "Categories" %}
-                    </a>
-                </h5>
-            </div>
-
-
-        </div>
-
-        <div>
-            <div class="">
-                <h5 class="">
+                <h5 class="homepage-filter">
                     <a data-toggle="collapse" href="#"> <i class="fa fa-star" aria-hidden="true"></i>
                         {% trans "Openess Score" %}
                     </a>
                 </h5>
             </div>
-            <ul class="unstyled top15">
+            <ul class="top15">
                 <li class="nav-item">
                     <a href="/search/?openness_score=5" title="">
                         <i class="fa fa-star" aria-hidden="true"></i>
@@ -151,6 +124,58 @@
             </ul>
 
         </div>
+    </div>
+
+
+    <div class="span6">
+
+        {% if roles %}
+        <div>
+            <div class="">
+                <h5 class="homepage-filter">
+                    <a data-toggle="collapse" href="#"> <i class="fa fa-group" aria-hidden="true"></i>
+                        {% trans "Roles" %}
+                    </a>
+                </h5>
+            </div>
+
+            <ul class="top15">
+                {% for role in roles %}
+                <li class="nav-item">
+                    <a href="/search/?role={{ role }}" title="{{ role|title }}">
+
+                        <span>{{ role|title }}</span>
+                    </a>
+                </li>
+                {% endfor %}
+            </ul>
+
+        </div>
+        {% endif %}
+
+        {% if categories %}
+        <div>
+            <div class="">
+                <h5 class="homepage-filter">
+                    <a data-toggle="collapse" href="#"> <i class="fa fa-list" aria-hidden="true"></i>
+                        {% trans "Categories" %}
+                    </a>
+                </h5>
+            </div>
+
+            <ul class="top15">
+                {% for category in categories %}
+                <li class="nav-item">
+                    <a href="/search/?category={{ category }}" title="{{ category|title }}">
+
+                        <span>{{ category|title }}</span>
+                    </a>
+                </li>
+                {% endfor %}
+            </ul>
+
+        </div>
+        {% endif %}
 
     </div>
 
