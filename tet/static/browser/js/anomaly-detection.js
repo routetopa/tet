@@ -12,6 +12,8 @@ var x_axis
 var y_axis
 var score_tolerance = 0.5
 
+var amountOfRecords
+
 var column_as = []
 
 var json
@@ -46,6 +48,58 @@ $(document).ready(function() {
     });
 
 });
+
+
+
+
+
+
+
+$(document).ready(function() {
+    //var neighboursCount=document.getElementById("neighboursCount")
+
+    var tmp = $('#neighboursCount').bootstrapSlider({
+
+                    min:1,
+                    max:20,
+                    value:5,
+                    formatter: function(value)
+                    {
+                        //getMaxNeighbours()
+                        return "Current value: " + value;
+                    }
+
+            });
+            getMaxNeighbours()
+
+           function getMaxNeighbours()
+           {
+           if (typeof amountOfRecords !=='undefined')
+            {
+                //console.log(amountOfRecords)
+                var newNeighboursMaxValue=amountOfRecords;
+                if (newNeighboursMaxValue>=50)
+                {
+                    newNeighboursMaxValue=50
+                    //console.log('test')
+                    tmp.bootstrapSlider('setAttribute', 'max', newNeighboursMaxValue);
+                }
+                else
+                {
+                    //console.log('test<50')
+                    tmp.bootstrapSlider('setAttribute', 'max', newNeighboursMaxValue);
+                }
+            }
+            else
+            {
+                setTimeout(getMaxNeighbours,100)
+            }
+            }
+    });
+
+
+
+
 
 function updateAnomalyMetrics(tolerance = 0.5){
 
@@ -237,11 +291,13 @@ function detectAnomaly(){
         data["y"] = field_name;
         data["resource_url"] = api_url;
         data["analysisFeatures"] = [];
-
+        amountOfRecords=data["result"]["total"]-1
+        //getMaxNeighbours()
         json = JSON.stringify(data);
 
         // TODO dynamic links
-        var url = "http://10.2.17.8:8888/detectAnomalies/lof";
+        ///var url = "http://10.2.17.4:8888/detectAnomalies/lof";
+        var url = "http://vmrtpa05.deri.ie:8003/detectAnomalies/lof";
         var dataType ="aplication/json";
 
         x_axis = data["x"]
@@ -480,7 +536,8 @@ function recalculateAnomaly() {
             json = JSON.stringify(data);
 
             // TODO dynamic links
-            var url = "http://10.2.17.8:8888/detectAnomalies/lof";
+            //var url = "http://10.2.17.4:8888/detectAnomalies/lof";
+            var url = "http://vmrtpa05.deri.ie:8003/detectAnomalies/lof";
             var dataType ="aplication/json";
 
             x_axis = data["x"]
