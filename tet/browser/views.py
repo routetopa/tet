@@ -97,7 +97,7 @@ def index(request):
     categories = []
 
     try:
-
+        # TODO ckan_api_instance
         url_datasets_count = settings.CKAN_URL + "/api/3/stats/dataset_count"
         url_organizations_count = settings.CKAN_URL + "/api/3/stats/organization_count"
 
@@ -125,7 +125,7 @@ def index(request):
 
             if (res_organizations_json['success'] == True):
                 organizations = res_organizations_json['result']
-
+            
             # tags
             # TODO order by package_count
             url_tags = settings.CKAN_URL + '/api/action/package_search?facet.field=["tags"]&facet.limit=10&rows=0'
@@ -343,6 +343,7 @@ def search(request, query=False):
     # display logic
     query = request.GET.get('query') or ''
 
+    # TODO rewrite + translation
     if query.lower().startswith(_("i am")):
         query =  "role::" + _(query.lower().replace(_("i am"), ""))
     if query.lower().startswith(_("interested in")):
