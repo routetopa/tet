@@ -43,7 +43,10 @@ import operator
 from pandas.io.json import json_normalize
 import pandas as pd
 import numpy as np
-from StringIO import StringIO
+try:
+    from StringIO import StringIO
+except ImportError:
+    from io import StringIO
 from collections import Counter
 from django.utils.translation import ugettext as _
 from django.utils.translation import activate
@@ -509,7 +512,26 @@ def compute_completeness(stats):
     stats["last_updated"] = (datetime.datetime.now() - stats["date_updated"]).days
     return stats
 
+def checkOccurenceFrequency(values,textcolumns):
+    ExitColumns=[] ##list for unique columns
+
+    Json = values['result']
+    TEMP = json.dumps(Json['records'])
+    JsonData = pd.read_json(TEMP)
+    textData=JsonData[textcolumns]
+
+    for column in textData: #Checks if column has duplicates; if all values are unique -> result will be 0
+        if (len(textData[textData.duplicated([column], keep=False)]) ==0):
+            ExitColumns.append([column.encode("utf-8"), False])
+
+    return ExitColumns ##that columns will be removed from rendering
+
+
+
+
+
 def dataset(request, dataset_id):
+
 
     template_name = 'browser/dataset.html'
 
@@ -518,6 +540,7 @@ def dataset(request, dataset_id):
         user_agent='tetbrowser/1.0 (+http://tetbrowser.routetopa.eu)'
     )
 
+    textcolumns=[]
     resource_id = None 
     resource_fields = None
     related_datasets = None
@@ -530,8 +553,8 @@ def dataset(request, dataset_id):
             id=dataset_id
         )
 
-        stats["ds"] = dataset 
-        
+        stats["ds"] = dataset
+
         try:
             url = settings.CKAN_URL + "/api/3/util/tet/get_recommended_datasets?pkg=" + dataset_id
             res = urlopen(url)
@@ -560,6 +583,7 @@ def dataset(request, dataset_id):
                         nullvalues = float(sum([v for v in df.isnull().sum()]))
                         allvalues = float(len(df.index)*len(df.columns))
                         stats["content"] = ((allvalues-nullvalues)/allvalues) * 100
+
                         for field in data["result"]["fields"]:
                             name = field["id"]
                             found = False 
@@ -572,6 +596,7 @@ def dataset(request, dataset_id):
                                 resource_fields.append((name, True))
                             elif field["type"] == "text":
                                 resource_fields.append((name, False))
+                                textcolumns.append(name)
                             else:
                                 pass
                         fields = data["result"]["fields"]
@@ -582,8 +607,15 @@ def dataset(request, dataset_id):
     except Exception as e:
         messages.add_message(request, messages.ERROR, e)
         return render(request, error_template)
+    uniqueColumns = checkOccurenceFrequency(data, textcolumns)
     if resource_id and len(resource_fields) < 1:
         resource_id = None
+        ######
+    if uniqueColumns: ##if there are any columns with unique values
+        for column in uniqueColumns:
+            for element in resource_fields:
+                if (column[0].encode("utf-8") in element[0].encode("utf-8")):
+                    resource_fields.remove(element)
     context = {
         'dataset_id': dataset_id,
         'dataset': dataset,
@@ -622,7 +654,7 @@ def box_plot(request, resource_id):
             response = HttpResponse(content_type='image/png')
             canvas.print_png(response)
         return response
-    except Exception, e:
+    except Exception as e:
         return JsonResponse({'message': str(e)})
 
 def corr_mat(request, resource_id):
@@ -649,7 +681,7 @@ def corr_mat(request, resource_id):
             response = HttpResponse(content_type='image/png')
             canvas.print_png(response)
         return response
-    except Exception, e:
+    except Exception as e:
         return JsonResponse({'message': str(e)})
 
 def get_dataset(dataset_id):
@@ -869,7 +901,7 @@ def combine(request):
                     continue
                 groups["other"].extend(groups[g])
                 del groups[g]
-    except Exception, e:
+    except Exception as e:
         return JsonResponse({'message': str(e)})
     context = {
         "dataset_groups" : groups
