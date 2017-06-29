@@ -465,7 +465,7 @@ def compute_completeness(stats):
     return stats
 
 def checkOccurenceFrequency(values,textcolumns):
-    ExitColumns=[]
+    ExitColumns=[] ##list for unique columns
 
     Json = values['result']
     TEMP = json.dumps(Json['records'])
