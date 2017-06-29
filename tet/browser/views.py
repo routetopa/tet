@@ -465,7 +465,7 @@ def compute_completeness(stats):
     return stats
 
 def checkOccurenceFrequency(values,textcolumns):
-    ExitColumns=[] ##list for unique columns
+    ExitColumns=[]
 
     Json = values['result']
     TEMP = json.dumps(Json['records'])
@@ -476,7 +476,7 @@ def checkOccurenceFrequency(values,textcolumns):
         if (len(textData[textData.duplicated([column], keep=False)]) ==0):
             ExitColumns.append([column.encode("utf-8"), False])
 
-    return ExitColumns ##that columns will be removed from rendering
+    return ExitColumns ##that columns will be removed from rresource fields
 
 
 
