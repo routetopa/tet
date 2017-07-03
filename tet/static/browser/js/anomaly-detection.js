@@ -13,6 +13,7 @@ var y_axis
 var score_tolerance = 0.5
 
 var amountOfRecords
+var neighboursAmount
 
 var column_as = []
 
@@ -62,7 +63,7 @@ $(document).ready(function() {
 
                     min:1,
                     max:20,
-                    value:5,
+                    value:10,
                     formatter: function(value)
                     {
                         //getMaxNeighbours()
@@ -95,6 +96,12 @@ $(document).ready(function() {
                 setTimeout(getMaxNeighbours,100)
             }
             }
+     $("#neighboursCount").on("slideStop", function(slideEvt) {
+
+        neighboursAmount = slideEvt.value
+
+
+    });
     });
 
 
@@ -290,13 +297,14 @@ function detectAnomaly(){
         data["x"] = "_id";
         data["y"] = field_name;
         data["resource_url"] = api_url;
+        data["neighbours"]=neighboursAmount;
         data["analysisFeatures"] = [];
         amountOfRecords=data["result"]["total"]-1
         //getMaxNeighbours()
         json = JSON.stringify(data);
 
         // TODO dynamic links
-        ///var url = "http://10.2.17.4:8888/detectAnomalies/lof";
+        //var url = "http://10.2.17.4:8888/detectAnomalies/lof";
         var url = "http://vmrtpa05.deri.ie:8003/detectAnomalies/lof";
         var dataType ="aplication/json";
 
@@ -531,6 +539,7 @@ function recalculateAnomaly() {
             data["x"] = "_id";
             data["y"] = field_name;
             data["resource_url"] = api_url;
+            data["neighbours"] = neighboursAmount;
             data["analysisFeatures"] = analysisFeatures;
 
             json = JSON.stringify(data);
