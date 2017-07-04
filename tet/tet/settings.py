@@ -152,26 +152,9 @@ STATICFILES_DIRS = (
 STATIC_ROOT = os.path.join(os.path.dirname(BASE_DIR), "static")
 MEDIA_ROOT = os.path.join(os.path.dirname(BASE_DIR), "media")
 
-# TODO admin config model
-# CKAN / TET / SPOD related settings
-CKAN_URL = "http://dublin-tet.routetopa.eu:8080"
-CKAN_USERNAME = "admin"
-CKAN_API_KEY = "xxxx-xxxx-xxxx-xxxx"
-SPOD_URL = "http://spod.routetopa.eu"
+# LOAD TET SETTINGS
+try:
+  from settings_tet import *
+except ImportError:
+  pass
 
-LOCATIONS_LIST = ["Dublin", "Leinster", "Cork", "Munster", "Limerick", "Waterford", "Kilkenny", "Galway", "Prato", "Paris", "Daan Haag"]
-
-
-API_KEY = "xxxx-xxxx-xxxx-xxxx"
-
-LOGIN_URL = '/accounts/login/'
-
-
-INDICATORS =[
-  { "title" : "Dublin City Spendings", 
-  "query":"SELECT \"ServiceType\" as key, sum(\"AdoptedbyCouncil2014\") as value from \"31cc6276-62d9-4bec-9fcc-0f0acb2a6662\" Group By \"ServiceType\""}
-]
-
-SOM_API_URL = "" 
-
-DB = "triggers.db"
