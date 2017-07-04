@@ -344,14 +344,40 @@ def search(request, query=False):
     template_name = 'browser/search.html'
 
     # display logic
-    query = request.GET.get('query') or ''
+    query           = request.GET.get('query') or ''
+    fq              = request.GET.get('fq') or ''
+
+    # homepage filters
+    organization    = request.GET.get('organization') or ''
+    tags            = request.GET.get('tags') or ''
+    role            = request.GET.get('role') or ''
+    category        = request.GET.get('category') or ''
+    openness_score  = request.GET.get('openness_score') or ''
 
     # TODO rewrite + translation
     if query.lower().startswith(_("i am")):
         query =  "role::" + _(query.lower().replace(_("i am"), ""))
     if query.lower().startswith(_("interested in")):
         query =  "category::" + _(query.lower().replace(_("interested in"), ""))
-    
+
+    # facets
+    if tags:
+        fq += "tags:" + tags
+    if organization:
+        if fq:
+            fq += "+"
+        fq += "organization:" + organization
+    if openness_score:
+        if fq:
+            fq += "+"
+        fq += "openness_score:" + openness_score
+
+    # TODO fix role & category
+    if role:
+        query = "role::" + role
+    if category:
+        query = "category::" + category
+
     search_results = []
     filters = {}
     has_results = False
@@ -363,6 +389,7 @@ def search(request, query=False):
 
     api_result = ckan_api_instance.action.package_search(
         q=query,
+        fq=fq,
         sort='relevance asc, metadata_modified desc',
         rows=1000,
         start=0,

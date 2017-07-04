@@ -42,7 +42,7 @@
 
             {% for tag in tags %}
             <li class="nav-item">
-                <a href="/search/?tag={{ tag }}" title="{{ tag|title }}">
+                <a href="/search/?tags={{ tag }}" title="{{ tag|title }}">
 
                     <span>{{ tag|title }} <small>({% keyvalue tags tag %})</small></span>
                 </a>
@@ -176,6 +176,8 @@
 
         </div>
         {% endif %}
+
+        <!-- SpatialAdministrativeArea -->
 
     </div>
 
