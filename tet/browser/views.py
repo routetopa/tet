@@ -540,21 +540,23 @@ def compute_completeness(stats):
     return stats
 
 def checkOccurenceFrequency(values,textcolumns):
+
+    if not values:
+        return {}
+
     ExitColumns=[]
 
     Json = values['result']
+    
     TEMP = json.dumps(Json['records'])
     JsonData = pd.read_json(TEMP)
-    textData=JsonData[textcolumns]
+    textData = JsonData[textcolumns]
 
     for column in textData: #Checks if column has duplicates; if all values are unique -> result will be 0
         if (len(textData[textData.duplicated([column], keep=False)]) ==0):
             ExitColumns.append([column.encode("utf-8"), False])
 
     return ExitColumns ##that columns will be removed from rresource fields
-
-
-
 
 
 def dataset(request, dataset_id):
@@ -574,6 +576,7 @@ def dataset(request, dataset_id):
     fields = None
     compleness = {}
     stats = {}
+    data = None
 
     try:
         dataset = ckan_api_instance.action.package_show(
