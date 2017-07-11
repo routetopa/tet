@@ -4,11 +4,12 @@
     <div class="row justify-content-md-center">
         <form class="form-search col-md-auto col-lg-8" action="{% url "search" %}" method="get">
             <div class="input-group">
-                <input type="text" class="form-control" placeholder="{% trans "Search for datasets" %}" autocomplete="off">
+                <input type="text" name="query" class="form-control" placeholder="{% trans "Search for datasets" %}" autocomplete="off">
                 <span class="input-group-btn">
-                    <button class="btn btn-primary" type="button"> <i class="fa fa-search" aria-hidden="true"></i> {% trans "Search" %} </button>
+                    <button class="btn btn-primary" type="submit"> <i class="fa fa-search" aria-hidden="true"></i> <span class="hidden-sm-down"> {% trans "Search" %} </span> </button>
                 </span>
             </div>
         </form>
     </div>
 </div>
+
