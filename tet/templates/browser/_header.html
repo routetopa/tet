@@ -44,7 +44,14 @@
 
                 {% include "browser/_language_selector.html" %}
 
-          </ul>
+            </ul>
+
+            {% if not HIDE_SEARCH_NAV %}
+            <form class="form-inline my-2 my-lg-0 pl-5">
+                <input class="form-control mr-sm-2" type="text" placeholder="Search">
+                <button class="btn btn-secondary my-2 my-sm-0" type="submit"> {% trans "Search" %}</button>
+            </form>
+            {% endif %}
 
       </div>
     </nav>

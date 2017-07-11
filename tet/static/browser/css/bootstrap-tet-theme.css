@@ -1,0 +1,174 @@
+/*
+ * Base style for TET platform
+ */
+
+.dark-primary-color    { background: #1976D2; }
+.default-primary-color { background: #2196F3; }
+.light-primary-color   { background: #BBDEFB; }
+.text-primary-color    { color: #FFFFFF; }
+.accent-color          { background: #00BCD4; }
+.primary-text-color    { color: #212121; }
+.secondary-text-color  { color: #727272; }
+.divider-color         { border-color: #B6B6B6; }
+
+.turquoise             { color: #00bcd4; }
+.dark-primary          { color: #1976D2; }
+.default-primary       { color: #2196F3; }
+.light-primary         { color: #BBDEFB; }
+
+/*
+ * Dataset quality indicator
+ */
+
+.very-poor { color: #FF0000; }
+.poor { color: #FFAA00; }
+.fair { color: #FFFF33; }
+.good { color: #99FF00; }
+.very-good { color: #00FF00; }
+
+.progress-bar-very-poor { background: #FF0000 !important; color: #111 !important; }
+.progress-bar-poor { background: #FFAA00 !important; color: #111 !important; }
+.progress-bar-fair { background: #FFFF33 !important; color: #111 !important; }
+.progress-bar-good { background: #99FF00 !important; color: #111 !important; }
+.progress-bar-very-good { background: #00FF00 !important; color: #111 !important; }
+
+
+body, html {
+    font-family: 'Roboto', sans-serif;
+    color: #212121;
+    font-size: 15px;
+    line-height: 1.6em;
+    height: 100%;
+    background: #fff;
+}
+
+a {
+    outline: none;
+}
+a:focus {
+    text-decoration: none;
+    outline: none;
+}
+a:hover {
+    color: #064887;
+    text-decoration: none;
+    outline: none;
+}
+
+b {
+    font-weight: 500;
+    font-family: 'Roboto', sans-serif;
+}
+
+h1, h2, h3, h4, h5 {
+    color: #2196F3;
+    margin: 0;
+    padding: 0;
+    font-weight: 300;
+    font-family: 'Roboto', sans-serif;
+    line-height: 1.1;
+}
+h1 {
+    font-size: 4.2rem;
+    margin: 2.1rem 0 1.68rem 0;
+}
+h2 {
+    font-size: 3.56rem;
+    margin: 1.78rem 0 1.424rem 0;
+}
+h3 {
+    font-size: 2.92rem;
+    margin: 1.46rem 0 1.168rem 0;
+}
+h4 {
+    font-size: 2.28rem;
+    margin: 1.14rem 0 0.912rem 0;
+}
+h5 {
+    font-size: 1.64rem;
+    margin: 0.82rem 0 0.656rem 0;
+}
+h6 {
+    font-size: 1rem;
+    margin: 0.5rem 0 0.4rem 0;
+}
+
+#wrap {
+    min-height: 100%;
+    height: auto !important;
+    height: 100%;
+    margin: 0 auto -90px;
+}
+
+#wrap > .container {
+    padding-top: 60px;
+}
+
+#push {
+    height: 90px;
+}
+
+/*
+ *  Header
+ */
+
+.rtpa-logo {
+    background-image: url(../images/rtpa-logo.png);
+    background-size: auto 41px;
+    background-repeat: no-repeat;
+    background-position: center center;
+    display: inline-block;
+    height: 56px;
+    width: 56px;
+}
+
+.bg-navbar {
+    background-color: #007dbe;
+}
+
+#navbar-top .nav-link:hover {
+    color: #fff;
+}
+
+/*
+ *  Footer
+ */
+
+#footer {
+    background-color: #BBDEFB;
+    padding-top: 20px;
+    font-size: 13px;
+    line-height: 1.6em;
+    min-height: 80px;
+}
+
+.attribution .ckan-footer-logo {
+    display: block;
+    width: 68px;
+    height: 21px;
+    background: url("../images/ckan-logo-footer.png") no-repeat top left;
+    text-indent: -900em;
+    margin: 0 auto;
+    margin-top: 10px;
+}
+
+.attribution .insight-footer-logo {
+    display: block;
+    width: 68px;
+    height: 33px;
+    background: url("../images/insight-logo-footer.png") no-repeat top left;
+    text-indent: -900em;
+    margin: 0 auto;
+    margin-top: 7px;
+}
+.attribution-project {
+    padding-top: 10px;
+}
+
+
+/*
+ *  Homepage
+ */
+#homepage-search {
+    padding: 6rem 4rem;
+}
