@@ -128,7 +128,7 @@ def index(request):
 
             if (res_organizations_json['success'] == True):
                 organizations = res_organizations_json['result']
-            
+
             # tags
             # TODO order by package_count
             url_tags = settings.CKAN_URL + '/api/action/package_search?facet.field=["tags"]&facet.limit=10&rows=0'
@@ -157,6 +157,7 @@ def index(request):
         'datasets_count': datasets_count,
         'organizations_count': organizations_count,
         'TET_SIMPLE_HOMEPAGE': settings.TET_SIMPLE_HOMEPAGE,
+        'HIDE_SEARCH_NAV': True,
         'organizations': organizations,
         'tags': tags,
         'roles': roles,
@@ -354,6 +355,8 @@ def search(request, query=False):
     category        = request.GET.get('category') or ''
     openness_score  = request.GET.get('openness_score') or ''
 
+    HIDE_SEARCH_NAV = False
+
     # TODO rewrite + translation
     if query.lower().startswith(_("i am")):
         query =  "role::" + _(query.lower().replace(_("i am"), ""))
@@ -410,8 +413,8 @@ def search(request, query=False):
         for idx, dataset in enumerate(api_result["results"]):
             # bold the query phrase
             if ( query ):
-                dataset["title"] = pattern.sub("<strong>"+query+"</strong>", strip_tags(dataset["title"]))
-                dataset["notes"] = pattern.sub("<strong>"+query+"</strong>", strip_tags(dataset["notes"]))
+                dataset["title"] = pattern.sub("<mark>"+query+"</mark>", strip_tags(dataset["title"]))
+                dataset["notes"] = pattern.sub("<mark>"+query+"</mark>", strip_tags(dataset["notes"]))
 
             # used in search / filtering JS
             dataset["relevance_key"] = idx
@@ -483,7 +486,8 @@ def search(request, query=False):
         filters["locations"] = collections.OrderedDict(reversed(sorted(locations.items(), key=lambda x: int(x[1]))))
         filters["periods"] = collections.OrderedDict(sorted(periods.items(), reverse=True))
         filters["formats"] = collections.OrderedDict(reversed(sorted(formats.items(), key=lambda x: int(x[1]))))
-
+    else:
+        HIDE_SEARCH_NAV = True
 
 
     context = {
@@ -491,6 +495,7 @@ def search(request, query=False):
         'has_results': has_results,
         'search_results': search_results,
         'filters': filters,
+        'HIDE_SEARCH_NAV': HIDE_SEARCH_NAV,
     }
 
     return render(request, template_name, context)
@@ -547,7 +552,7 @@ def checkOccurenceFrequency(values,textcolumns):
     ExitColumns=[]
 
     Json = values['result']
-    
+
     TEMP = json.dumps(Json['records'])
     JsonData = pd.read_json(TEMP)
     textData = JsonData[textcolumns]
