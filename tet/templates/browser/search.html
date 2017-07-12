@@ -16,6 +16,7 @@
                         <form method="post" action="{% url 'combine' %}" class="col-12">
 
                         <div class="row">
+
                             <div class="col-md-3 col-sm-12" id="results-filter">
                                 {% include "browser/_search_filters.html" with filters=filters %}
                             </div>
@@ -40,7 +41,6 @@
                                       </li>
                                     </ul>
 
-
                                 </div>
 
                                 {% csrf_token %}
@@ -48,7 +48,7 @@
                                 <ul class="dataset-list list-unstyled">
 
                                     {% for dataset in search_results %}
-                                        {#% include "browser/_dataset_as_search_result.html" with dataset=dataset %#}
+                                        {% include "browser/_dataset_as_search_result.html" with dataset=dataset %}
                                     {% endfor %}
 
                                 </ul>
