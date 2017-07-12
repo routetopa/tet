@@ -44,6 +44,7 @@ body, html {
 
 a {
     outline: none;
+    color: #1976D2;
 }
 a:focus {
     text-decoration: none;
@@ -98,10 +99,7 @@ h6 {
     height: auto !important;
     height: 100%;
     margin: 0 auto -90px;
-}
-
-#wrap > .container {
-    padding-top: 60px;
+    padding-top: 144px;
 }
 
 #push {
@@ -165,10 +163,126 @@ h6 {
     padding-top: 10px;
 }
 
-
 /*
  *  Homepage
  */
-#homepage-search {
-    padding: 6rem 4rem;
+@media (min-width: 576px){
+    #homepage-search {
+        padding: 2rem 4rem;
+    }
+}
+
+/*
+ *  Search Results
+ */
+.filters-pane h5 {
+    color: #fff;
+    background: #1976D2;
+    width: 100%;
+    display: block;
+    padding: 0.5rem 0.75rem;
+}
+.filters-pane h5 a {
+    color: #fff;
+}
+.filters-pane h5:hover a {
+    color: #f7f7f9;
+}
+.filters-pane .list-group-item {
+    padding: .75rem .25rem;
+    border: none;
+}
+.filters-pane .list-group-item-action {
+    color: #212121;
+}
+.filters-pane .filter-hidden {
+    display: none;
+}
+.filters-pane .badge-default {
+    background-color: #1976D2
+}
+
+.dataset-services {
+
+}
+.dataset-services .list-inline-item {
+    margin-right: 5px;
+}
+
+.dataset-services li {
+    display: inline;
+    color: #2196F3;
+}
+
+.dataset-service .fa {
+    font-size: 18px;
+}
+
+.dataset-service .disabled .fa {
+    color: #B6B6B6;
+}
+
+.dataset-service .disabled:hover .fa {
+  cursor: default;
+}
+
+/*
+ *  Helpers
+ */
+
+.label {
+    background-color: #59b0f6;
+    text-align: center;
+    display: inline;
+    padding: .3em .6em .3em;
+    font-size: 75%;
+    font-weight: 700;
+    line-height: 1;
+    color: #fff;
+    white-space: nowrap;
+    vertical-align: baseline;
+    border-radius: .25em;
+}
+.label[data-format=html],
+.label[data-format*=html] {
+    background-color: #2196f3;
+}
+.label[data-format=json],
+.label[data-format*=json] {
+    background-color: #0c83e1;
+}
+.label[data-format=xml],
+.label[data-format*=xml] {
+    background-color: #0962a9;
+}
+.label[data-format=text],
+.label[data-format*=text] {
+    background-color: #064271;
+}
+.label[data-format=csv],
+.label[data-format*=csv] {
+    background-color: #212df3;
+}
+.label[data-format=xls],
+.label[data-format*=xls] {
+    background-color: #2db55d;
+}
+.label[data-format=zip],
+.label[data-format*=zip] {
+    background-color: #686868;
+}
+.label[data-format=api],
+.label[data-format*=api] {
+    background-color: #f37e21;
+}
+.label[data-format=pdf],
+.label[data-format*=pdf] {
+    background-color: #f3212d;
+}
+.label[data-format=rdf],
+.label[data-format*=rdf],
+.label[data-format*=nquad],
+.label[data-format*=ntriples],
+.label[data-format*=turtle] {
+    background-color: #21f3e7;
 }
