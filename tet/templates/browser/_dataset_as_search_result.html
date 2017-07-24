@@ -1,6 +1,6 @@
 {% load i18n %}
 
-<li class="dataset-item my-3 card card-block" search-relevance="{{dataset.relevance_key}}" search-name="{{dataset.name_key}}" search-date="{{dataset.date_key}}" search-location="{{dataset.location_key|lower}}" search-year="{{dataset.year_key}}" search-category="{{dataset.category_key|lower}}" search-format="{{dataset.format_key|lower}}">
+<li class="dataset-item my-3 card card-block" search-relevance="{{dataset.relevance_key}}" search-name="{{dataset.name_key}}" search-date="{{dataset.date_key}}" search-location="{{dataset.location_key|lower}}" search-year="{{dataset.year_key}}" search-category="{{dataset.category_key|lower}}" search-format="{{dataset.format_key|lower}}" search-tag="{{dataset.tag_key|lower}}">
 
     <div class="dataset-content">
 
@@ -16,34 +16,34 @@
 
     <ul class="dataset-services list-inline mt-4">
         <li class="dataset-service list-inline-item">
-            <a href="{% url 'dataset' dataset.id %}"><i class="fa fa-bar-chart" aria-hidden="true" data-toggle="tooltip" data-placement="bottom" title="{% trans "View as chart" %}"></i></a>
+            <a href="{% url 'dataset' dataset.id %}"><i class="fa mr-2 fa-bar-chart" aria-hidden="true" data-toggle="tooltip" data-placement="bottom" title="{% trans "View as chart" %}"></i></a>
         </li>
         <li class="dataset-service list-inline-item">
             {% if dataset.has_table %}
-                <a href="{% url 'dataset_as_table' dataset.id %}"><i class="fa fa-table" aria-hidden="true" data-toggle="tooltip" data-placement="bottom" title="{% trans "View as table" %}"></i></a>
+                <a href="{% url 'dataset_as_table' dataset.id %}"><i class="fa mr-2 fa-table" aria-hidden="true" data-toggle="tooltip" data-placement="bottom" title="{% trans "View as table" %}"></i></a>
             {% else %}
-                <a href="#" class="disabled"><i class="fa fa-table" aria-hidden="true" data-toggle="tooltip" data-placement="bottom" title="{% trans "View as table - not available" %}"></i></a>
+                <a href="#" class="disabled"><i class="fa mr-2 fa-table" aria-hidden="true" data-toggle="tooltip" data-placement="bottom" title="{% trans "View as table - not available" %}"></i></a>
             {% endif %}
         </li>
         <li class="dataset-service list-inline-item">
             {% if dataset.has_table %}
-            <a href="{% url 'dataset_as_summary' dataset.id %}"><i class="fa fa-lightbulb-o" aria-hidden="true" data-toggle="tooltip" data-placement="bottom" title="{% trans "View the summary" %}"></i></a>
+            <a href="{% url 'dataset_as_summary' dataset.id %}"><i class="fa mr-2 fa-lightbulb-o" aria-hidden="true" data-toggle="tooltip" data-placement="bottom" title="{% trans "View the summary" %}"></i></a>
             {% else %}
-            <a href="#" class="disabled"><i class="fa fa-lightbulb-o" aria-hidden="true" data-toggle="tooltip" data-placement="bottom" title="{% trans "View the summary - not available" %}"></i></a>
+            <a href="#" class="disabled"><i class="fa mr-2 fa-lightbulb-o" aria-hidden="true" data-toggle="tooltip" data-placement="bottom" title="{% trans "View the summary - not available" %}"></i></a>
             {% endif %}
         </li>
         <li class="dataset-service list-inline-item">
             {% if dataset.has_apps %}
-            <a href="{% url 'dataset_as_app' dataset.id %}" class="disabled"><i class="fa fa-tablet" aria-hidden="true" data-toggle="tooltip" data-placement="bottom" title="{% trans "View as app" %}"></i></a>
+            <a href="{% url 'dataset_as_app' dataset.id %}" class="disabled"><i class="fa mr-2 fa-tablet" aria-hidden="true" data-toggle="tooltip" data-placement="bottom" title="{% trans "View as app" %}"></i></a>
             {% else %}
-            <a href="#" class="disabled"><i class="fa fa-tablet" aria-hidden="true" data-toggle="tooltip" data-placement="bottom" title="{% trans "View as app - not available" %}"></i></a>
+            <a href="#" class="disabled"><i class="fa mr-2 fa-tablet" aria-hidden="true" data-toggle="tooltip" data-placement="bottom" title="{% trans "View as app - not available" %}"></i></a>
             {% endif %}
         </li>
         <li class="dataset-service list-inline-item">
             {% if dataset.has_pdf %}
-            <a href="{% url 'dataset_as_pdf' dataset.id %}"><i class="fa fa-file-pdf-o" aria-hidden="true" data-toggle="tooltip" data-placement="bottom" title="{% trans "View as PDF" %}"></i></a>
+            <a href="{% url 'dataset_as_pdf' dataset.id %}"><i class="fa mr-2 fa-file-pdf-o" aria-hidden="true" data-toggle="tooltip" data-placement="bottom" title="{% trans "View as PDF" %}"></i></a>
             {% else %}
-            <a href="#" class="disabled"><i class="fa fa-file-pdf-o" aria-hidden="true" data-toggle="tooltip" data-placement="bottom" title="{% trans "View as PDF - not available" %}"></i></a>
+            <a href="#" class="disabled"><i class="fa mr-2 fa-file-pdf-o" aria-hidden="true" data-toggle="tooltip" data-placement="bottom" title="{% trans "View as PDF - not available" %}"></i></a>
             {% endif %}
         </li>
 

@@ -36,7 +36,7 @@
                         <ul class="list-group list-unstyled">
 
                             {% for the in filters.themes %}
-                                <li class="list-group-item list-group-item-action justify-content-between{% if forloop.counter > 5 %} filter-hidden{% endif %}">
+                                <li class="list-group-item list-group-item-action px-2 justify-content-between{% if forloop.counter > 5 %} filter-hidden{% endif %}">
                                     <span class="result-label">{% trans the %}</span>
                                     <span class="badge badge-default badge-pill">{% keyvalue filters.themes the %}</span>
                                     <input type="checkbox" class="float-right hidden-xs-up" filter-key="category" filter-value="{{the|lower}}">
@@ -63,19 +63,19 @@
                 <div class="">
                     <div class="">
                         <h5 class="">
-                            <a data-toggle="collapse" href="#"><i class="fa fa-tags" aria-hidden="true"></i>
-                                {% trans "Tags" %}
+                            <a data-toggle="collapse" href="#"><i class="fa fa-tag" aria-hidden="true"></i>
+                                {% trans "Themes" %}
                             </a>
                         </h5>
                     </div>
                     <div class="panel-collapse">
                         <ul class="list-group unstyled">
 
-                            {% for the in filters.themes %}
-                                <li class="list-group-item list-group-item-action justify-content-between{% if forloop.counter > 5 %} filter-hidden{% endif %}">
-                                    <span class="result-label">{% trans the %}</span>
-                                    <span class="badge badge-default badge-pill">{% keyvalue filters.themes the %}</span>
-                                    <input type="checkbox" class="float-right hidden-xs-up" filter-key="category" filter-value="{{the|lower}}">
+                            {% for theme in filters.themes %}
+                                <li class="list-group-item list-group-item-action px-2 justify-content-between{% if forloop.counter > 5 %} filter-hidden{% endif %}">
+                                    <span class="result-label">{% trans theme %}</span>
+                                    <span class="badge badge-default badge-pill">{% keyvalue filters.themes theme %}</span>
+                                    <input type="checkbox" class="float-right hidden-xs-up" filter-key="category" filter-value="{{theme|lower}}">
                                 </li>
                             {% endfor %}
 
@@ -92,6 +92,43 @@
             </div>
 
             {% endif %}
+
+            {% if filters.tags %}
+
+            <div class="panel-group">
+                <div class="">
+                    <div class="">
+                        <h5 class="">
+                            <a data-toggle="collapse" href="#"><i class="fa fa-tags" aria-hidden="true"></i>
+                                {% trans "Tags" %}
+                            </a>
+                        </h5>
+                    </div>
+                    <div class="panel-collapse">
+                        <ul class="list-group unstyled">
+
+                            {% for tag in filters.tags %}
+                                <li class="list-group-item list-group-item-action px-2 justify-content-between{% if forloop.counter > 5 %} filter-hidden{% endif %}">
+                                    <span class="result-label">{% trans tag %}</span>
+                                    <span class="badge badge-default badge-pill">{% keyvalue filters.tags tag %}</span>
+                                    <input type="checkbox" class="float-right hidden-xs-up" filter-key="tag" filter-value="{{tag|lower}}">
+                                </li>
+                            {% endfor %}
+
+                            {% if filters.themes|length > 5 %}
+                                <li class="expand list-group-item text-right">
+                                    <a class="expand-btn float-right">  {% trans "Show More" %} <i class="fa fa-caret-down"></i> </a>
+                                    <a class="reduce-btn float-right" style="display: none;">  {% trans "Show Less" %} <i class="fa fa-caret-up"></i> </a>
+                                </li>
+                            {% endif %}
+
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            {% endif %}
+
         </div>
 
         <div id="refineType2" class="tab-pane fade-in filters-pane">
@@ -111,7 +148,7 @@
                         <ul class="list-group unstyled">
 
                             {% for loc in filters.locations %}
-                                <li class="list-group-item list-group-item-action justify-content-between{% if forloop.counter > 5 %} filter-hidden{% endif %}">
+                                <li class="list-group-item list-group-item-action px-2 justify-content-between{% if forloop.counter > 5 %} filter-hidden{% endif %}">
                                     <span class="result-label">{{ loc }}</span>
                                     <span class="badge badge-default badge-pill">{% keyvalue filters.locations loc %}</span>
                                     <input type="checkbox" class="float-right hidden-xs-up" filter-key="location" filter-value="{{loc|lower}}">
@@ -147,7 +184,7 @@
                         <ul class="list-group unstyled">
 
                             {% for per in filters.periods %}
-                                <li class="list-group-item list-group-item-action justify-content-between{% if forloop.counter > 5 %} filter-hidden{% endif %}">
+                                <li class="list-group-item list-group-item-action px-2 justify-content-between{% if forloop.counter > 5 %} filter-hidden{% endif %}">
                                     <span class="result-label">{{ per }}</span>
                                     <span class="badge badge-default badge-pill">{% keyvalue filters.periods per %}</span>
                                     <input type="checkbox" class="float-right hidden-xs-up" filter-key="year" filter-value="{{per}}">
@@ -182,7 +219,7 @@
                         <ul class="list-group unstyled">
 
                             {% for for in filters.formats %}
-                                <li class="list-group-item list-group-item-action justify-content-between{% if forloop.counter > 5 %} filter-hidden{% endif %}">
+                                <li class="list-group-item list-group-item-action px-2 justify-content-between{% if forloop.counter > 5 %} filter-hidden{% endif %}">
                                     <span class="label result-label" data-format="{{for|lower}}" title="{{ for }}">{{ for|truncatechars:15 }}</span>
                                     <span class="badge badge-default badge-pill">{% keyvalue filters.formats for %}</span>
                                     <input type="checkbox" class="float-right hidden-xs-up" filter-key="format" filter-value="{{for|lower}}">

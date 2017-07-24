@@ -4,14 +4,7 @@ var CURRENT_LANGUAGE = 'en'
 
 $(document).ready(function(){
 
-    CURRENT_LANGUAGE = $('#currentLanguage').val();
-
-    $('[data-toggle="tooltip"]').tooltip(
-        {html: true}
-    );
-    $('[data-toggle="tab"]').tab();
-
-    if ( $('#ds-merged').size() ){
+    if ( $('#ds-merged').length ){
         var ds_merged = $( "#ds-merged" ).val();
         var response = $.getJSON(ds_merged, function(data) {
                 if ($("#output").size() > 0){
@@ -38,20 +31,10 @@ $(document).ready(function(){
                 }
             });
     }
-    if ( $('.js-zeroclipboard-btn').size() ){
-        var client = new ZeroClipboard( $(".js-zeroclipboard-btn") );
-    }
 
-    $('.lang_dropdown_toggle').on('click', function (event) {
-        // Avoid following the href location when clicking
-        event.preventDefault();
-
-        // Avoid having the menu to close when clicking
-        event.stopPropagation();
-
-        $('.language_popup').toggle();
-
-    });
+//    if ( $('.js-zeroclipboard-btn').size() ){
+//        var client = new ZeroClipboard( $(".js-zeroclipboard-btn") );
+//    }
 
     // Social sharing
     $('#social-sharing').jsSocials({
@@ -64,7 +47,8 @@ $(document).ready(function(){
     $("#social-sharing").jsSocials("shareOption", "googleplus", "logo", "fa fa-google-plus");
 
     // auto-adjust chart area
-    $('#main-chart').on('slid', function() {
+    $('#main-chart').on('slid.bs.carousel', function() {
+        console.log('slide')
         $(window).trigger('resize');
         return false
     });
@@ -73,7 +57,7 @@ $(document).ready(function(){
 
 $(function () {
 
-    if($( "#ds-rc-slider" ).size()){
+    if($( "#ds-rc-slider" ).length){
         var ds_id = $( "#ds-id" ).val();
         var ds_url = $( "#ds-url" ).val();
         var api_url = $( "#ds-api-url" ).val();
@@ -88,28 +72,28 @@ $(function () {
                  $("#ds-rc-output").html("<ul class='dataset-files'>"+ html +"</ul>")
              });
         }
-        var ds_slider = $( "#ds-rc-slider" ).slider({
-                   max: 10,
-                   value: 1,
-                   min:1,
-                   slide: function( event, ui ) {
-                     fetch_data(ui.value)
-                   }   
-        });
+//        var ds_slider = $( "#ds-rc-slider" ).slider({
+//                   max: 10,
+//                   value: 1,
+//                   min:1,
+//                   slide: function( event, ui ) {
+//                     fetch_data(ui.value)
+//                   }
+//        });
         fetch_data(1);
     }
 
     //type ahead
-    $('.main-search').typeahead({
-        source: function (query, process) {
-            return $.get('/api/typeahead', { query: query }, function (data) {
-                return process(data.options);
-            });
-        },
-        item: '<li class="span5"><a href="#"></a></li>'
-    });
+//    $('.main-search').typeahead({
+//        source: function (query, process) {
+//            return $.get('/api/typeahead', { query: query }, function (data) {
+//                return process(data.options);
+//            });
+//        },
+//        item: '<li class="span5"><a href="#"></a></li>'
+//    });
 
-    
+
     //SQL editor
     if($("#adv-query-editor").length > 0){
         var editor = ace.edit("adv-query-editor");
@@ -121,7 +105,7 @@ $(function () {
             sql = sql.replace(new RegExp("_", 'g'), '"');
             editor.setValue(sql, 1)
         });
-        
+
         $("#adv-exe-query").click(function(e){
             sql_api = $("#query-api").val() + "?sql=" + encodeURIComponent(editor.getValue());
             $("#adv-query-output").html("");
@@ -161,7 +145,7 @@ $(function () {
     if($("#query-editor").length > 0){
 
         url = $( "#api-link" ).val();
-        
+
         $.get(url, function(data){
             resource_id = data.result.resource_id;
             var to_be_removed = 0;
@@ -298,9 +282,9 @@ $(function () {
 
     // Results filters
     $('.expand-btn').click(function () {
-        $(this).parent().parent().children('.filter-hidden').fadeIn('slow')
+        $(this).parent().parent().children('.filter-hidden').fadeIn('slow').css("display","inline-flex")
         $(this).hide()
-        $(this).siblings('.reduce-btn').fadeIn('slow')
+        $(this).siblings('.reduce-btn').fadeIn('slow').css("display","inline-flex")
     });
 
     $('.reduce-btn').click(function () {
@@ -388,7 +372,14 @@ $(function () {
 
 
     // Results filtering
+
+    $('#results-filter .list-group-item-action').click(function () {
+        $(this).children('input').click();
+    });
+
     $('input:checkbox').click(function () {
+
+        $(this).parent().toggleClass('list-group-item-info')
 
         if ( $("#results-filter input:checked").length == 0){
             $("ul.dataset-list li.dataset-item").show();

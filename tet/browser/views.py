@@ -404,6 +404,7 @@ def search(request, query=False):
         pattern = re.compile(query, re.IGNORECASE)
 
         themes = {}
+        tags = {}
         periods = {}
         locations = {}
         formats = {}
@@ -431,6 +432,15 @@ def search(request, query=False):
                         themes[category] = 1
                     else:
                         themes[category] += 1
+
+            dataset["tag_key"] = ""
+            for tag in dataset["tags"]:
+                if tag["name"].lower() not in tags.keys():
+                    tags[tag["name"].lower()] = 1
+                else:
+                    tags[tag["name"].lower()] += 1
+
+                dataset["tag_key"] += " " + tag["name"].lower()
 
             dataset["year_key"] = ""
             for year in range(1900, 2020):
@@ -480,9 +490,8 @@ def search(request, query=False):
         if "" in formats.keys():
             del formats[""]
 
-
-
         filters["themes"] = collections.OrderedDict(reversed(sorted(themes.items(), key=lambda x: int(x[1]))))
+        filters["tags"] = collections.OrderedDict(reversed(sorted(tags.items(), key=lambda x: int(x[1]))))
         filters["locations"] = collections.OrderedDict(reversed(sorted(locations.items(), key=lambda x: int(x[1]))))
         filters["periods"] = collections.OrderedDict(sorted(periods.items(), reverse=True))
         filters["formats"] = collections.OrderedDict(reversed(sorted(formats.items(), key=lambda x: int(x[1]))))
