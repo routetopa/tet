@@ -508,7 +508,7 @@
 
                                     <ul class="dataset-files list-unstyled">
                                     {% for resource in dataset.resources %}
-                                        <li> <span class="label" data-format="{{resource.format|lower}}">{{ resource.format }}</span> <a href="{{resource.url}}"> <i class="fa fa-external-link" aria-hidden="true"></i> {{resource.name}}</a></li>
+                                        <li> <span class="label" data-format="{{resource.format|lower}}">{% if resource.format %} {{ resource.format }} {% else %} URL {% endif %}</span> <a href="{{resource.url}}"> <i class="fa fa-external-link" aria-hidden="true"></i> {{resource.name}}</a></li>
                                     {% endfor %}
                                     </ul>
 
