@@ -32,7 +32,6 @@
 .progress-bar-good { background: #99FF00 !important; color: #111 !important; }
 .progress-bar-very-good { background: #00FF00 !important; color: #111 !important; }
 
-
 body, html {
     font-family: 'Roboto', sans-serif;
     color: #212121;
@@ -46,6 +45,7 @@ a {
     outline: none;
     color: #1976D2;
 }
+
 a:focus {
     text-decoration: none;
     outline: none;
@@ -94,12 +94,40 @@ h6 {
     margin: 0.5rem 0 0.4rem 0;
 }
 
+h1 small {
+  /* font-size: 24.5px; */
+}
+
+h2 small {
+  /* font-size: 17.5px; */
+}
+
+h3 small {
+  /* font-size: 14px; */
+}
+
+h4 small {
+    font-size: 1.14rem;
+}
+
+h1 small,
+h2 small,
+h3 small,
+h4 small,
+h5 small,
+h6 small {
+  font-weight: normal;
+  line-height: 1;
+  color: #B6B6B6;
+}
+
 #wrap {
     min-height: 100%;
     height: auto !important;
     height: 100%;
     margin: 0 auto -90px;
     padding-top: 144px;
+    padding-bottom: 36px;
 }
 
 #push {
@@ -215,7 +243,7 @@ h6 {
 }
 
 .dataset-service .fa {
-    font-size: 18px;
+    font-size: 1.6em;
 }
 
 .dataset-service .disabled .fa {
@@ -246,9 +274,35 @@ li.dataset-resource .label:hover {
     width: 100%;
     display: block;
     padding: 0.5rem 0.75rem;
+    margin: 0;
 }
+
 .dataset-details h5 a {
     color: #fff;
+}
+
+.panel-dataset {
+    margin-top: 30px;
+    border: 1px solid #1976D2 !important;
+    -webkit-box-shadow: 0px 0px 20px 2px rgba(33,150,243,0.5) !important;
+    -moz-box-shadow: 0px 0px 20px 2px rgba(33,150,243,0.5) !important;
+    box-shadow: 0px 0px 20px 2px rgba(33,150,243,0.5) !important;
+}
+
+.panel-dataset .panel-body {
+    padding: 1.14rem;
+}
+
+.dataset-files {
+    margin-bottom: 0;
+}
+
+.dataset-files li {
+    margin: 0.5rem 0 !important;
+}
+
+.dataset-files li .label {
+    margin-right: 0.5rem;
 }
 
 /*
