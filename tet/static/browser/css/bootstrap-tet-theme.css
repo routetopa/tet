@@ -226,6 +226,31 @@ h6 {
   cursor: default;
 }
 
+li.dataset-resource .label {
+    margin-right: 10px !important;
+    opacity: 0.5;
+    filter: alpha(opacity=50); /* For IE8 and earlier */
+}
+li.dataset-resource .label:hover {
+    color: #fff;
+    opacity: 0.8;
+    filter: alpha(opacity=80); /* For IE8 and earlier */
+}
+
+/*
+ *  Dataset Details
+ */
+.dataset-details h5 {
+    color: #fff;
+    background: #1976D2;
+    width: 100%;
+    display: block;
+    padding: 0.5rem 0.75rem;
+}
+.dataset-details h5 a {
+    color: #fff;
+}
+
 /*
  *  Helpers
  */
