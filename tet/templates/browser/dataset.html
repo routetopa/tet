@@ -1,4 +1,4 @@
-{% extends "base.html" %}
+{% extends "base4.html" %}
 {% load i18n %}
 {% load progress_class %}
 {% get_current_language as LANGUAGE_CODE %}
@@ -6,26 +6,11 @@
 
 {% block content %}
 
-                <div class="container">
-
-                    <div class="row search-ui">
-
-                        <div class="span8 offset3 text-left">
-
-                            <div class="row">
-
-                                {% include "browser/_search.html" with query=query %}
-
-                            </div>
-
-                        </div>
-
-                    </div>
-
-                </div>
-
                 <div class="">
-                    <h4 class="dataset-title"> {{ dataset.title }} </h4>
+                    <h4 class="dataset-title"> {{ dataset.title }} <small>{% trans "Summary View" %}</small> </h4>
+                    <p class="text-justify">
+                        {{ dataset.notes }}
+                    </p>
                 </div>
 
                 {% if resource_id or dataset.has_pdf %}
@@ -33,22 +18,23 @@
                     <link rel="import" href="http://deep.routetopa.eu/deep_1_9_rev/COMPONENTS/datalets/columnchart-datalet/columnchart-datalet.html" />
                     <link rel="import" href="http://deep.routetopa.eu/deep_1_9_rev/COMPONENTS/datalets/datatable-datalet/datatable-datalet.html" /> 
                     <link rel="import" href="http://deep.routetopa.eu/deep_1_9_rev/COMPONENTS/datalets/barchart-datalet/barchart-datalet.html" /> 
-                    <div class="span12 -span10 -offset1">
-                       
-                        <div class="carousel carousel-fade slide" id="main-chart">
-                            <div class="carousel-inner">
+
+                    <div class="col-12">
+
+                        <div class="carousel slide" id="main-chart">
+                            <div class="carousel-inner row" role="listbox">
                                 {% for resource in resource_fields %}
-                                    <div class="item{% if forloop.counter == 1 %} active{% endif %}">
+                                    <div class="carousel-item{% if forloop.counter == 1 %} active{% endif %} col-12 justify-content-center">
 
                                     {% if resource.1 %}
-                                      <columnchart-datalet data-url='{{freq_resource_id}}/{{resource.0}}' selectedfields='[{"field":"XAxis","value":"Range","index":3},{"field":"NumericYAxis","value":"Frequency","index":1},null,null]' filters='[]' aggregators='[]' orders='[]' x-axis-label='{% trans "Range of values in the field" %} "{{resource.0}}"' y-axis-label='{% trans "Frequency" %}' suffix='' legend='topRight' data-labels='true' stack='false' theme='themeBase' fields='["Frequency","Name","Range"]'></columnchart-datalet>
+                                        <columnchart-datalet data-url='{{freq_resource_id}}/{{resource.0}}' selectedfields='[{"field":"XAxis","value":"Range","index":3},{"field":"NumericYAxis","value":"Frequency","index":1},null,null]' filters='[]' aggregators='[]' orders='[]' x-axis-label='{% trans "Range of values in the field" %} "{{resource.0}}"' y-axis-label='{% trans "Frequency" %}' suffix='' legend='topRight' data-labels='true' stack='false' theme='themeBase' fields='["Frequency","Name","Range"]'></columnchart-datalet>
                                     {% else %}
                                         <columnchart-datalet data-url='{{freq_resource_id}}/{{resource.0}}' selectedfields='[{"field":"XAxis","value":"Value","index":3},{"field":"NumericYAxis","value":"Count","index":1},null,null]' filters='[]' aggregators='[]' orders='[]' x-axis-label='{% trans "Values in" %} {% trans "field" %} "{{resource.0}}"' y-axis-label='{% trans "Number of occurrences" %}' suffix='' legend='topRight' data-labels='true' stack='false' theme='themeBase' fields='["Count","Name","Value"]'></columnchart-datalet>
                                     {% endif %}
-                                    </div><!-- /Slide1 -->
+                                    </div><!-- /Slide -->
                                 {% endfor %}
                                 {% if dataset.has_pdf %}
-                                    <div class="item {% if not resource_id  %} active {% endif %}">
+                                    <div class="carousel-item{% if not resource_id  %} active {% endif %}">
                                         <barchart-datalet data-url='/en/api/text/{{dataset.id}}/concepts' selectedfields='[{"field":"XAxis","value":"Name","index":1},{"field":"NumericYAxis","value":"Relevance","index":1},null]' title="{% trans "Concepts related to the document" %}" filters='[]' aggregators='[]' orders='[]' x-axis-label='' y-axis-label='' suffix='' legend='topRight' data-labels='true' stack='false' theme='themeBase' fields='["Name","Relevance"]'></barchart-datalet>
                                     </div>
                                     <div class="item">
@@ -64,10 +50,14 @@
 
                             </div>
 
-                            <div class="control-box">
-                                <a data-slide="prev" href="#main-chart" class="carousel-control left">‹</a>
-                                <a data-slide="next" href="#main-chart" class="carousel-control right">›</a>
-                            </div>
+                            <a class="carousel-control-prev" href="#main-chart" role="button" data-slide="prev">
+                                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                <span class="sr-only"> <i class="fa fa-angle-left" aria-hidden="true"></i> </span>
+                            </a>
+                            <a class="carousel-control-next" href="#main-chart" role="button" data-slide="next">
+                                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                <span class="sr-only"> <i class="fa fa-angle-right" aria-hidden="true"></i> </span>
+                            </a>
                         </div>
 
                     </div>
@@ -123,7 +113,7 @@
 
                     <div class="row">
 
-                        <div class="span6">
+                        <div class="col-md-6 col-sm-12">
 
                             <div class="panel panel-dataset">
 
@@ -167,7 +157,7 @@
                                     </h5>
                                 </div>
 
-                                <div class="panel-body dataset-description dataset-quality top30 span5">
+                                <div class="panel-body dataset-description dataset-quality">
                                     <table class="table table-hover">
                                         <tr>
                                             <th width="35%" class="">{% trans "Indicator" %}</th>
@@ -354,9 +344,12 @@
                                 <div class="panel-body dataset-tags">
 
                                     {% for tag in dataset.tags %}
-                                        <span class="label" >{{ tag.display_name }}</span>
+                                        <a href="/search/?tags={{ tag.name }}" title="{{ tag.display_name|title }}" class="py-2 mx-2 float-left">
+                                            <span class="label px-2 py-2">{{ tag.display_name }}</span>
+                                        </a>
                                     {% endfor %}
 
+                                    <div class="clearfix"></div>
                                 </div>
 
                             </div>
@@ -373,7 +366,7 @@
                                     </h5>
                                 </div>
 
-                                <div class="panel-body top30 span5">
+                                <div class="panel-body">
                                     <table class="table table-hover">
                                           <tr>
                                             <th>{% trans "Field name" %}</th>
@@ -399,44 +392,7 @@
 
 
 
-                        <div class="span6">
-<!--
-                            <div>
-                                <h5>
-                                    <i class="fa fa-eye" aria-hidden="true"></i> {% trans "Available views" %}
-                                </h5>
-
-                                <div>
-                                    <ul class="dataset-services dataset-services-details unstyled">
-                                        <li class="dataset-service">
-                                            {% if dataset.has_table %}
-                                            <a href="{% url 'dataset_as_table' dataset.id %}"><i class="fa fa-table" aria-hidden="true" data-toggle="tooltip" data-placement="bottom" title="{% trans "View as table" %}"></i></a>
-                                            {% else %}
-                                            <a href="#" class="disabled"><i class="fa fa-table" aria-hidden="true" data-toggle="tooltip" data-placement="bottom" title="{% trans "View as table - not available" %}"></i></a>
-                                            {% endif %}
-                                        </li>
-                                        <li class="dataset-service">
-                                            {% if dataset.has_apps %}
-                                            <a href="{% url 'dataset_as_app' dataset.id %}" class="disabled"><i class="fa fa-tablet" aria-hidden="true" data-toggle="tooltip" data-placement="bottom" title="{% trans "View as app" %}"></i></a>
-                                            {% else %}
-                                            <a href="#" class="disabled"><i class="fa fa-tablet" aria-hidden="true" data-toggle="tooltip" data-placement="bottom" title="{% trans "View as app - not available" %}"></i></a>
-                                            {% endif %}
-                                        </li>
-                                        <li class="dataset-service">
-                                            {% if dataset.has_pdf %}
-                                            <a href="{% url 'dataset_as_pdf' dataset.id %}"><i class="fa fa-file-pdf-o" aria-hidden="true" data-toggle="tooltip" data-placement="bottom" title="{% trans "View as PDF" %}"></i></a>
-                                            {% else %}
-                                            <a href="#" class="disabled"><i class="fa fa-file-pdf-o" aria-hidden="true" data-toggle="tooltip" data-placement="bottom" title="{% trans "View as PDF" %}"></i></a>
-                                            {% endif %}
-                                        </li>
-                                    </ul>
-
-                                    <span class="clearfix"></span>
-
-                                </div>
-
-                            </div>
--->
+                        <div class="col-md-6 col-sm-12">
 
 
                             <div class="panel panel-dataset">
@@ -550,7 +506,7 @@
 
                                 <div class="panel-body">
 
-                                    <ul class="dataset-files unstyled">
+                                    <ul class="dataset-files list-unstyled">
                                     {% for resource in dataset.resources %}
                                         <li> <span class="label" data-format="{{resource.format|lower}}">{{ resource.format }}</span> <a href="{{resource.url}}"> <i class="fa fa-external-link" aria-hidden="true"></i> {{resource.name}}</a></li>
                                     {% endfor %}
