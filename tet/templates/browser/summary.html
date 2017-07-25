@@ -1,4 +1,4 @@
-{% extends "base.html" %}
+{% extends "base4.html" %}
 
 {% load i18n %}
 
@@ -6,31 +6,13 @@
 
 {% block content %}
 
-                <div class="container">
-
-                    <div class="row search-ui">
-
-                        <div class="span8 offset3 text-left">
-
-                            <div class="row">
-
-                                {% include "browser/_search.html" with query=query %}
-
-                            </div>
-
-                        </div>
-
-                    </div>
-
-                </div>
-
                 <div class="">
-                    <h4 class="dataset-title"> {% trans "Summary" %}: {{ dataset.title }} </h4>
+                    <h4 class="dataset-title"> {{ dataset.title }} <small>{% trans "Summary" %}</small></h4>
                 </div>
 
                 <div class="row dataset-details">
 
-                    <div class="span6">
+                    <div class="col-sm-12 col-md-6">
 
                         <div class="panel panel-dataset">
 
@@ -44,10 +26,10 @@
 
                             <div class="panel-body">
                                 <div>
-                                    <img src="/api/graph/{{resource_id}}" />
+                                    <img src="/api/graph/{{resource_id}}" class="img-fluid"/>
                                 </div>
 
-                                <p class="top30 text-right">
+                                <p class="mt-3 text-right">
                                     <a class="" href="https://en.wikipedia.org/wiki/Box_plot" target="_blank">{% trans "How can I understand this?" %}</a>
                                 </p>
 
@@ -65,14 +47,15 @@
                             </div>
                             <div class="panel-body dataset-description">
                                 <p class="text-justify">
-                                    <ul class="unstyled">
+                                    <ul class="list-unstyled">
                                         {% for key, value in fields_description.items %}
                                             <li class="top25">
                                                 <legend><h6><small>{{ key }}</small></h6></legend>
+                                                <hr>
                                                 {% trans "The average value in field" %} <i>{{key}}</i>
                                                 {% trans "is" %} <strong>{{value.mean}}</strong>.
                                                 {% trans "The maximum value in the field is" %} <strong>{{value.max}}</strong>
-                                                {% trans "and the minmum value in the field is" %} <strong>{{value.min}}</strong>
+                                                {% trans "and the minimum value in the field is" %} <strong>{{value.min}}</strong>
                                             </li>
                                         {% endfor %}
                                     </ul>
@@ -122,9 +105,7 @@
                     </div>
 
 
-                    <div class="span6">
-
-
+                    <div class="col-sm-12 col-md-6">
 
                         <div class="panel panel-dataset">
 
@@ -138,9 +119,9 @@
 
                             <div class="panel-body">
                                 <div>
-                                    <img src="/api/graph/{{resource_id}}/corr" />
+                                    <img src="/api/graph/{{resource_id}}/corr" class="img-fluid" />
                                 </div>
-                                <p class="top30 text-right">
+                                <p class="mt-3 text-right">
                                     <a class="" href="https://en.wikipedia.org/wiki/Correlation_and_dependence" target="_blank">{% trans "How can I understand this?" %}</a>
                                 </p>
                             </div>
