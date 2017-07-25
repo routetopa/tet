@@ -37,7 +37,7 @@
 
                             {% for the in filters.themes %}
                                 <li class="list-group-item list-group-item-action px-2 justify-content-between{% if forloop.counter > 5 %} filter-hidden{% endif %}">
-                                    <span class="result-label">{% trans the %}</span>
+                                    <span class="result-label col-10 pl-0">{% trans the %}</span>
                                     <span class="badge badge-default badge-pill">{% keyvalue filters.themes the %}</span>
                                     <input type="checkbox" class="float-right hidden-xs-up" filter-key="category" filter-value="{{the|lower}}">
                                 </li>
@@ -73,7 +73,7 @@
 
                             {% for theme in filters.themes %}
                                 <li class="list-group-item list-group-item-action px-2 justify-content-between{% if forloop.counter > 5 %} filter-hidden{% endif %}">
-                                    <span class="result-label">{% trans theme %}</span>
+                                    <span class="result-label col-10 pl-0">{% trans theme %}</span>
                                     <span class="badge badge-default badge-pill">{% keyvalue filters.themes theme %}</span>
                                     <input type="checkbox" class="float-right hidden-xs-up" filter-key="category" filter-value="{{theme|lower}}">
                                 </li>
@@ -109,7 +109,7 @@
 
                             {% for tag in filters.tags %}
                                 <li class="list-group-item list-group-item-action px-2 justify-content-between{% if forloop.counter > 5 %} filter-hidden{% endif %}">
-                                    <span class="result-label">{% trans tag %}</span>
+                                    <span class="result-label col-10 pl-0">{% trans tag %}</span>
                                     <span class="badge badge-default badge-pill">{% keyvalue filters.tags tag %}</span>
                                     <input type="checkbox" class="float-right hidden-xs-up" filter-key="tag" filter-value="{{tag|lower}}">
                                 </li>
@@ -149,7 +149,7 @@
 
                             {% for loc in filters.locations %}
                                 <li class="list-group-item list-group-item-action px-2 justify-content-between{% if forloop.counter > 5 %} filter-hidden{% endif %}">
-                                    <span class="result-label">{{ loc }}</span>
+                                    <span class="result-label col-10 pl-0">{{ loc }}</span>
                                     <span class="badge badge-default badge-pill">{% keyvalue filters.locations loc %}</span>
                                     <input type="checkbox" class="float-right hidden-xs-up" filter-key="location" filter-value="{{loc|lower}}">
                                 </li>
@@ -185,7 +185,7 @@
 
                             {% for per in filters.periods %}
                                 <li class="list-group-item list-group-item-action px-2 justify-content-between{% if forloop.counter > 5 %} filter-hidden{% endif %}">
-                                    <span class="result-label">{{ per }}</span>
+                                    <span class="result-label col-10 pl-0">{{ per }}</span>
                                     <span class="badge badge-default badge-pill">{% keyvalue filters.periods per %}</span>
                                     <input type="checkbox" class="float-right hidden-xs-up" filter-key="year" filter-value="{{per}}">
                                 </li>

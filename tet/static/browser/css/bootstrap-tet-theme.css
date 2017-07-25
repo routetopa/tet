@@ -194,6 +194,12 @@ h6 small {
 /*
  *  Homepage
  */
+
+#homepage-search input {
+    /* font-size: 1.2rem; */
+    padding: 1rem 1rem!important;
+}
+
 @media (min-width: 576px){
     #homepage-search {
         padding: 2rem 4rem;
