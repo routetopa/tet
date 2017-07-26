@@ -1,4 +1,4 @@
-{% extends "base.html" %}
+{% extends "base4.html" %}
 
 {% load staticfiles %}
 {% load i18n %}
@@ -17,44 +17,35 @@
 
 {% block content %}
 
-                <div class="container">
-
-                    <div class="row search-ui">
-
-                        <div class="span8 offset3 text-left">
-
-                            <div class="row">
-
-                                {% include "browser/_search.html" with query=query %}
-
-                            </div>
-
-                        </div>
-
-                    </div>
-
-                </div>
-
                 <div class="row">
 
                     <h4 class="dataset-title"> {{ dataset.title }} <small>{% trans "Tabular View" %}</small></h4>
-                    <h5 class="dataset-title">  </h5>
 
                 </div>
                 
                 <div class="row">
-                    <div>
+                    <div class="col-12">
 
-                        <ul class="nav nav-tabs" role="tablist">
-                            <li role="presentation" class="active"><a href="#explorer" aria-controls="explorer" role="tab" data-toggle="tab">{% trans "Data Explorer" %}</a></li>
-                            <li role="presentation"><a href="#pivottable" aria-controls="pivottable" role="tab" data-toggle="tab">{% trans "PivotTable" %}</a></li>
-                             <li role="presentation"><a href="#simplequery" aria-controls="simplequery" role="tab" data-toggle="tab">{% trans "Query" %}</a></li>
-                             <li role="presentation"><a href="#sqlquery" aria-controls="sqlquery" role="tab" data-toggle="tab">{% trans "SQL Query" %}</a></li>
-                             <li role="presentation"><a href="#anomaly-detect" aria-controls="anomaly-detect" role="tab" data-toggle="tab">{% trans "Anomaly Detection" %}</a></li>
-                            <!--<li role="presentation"><a href="#discuss" aria-controls="discuss" role="tab" data-toggle="tab">{% trans "SPOD Discussion" %}</a></li>-->
+                        <ul class="nav nav-tabs mb-3">
+                            <li role="presentation" class="nav-item">
+                                <a class="nav-link active" href="#explorer" aria-controls="explorer" role="tab" data-toggle="tab">{% trans "Data Explorer" %}</a>
+                            </li>
+                            <li role="presentation" class="nav-item">
+                                <a class="nav-link" href="#pivottable" aria-controls="pivottable" role="tab" data-toggle="tab">{% trans "PivotTable" %}</a>
+                            </li>
+                            <li role="presentation" class="nav-item">
+                                <a class="nav-link" href="#simplequery" aria-controls="simplequery" role="tab" data-toggle="tab">{% trans "Query" %}</a>
+                            </li>
+                            <li role="presentation" class="nav-item">
+                                <a class="nav-link" href="#sqlquery" aria-controls="sqlquery" role="tab" data-toggle="tab">{% trans "SQL Query" %}</a>
+                            </li>
+                            <li role="presentation" class="nav-item">
+                                <a class="nav-link" class="nav-link" href="#anomaly-detect" aria-controls="anomaly-detect" role="tab" data-toggle="tab">{% trans "Anomaly Detection" %}</a>
+                            </li>
+                            <!--<li role="presentation" class="nav-item"><a href="#discuss" aria-controls="discuss" role="tab" data-toggle="tab">{% trans "SPOD Discussion" %}</a></li>-->
                         </ul>
 
-                        <div class="tab-content">
+                        <div class="tab-content my-2">
 
                             <div role="tabpanel" class="tab-pane active" id="explorer">
                                 <iframe width="100%" height="350" src="{{url_table}}" frameBorder="0"></iframe>
@@ -366,17 +357,13 @@
 
                     </div>
                 </div>
+                </div>
 
+                <div class="row">
 
-                <div class="row top30">
+                    <div class="col-12">
 
-                    <div class="span8">
-                        {% include "browser/_dataset_api_box.html" with API_LINK=API_LINK %}
-                    </div>
-
-                    <div class="span4 top30">
-
-                        <ul class="dataset-services-as-divider">
+                        <ul class="list-unstyled dataset-services-as-divider">
                             <li class="dataset-service">{% trans "View as: " %} </li>
                             <li class="dataset-service">
                                 <a href="{% url 'dataset' dataset.id %}"><i class="fa fa-3x fa-bar-chart" aria-hidden="true" data-toggle="tooltip" data-placement="bottom" title="{% trans "View as chart" %}"></i></a>
@@ -406,11 +393,9 @@
 
                 </div>
 
+                <div class="row dataset-details">
 
-                <div class="row">
-
-                    <div class="span6">
-
+                    <div class="col-md-6 col-sm-12">
 
                         <div class="panel panel-dataset">
 
@@ -447,12 +432,11 @@
                     </div>
 
 
-                    <div class="span6">
+                    <div class="col-md-6 col-sm-12">
 
                         <div class="panel panel-dataset">
 
                             <div class="panel-heading">
-
                                 <h5>
                                     <i class="fa fa-comments-o" aria-hidden="true"></i> {% trans "Discussions at SPOD" %}
                                 </h5>
@@ -480,11 +464,67 @@
 
                         </div>
 
+
+                        <div class="panel panel-dataset">
+
+                            <div class="panel-heading">
+                                <h5>
+                                    <i class="fa fa-comments-o" aria-hidden="true"></i> {% trans "API Link" %}
+                                </h5>
+                            </div>
+
+                            <div class="panel-body">
+
+                                <p>
+                                    Access resource data via a web API with powerful query support.
+                                    Further information in the <a href="http://docs.ckan.org/en/latest/maintaining/datastore.html" target="_blank">main CKAN Data API and DataStore documentation</a>.
+                                </p>
+
+
+
+                                <div class="btn-group btn-block" role="group" aria-label="Basic example">
+
+                                    <div class="container">
+                                        <div class="row">
+                                            <!-- Target -->
+                                            <input type="text" id="api-link-url" class="col-10 p-2" value="{{API_LINK}}" aria-label="{{API_LINK}}" readonly="">
+
+                                            <!-- Trigger -->
+                                            <button id="copy-btn" class="btn btn-primary col-2" data-clipboard-target="#api-link-url" aria-label="Copy to clipboard" data-toggle="tooltip" data-placement="bottom" title="" >
+                                                <i class="fa fa-clipboard" aria-hidden="true"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+
+                                    <script>
+                                        var clipboard = new Clipboard('#copy-btn');
+
+                                        clipboard.on('success', function(e) {
+
+                                            $(e.trigger).tooltip('enable');
+
+                                            $(e.trigger).tooltip('hide')
+                                              .attr('data-original-title', 'Copied!')
+                                              .tooltip('show').delay( 800 ).tooltip('disable');
+
+                                            e.clearSelection();
+
+                                        });
+
+                                        clipboard.on('error', function(e) {
+                                            console.log(e);
+                                        });
+
+                                    </script>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
                     </div>
 
                 </div>
-
-
-            </div>
 
 {% endblock content %}
