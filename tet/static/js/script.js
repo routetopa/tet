@@ -32,10 +32,6 @@ $(document).ready(function(){
             });
     }
 
-//    if ( $('.js-zeroclipboard-btn').size() ){
-//        var client = new ZeroClipboard( $(".js-zeroclipboard-btn") );
-//    }
-
     // Social sharing
     $('#social-sharing').jsSocials({
         showLabel: false,
@@ -84,14 +80,15 @@ $(function () {
     }
 
     //type ahead
-//    $('.main-search').typeahead({
-//        source: function (query, process) {
-//            return $.get('/api/typeahead', { query: query }, function (data) {
-//                return process(data.options);
-//            });
-//        },
-//        item: '<li class="span5"><a href="#"></a></li>'
-//    });
+    $('.main-search').typeahead({
+        source: function (query, process) {
+            return $.get('/api/typeahead', { query: query }, function (data) {
+                return process(data.options);
+            });
+        },
+        item: '<li class="col-12 p-2"><a href="#" class=""></a></li>',
+        menu: '<ul class="typeahead dropdown-menu col-12"></ul>'
+    });
 
 
     //SQL editor
@@ -99,7 +96,7 @@ $(function () {
         var editor = ace.edit("adv-query-editor");
         editor.getSession().setMode("ace/mode/sql");
 
-        $('a[href=#sqlquery]').click(function (e) {
+        $('a[href="#sqlquery"]').click(function (e) {
             var sql = $('#query-editor').queryBuilder('getSQL').sql;
             sql = 'SELECT  * from  ' + '"' + resource_id + '" WHERE ' +sql;
             sql = sql.replace(new RegExp("_", 'g'), '"');
