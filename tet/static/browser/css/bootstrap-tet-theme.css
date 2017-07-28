@@ -372,3 +372,15 @@ li.dataset-resource .label:hover {
 .label[data-format*=turtle] {
     background-color: #21f3e7;
 }
+
+/*
+ * Datalets
+ */
+base-ajax-json-alasql-datalet {
+    display: none;
+}
+columnchart-datalet, barchart-datalet, datatable-datalet {
+    width: 100%;
+    display: block;
+}
+
