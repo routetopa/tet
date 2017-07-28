@@ -39,6 +39,7 @@ body, html {
     line-height: 1.6em;
     height: 100%;
     background: #fff;
+    word-wrap: break-word;
 }
 
 a {
