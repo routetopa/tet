@@ -66,7 +66,7 @@
                                 </p>
 
                                 <div class="row">
-                                    <div id="pivot-table-output" class="span12 top20">
+                                    <div id="pivot-table-output" class="col-12 top20">
                                         <div class="left"><i class="fa fa-spinner fa-spin"></i> {% trans "Loading" %}...</div>
                                     </div>
                                 </div>
@@ -114,15 +114,24 @@
                             </div>
 
                             <div role="tabpanel" class="tab-pane" id="simplequery">
-                               <div id="query-editor"></div>
-                               <form class="simplequeryNavbar navbar-form">
-                                   <input id="query-api" type="hidden" value="{{ QUERY_API }}"/>
 
-                                   <button id="trigger" type="button" class="btn rtpa-btn pull-right"><i class="fa fa-bell-o" aria-hidden="true"></i> {% trans 'Alert' %}</button>
-                                   <button id="download" type="button" class="btn rtpa-btn pull-right"><i class="fa fa-download" aria-hidden="true"></i> {% trans 'Download' %}</button>
-                                   <button id="exe-query" type="button" class="btn rtpa-btn pull-right"><i class="fa fa-play" aria-hidden="true"></i> {% trans 'Run' %}</button>
+                                <div class="col-md-12 col-lg-10 col-lg-offset-1">
+                                    <div id="query-editor" class=""></div>
+                                </div>
+
+                                <form class="simplequeryNavbar navbar-form my-3">
+                                    <input id="query-api" type="hidden" value="{{ QUERY_API }}"/>
+
+                                    <button id="trigger" type="button" class="btn btn-outline-primary mr-2 pull-right"><i class="fa fa-bell-o" aria-hidden="true"></i> {% trans 'Alert' %}</button>
+                                    <button id="download" type="button" class="btn btn-outline-primary mr-2 pull-right"><i class="fa fa-download" aria-hidden="true"></i> {% trans 'Download' %}</button>
+                                    <button id="exe-query" type="button" class="btn btn-outline-primary mr-2 pull-right"><i class="fa fa-play" aria-hidden="true"></i> {% trans 'Run' %}</button>
+
+                                    <span class="clearfix"></span>
                                 </form>
-                                <div id="trigger-form" style="display: none;">
+
+
+                                <div id="trigger-form" class="my-3" style="display: none;">
+
                                     <form id="trigger-create-form">
                                       <fieldset>
                                         <legend>{% trans 'Create Trigger' %}</legend>
@@ -133,9 +142,11 @@
                                         <button id="trigger-create" class="btn">{% trans 'Create' %}</button>
                                       </fieldset>
                                     </form>
+
                                     <div id="trigger-output"></div>
                                 </div>
-                                <div>
+
+                                <div class="my-3">
                                     <div id="query-output"></div>
                                 </div>
                             </div>
@@ -154,7 +165,7 @@
 
                                 <h4>{% trans "Anomaly detection" %}</h4>
 
-                                <p class="top20 text-justify">
+                                <p class="top20 ">
                                     {% trans "Anomaly detection web service implemented for ROUTE-TO-PA project is based on the Local Outlier Factor Algorithm (LOF)." %}
                                     {% trans "LOF algorithm is unsupervised nearest neighborhood  based anomaly detection algorithm widely used for multivariate anomaly detection." %}
                                     {% trans "The LOF score is thus basically a ratio of local densities. The normal instances, which densities are as big as the densities of their neighbors, get a score of about 1.0. Anomalies, which have a low local density, will result in larger scores." %}
@@ -407,7 +418,7 @@
                             </div>
 
                             <div class="panel-body dataset-description">
-                                <p class="text-justify">
+                                <p class="">
                                     {{ dataset.notes }}
                                 </p>
                             </div>
