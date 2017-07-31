@@ -312,6 +312,32 @@ li.dataset-resource .label:hover {
     margin-right: 0.5rem;
 }
 
+/* Anomaly detection */
+
+.anomalyDetectionResults {
+   display: none;
+}
+
+.anomalyChartsControls {
+   display: none;
+}
+
+.noAnomalyDetected {
+   display: none;
+}
+
+.anomalyConfigurationAlert {
+   display: none;
+}
+
+#recalculateAnomaly {
+   display: none;
+}
+
+.table-anomalies {
+    font-size: 80%;
+}
+
 /*
  *  Helpers
  */

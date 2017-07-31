@@ -183,7 +183,7 @@
                                 </p>
 
                                 <p class="my-2">
-                                    <button id="detectAnomaly" onclick="detectAnomaly()" name="" class="span2 btn main-search-btn rtpa-btn"> <i class="fa fa-bug" aria-hidden="true"></i> {% trans "Detect Anomaly" %} </button>
+                                    <button id="detectAnomaly" onclick="detectAnomaly()" name="" class="span2 btn btn-primary float-right"> <i class="fa fa-bug" aria-hidden="true"></i> {% trans "Detect Anomaly" %} </button>
                                 </p>
 
                                 <input id="api-link" type="hidden" value="{{API_LINK}}" />
@@ -192,95 +192,79 @@
 
                                 <div class='alert alert-success noAnomalyDetected'>{% trans "No anomaly detected" %}</div>
 
-                                <div class="anomalyDetectionResults top30">
+                                <div class="anomalyDetectionResults">
 
-                                    <div class="top20">
+                                    <div class="">
 
                                         <div class="row">
 
                                             <div class="col-6">
 
-                                                <h5 class="top20">{% trans "Results adjustment" %}</h5>
+                                                <h5 class="">{% trans "Results adjustment" %}</h5>
                                                 <div class="anomalyChatsControls">
 
                                                     <div class="">
 
                                                         <div class="">
 
-                                                            <div class="top20">
+                                                            <div class="">
                                                                 <span class="text-left">
                                                                     {% trans "Select a field name for visualisation" %}:
                                                                 </span>
                                                             </div>
 
-                                                            <div class="">
-                                                                <select id="field-name" class="span5 offset1 top20">
+                                                            <div class="form-group">
+                                                                <select id="field-name" class="form-control">
                                                                     {% for f in numeric_fields %}
                                                                         <option value="{{f}}">{{f}}</option>
                                                                     {% endfor %}
                                                                 </select>
                                                             </div>
 
-                                                            <div class="row">
-                                                                <div class="col-6 top20">
+                                                            <div class="form-group">
+                                                                    <p>
+                                                                        {% trans "Change visualisation type" %}:
+                                                                    </p>
 
-                                                                    <div class="row">
+                                                                    <div class="">
 
-                                                                        <span class="col-6 text-left">
-                                                                            {% trans "Change visualisation type" %}:
+                                                                        <span class="">
+                                                                            <button onclick="updateChartType('scatter')" name="" class="btn btn-outline-primary"> <i class="fa fa-spinner" aria-hidden="true"></i> {% trans "Scatter Plot" %} </button>
+                                                                            <button onclick="updateChartType('line')" name="" class="btn btn-outline-primary"> <i class="fa fa-spinner" aria-hidden="true"></i> {% trans "Line Chart" %} </button>
+                                                                            <button onclick="updateChartType('bar')" name="" class="btn btn-outline-primary"> <i class="fa fa-spinner" aria-hidden="true"></i> {% trans "Bar chart" %} </button>
                                                                         </span>
 
                                                                     </div>
-
-                                                                    <div class="row top20">
-
-                                                                        <span class="col-6">
-                                                                            <button onclick="updateChartType('scatter')" name="" class="btn rtpa-btn"> <i class="fa fa-spinner" aria-hidden="true"></i> {% trans "Scatter Plot" %} </button>
-                                                                            <button onclick="updateChartType('line')" name="" class="btn rtpa-btn"> <i class="fa fa-spinner" aria-hidden="true"></i> {% trans "Line Chart" %} </button>
-                                                                            <button onclick="updateChartType('bar')" name="" class="btn rtpa-btn"> <i class="fa fa-spinner" aria-hidden="true"></i> {% trans "Bar chart" %} </button>
-                                                                        </span>
-
-                                                                    </div>
-                                                                </div>
 
                                                             </div>
 
-                                                            <div class="row">
-                                                                <div class="col-6 top20">
+                                                            <div class="form-group">
+                                                                <span class="">
+                                                                    {% trans "Adjust the tolerance threshold value" %}:
+                                                                </span>
+                                                            </div>
 
-                                                                    <div class="row">
-                                                                        <span class="col-6 text-left">
-                                                                            {% trans "Adjust the tolerance threshold value" %}:
-                                                                        </span>
-
-                                                                        <span class="col-6 top20">
-                                                                            <input id="scoreTolerance" data-slider-id='scoreTolerance' type="text" data-slider-min="0" data-slider-max="5" data-slider-step="0.05" data-slider-value="0.5"/>
-                                                                        </span>
-                                                                    </div>
-
-
-                                                                </div>
+                                                            <div class="form-group">
+                                                                <span class="">
+                                                                    <input id="scoreTolerance" class="form-control"  data-slider-id='scoreTolerance' type="text" data-slider-min="0" data-slider-max="5" data-slider-step="0.05" data-slider-value="0.5"/>
+                                                                </span>
                                                             </div>
 
 
+<!--
+                                                            <div class="form-group">
+                                                                <div id="neighboursAD" class="">
 
-                                                            <div class="row">
-                                                                <div id="neighboursAD" class="col-6 top20">
-
-                                                                    <div class="row">
-                                                                        <span class="col-6 text-left">
-                                                                            {% trans "Amount of neighbours" %}:
-                                                                        </span>
-                                                                        <span class="col-6 top20">
-                                                                            <input id="neighboursCount" data-slider-id='neighboursCount' type="text" data-slider-min="1" data-slider-max="12" data-slider-step="1" data-slider-value="10"/>
-                                                                        </span>
-                                                                    </div>
-
+                                                                    <span class="">
+                                                                        {% trans "Amount of neighbours" %}:
+                                                                    </span>
+                                                                    <span class="">
+                                                                        <input id="neighboursCount" class="form-control" data-slider-id='neighboursCount' type="text" data-slider-min="1" data-slider-max="12" data-slider-step="1" data-slider-value="10"/>
+                                                                    </span>
 
                                                                 </div>
                                                             </div>
-
-
+-->
 
                                                         </div>
 
@@ -289,34 +273,34 @@
                                                 </div>
 
 
-                                                <h5 class="top20">{% trans "Anomaly summary" %}</h5>
-                                                <div id="anomaly-summary" class="top20">
+                                                <h5 class="">{% trans "Anomaly summary" %}</h5>
+                                                <div id="anomaly-summary" class="">
 
                                                     <div class="row">
-                                                        <span class="span4">{% trans "Number of anomalies detected" %}: </span>
-                                                        <span class="span2" id="noOfAnomalies"><i class="fa fa-spinner fa-spin"></i></span>
+                                                        <span class="col-8">{% trans "Number of anomalies detected" %}: </span>
+                                                        <span class="col-4" id="noOfAnomalies"><i class="fa fa-spinner fa-spin"></i></span>
                                                     </div>
                                                     <div class="row">
-                                                        <span class="span4">{% trans "Number of global anomalies detected" %}: </span>
-                                                        <span class="span2" id="noOfGlobalAnomalies"><i class="fa fa-spinner fa-spin"></i></span>
+                                                        <span class="col-8">{% trans "Number of global anomalies detected" %}: </span>
+                                                        <span class="col-4" id="noOfGlobalAnomalies"><i class="fa fa-spinner fa-spin"></i></span>
                                                     </div>
                                                     <div class="row">
-                                                        <span class="span4">{% trans "Number of local anomalies detected" %}: </span>
-                                                        <span class="span2" id="noOfLocalAnomalies"><i class="fa fa-spinner fa-spin"></i></span>
+                                                        <span class="col-8">{% trans "Number of local anomalies detected" %}: </span>
+                                                        <span class="col-4" id="noOfLocalAnomalies"><i class="fa fa-spinner fa-spin"></i></span>
                                                     </div>
                                                     <div class="row">
-                                                        <span class="span4">{% trans "Highest anomaly score value" %}: </span>
-                                                        <span class="span2" id="highestAnomalyScore"><i class="fa fa-spinner fa-spin"></i></span>
+                                                        <span class="col-8">{% trans "Highest anomaly score value" %}: </span>
+                                                        <span class="col-4" id="highestAnomalyScore"><i class="fa fa-spinner fa-spin"></i></span>
                                                     </div>
 
                                                 </div>
 
                                             </div>
 
-                                            <div class="span6">
+                                            <div class="col-6">
 
                                                 <h5 class="top20">{% trans "Anomaly detection configuration" %}</h5>
-                                                <div id="anomaly-configuration" class="row top20">
+                                                <div id="anomaly-configuration" class="">
 
                                                     <div class="span6">
                                                         <p>By default all the columns are used to calculate the anomaly score. You can re-calculate the scores by selecting the fields.</p>
@@ -341,7 +325,7 @@
                                                     </div>
 
                                                     <div class="span6 top20">
-                                                        <button id="recalculateAnomaly" onclick="recalculateAnomaly()" name="" class="span2 btn main-search-btn rtpa-btn"> <i class="fa fa-cogs" aria-hidden="true"></i> {% trans "Recalculate Results" %} </button>
+                                                        <button id="recalculateAnomaly" onclick="recalculateAnomaly()" name="" class="btn btn-outline-primary"> <i class="fa fa-cogs" aria-hidden="true"></i> {% trans "Recalculate Results" %} </button>
                                                     </div>
 
                                                 </div>

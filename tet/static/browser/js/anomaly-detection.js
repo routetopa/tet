@@ -357,7 +357,7 @@ function detectAnomaly(){
                     }
                 }
 
-                table = "<table class='span12 table table-hover -table-striped table-anomalies'>" + table + "</table>";
+                table = "<table class='col-12 table table-hover -table-striped table-anomalies'>" + table + "</table>";
                 table = "<div class='alert alert-error top20'>The following values are detected as potential anomalies</div>" + table;
 
                 $("#anomaly-output").html(table);
