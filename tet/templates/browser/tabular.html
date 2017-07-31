@@ -11,7 +11,7 @@
 
     {{ block.super }}
 
-    <script src="{% static 'browser/js/anomaly-detection.js' %}"></script>
+    <script src="{% static 'browser/js/anomaly-detection-prototype.js' %}"></script>
 
 {% endblock scripts %}
 
@@ -133,22 +133,32 @@
                                 <div id="trigger-form" class="my-3" style="display: none;">
 
                                     <form id="trigger-create-form">
-                                      <fieldset>
+
                                         <legend>{% trans 'Create Trigger' %}</legend>
-                                        <label>{% trans 'Notification' %}</label>
-                                        <textarea id="trigger-text" rows="3" placeholder="{% trans 'Overspending in budget' %}"></textarea>
-                                        <label>{% trans 'Email' %}</label>
-                                        <input id="trigger-email" type="email" placeholder="user@routetopa.eu">
-                                        <button id="trigger-create" class="btn">{% trans 'Create' %}</button>
-                                      </fieldset>
+
+                                        <div class="form-group">
+                                            <label for="trigger-text">{% trans 'Notification' %}</label>
+                                            <textarea id="trigger-text" class="form-control" rows="3" placeholder="{% trans 'i.e. Overspending in budget' %}"></textarea>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label dor="trigger-email">{% trans 'Email' %}</label>
+                                            <input id="trigger-email" class="form-control" type="email" placeholder="user@routetopa.eu">
+                                            <small id="trigger-help" class="form-text text-muted">{% trans "We'll never share your email with anyone else." %}</small>
+                                        </div>
+
+                                        <button type="submit" id="trigger-create" class="btn btn-primary">{% trans 'Create' %}</button>
+
                                     </form>
 
                                     <div id="trigger-output"></div>
+
                                 </div>
 
                                 <div class="my-3">
                                     <div id="query-output"></div>
                                 </div>
+
                             </div>
 
                             <div role="tabpanel" class="tab-pane" id="sqlquery">
@@ -165,14 +175,14 @@
 
                                 <h4>{% trans "Anomaly detection" %}</h4>
 
-                                <p class="top20 ">
+                                <p class="my-2 ">
                                     {% trans "Anomaly detection web service implemented for ROUTE-TO-PA project is based on the Local Outlier Factor Algorithm (LOF)." %}
                                     {% trans "LOF algorithm is unsupervised nearest neighborhood  based anomaly detection algorithm widely used for multivariate anomaly detection." %}
                                     {% trans "The LOF score is thus basically a ratio of local densities. The normal instances, which densities are as big as the densities of their neighbors, get a score of about 1.0. Anomalies, which have a low local density, will result in larger scores." %}
                                     <a href="https://en.wikipedia.org/wiki/Local_outlier_factor" target="_blank">{% trans "Read more" %}</a>.
                                 </p>
 
-                                <p class="top20">
+                                <p class="my-2">
                                     <button id="detectAnomaly" onclick="detectAnomaly()" name="" class="span2 btn main-search-btn rtpa-btn"> <i class="fa fa-bug" aria-hidden="true"></i> {% trans "Detect Anomaly" %} </button>
                                 </p>
 
@@ -188,7 +198,7 @@
 
                                         <div class="row">
 
-                                            <div class="span6">
+                                            <div class="col-6">
 
                                                 <h5 class="top20">{% trans "Results adjustment" %}</h5>
                                                 <div class="anomalyChatsControls">
@@ -212,11 +222,11 @@
                                                             </div>
 
                                                             <div class="row">
-                                                                <div class="span6 top20">
+                                                                <div class="col-6 top20">
 
                                                                     <div class="row">
 
-                                                                        <span class="span6 text-left">
+                                                                        <span class="col-6 text-left">
                                                                             {% trans "Change visualisation type" %}:
                                                                         </span>
 
@@ -224,7 +234,7 @@
 
                                                                     <div class="row top20">
 
-                                                                        <span class="span6">
+                                                                        <span class="col-6">
                                                                             <button onclick="updateChartType('scatter')" name="" class="btn rtpa-btn"> <i class="fa fa-spinner" aria-hidden="true"></i> {% trans "Scatter Plot" %} </button>
                                                                             <button onclick="updateChartType('line')" name="" class="btn rtpa-btn"> <i class="fa fa-spinner" aria-hidden="true"></i> {% trans "Line Chart" %} </button>
                                                                             <button onclick="updateChartType('bar')" name="" class="btn rtpa-btn"> <i class="fa fa-spinner" aria-hidden="true"></i> {% trans "Bar chart" %} </button>
@@ -236,14 +246,14 @@
                                                             </div>
 
                                                             <div class="row">
-                                                                <div class="span6 top20">
+                                                                <div class="col-6 top20">
 
                                                                     <div class="row">
-                                                                        <span class="span6 text-left">
+                                                                        <span class="col-6 text-left">
                                                                             {% trans "Adjust the tolerance threshold value" %}:
                                                                         </span>
 
-                                                                        <span class="span6 top20">
+                                                                        <span class="col-6 top20">
                                                                             <input id="scoreTolerance" data-slider-id='scoreTolerance' type="text" data-slider-min="0" data-slider-max="5" data-slider-step="0.05" data-slider-value="0.5"/>
                                                                         </span>
                                                                     </div>
@@ -255,13 +265,13 @@
 
 
                                                             <div class="row">
-                                                                <div id="neighboursAD" class="span6 top20">
+                                                                <div id="neighboursAD" class="col-6 top20">
 
                                                                     <div class="row">
-                                                                        <span class="span6 text-left">
+                                                                        <span class="col-6 text-left">
                                                                             {% trans "Amount of neighbours" %}:
                                                                         </span>
-                                                                        <span class="span6 top20">
+                                                                        <span class="col-6 top20">
                                                                             <input id="neighboursCount" data-slider-id='neighboursCount' type="text" data-slider-min="1" data-slider-max="12" data-slider-step="1" data-slider-value="10"/>
                                                                         </span>
                                                                     </div>
@@ -273,8 +283,6 @@
 
 
                                                         </div>
-
-
 
                                                     </div>
 
@@ -370,6 +378,7 @@
                 </div>
                 </div>
 
+{% comment %}
                 <div class="row">
 
                     <div class="col-12">
@@ -403,6 +412,7 @@
                     </div>
 
                 </div>
+{% endcomment %}
 
                 <div class="row dataset-details">
 
