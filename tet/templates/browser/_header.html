@@ -45,7 +45,7 @@
             </ul>
 
             {% if not HIDE_SEARCH_NAV %}
-            <form class="form-inline my-2 my-lg-0 pl-5">
+            <form class="form-inline my-2 my-lg-0 pl-5" action="{% url "search" %}">
                 <input name="query" class="form-control mr-sm-2" type="text" placeholder="{% trans "Search for datasets" %}" autocomplete="off" {% if query %} value="{{ query }}" {% endif %}>
                 <button class="btn btn-secondary my-2 my-sm-0" type="submit"> {% trans "Search" %}</button>
             </form>
