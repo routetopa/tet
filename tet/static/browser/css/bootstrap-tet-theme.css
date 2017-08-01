@@ -312,6 +312,15 @@ li.dataset-resource .label:hover {
     margin-right: 0.5rem;
 }
 
+/*
+ * Related datasets
+ */
+#ds-rc-output {
+    max-height: 400px;
+    overflow: scroll;
+    overflow-x: hidden;
+}
+
 /* Anomaly detection */
 
 .anomalyDetectionResults {
