@@ -2,81 +2,184 @@
 
 {% load i18n %}
 
-{% block title %} Dataset details {% endblock title %}
+{% block title %} {% trans "Merge Datasets" %} {% endblock title %}
 
 {% block content %}
+
+            <form method="post" action="{% url 'combine' base_dataset.id %}">
+                {% csrf_token %}
 
                 <div class="container merging">
 
                     <div class="row">
-                        <h4 class="dataset-title"> {% trans "Merge Datasets" %}</h4>
-                        <p>
-                            {% trans "Please select desired files and use action buttons in order to see the results." %}
-                        </p>
+                        <div class="col">
+                            <h4 class="dataset-title"> {% trans "Merge Datasets" %}</h4>
+                        </div>
                     </div>
 
-                    <div class="row">
+                    {% if dataset_groups %}
 
-                        <table class="table table-striped top20">
+                    <div class="">
 
-                            <tr class="">
-                                <th class="span11 text-center"> {% trans "Files" %} </th>
-                                <th class="span1 text-center"> {% trans "Actions" %} </th>
-                            </tr>
+                        <table id="merge-table" class="table my-4">
 
+                            <thead class="thead-inverse">
+                                <tr class="row">
+                                    <th class="col-9 text-center"> {% trans "Files" %} </th>
+                                    <th class="col-3 text-center"> {% trans "Actions" %} </th>
+                                </tr>
+                            </thead>
+
+                            <tbody>
                             {% for key, value in dataset_groups.items %}
-                                <form method="post">
-                                    {% csrf_token %}
-                                        <tr
-                                            {% if key == "other" and value %}
-                                                class="error"
-                                            {% endif %}
-                                        >
-                                            <td class="">
+                            <form method="post">
+                                {% csrf_token %}
+                                <tr
+                                        {% if key == "other" and value %}
+                                class="table-danger row"
+                                {% else %}
+                                class="row"
+                                {% endif %}
+                                >
+                                <td class="col-9">
 
-                                                <table class="table table-borderless">
-                                                    <tbody>
-                                                        {% for ds in value %}
-                                                            <tr>
-                                                                <td class="" style="width: 70px;">
-                                                                    {% if key != "other" %}
-                                                                        <input name="selected_rs" type="checkbox" value="{{ds.resource_id}},{{ds.name}}"/>
-                                                                    {% endif %}
-
-                                                                    <span class="label result-label" data-format="{{ds.format|lower}}">{{ ds.format }}</span>
-                                                                </td>
-
-                                                                <td class="">
-                                                                    <span> {{ds.title}} - {{ds.name}} </span>
-                                                                </td>
-                                                            </tr>
-                                                        {% endfor %}
-                                                    </tbody>
-                                                </table>
-                                            </td>
-                                            <td class="text-center">
-                                                {% if key == "other" and value %}
-                                                    <div class="top10">
-                                                        <i class="fa fa-exclamation" aria-hidden="true"></i>
-                                                        {% trans "Incompatible files can't be merged" %}
-
-                                                    </div>
-                                                {% elif key != "other" %}
-                                                    <button type="submit" name="view" class="span3 top10 btn main-search-btn rtpa-btn"> <i class="fa fa-table" aria-hidden="true"></i> {% trans "View as table" %} </button>
-                                                    <button type="submit" name="chart" class="span3 top10 btn main-search-btn rtpa-btn"> <i class="fa fa-bar-chart" aria-hidden="true"></i> {% trans "Explore as chart" %} </button>
-                                                    <button type="submit" name="analyse" class="span3 top10 btn main-search-btn rtpa-btn"> <i class="fa fa-line-chart" aria-hidden="true"></i> {% trans "Analyse in PivotTable" %} </button>
-                                                <button type="submit" name="merge" class="span3 top10 btn main-search-btn rtpa-btn"> <i class="fa fa-download" aria-hidden="true"></i> {% trans "Download combined datasets" %} </button>
+                                    <table class="table table-borderless">
+                                        <tbody>
+                                        {% for ds in value %}
+                                        <tr class="row">
+                                            <td class="col-1 text-center">
+                                                {% if key != "other" %}
+                                                <input name="selected_rs" type="checkbox" value="{{ds.resource_id}},{{ds.name}}"/>
                                                 {% endif %}
                                             </td>
-                                        </tr>
-                                </form>
-                            {% endfor %}
+                                            <td class="col-1 text-center">
+                                                <span class="label result-label" data-format="{{ds.format|lower}}">{{ ds.format }}</span>
+                                            </td>
 
+                                            <td class="col-9">
+                                                <span> {{ds.title}} - {{ds.name}} </span>
+                                            </td>
+                                        </tr>
+                                        {% endfor %}
+                                        </tbody>
+                                    </table>
+
+                                </td>
+
+                                <td class="col-3 text-center">
+                                    {% if key == "other" and value %}
+                                    <div class="top10">
+                                        <i class="fa fa-exclamation" aria-hidden="true"></i>
+                                        {% trans "Incompatible files can't be merged" %}
+                                    </div>
+                                    {% elif key != "other" %}
+                                    <div class="row nav-row">
+                                        <button type="submit" name="view" class="btn btn-outline-primary col-9 mx-auto my-2"> <i class="fa fa-table" aria-hidden="true"></i> {% trans "View as table" %} </button>
+                                        <button type="submit" name="chart" class="btn btn-outline-primary col-9 mx-auto my-2"> <i class="fa fa-bar-chart" aria-hidden="true"></i> {% trans "Explore as chart" %} </button>
+                                        <button type="submit" name="analyse" class="btn btn-outline-primary col-9 mx-auto my-2"> <i class="fa fa-line-chart" aria-hidden="true"></i> {% trans "Analyse in PivotTable" %} </button>
+                                        <button type="submit" name="merge" class="btn btn-outline-primary col-9 mx-auto my-2"> <i class="fa fa-download" aria-hidden="true"></i> {% trans "Download" %} </button>
+                                    </div>
+                                    {% endif %}
+                                    <div class="clearfix"></div>
+                                </td>
+                                </tr>
+                            </form>
+                            {% endfor %}
+                            </tbody>
                         </table>
+
                     </div>
+
+                    {% endif %}
+
+                    {% if base_dataset %}
+
+                        <div class="row">
+
+                            <div class="col-12">
+                                <p>
+                                    {% trans "This feature allow to combine one or more datasets." %}
+                                    {% trans "Only datasets with the compatible schema can be merged." %}
+                                </p>
+                            </div>
+
+                            <div class="col-6">
+                                <h5>
+                                    <i class="fa fa-file-o small" aria-hidden="true"></i> {% trans "Selected Dataset" %}
+                                </h5>
+
+                                <p class="mt-3"><strong>{{ base_dataset.title }}</strong></p>
+
+                                <p>
+                                    {{ base_dataset.notes }}
+                                </p>
+
+                            </div>
+
+
+
+                            <div class="col-6">
+
+                                <div class="panel-heading">
+
+                                    <h5>
+                                        <i class="fa fa-files-o small" aria-hidden="true"></i> {% trans "Related Datasets" %}
+                                    </h5>
+
+                                </div>
+
+                                 <div class="">
+
+                                    {% if SOM_API_URL %}
+
+                                        <div>
+                                            {% trans "Please use the slider in order to update the results." %}
+                                        </div>
+
+                                        <div class="col-10 py-2 mx-auto">
+                                            <div id="ds-rc-slider-merge" class=""></div>
+                                        </div>
+
+                                        <div id="ds-rc-output" class="py-2"></div>
+
+                                        <div>
+                                            <input type="hidden" id="ds-id" value="{{dataset_id}}"/>
+                                            <input type="hidden" id="ds-url" value="/{{LANGUAGE_CODE}}/dataset/"/>
+                                            <input type="hidden" id="ds-api-url" value="{{SOM_API_URL}}"/>
+                                        </div>
+
+                                    {% else %}
+                                        <div class="list-group">
+                                        {% for ds in related_datasets %}
+                                            <a href="/{{LANGUAGE_CODE}}/dataset/{{ds.id}}" aria-hidden="true" data-toggle="tooltip" data-placement="bottom" title="{{ds.notes|truncatewords:16}}" class="list-group-item list-group-item-action small pl-3"> <i class="fa fa-link mr-2" aria-hidden="true"></i>  {{ds.title}}</a>
+                                            <!-- <div> {{ds.notes|truncatewords:8}} </div> -->
+                                        {% endfor %}
+                                        </div>
+                                    {% endif %}
+
+                                    <div class="mt-3">
+
+                                        <div class="alert alert-warning" role="alert" style="display:none">
+                                            <strong>{% trans "Warning!" %}</strong> {% trans "Please select one or more elements from the list" %}
+                                        </div>
+
+                                        <button type="submit" id="combineDatasets" name="combine_datasets" value="combine_datasets" class="btn btn-primary float-right" href="{% url 'combine' dataset_id %}" role="button">
+                                            <i class="fa fa-compress" aria-hidden="true"></i>
+                                            {% trans "Combine Datasets" %}
+                                        </button>
+
+                                        <div class="clearfix"></div>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    {% endif %}
 
                 </div>
 
-            </div>
+            </form>
 
 {% endblock content %}
