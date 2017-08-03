@@ -41,7 +41,7 @@
                                 class="row"
                                 {% endif %}
                                 >
-                                <td class="col-9">
+                                <td class="col-9 my-auto">
 
                                     <table class="table table-borderless">
                                         <tbody>
@@ -52,7 +52,7 @@
                                                 <input name="selected_rs" type="checkbox" value="{{ds.resource_id}},{{ds.name}}"/>
                                                 {% endif %}
                                             </td>
-                                            <td class="col-1 text-center">
+                                            <td class="col-1 text-center hidden-md-down">
                                                 <span class="label result-label" data-format="{{ds.format|lower}}">{{ ds.format }}</span>
                                             </td>
 
@@ -66,7 +66,7 @@
 
                                 </td>
 
-                                <td class="col-3 text-center">
+                                <td class="col-3 my-auto text-center">
                                     {% if key == "other" and value %}
                                     <div class="top10">
                                         <i class="fa fa-exclamation" aria-hidden="true"></i>
@@ -74,10 +74,10 @@
                                     </div>
                                     {% elif key != "other" %}
                                     <div class="row nav-row">
-                                        <button type="submit" name="view" class="btn btn-outline-primary col-9 mx-auto my-2"> <i class="fa fa-table" aria-hidden="true"></i> {% trans "View as table" %} </button>
-                                        <button type="submit" name="chart" class="btn btn-outline-primary col-9 mx-auto my-2"> <i class="fa fa-bar-chart" aria-hidden="true"></i> {% trans "Explore as chart" %} </button>
-                                        <button type="submit" name="analyse" class="btn btn-outline-primary col-9 mx-auto my-2"> <i class="fa fa-line-chart" aria-hidden="true"></i> {% trans "Analyse in PivotTable" %} </button>
-                                        <button type="submit" name="merge" class="btn btn-outline-primary col-9 mx-auto my-2"> <i class="fa fa-download" aria-hidden="true"></i> {% trans "Download" %} </button>
+                                        <button type="submit" name="view" class="btn btn-outline-primary col-9 mx-auto my-2"> <i class="fa fa-table" aria-hidden="true"></i> <span class="hidden-md-down"> {% trans "View as table" %} </span></button>
+                                        <button type="submit" name="chart" class="btn btn-outline-primary col-9 mx-auto my-2"> <i class="fa fa-bar-chart" aria-hidden="true"></i> <span class="hidden-md-down"> {% trans "Explore as chart" %} </span></button>
+                                        <button type="submit" name="analyse" class="btn btn-outline-primary col-9 mx-auto my-2"> <i class="fa fa-line-chart" aria-hidden="true"></i> <span class="hidden-md-down"> {% trans "Analyse in PivotTable" %} </span></button>
+                                        <button type="submit" name="merge" class="btn btn-outline-primary col-9 mx-auto my-2"> <i class="fa fa-download" aria-hidden="true"></i> <span class="hidden-md-down"> {% trans "Download" %} </span></button>
                                     </div>
                                     {% endif %}
                                     <div class="clearfix"></div>
@@ -103,7 +103,7 @@
                                 </p>
                             </div>
 
-                            <div class="col-6">
+                            <div class="col-md-6 col-sm-12">
                                 <h5>
                                     <i class="fa fa-file-o small" aria-hidden="true"></i> {% trans "Selected Dataset" %}
                                 </h5>
@@ -118,7 +118,7 @@
 
 
 
-                            <div class="col-6">
+                            <div class="col-md-6 col-sm-12">
 
                                 <div class="panel-heading">
 

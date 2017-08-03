@@ -348,6 +348,22 @@ li.dataset-resource .label:hover {
 }
 
 /*
+ * Merging page
+ */
+
+#merge-table {
+
+}
+
+#merge-table td {
+    border: none;
+}
+
+#merge-table tr:not(:first-child) {
+    border-bottom: 1px solid #007dbe;
+}
+
+/*
  *  Helpers
  */
 
@@ -362,7 +378,7 @@ li.dataset-resource .label:hover {
 }
 
 .table-borderless tr, .table-borderless td, .table-borderless th {
-    border: none;
+    border: none !important;
     background: none !important;
 }
 

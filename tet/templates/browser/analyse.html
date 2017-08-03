@@ -6,23 +6,7 @@
 
 {% block content %}
 
-                <div class="container">
 
-                    <div class="row search-ui">
-
-                        <div class="span8 offset3 text-left">
-
-                            <div class="row">
-
-                                {% include "browser/_search.html" with query=query %}
-
-                            </div>
-
-                        </div>
-
-                    </div>
-
-                </div>
                 {% if ACTION == "analyse" %}
                 <div class="row">
 
@@ -66,8 +50,9 @@
                 <div class="row">
                     <link rel="import" href="http://deep.routetopa.eu/deep_1_9_rev/COMPONENTS/datalets/columnchart-datalet/columnchart-datalet.html" />
                     <link rel="import" href="http://deep.routetopa.eu/deep_1_9_rev/COMPONENTS/datalets/datatable-datalet/datatable-datalet.html" /> 
-                    <link rel="import" href="http://deep.routetopa.eu/deep_1_9_rev/COMPONENTS/datalets/barchart-datalet/barchart-datalet.html" /> 
-                    <div class="span12 -span10 -offset1">
+                    <link rel="import" href="http://deep.routetopa.eu/deep_1_9_rev/COMPONENTS/datalets/barchart-datalet/barchart-datalet.html" />
+
+                    <div class="col-12">
                        
                         <div class="carousel carousel-fade slide" id="main-chart">
                             <div class="carousel-inner">
