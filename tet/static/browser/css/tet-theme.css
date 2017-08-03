@@ -932,8 +932,8 @@ th.text-center, td.text-center {
 .table-borderless {
     margin: 0;
     background: none !important;
-
 }
+
 .table-borderless tr, .table-borderless td, .table-borderless th {
     border: none;
     background: none !important;

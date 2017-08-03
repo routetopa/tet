@@ -7,7 +7,7 @@ $(document).ready(function(){
     if ( $('#ds-merged').length ){
         var ds_merged = $( "#ds-merged" ).val();
         var response = $.getJSON(ds_merged, function(data) {
-                if ($("#output").size() > 0){
+                if ($("#output").length > 0){
                     var derivers = $.pivotUtilities.derivers;
                     var renderers = $.extend(
                                     $.pivotUtilities.renderers,
@@ -44,8 +44,8 @@ $(document).ready(function(){
 
     // auto-adjust chart area
     $('#main-chart').on('slid.bs.carousel', function() {
-        console.log('slide')
         $(window).trigger('resize');
+//        window.dispatchEvent(new Event('resize'));
         return false
     });
 
@@ -53,29 +53,72 @@ $(document).ready(function(){
 
 $(function () {
 
+    /* related datasets */
     if($( "#ds-rc-slider" ).length){
         var ds_id = $( "#ds-id" ).val();
         var ds_url = $( "#ds-url" ).val();
         var api_url = $( "#ds-api-url" ).val();
+
         function fetch_data(value){
-             $("#ds-rc-output").html("<em>Loading...</em>")
-              url =  api_url +"/get/" + ds_id + "/" + value;
-              $.get(url, function(data){
-                 html = ""
-                 for (d in data["result"]){
-                    html += "<li><a href='" + ds_url + data["result"][d]["id"] +"'>" + data["result"][d]["title"] + "</a></li>";
-                 }
-                 $("#ds-rc-output").html("<ul class='dataset-files'>"+ html +"</ul>")
-             });
+            $("#ds-rc-output").html('<div class="mx-auto my-2"><i class="fa fa-spinner fa-spin"></i></div>')
+            url =  api_url +"/get/" + ds_id + "/" + value;
+            $.get(url, function(data){
+                html = ""
+                for (d in data["result"]){
+                    html += "<a href=\"" + ds_url + data["result"][d]["id"] + "\" class=\"list-group-item list-group-item-action small pl-3\"> <i class=\"fa fa-link mr-2\" aria-hidden=\"true\"></i> " + data["result"][d]["title"] + "</a>";
+                }
+                $("#ds-rc-output").html("<div class=\"list-group\">"+ html +"</div>")
+            });
         }
-//        var ds_slider = $( "#ds-rc-slider" ).slider({
-//                   max: 10,
-//                   value: 1,
-//                   min:1,
-//                   slide: function( event, ui ) {
-//                     fetch_data(ui.value)
-//                   }
-//        });
+
+        var ds_slider = $( "#ds-rc-slider" ).slider({
+            max: 10,
+            value: 1,
+            min:1,
+            slide: function( event, ui ){
+                fetch_data(ui.value)
+            }
+        });
+
+        fetch_data(1);
+    }
+
+    /* merge datasets */
+    if($( "#ds-rc-slider-merge" ).length){
+        var ds_id = $( "#ds-id" ).val();
+        var ds_url = $( "#ds-url" ).val();
+        var api_url = $( "#ds-api-url" ).val();
+
+        $("#ds-rc-output").on("click", ".select_dataset_link", function( e ) {
+            $(this).children('.select_dataset').prop('checked', ! $(this).children('.select_dataset').prop('checked'));
+            e.preventDefault();
+        });
+
+        $("#ds-rc-output").on("click", ".select_dataset", function( e ) {
+            e.preventDefault();
+        });
+
+        function fetch_data(value){
+            $("#ds-rc-output").html('<div class="mx-auto my-2"><i class="fa fa-spinner fa-spin"></i></div>')
+            url =  api_url +"/get/" + ds_id + "/" + value;
+            $.get(url, function(data){
+                html = ""
+                for (d in data["result"]){
+                    html += "<a href=\"#\" class=\"list-group-item list-group-item-action select_dataset_link small pl-3\"> <input type=\"checkbox\" value=\"" + data["result"][d]["id"] + "\" name=\"selected_datasets\" class=\"select_dataset p-2 mr-3\">" + data["result"][d]["title"] + "</a>";
+                }
+                $("#ds-rc-output").html("<div class=\"list-group\">"+ html +"</div>")
+            });
+        }
+
+        var ds_slider = $( "#ds-rc-slider-merge" ).slider({
+            max: 10,
+            value: 1,
+            min:1,
+            slide: function( event, ui ){
+                fetch_data(ui.value)
+            }
+        });
+
         fetch_data(1);
     }
 
@@ -253,7 +296,7 @@ $(function () {
     // Combine Datasets
     $('#combineDatasets').click(function () {
 
-        $(this).parent().siblings('.alert').hide();
+        $(this).siblings('.alert').hide();
 
         var selected_datasets = $("input[name='selected_datasets']:checked");
 
@@ -262,7 +305,7 @@ $(function () {
             return true
 
         } else {
-            $(this).parent().siblings('.alert').fadeIn('slow');
+            $(this).siblings('.alert').fadeIn('slow');
         }
 
         return false;

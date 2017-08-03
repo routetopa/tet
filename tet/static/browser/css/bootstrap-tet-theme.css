@@ -351,6 +351,21 @@ li.dataset-resource .label:hover {
  *  Helpers
  */
 
+.thead-inverse th {
+    color: #fff;
+    background-color: #007dbe;
+}
+
+.table-borderless {
+    margin: 0;
+    background: none !important;
+}
+
+.table-borderless tr, .table-borderless td, .table-borderless th {
+    border: none;
+    background: none !important;
+}
+
 .label {
     background-color: #59b0f6;
     text-align: center;
