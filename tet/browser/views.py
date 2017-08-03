@@ -824,11 +824,17 @@ def create_trigger(request):
         })
 
 
-def combine(request):
+def combine(request, dataset_id = False):
     template_name = 'browser/merge.html'
     selected_datasets =[]
     groups = {"other": []}
+    base_dataset = False
+
     try:
+
+        if (dataset_id):
+            base_dataset = get_dataset(dataset_id)
+
         if 'merge' in request.POST:
             rs = request.POST.getlist('selected_rs')
             if len(rs) > 0:
@@ -922,7 +928,16 @@ def combine(request):
                 return render(request, template_name, context)
 
         if 'combine_datasets' in request.POST:
+
             selected_datasets = request.POST.getlist('selected_datasets')
+
+            if base_dataset["id"]:
+                selected_datasets.insert(0, base_dataset["id"])
+
+            # get unique values
+            selected_datasets = set(selected_datasets)
+            selected_datasets = list(selected_datasets)
+
             for dataset_id in selected_datasets:
                 dataset = get_dataset(dataset_id)
                 if "resources" in dataset.keys():
@@ -948,7 +963,9 @@ def combine(request):
     except Exception as e:
         return JsonResponse({'message': str(e)})
     context = {
-        "dataset_groups" : groups
+        "dataset_groups" : groups,
+        "base_dataset" : base_dataset,
+        "dataset_id" : dataset_id
      }
 
     return render(request, template_name, context)
