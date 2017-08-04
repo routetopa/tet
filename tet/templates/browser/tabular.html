@@ -34,12 +34,6 @@
                                 <a class="nav-link" href="#pivottable" aria-controls="pivottable" role="tab" data-toggle="tab">{% trans "PivotTable" %}</a>
                             </li>
                             <li role="presentation" class="nav-item">
-                                <a class="nav-link" href="#simplequery" aria-controls="simplequery" role="tab" data-toggle="tab">{% trans "Query" %}</a>
-                            </li>
-                            <li role="presentation" class="nav-item">
-                                <a class="nav-link" href="#sqlquery" aria-controls="sqlquery" role="tab" data-toggle="tab">{% trans "SQL Query" %}</a>
-                            </li>
-                            <li role="presentation" class="nav-item">
                                 <a class="nav-link" class="nav-link" href="#anomaly-detect" aria-controls="anomaly-detect" role="tab" data-toggle="tab">{% trans "Anomaly Detection" %}</a>
                             </li>
                             <!--<li role="presentation" class="nav-item"><a href="#discuss" aria-controls="discuss" role="tab" data-toggle="tab">{% trans "SPOD Discussion" %}</a></li>-->
@@ -111,64 +105,6 @@
 
                                 {% endif %}
 
-                            </div>
-
-                            <div role="tabpanel" class="tab-pane" id="simplequery">
-
-                                <div class="col-md-12 col-lg-10 col-lg-offset-1">
-                                    <div id="query-editor" class=""></div>
-                                </div>
-
-                                <form class="simplequeryNavbar navbar-form my-3">
-                                    <input id="query-api" type="hidden" value="{{ QUERY_API }}"/>
-
-                                    <button id="trigger" type="button" class="btn btn-outline-primary mr-2 pull-right"><i class="fa fa-bell-o" aria-hidden="true"></i> {% trans 'Alert' %}</button>
-                                    <button id="download" type="button" class="btn btn-outline-primary mr-2 pull-right"><i class="fa fa-download" aria-hidden="true"></i> {% trans 'Download' %}</button>
-                                    <button id="exe-query" type="button" class="btn btn-outline-primary mr-2 pull-right"><i class="fa fa-play" aria-hidden="true"></i> {% trans 'Run' %}</button>
-
-                                    <span class="clearfix"></span>
-                                </form>
-
-
-                                <div id="trigger-form" class="my-3" style="display: none;">
-
-                                    <form id="trigger-create-form">
-
-                                        <legend>{% trans 'Create Trigger' %}</legend>
-
-                                        <div class="form-group">
-                                            <label for="trigger-text">{% trans 'Notification' %}</label>
-                                            <textarea id="trigger-text" class="form-control" rows="3" placeholder="{% trans 'i.e. Overspending in budget' %}"></textarea>
-                                        </div>
-
-                                        <div class="form-group">
-                                            <label dor="trigger-email">{% trans 'Email' %}</label>
-                                            <input id="trigger-email" class="form-control" type="email" placeholder="user@routetopa.eu">
-                                            <small id="trigger-help" class="form-text text-muted">{% trans "We'll never share your email with anyone else." %}</small>
-                                        </div>
-
-                                        <button type="submit" id="trigger-create" class="btn btn-primary">{% trans 'Create' %}</button>
-
-                                    </form>
-
-                                    <div id="trigger-output"></div>
-
-                                </div>
-
-                                <div class="my-3">
-                                    <div id="query-output"></div>
-                                </div>
-
-                            </div>
-
-                            <div role="tabpanel" class="tab-pane" id="sqlquery">
-                               <div id="adv-query-editor" style="height: 100px;">SELECT  * from "{{ resource_id }}" LIMIT 10</div>
-                               <div>
-                                    <button id="adv-exe-query" type="button" class="btn btn-primary pull-right">{% trans 'Run' %}</button>
-                                </div>
-                                <div>
-                                    <div id="adv-query-output"></div>
-                                </div>
                             </div>
 
                             <div role="tabpanel" class="tab-pane" id="anomaly-detect">
@@ -312,9 +248,10 @@
                                                           <strong><i class="fa fa-info" aria-hidden="true"></i></strong> {% trans "Please select at least one item" %}.
                                                         </div>
 
-                                                            <label class="checkbox" style="display: none;">
-                                                                <input type="checkbox" value="_id" class="anomalyDimensionCheckbox" checked="checked"> _id - <small><i>int4</i></small>
-                                                            </label>
+                                                        <label class="checkbox" style="display: none;">
+                                                            <input type="checkbox" value="_id" class="anomalyDimensionCheckbox" checked="checked"> _id - <small><i>int4</i></small>
+                                                        </label>
+
                                                         {% for f in resource_fields %}
                                                             {% if f.id != '_id' %}
                                                                 <label class="checkbox">

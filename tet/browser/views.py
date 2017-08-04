@@ -826,14 +826,23 @@ def create_trigger(request):
 
 def combine(request, dataset_id = False):
     template_name = 'browser/merge.html'
-    selected_datasets =[]
+    selected_datasets = []
     groups = {"other": []}
-    base_dataset = False
+    base_dataset = None
+    base_dataset_resource_id = None
+    API_LINK = None
 
     try:
 
         if (dataset_id):
             base_dataset = get_dataset(dataset_id)
+
+            if "resources" in base_dataset.keys():
+                for resource in base_dataset["resources"]:
+                    # TODO multiple resources view
+                    if resource["format"].lower() in ["csv","xls"]:
+                        base_dataset_resource_id = resource["id"]
+                        API_LINK = settings.CKAN_URL + "/api/action/datastore_search?resource_id=" + base_dataset_resource_id + "&limit=99999"
 
         if 'merge' in request.POST:
             rs = request.POST.getlist('selected_rs')
@@ -848,7 +857,7 @@ def combine(request, dataset_id = False):
                 del df["_id"]
                 del df["_full_text"]
                 fields = data["result"]["fields"]
-                headers = [field["id"]for field in fields ].remove("_id")
+                headers = [field["id"]for field in fields].remove("_id")
                 sio = StringIO()
                 df.to_csv(sio,  index=False)
                 filename = "merged.csv"
@@ -945,7 +954,7 @@ def combine(request, dataset_id = False):
                         if resource["format"].lower() in ["csv","xls"]:
                             resource_id = resource["id"]                 
                             try:
-                                fields =  "_".join([f["id"] for f in get_resource_data(resource_id)["result"]["fields"]])
+                                fields = "_".join([f["id"] for f in get_resource_data(resource_id)["result"]["fields"]])
                             except Exception:
                                 fields = "other"
                             if fields not in groups.keys():
@@ -965,7 +974,10 @@ def combine(request, dataset_id = False):
     context = {
         "dataset_groups" : groups,
         "base_dataset" : base_dataset,
-        "dataset_id" : dataset_id
+        "base_dataset_resource_id" : base_dataset_resource_id,
+        "dataset_id" : dataset_id,
+        'API_LINK' : API_LINK,
+        'QUERY_API': settings.CKAN_URL + "/api/action/datastore_search_sql"
      }
 
     return render(request, template_name, context)
