@@ -19,8 +19,6 @@
                         </div>
                     </div>
 
-                    {% if not dataset_groups.items.has_items %}
-
                     <div class="">
 
                         <table id="merge-table" class="table my-4">
@@ -33,66 +31,113 @@
                             </thead>
 
                             <tbody>
+
                             {% for key, value in dataset_groups.items %}
-                            <form method="post">
-                                {% csrf_token %}
-                                <tr
+
+                            {% if key != "other" and value %}
+                                <form method="post">
+                                    {% csrf_token %}
+                                    <tr class="row">
+                                    <td class="col-9 my-auto">
+
+                                        <table class="table table-borderless">
+                                            <tbody>
+                                            {% for ds in value %}
+                                            <tr class="row">
+                                                <td class="col-1 text-center">
+                                                    {% if key != "other" %}
+                                                    <input name="selected_rs" type="checkbox" value="{{ds.resource_id}},{{ds.name}}"/>
+                                                    {% endif %}
+                                                </td>
+                                                <td class="col-1 text-center hidden-md-down">
+                                                    <span class="label result-label" data-format="{{ds.format|lower}}">{{ ds.format }}</span>
+                                                </td>
+
+                                                <td class="col-9">
+                                                    <span> {{ds.title}} - {{ds.name}} </span>
+                                                </td>
+                                            </tr>
+                                            {% endfor %}
+                                            </tbody>
+                                        </table>
+
+                                    </td>
+
+                                    <td class="col-3 my-auto text-center">
                                         {% if key == "other" and value %}
-                                class="table-danger row"
-                                {% else %}
-                                class="row"
-                                {% endif %}
-                                >
-                                <td class="col-9 my-auto">
+                                        <div class="top10">
+                                            <i class="fa fa-exclamation" aria-hidden="true"></i>
+                                            {% trans "Incompatible files can't be merged" %}
+                                        </div>
+                                        {% elif key != "other" %}
+                                        <div class="row nav-row">
+                                            <button type="submit" name="view" class="btn btn-outline-primary col-9 mx-auto my-2"> <i class="fa fa-table" aria-hidden="true"></i> <span class="hidden-md-down"> {% trans "View as table" %} </span></button>
+                                            <button type="submit" name="chart" class="btn btn-outline-primary col-9 mx-auto my-2"> <i class="fa fa-bar-chart" aria-hidden="true"></i> <span class="hidden-md-down"> {% trans "Explore as chart" %} </span></button>
+                                            <button type="submit" name="analyse" class="btn btn-outline-primary col-9 mx-auto my-2"> <i class="fa fa-line-chart" aria-hidden="true"></i> <span class="hidden-md-down"> {% trans "Analyse" %} </span></button>
+                                            <button type="submit" name="merge" class="btn btn-outline-primary col-9 mx-auto my-2"> <i class="fa fa-download" aria-hidden="true"></i> <span class="hidden-md-down"> {% trans "Download" %} </span></button>
+                                        </div>
+                                        {% endif %}
+                                        <div class="clearfix"></div>
+                                    </td>
+                                    </tr>
+                                </form>
+                            {% endif %}
+                            {% endfor %}
 
-                                    <table class="table table-borderless">
-                                        <tbody>
-                                        {% for ds in value %}
-                                        <tr class="row">
-                                            <td class="col-1 text-center">
-                                                {% if key != "other" %}
-                                                <input name="selected_rs" type="checkbox" value="{{ds.resource_id}},{{ds.name}}"/>
-                                                {% endif %}
-                                            </td>
-                                            <td class="col-1 text-center hidden-md-down">
-                                                <span class="label result-label" data-format="{{ds.format|lower}}">{{ ds.format }}</span>
-                                            </td>
+                            {% for key, value in dataset_groups.items %}
+                            {% if key == "other" and value %}
+                                <form method="post">
+                                    {% csrf_token %}
+                                    <tr class="table-danger row">
+                                    <td class="col-9 my-auto">
 
-                                            <td class="col-9">
-                                                <span> {{ds.title}} - {{ds.name}} </span>
-                                            </td>
-                                        </tr>
-                                        {% endfor %}
-                                        </tbody>
-                                    </table>
+                                        <table class="table table-borderless">
+                                            <tbody>
+                                            {% for ds in value %}
+                                            <tr class="row">
+                                                <td class="col-1 text-center">
+                                                    {% if key != "other" %}
+                                                    <input name="selected_rs" type="checkbox" value="{{ds.resource_id}},{{ds.name}}"/>
+                                                    {% endif %}
+                                                </td>
+                                                <td class="col-1 text-center hidden-md-down">
+                                                    <span class="label result-label" data-format="{{ds.format|lower}}">{{ ds.format }}</span>
+                                                </td>
 
-                                </td>
+                                                <td class="col-9">
+                                                    <span> {{ds.title}} - {{ds.name}} </span>
+                                                </td>
+                                            </tr>
+                                            {% endfor %}
+                                            </tbody>
+                                        </table>
 
-                                <td class="col-3 my-auto text-center">
-                                    {% if key == "other" and value %}
-                                    <div class="top10">
-                                        <i class="fa fa-exclamation" aria-hidden="true"></i>
-                                        {% trans "Incompatible files can't be merged" %}
-                                    </div>
-                                    {% elif key != "other" %}
-                                    <div class="row nav-row">
-                                        <button type="submit" name="view" class="btn btn-outline-primary col-9 mx-auto my-2"> <i class="fa fa-table" aria-hidden="true"></i> <span class="hidden-md-down"> {% trans "View as table" %} </span></button>
-                                        <button type="submit" name="chart" class="btn btn-outline-primary col-9 mx-auto my-2"> <i class="fa fa-bar-chart" aria-hidden="true"></i> <span class="hidden-md-down"> {% trans "Explore as chart" %} </span></button>
-                                        <button type="submit" name="analyse" class="btn btn-outline-primary col-9 mx-auto my-2"> <i class="fa fa-line-chart" aria-hidden="true"></i> <span class="hidden-md-down"> {% trans "Analyse" %} </span></button>
-                                        <button type="submit" name="merge" class="btn btn-outline-primary col-9 mx-auto my-2"> <i class="fa fa-download" aria-hidden="true"></i> <span class="hidden-md-down"> {% trans "Download" %} </span></button>
-                                    </div>
-                                    {% endif %}
-                                    <div class="clearfix"></div>
-                                </td>
-                                </tr>
-                            </form>
+                                    </td>
+
+                                    <td class="col-3 my-auto text-center">
+                                        {% if key == "other" and value %}
+                                        <div class="top10">
+                                            <i class="fa fa-exclamation" aria-hidden="true"></i>
+                                            {% trans "Incompatible files can't be merged" %}
+                                        </div>
+                                        {% elif key != "other" %}
+                                        <div class="row nav-row">
+                                            <button type="submit" name="view" class="btn btn-outline-primary col-9 mx-auto my-2"> <i class="fa fa-table" aria-hidden="true"></i> <span class="hidden-md-down"> {% trans "View as table" %} </span></button>
+                                            <button type="submit" name="chart" class="btn btn-outline-primary col-9 mx-auto my-2"> <i class="fa fa-bar-chart" aria-hidden="true"></i> <span class="hidden-md-down"> {% trans "Explore as chart" %} </span></button>
+                                            <button type="submit" name="analyse" class="btn btn-outline-primary col-9 mx-auto my-2"> <i class="fa fa-line-chart" aria-hidden="true"></i> <span class="hidden-md-down"> {% trans "Analyse" %} </span></button>
+                                            <button type="submit" name="merge" class="btn btn-outline-primary col-9 mx-auto my-2"> <i class="fa fa-download" aria-hidden="true"></i> <span class="hidden-md-down"> {% trans "Download" %} </span></button>
+                                        </div>
+                                        {% endif %}
+                                        <div class="clearfix"></div>
+                                    </td>
+                                    </tr>
+                                </form>
+                            {% endif %}
                             {% endfor %}
                             </tbody>
                         </table>
 
                     </div>
-
-                    {% endif %}
 
                     {% if base_dataset %}
 

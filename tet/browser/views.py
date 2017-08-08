@@ -878,7 +878,6 @@ def combine(request, dataset_id = False):
                 context = {
                     "RESOURCE_URL" : url,
                     "ACTION" : "analyse",
-                    
                 }
                 template_name = 'browser/analyse.html'
                 return render(request, template_name, context)
@@ -963,14 +962,17 @@ def combine(request, dataset_id = False):
 
                 else:
                     groups["other"].append(dataset)
+
         for g in groups.keys():
             if len(groups[g]) < 2:
                 if g == "other":
                     continue
                 groups["other"].extend(groups[g])
                 del groups[g]
+
     except Exception as e:
         return JsonResponse({'message': str(e)})
+
     context = {
         "dataset_groups" : groups,
         "base_dataset" : base_dataset,
