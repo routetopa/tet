@@ -184,11 +184,15 @@ $(function () {
     //Query Builder
     if($("#query-editor").length > 0){
 
+        var resource_id
+
         url = $( "#api-link" ).val();
 
         $.get(url, function(data){
             resource_id = data.result.resource_id;
+
             var to_be_removed = 0;
+
             for (field in data.result.fields){
                 if (data.result.fields[field]["id"] == '_id'){
                     to_be_removed = field
@@ -196,11 +200,16 @@ $(function () {
                 }
                 data.result.fields[field]["label"] = data.result.fields[field]["id"];
                 data.result.fields[field]["id"] = "_" + data.result.fields[field]["id"] + "_";
+
+                // TODO switch + default string
                 if (data.result.fields[field]["type"] == "int4"){
                     data.result.fields[field]["type"] = "integer"
                 }
                 if (data.result.fields[field]["type"] == "text"){
                     data.result.fields[field]["type"] = "string"
+                }
+                if (data.result.fields[field]["type"] == "timestamp"){
+                    data.result.fields[field]["type"] = "time"
                 }
                 if (data.result.fields[field]["type"] == "numeric"){
                     data.result.fields[field]["type"] = "double"
@@ -259,8 +268,10 @@ $(function () {
         });
 
         $("#exe-query").click(function(e){
+            console.log( resource_id )
             var sql = $('#query-editor').queryBuilder('getSQL').sql;
             sql = 'SELECT  * from  ' + '"' + resource_id + '" WHERE ' +sql;
+            console.log( resource_id )
             sql = sql.replace(new RegExp("_", 'g'), '"');
             sql_api = $("#query-api").val() + "?sql=" + encodeURIComponent(sql);
             $("#query-output").html("");
