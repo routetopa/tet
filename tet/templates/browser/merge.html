@@ -15,9 +15,131 @@
 
                     <div class="row">
                         <div class="col">
-                            <h4 class="dataset-title"> {% trans "Merge Datasets" %}</h4> + split
+                            <h4 class="dataset-title"> {% trans "Merge Datasets" %}</h4>
                         </div>
                     </div>
+
+                    <ul class="nav nav-tabs mb-3">
+                        <li role="presentation" class="nav-item">
+                            <a class="nav-link active" href="#dataset-merge" aria-controls="dataset-merge" role="tab" data-toggle="tab"><h6>{% trans "Dataset Merging" %}</h6></a>
+                        </li>
+                        {% if base_dataset_resource_id %}
+                        <li role="presentation" class="nav-item">
+                            <a class="nav-link" href="#dataset-split" aria-controls="dataset-split" role="tab" data-toggle="tab"><h6>{% trans "Dataset Splitting" %}</h6></a>
+                        </li>
+                        {% endif %}
+                    </ul>
+
+                    <div class="tab-content my-2">
+                        <div role="tabpanel" class="tab-pane fade show active" id="dataset-merge">
+
+                            <div class="col-md-12 col-lg-10 col-lg-offset-1">
+
+                                <div class="">
+                                    <p>
+                                        {% trans "This feature allow to combine one or more datasets." %}
+                                        {% trans "Only datasets with the compatible schema can be merged." %}
+                                    </p>
+                                </div>
+
+
+
+                            </div>
+                        </div>
+
+                        {% if base_dataset_resource_id %}
+                        <div role="tabpanel" class="tab-pane" id="dataset-split">
+
+                            <div class="col-md-12 col-lg-10 col-lg-offset-1">
+
+                                <div class="row">
+                                    <div class="col-12">
+
+                                        <ul class="nav nav-tabs mb-3">
+                                            <li role="presentation" class="nav-item">
+                                                <a class="nav-link active" href="#simplequery" aria-controls="simplequery" role="tab" data-toggle="tab">{% trans "Query Builder" %}</a>
+                                            </li>
+                                            <li role="presentation" class="nav-item">
+                                                <a class="nav-link" href="#sqlquery" aria-controls="sqlquery" role="tab" data-toggle="tab">{% trans "SQL Query" %}</a>
+                                            </li>
+                                        </ul>
+
+                                        <div class="tab-content my-2">
+                                            <div role="tabpanel" class="tab-pane active" id="simplequery">
+
+                                                <div class="col-md-12 col-lg-10 col-lg-offset-1 my-3">
+                                                    <div id="query-editor" class=""></div>
+                                                </div>
+
+                                                <form class="simplequeryNavbar navbar-form my-3">
+                                                    <input id="query-api" type="hidden" value="{{ QUERY_API }}"/>
+
+                                                    <button id="trigger" type="button" class="btn btn-outline-primary mr-2 pull-right"><i class="fa fa-bell-o" aria-hidden="true"></i> {% trans 'Alert' %}</button>
+                                                    <button id="download" type="button" class="btn btn-outline-primary mr-2 pull-right"><i class="fa fa-download" aria-hidden="true"></i> {% trans 'Download' %}</button>
+                                                    <button id="exe-query" type="button" class="btn btn-outline-primary mr-2 pull-right"><i class="fa fa-play" aria-hidden="true"></i> {% trans 'Run' %}</button>
+
+                                                    <span class="clearfix"></span>
+                                                </form>
+
+                                                <div id="trigger-form" class="my-3" style="display: none;">
+
+                                                    <form id="trigger-create-form">
+
+                                                        <legend>{% trans 'Create Trigger' %}</legend>
+
+                                                        <div class="form-group">
+                                                            <label for="trigger-text">{% trans 'Notification' %}</label>
+                                                            <textarea id="trigger-text" class="form-control" rows="3" placeholder="{% trans 'i.e. Overspending in budget' %}"></textarea>
+                                                        </div>
+
+                                                        <div class="form-group">
+                                                            <label dor="trigger-email">{% trans 'Email' %}</label>
+                                                            <input id="trigger-email" class="form-control" type="email" placeholder="user@routetopa.eu">
+                                                            <small id="trigger-help" class="form-text text-muted">{% trans "We'll never share your email with anyone else." %}</small>
+                                                        </div>
+
+                                                        <button type="submit" id="trigger-create" class="btn btn-primary" disabled>{% trans 'Create' %}</button>
+
+                                                    </form>
+
+                                                    <div id="trigger-output"></div>
+
+                                                </div>
+
+                                                <div class="my-3">
+                                                    <div id="query-output"></div>
+                                                </div>
+
+                                            </div>
+
+                                            <div role="tabpanel" class="tab-pane" id="sqlquery">
+
+                                                <div id="adv-query-editor" style="min-height: 100px;">SELECT  * from " {{ base_dataset_resource_id }}" LIMIT 10</div>
+
+                                                <div class="my-3">
+                                                    <button id="adv-exe-query" type="button" class="btn btn-primary pull-right">{% trans 'Run' %}</button>
+                                                </div>
+
+                                                <div>
+                                                    <div id="adv-query-output"></div>
+                                                </div>
+
+                                            </div>
+
+                                        </div>
+
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                        {% endif %}
+
+                    </div>
+
+
+
+
 
                     <div class="">
 
@@ -143,13 +265,6 @@
 
                         <div class="row">
 
-                            <div class="col-12">
-                                <p>
-                                    {% trans "This feature allow to combine one or more datasets." %}
-                                    {% trans "Only datasets with the compatible schema can be merged." %}
-                                </p>
-                            </div>
-
                             <div class="col-md-6 col-sm-12">
                                 <h5>
                                     <i class="fa fa-file-o small" aria-hidden="true"></i> {% trans "Selected Dataset" %}
@@ -222,87 +337,6 @@
                             </div>
 
                         </div>
-
-                        {% if base_dataset_resource_id %}
-                        <div class="row">
-                            <div class="col-12">
-
-                                <ul class="nav nav-tabs mb-3">
-                                    <li role="presentation" class="nav-item">
-                                        <a class="nav-link active" href="#simplequery" aria-controls="simplequery" role="tab" data-toggle="tab">{% trans "Query Builder" %}</a>
-                                    </li>
-                                    <li role="presentation" class="nav-item">
-                                        <a class="nav-link" href="#sqlquery" aria-controls="sqlquery" role="tab" data-toggle="tab">{% trans "SQL Query" %}</a>
-                                    </li>
-                                </ul>
-
-                                <div class="tab-content my-2">
-                                    <div role="tabpanel" class="tab-pane active" id="simplequery">
-
-                                        <div class="col-md-12 col-lg-10 col-lg-offset-1">
-                                            <div id="query-editor" class=""></div>
-                                        </div>
-
-                                        <form class="simplequeryNavbar navbar-form my-3">
-                                            <input id="query-api" type="hidden" value="{{ QUERY_API }}"/>
-
-                                            <button id="trigger" type="button" class="btn btn-outline-primary mr-2 pull-right"><i class="fa fa-bell-o" aria-hidden="true"></i> {% trans 'Alert' %}</button>
-                                            <button id="download" type="button" class="btn btn-outline-primary mr-2 pull-right"><i class="fa fa-download" aria-hidden="true"></i> {% trans 'Download' %}</button>
-                                            <button id="exe-query" type="button" class="btn btn-outline-primary mr-2 pull-right"><i class="fa fa-play" aria-hidden="true"></i> {% trans 'Run' %}</button>
-
-                                            <span class="clearfix"></span>
-                                        </form>
-
-                                        <div id="trigger-form" class="my-3" style="display: none;">
-
-                                            <form id="trigger-create-form">
-
-                                                <legend>{% trans 'Create Trigger' %}</legend>
-
-                                                <div class="form-group">
-                                                    <label for="trigger-text">{% trans 'Notification' %}</label>
-                                                    <textarea id="trigger-text" class="form-control" rows="3" placeholder="{% trans 'i.e. Overspending in budget' %}"></textarea>
-                                                </div>
-
-                                                <div class="form-group">
-                                                    <label dor="trigger-email">{% trans 'Email' %}</label>
-                                                    <input id="trigger-email" class="form-control" type="email" placeholder="user@routetopa.eu">
-                                                    <small id="trigger-help" class="form-text text-muted">{% trans "We'll never share your email with anyone else." %}</small>
-                                                </div>
-
-                                                <button type="submit" id="trigger-create" class="btn btn-primary">{% trans 'Create' %}</button>
-
-                                            </form>
-
-                                            <div id="trigger-output"></div>
-
-                                        </div>
-
-                                        <div class="my-3">
-                                            <div id="query-output"></div>
-                                        </div>
-
-                                    </div>
-
-                                    <div role="tabpanel" class="tab-pane" id="sqlquery">
-
-                                        <div id="adv-query-editor" style="min-height: 100px;">SELECT  * from " {{ base_dataset_resource_id }}" LIMIT 10</div>
-
-                                        <div class="my-3">
-                                            <button id="adv-exe-query" type="button" class="btn btn-primary pull-right">{% trans 'Run' %}</button>
-                                        </div>
-
-                                        <div>
-                                            <div id="adv-query-output"></div>
-                                        </div>
-
-                                    </div>
-
-                                </div>
-
-                            </div>
-                        </div>
-                        {% endif %}
 
                     {% endif %}
 
