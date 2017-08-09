@@ -45,6 +45,8 @@
 
                                 <div class="">
 
+                                    {% if dataset_groups.items.other|length > 1 or dataset_groups.items|length > 1 %}
+
                                     <table id="merge-table" class="table my-4">
 
                                         <thead class="thead-inverse">
@@ -161,6 +163,8 @@
                                         </tbody>
                                     </table>
 
+                                    {% endif %}
+
                                 </div>
 
                                 {% if base_dataset %}
@@ -179,8 +183,6 @@
                                             </p>
 
                                         </div>
-
-
 
                                         <div class="col-md-6 col-sm-12">
 
