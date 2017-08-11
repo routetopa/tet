@@ -6,7 +6,7 @@
 
 {% block content %}
 
-            <form method="post" action="{% url 'combine' base_dataset.id %}">
+            <form method="post" action="{% url 'combine' dataset.id %}">
                 {% csrf_token %}
 
                 <input id="api-link" type="hidden" value="{{API_LINK}}" />
@@ -23,7 +23,7 @@
                         <li role="presentation" class="nav-item">
                             <a class="nav-link active" href="#dataset-merge" aria-controls="dataset-merge" role="tab" data-toggle="tab"><h6>{% trans "Dataset Merging" %}</h6></a>
                         </li>
-                        {% if base_dataset_resource_id %}
+                        {% if dataset_resource_id %}
                         <li role="presentation" class="nav-item">
                             <a class="nav-link" href="#dataset-split" aria-controls="dataset-split" role="tab" data-toggle="tab"><h6>{% trans "Dataset Splitting" %}</h6></a>
                         </li>
@@ -33,7 +33,7 @@
                     <div class="tab-content my-2">
                         <div role="tabpanel" class="tab-pane fade show active" id="dataset-merge">
 
-                            <div class="col-md-12 col-lg-10 col-lg-offset-1">
+                            <div class="col-md-12">
 
                                 <div class="">
                                     <p>
@@ -167,7 +167,7 @@
 
                                 </div>
 
-                                {% if base_dataset %}
+                                {% if dataset %}
 
                                     <div class="row">
 
@@ -176,10 +176,10 @@
                                                 <i class="fa fa-file-o small" aria-hidden="true"></i> {% trans "Selected Dataset" %}
                                             </h5>
 
-                                            <p class="mt-3"><strong>{{ base_dataset.title }}</strong></p>
+                                            <p class="mt-3"><strong>{{ dataset.title }}</strong></p>
 
                                             <p>
-                                                {{ base_dataset.notes }}
+                                                {{ dataset.notes }}
                                             </p>
 
                                         </div>
@@ -248,10 +248,10 @@
                                 </div>
                             </div>
 
-                            {% if base_dataset_resource_id %}
+                            {% if dataset_resource_id %}
                             <div role="tabpanel" class="tab-pane" id="dataset-split">
 
-                                <div class="col-md-12 col-lg-10 col-lg-offset-1">
+                                <div class="col-md-12">
 
                                     <div class="row">
                                         <div class="col-12">
@@ -268,7 +268,7 @@
                                             <div class="tab-content my-2">
                                                 <div role="tabpanel" class="tab-pane active" id="simplequery">
 
-                                                    <div class="col-md-12 col-lg-10 col-lg-offset-1 my-3">
+                                                    <div class="col-md-12 my-3">
                                                         <div id="query-editor" class=""></div>
                                                     </div>
 
@@ -315,7 +315,7 @@
 
                                                 <div role="tabpanel" class="tab-pane" id="sqlquery">
 
-                                                    <div id="adv-query-editor" style="min-height: 100px;">SELECT  * from "{{ base_dataset_resource_id }}" LIMIT 10</div>
+                                                    <div id="adv-query-editor" style="min-height: 100px;">SELECT  * from "{{ dataset_resource_id }}" LIMIT 10</div>
 
                                                     <div class="my-3">
                                                         <button id="adv-exe-query" type="button" class="btn btn-primary pull-right">{% trans 'Run' %}</button>
