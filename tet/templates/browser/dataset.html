@@ -13,33 +13,6 @@
                             {{ dataset.notes }}
                         </p>
                     </div>
-<!--
-                    <div class="col-md-3 col-sm-12">
-                        <h4 class="dataset-title"> {% trans "Actions" %} </h4>
-
-                        <ul class="nav flex-column">
-                          <li class="nav-item">
-                            <a class="nav-link p-0 pb-2" href="#">Search & Browse</a>
-                          </li>
-                          <li class="nav-item">
-                            <a class="nav-link p-0 pb-2" href="#">Profile</a>
-                          </li>
-                          <li class="nav-item">
-                            <a class="nav-link p-0 pb-2" href="#">Summary</a>
-                          </li>
-                          <li class="nav-item">
-                            <a class="nav-link p-0 pb-2" href="#">Analysis & Visualisation</a>
-                          </li>
-                          <li class="nav-item">
-                            <a class="nav-link p-0 pb-2" href="#">Dataset Merge</a>
-                          </li>
-                          <li class="nav-item">
-                            <a class="nav-link disabled pl-0" href="#">Disabled</a>
-                          </li>
-                        </ul>
-
-                    </div>
--->
 
                 </div>
 
@@ -361,6 +334,7 @@
                             </div>
 
 
+                            {% if dataset.tags %}
                             <div class="panel panel-dataset">
 
                                 <div class="panel-heading">
@@ -381,7 +355,7 @@
                                 </div>
 
                             </div>
-
+                            {% endif %}
 
 
                             {% if fields %}
