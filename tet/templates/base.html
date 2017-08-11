@@ -86,7 +86,7 @@
   <body{% block body_attribs %}{% endblock body_attribs %}>
 
     {% block header %}
-      {% include "browser/_header.html" %}
+      {% include "browser/_header.html" with dataset=dataset url_name=request.resolver_match.url_name %}
     {% endblock header %}
 
     <div id="wrap">
