@@ -305,7 +305,7 @@ function detectAnomaly(){
 
         // TODO dynamic links
         //var url = "http://10.2.17.4:8888/detectAnomalies/lof";
-        var url = "http://vmrtpa05.deri.ie:8003/detectAnomalies/lof";
+        var url = "http://vmrtpa05.deri.ie:8008/detectAnomalies/lof";
         var dataType ="aplication/json";
 
         x_axis = data["x"]
@@ -546,7 +546,7 @@ function recalculateAnomaly() {
 
             // TODO dynamic links
             //var url = "http://10.2.17.4:8888/detectAnomalies/lof";
-            var url = "http://vmrtpa05.deri.ie:8003/detectAnomalies/lof";
+            var url = "http://vmrtpa05.deri.ie:8008/detectAnomalies/lof";
             var dataType ="aplication/json";
 
             x_axis = data["x"]
