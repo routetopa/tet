@@ -34,6 +34,7 @@ from django.http import HttpResponse, HttpResponseRedirect, Http404, JsonRespons
 from django.shortcuts import get_object_or_404, render
 from django.utils.html import strip_tags
 from django.views import generic
+from django.core.urlresolvers import resolve
 from reportlab.lib.pagesizes import letter
 from reportlab.lib.styles import getSampleStyleSheet
 from reportlab.platypus import BaseDocTemplate, Frame, PageTemplate, Paragraph
@@ -605,7 +606,8 @@ def dataset(request, dataset_id):
             related_datasets = json.loads(res.read())["datasets"]
         except Exception as e:
             messages.add_message(request, messages.ERROR, e)
-            return render(request, error_template)
+            #return render(request, error_template)
+
         if "resources" in dataset.keys():
             for resource in dataset["resources"]:
                 if resource["format"].lower() in ["csv","xls"]:
@@ -651,15 +653,18 @@ def dataset(request, dataset_id):
     except Exception as e:
         messages.add_message(request, messages.ERROR, e)
         return render(request, error_template)
+
     uniqueColumns = checkOccurenceFrequency(data, textcolumns)
+
     if resource_id and len(resource_fields) < 1:
         resource_id = None
-        ######
+
     if uniqueColumns: ##if there are any columns with unique values
         for column in uniqueColumns:
             for element in resource_fields:
                 if (column[0].encode("utf-8") in element[0].encode("utf-8")):
                     resource_fields.remove(element)
+
     context = {
         'dataset_id': dataset_id,
         'dataset': dataset,
@@ -975,8 +980,9 @@ def combine(request, dataset_id = False):
 
     context = {
         "dataset_groups" : groups,
-        "base_dataset" : base_dataset,
-        "base_dataset_resource_id" : base_dataset_resource_id,
+        # to keep main menu clean
+        "dataset" : base_dataset,
+        "dataset_resource_id" : base_dataset_resource_id,
         "dataset_id" : dataset_id,
         'API_LINK' : API_LINK,
         'QUERY_API': settings.CKAN_URL + "/api/action/datastore_search_sql"
@@ -998,6 +1004,7 @@ def dataset_as_table(request, dataset_id):
     url = settings.CKAN_URL + "/dataset/" + dataset_id
     url_table = None
     url_pivottable = None
+    pivot_resource_json = { "result": { "records": [] } }
     resource_id = None
     resource_fields = None
     numeric_fields = None
@@ -1006,10 +1013,11 @@ def dataset_as_table(request, dataset_id):
         dataset = ckan_api_instance.action.package_show(
             id=dataset_id
         )
+
         if "resources" in dataset.keys():
             for resource in dataset["resources"]:
 
-                if resource["format"].lower()  == "pdf":
+                if resource["format"].lower() == "pdf":
                     dataset["has_pdf"] = True
 
                 if resource["format"].lower() in ["csv","xls"]:
@@ -1033,9 +1041,15 @@ def dataset_as_table(request, dataset_id):
                             pivot_resource_json = json.loads(pivot_res.read())
                             break
                     break
+                else:
+                    # table view not available!
+                    messages.add_message(request, messages.ERROR, "Table view not available!")
+                    return redirect('dataset', dataset_id=dataset_id)
+
     except Exception as e:
         messages.add_message(request, messages.ERROR, e)
         return render(request, error_template)
+
     context = {
         "url_table": url_table,
         'url_pivottable': url_pivottable,
@@ -1085,8 +1099,9 @@ def dataset_as_summary(request, dataset_id):
                     break
 
     except Exception as e:
-        messages.add_message(request, messages.ERROR, e)
-        return render(request, error_template)
+        # summary view not available!
+        messages.add_message(request, messages.ERROR, "Summary view not available!")
+        return redirect('dataset', dataset_id=dataset_id)
 
     context = {
         "resource_id" : resource_id,
