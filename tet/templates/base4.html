@@ -29,15 +29,7 @@
     <!-- FontAwesome -->
     <link rel=stylesheet type=text/css href="{% static 'css/font-awesome.min.css' %}" />
 
-    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js" integrity="sha256-VazP97ZCwtekAsvgPBSUwPFKdrwD3unUfSGVYrahUqU=" crossorigin="anonymous"></script>
     <link href="https://code.jquery.com/ui/1.10.4/themes/ui-lightness/jquery-ui.css" rel="stylesheet">
-
-    <link rel=stylesheet type=text/css href="{% static 'css/c3.css' %}" />
-    <link rel=stylesheet type=text/css href="{% static 'css/pivot.css' %}" />
-
-    <link rel=stylesheet type=text/css href="{% static 'css/query-builder.default.min.css' %}" />
-
-    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.13/css/jquery.dataTables.min.css">
 
     <link rel=stylesheet type=text/css href="{% static 'css/jssocials.css' %}" />
     <link rel=stylesheet type=text/css href="{% static 'css/jssocials-theme-tet.css' %}" />
@@ -47,7 +39,6 @@
     {% block scripts %}
     <script type="text/javascript" src="http://deep.routetopa.eu/deep_1_9_rev/COMPONENTS/bower_components/webcomponentsjs/webcomponents-lite.min.js"></script>
 
-    <script src="{% static 'js/ace.js' %}"></script>
     <script src="{% static 'js/d3.js' %}"></script>
     <script src="{% static 'js/c3.js' %}"></script>
     <script src="{% static 'js/pivot.js' %}"></script>
@@ -61,16 +52,6 @@
     <script src="{% static 'js/jssocials.min.js' %}"></script>
 
     <script src="{% static 'js/clipboard.min.js' %}"></script>
-
-    <script type="text/javascript" language="javascript" src="https://cdn.datatables.net/1.10.13/js/jquery.dataTables.min.js"></script>
-    <script src="{% static 'js/sql-parser.js' %}"></script>
-    <script src="{% static 'js/query-builder.standalone.min.js' %}"></script>
-
-    <script src="{% static 'js/bootstrap-typeahead.js' %}"></script>
-
-    <!-- bootstrap-slider -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-slider/9.7.2/bootstrap-slider.min.js"></script>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-slider/9.7.2/css/bootstrap-slider.min.css" rel="stylesheet">
 
     <script src="{% static 'js/script.js' %}"></script>
     {% endblock scripts %}
@@ -86,7 +67,7 @@
   <body{% block body_attribs %}{% endblock body_attribs %}>
 
     {% block header %}
-      {% include "browser/_header.html" with dataset=dataset url_name=request.resolver_match.url_name %}
+      {% include "browser/_header.html" %}
     {% endblock header %}
 
     <div id="wrap">

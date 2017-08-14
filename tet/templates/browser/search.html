@@ -7,54 +7,45 @@
 
 {% block content %}
 
-            <div class="container">
                 <div class="container">
-
-                    <div class="row search-ui">
-
-                        <div class="span3 text-right">
-
-                        </div>
-
-                        <div class="span8 offset1 text-left">
-
-                            <div class="row">
-
-                                {% include "browser/_search.html" with query=query %}
-
-                            </div>
-
-                        </div>
-
-                    </div>
-
-                </div>
 
                 {% if has_results == True %}
 
-                <div class="row">
+                    <div class="row">
 
-                    <form method="post" action="{% url 'combine' %}">
+                        <form method="post" action="{% url 'combine' %}" class="col-12">
 
-                        <div class="span3" id="results-filter">
-                            {% include "browser/_search_filters.html" with filters=filters %}
-                        </div>
+                        <div class="row">
 
-                        <div class="span9" id="search-results">
-
-                            <div class="row order-by-header">
-
-                                <div class="span3 text-left"><h3>Results: <span id="results_count">{{search_results|length}}</span></h3></div>
-
-                                <div class="span2 text-right active-filter"><a href="#" id="sort-btn-relevance" class="sort-btn">{% trans "Relevance" %} <i class="fa fa-sort-amount-asc" aria-hidden="true"></i></a></div>
-                                <div class="span2 text-right"><a href="#" id="sort-btn-name" class="sort-btn">{% trans "Name" %} <i class="fa fa-sort-amount-desc" aria-hidden="true"></i></a></div>
-                                <div class="span2 text-right"><a href="#" id="sort-btn-date" class="sort-btn">{% trans "Date" %} <i class="fa fa-sort-amount-asc" aria-hidden="true"></i></a></div>
-
+                            <div class="col-md-3 col-sm-12" id="results-filter">
+                                {% include "browser/_search_filters.html" with filters=filters %}
                             </div>
+
+                            <div class="col-md-9 col-sm-12" id="search-results">
+
+                                <div class="order-by-header">
+
+                                    <ul class="list-inline">
+                                      <li class="list-inline-item mr-5">
+                                          <div class="text-right active-filter"><a href="#" id="sort-btn-relevance" class="sort-btn">{% trans "Relevance" %} <i class="fa fa-sort-amount-asc" aria-hidden="true"></i></a></div>
+                                      </li>
+                                      <li class="list-inline-item mr-5">
+                                          <div class="text-right"><a href="#" id="sort-btn-name" class="sort-btn">{% trans "Name" %} <i class="fa fa-sort-amount-desc" aria-hidden="true"></i></a></div>
+                                      </li>
+                                      <li class="list-inline-item">
+                                          <div class="text-right"><a href="#" id="sort-btn-date" class="sort-btn">{% trans "Date" %} <i class="fa fa-sort-amount-asc" aria-hidden="true"></i></a></div>
+                                      </li>
+
+                                      <li class="list-inline-item float-right">
+                                          <div class="text-right dark-primary">{% trans "Results" %}: <span id="results_count">{{search_results|length}}</span></div>
+                                      </li>
+                                    </ul>
+
+                                </div>
 
                                 {% csrf_token %}
 
-                                <ul class="dataset-list unstyled">
+                                <ul class="dataset-list list-unstyled">
 
                                     {% for dataset in search_results %}
                                         {% include "browser/_dataset_as_search_result.html" with dataset=dataset %}
@@ -62,22 +53,30 @@
 
                                 </ul>
 
+                            </div>
+
                         </div>
+                        </form>
 
-                    </form>
-
-                </div>
+                    </div>
 
                 {% else %}
 
-                <div class="container">
-                    <div class="container text-center">
+                    <div class="container text-center mt-5 pt-5">
 
                         <h3>{% trans "No results found." %}</h3>
                         <p>{% trans "Please try another search." %}</p>
 
+                        <div class="col-12 text-center">
+
+                            <div class="py-md-5 align-self-center">
+
+                                {% include "browser/_search.html" with query=query %}
+
+                            </div>
+                        </div>
+
                     </div>
-                </div>
 
                 {% endif %}
 

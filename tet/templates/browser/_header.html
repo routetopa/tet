@@ -1,44 +1,78 @@
 {% load static %}
 {% load i18n %}
 
-            <div class="navbar navbar-fixed-top">
 
-                <div class="navbar-inner">
-                    <div class="container">
+    <nav class="navbar navbar-toggleable-sm navbar-inverse fixed-top bg-navbar">
 
+        <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbar-top" aria-controls="navbar-top" aria-expanded="false" aria-label="{% trans "Toggle navigation" %}">
+            <span class="navbar-toggler-icon"></span>
+        </button>
 
-                        <div class="pull-left">
+        <a href="{% url "index" %}" class="rtpa-logo navbar-brand"></a>
 
-                            <a href="{% url "index" %}" class="rtpa-logo"></a>
-
-                        </div>
+        <div class="collapse navbar-collapse" id="navbar-top">
+            <ul class="navbar-nav ml-auto">
 
 <!--
-                        <div class="pull-left head-buttons">
-                            {% if user.is_anonymous %}
-                                <a href="#" class="btn btn-primary-login" id="login-popup">{% trans "Login" %}</a>
-                            {% else %}
-                                <a href="{% url 'django.contrib.auth.views.logout' %}" class="btn btn-primary-login" id="login-popup">{% trans "Logout" %}</a>
-                            {% endif %}
-                        </div>
+                <li class="nav-item">
+                    {% if user.is_anonymous %}
+                        <a href="#" class="nav-link" id="login-popup">{% trans "Login" %}</a>
+                    {% else %}
+                        <a href="{% url 'django.contrib.auth.views.logout' %}" class="nav-link" id="login-popup">{% trans "Logout" %}</a>
+                    {% endif %}
+                </li>
 -->
 
-                        <div class="pull-right head-buttons">
-                            <a href="{% url "index" %}" class="btn-link">{% trans "Home" %}</a>
+                <li class="nav-item">
+                    <a href="{% url "index" %}" class="nav-link{% if url_name == 'index' %} active{% endif %}">{% trans "Home" %}</a>
+                </li>
+
+                <li class="nav-item">
+                    <a href="{% url 'search' %}" class="nav-link{% if url_name == 'search' %} active{% endif %}">{% trans "Search & Browse" %}</a>
+                </li>
+
+                {% if dataset %}
+
+                <li class="nav-item">
+                    <a href="{% url 'dataset' dataset.id %}" class="nav-link{% if url_name == 'dataset' %} active{% endif %}" >{% trans "Profile" %}</a>
+                </li>
+                <li class="nav-item">
+                    <a href="{% url 'dataset_as_summary' dataset.id %}" class="nav-link{% if url_name == 'dataset_as_summary' %} active{% endif %}" >{% trans "Summary" %}</a>
+                </li>
+                <li class="nav-item">
+                    <a href="{% url 'dataset_as_table' dataset.id %}" class="nav-link{% if url_name == 'dataset_as_table' %} active{% endif %}">{% trans "Analysis & Visualisation" %}</a>
+                </li>
+                <li class="nav-item">
+                    <a href="{% url 'combine' dataset.id %}" class="nav-link{% if url_name == 'combine' %} active{% endif %}">{% trans "Merge" %}</a>
+                </li>
+
+                {% endif %}
+
+                {% if SPOD_URL %}
+                <li class="nav-item">
+                    <a href="{{SPOD_URL}}" class="nav-link">{% trans "SPOD" %}</a>
+                </li>
+                {% endif %}
+
 <!--
-                            | <a href="#" class="btn-link">{% trans "About" %}</a>
-                            | <a href="#" class="btn-link" id="help-section-btn">{% trans "Help" %}</a>
+                <li class="nav-item">
+                    <a href="#" class="nav-link">{% trans "About" %}</a>
+                </li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link">{% trans "Help" %}</a>
+                </li>
 -->
-                            | <a href="{{CKAN_URL}}" class="btn-link">{% trans "Classic CKAN" %}</a>
-                            | <a href="{{SPOD_URL}}" class="btn-link">{% trans "SPOD" %}</a>
-                            |
-                            {% include "browser/_language_selector.html" %}
-                        </div>
 
-                        <span class="clearfix"></span>
+                {% include "browser/_language_selector.html" %}
 
-                    </div>
+            </ul>
 
-                </div>
+            {% if not HIDE_SEARCH_NAV %}
+            <form class="form-inline my-2 my-lg-0 pl-5" action="{% url "search" %}">
+                <input name="query" class="form-control mr-sm-2" type="text" placeholder="{% trans "Search for datasets" %}" autocomplete="off" {% if query %} value="{{ query }}" {% endif %}>
+                <button class="btn btn-secondary my-2 my-sm-0" type="submit"> {% trans "Search" %}</button>
+            </form>
+            {% endif %}
 
-            </div>
+      </div>
+    </nav>

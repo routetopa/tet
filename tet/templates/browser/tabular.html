@@ -1,81 +1,292 @@
 {% extends "base.html" %}
 
+{% load staticfiles %}
 {% load i18n %}
 
-{% block title %} Dataset details {% endblock title %}
+{% get_current_language as LANGUAGE_CODE %}
+
+{% block title %} {% trans "Dataset details" %} {% endblock title %}
+
+{% block scripts %}
+
+    {{ block.super }}
+
+    <script src="{% static 'browser/js/anomaly-detection.js' %}"></script>
+
+{% endblock scripts %}
 
 {% block content %}
-
-                <div class="container">
-
-                    <div class="row search-ui">
-
-                        <div class="span8 offset3 text-left">
-
-                            <div class="row">
-
-                                {% include "browser/_search.html" with query=query %}
-
-                            </div>
-
-                        </div>
-
-                    </div>
-
-                </div>
 
                 <div class="row">
 
                     <h4 class="dataset-title"> {{ dataset.title }} <small>{% trans "Tabular View" %}</small></h4>
-                    <h5 class="dataset-title">  </h5>
 
                 </div>
                 
                 <div class="row">
-                    <div>
+                    <div class="col-12">
 
-                        <ul class="nav nav-tabs" role="tablist">
-                            <li role="presentation" class="active"><a href="#explorer" aria-controls="explorer" role="tab" data-toggle="tab">{% trans "Data Explorer" %}</a></li>
-                            <li role="presentation"><a href="#pivottable" aria-controls="pivottable" role="tab" data-toggle="tab">{% trans "PivotTable" %}</a></li>
-                             <li role="presentation"><a href="#sqlquery" aria-controls="sqlquery" role="tab" data-toggle="tab">{% trans "SQL Query" %}</a></li>
-                             <li role="presentation"><a href="#anomaly-detect" aria-controls="anomaly-detect" role="tab" data-toggle="tab">{% trans "Anomaly Detection" %}</a></li>
-                            <!--<li role="presentation"><a href="#discuss" aria-controls="discuss" role="tab" data-toggle="tab">{% trans "SPOD Discussion" %}</a></li>-->
+                        <ul class="nav nav-tabs mb-3">
+                            <li role="presentation" class="nav-item">
+                                <a class="nav-link active" href="#explorer" aria-controls="explorer" role="tab" data-toggle="tab">{% trans "Data Explorer" %}</a>
+                            </li>
+                            <li role="presentation" class="nav-item">
+                                <a class="nav-link" href="#pivottable" aria-controls="pivottable" role="tab" data-toggle="tab">{% trans "PivotTable" %}</a>
+                            </li>
+                            <li role="presentation" class="nav-item">
+                                <a class="nav-link" class="nav-link" href="#anomaly-detect" aria-controls="anomaly-detect" role="tab" data-toggle="tab">{% trans "Anomaly Detection" %}</a>
+                            </li>
+                            <!--<li role="presentation" class="nav-item"><a href="#discuss" aria-controls="discuss" role="tab" data-toggle="tab">{% trans "SPOD Discussion" %}</a></li>-->
                         </ul>
 
-                        <div class="tab-content">
+                        <div class="tab-content my-2">
 
                             <div role="tabpanel" class="tab-pane active" id="explorer">
                                 <iframe width="100%" height="350" src="{{url_table}}" frameBorder="0"></iframe>
                             </div>
 
                             <div role="tabpanel" class="tab-pane" id="pivottable">
-                                <iframe width="100%" height="350" src="{{url_pivottable}}" frameBorder="0"></iframe>
-                            </div>
 
-                            <div role="tabpanel" class="tab-pane" id="sqlquery">
-                               <div id="query-editor" style="height: 100px;">SELECT  * from "{{ resource_id }}" LIMIT 10</div>
-                               <div>
-                                    <input id="query-api" type="hidden" value="{{ QUERY_API }}"/>
-                                    <button id="exe-query" type="button" class="btn btn-primary pull-right">Run</button>
+                                <!--<iframe width="100%" height="350" src="{{url_pivottable}}" frameBorder="0"></iframe>-->
+
+
+                                <h4>{% trans "PivotTable visualisation" %}</h4>
+
+                                <p class="top20 text-justify">
+                                    {% trans "A pivot table is a data summarization tool. Among other functions, a pivot table can automatically sort, count, total or average the data stored in one table, displaying the results in a second table showing the summarized data." %}
+                                    {% trans "Pivot tables are also useful for quickly creating unweighted cross tabulations." %}
+                                    {% trans "The user sets up and changes the summary's structure by dragging and dropping fields graphically. This 'rotation' or pivoting of the summary table gives the concept its name." %}
+                                    <a href="https://en.wikipedia.org/wiki/Pivot_table" target="_blank">{% trans "Read more" %}</a>.
+                                </p>
+
+                                <div class="row">
+                                    <div id="pivot-table-output" class="col-12 top20">
+                                        <div class="left"><i class="fa fa-spinner fa-spin"></i> {% trans "Loading" %}...</div>
+                                    </div>
                                 </div>
-                                <div>
-                                    <div id="query-output"></div>
-                                </div>
+
+
+                                {% if pivot_resource_json %}
+
+                                    <script>
+                                        $("#pivot-table-output").pivotUI(
+                                            {{ pivot_resource_json|safe|escape }},
+                                            {
+                                                renderers: $.extend(
+                                                    $.pivotUtilities.renderers,
+                                                    $.pivotUtilities.c3_renderers
+                                                ),
+                                                rendererOptions: {
+                                                    c3: {
+                                                        // TODO custom legend
+                                                        legend: {
+                                                            // show: false,
+                                                            position: "right"
+                                                        },
+                                                        axis: {
+                                                            x: {
+                                                                show: true,
+                                                                tick: {
+                                                                    rotate: 75,
+                                                                    multiline: false,
+                                                                    culling: {
+                                                                        max: 40 // the number of tick texts will be adjusted to less than this value
+                                                                    }
+                                                                }
+                                                            }
+                                                        }
+                                                    }
+                                                }
+                                            },
+                                            false,
+                                            "{{ LANGUAGE_CODE|lower}}"
+                                        );
+                                    </script>
+
+                                {% endif %}
+
                             </div>
 
                             <div role="tabpanel" class="tab-pane" id="anomaly-detect">
-                               <span>
-                                 {% trans "Select a field name : " %}
-                               </span>
-                               <input id="api-link" type="hidden" value="{{API_LINK}}" />
-                               <select id="field-name">
-                                   {% for f in numeric_fields %}
-                                        <option value="{{f}}">{{f}}</option>
-                                   {% endfor %}
-                               </select>
-                               <button onclick="detectAnomaly()" name="merge" class="span2 pull-right btn main-search-btn rtpa-btn"> <i class="fa fa-bug" aria-hidden="true"></i> {% trans "Detect Anomaly" %} </button>
-                               <div id="anomaly-output">
-                               </div>
+
+                                <h4>{% trans "Anomaly detection" %}</h4>
+
+                                <p class="my-2 ">
+                                    {% trans "Anomaly detection web service implemented for ROUTE-TO-PA project is based on the Local Outlier Factor Algorithm (LOF)." %}
+                                    {% trans "LOF algorithm is unsupervised nearest neighborhood  based anomaly detection algorithm widely used for multivariate anomaly detection." %}
+                                    {% trans "The LOF score is thus basically a ratio of local densities. The normal instances, which densities are as big as the densities of their neighbors, get a score of about 1.0. Anomalies, which have a low local density, will result in larger scores." %}
+                                    <a href="https://en.wikipedia.org/wiki/Local_outlier_factor" target="_blank">{% trans "Read more" %}</a>.
+                                </p>
+
+                                <p class="my-2">
+                                    <button id="detectAnomaly" onclick="detectAnomaly()" name="" class="span2 btn btn-primary float-right"> <i class="fa fa-bug" aria-hidden="true"></i> {% trans "Detect Anomaly" %} </button>
+                                </p>
+
+                                <input id="api-link" type="hidden" value="{{API_LINK}}" />
+
+                                <div class="clearfix"></div>
+
+                                <div class='alert alert-success noAnomalyDetected'>{% trans "No anomaly detected" %}</div>
+
+                                <div class="anomalyDetectionResults">
+
+                                    <div class="">
+
+                                        <div class="row">
+
+                                            <div class="col-6">
+
+                                                <h5 class="">{% trans "Results adjustment" %}</h5>
+                                                <div class="anomalyChatsControls">
+
+                                                    <div class="">
+
+                                                        <div class="">
+
+                                                            <div class="">
+                                                                <span class="text-left">
+                                                                    {% trans "Select a field name for visualisation" %}:
+                                                                </span>
+                                                            </div>
+
+                                                            <div class="form-group">
+                                                                <select id="field-name" class="form-control">
+                                                                    {% for f in numeric_fields %}
+                                                                        <option value="{{f}}">{{f}}</option>
+                                                                    {% endfor %}
+                                                                </select>
+                                                            </div>
+
+                                                            <div class="form-group">
+                                                                    <p>
+                                                                        {% trans "Change visualisation type" %}:
+                                                                    </p>
+
+                                                                    <div class="">
+
+                                                                        <span class="">
+                                                                            <button onclick="updateChartType('scatter')" name="" class="btn btn-outline-primary"> <i class="fa fa-spinner" aria-hidden="true"></i> {% trans "Scatter Plot" %} </button>
+                                                                            <button onclick="updateChartType('line')" name="" class="btn btn-outline-primary"> <i class="fa fa-spinner" aria-hidden="true"></i> {% trans "Line Chart" %} </button>
+                                                                            <button onclick="updateChartType('bar')" name="" class="btn btn-outline-primary"> <i class="fa fa-spinner" aria-hidden="true"></i> {% trans "Bar chart" %} </button>
+                                                                        </span>
+
+                                                                    </div>
+
+                                                            </div>
+
+                                                            <div class="form-group">
+                                                                <span class="">
+                                                                    {% trans "Adjust the tolerance threshold value" %}:
+                                                                </span>
+                                                            </div>
+
+                                                            <div class="form-group">
+                                                                <span class="">
+                                                                    <input id="scoreTolerance" class="form-control"  data-slider-id='scoreTolerance' type="text" data-slider-min="0" data-slider-max="5" data-slider-step="0.05" data-slider-value="0.5"/>
+                                                                </span>
+                                                            </div>
+
+
+<!--
+                                                            <div class="form-group">
+                                                                <div id="neighboursAD" class="">
+
+                                                                    <span class="">
+                                                                        {% trans "Amount of neighbours" %}:
+                                                                    </span>
+                                                                    <span class="">
+                                                                        <input id="neighboursCount" class="form-control" data-slider-id='neighboursCount' type="text" data-slider-min="1" data-slider-max="12" data-slider-step="1" data-slider-value="10"/>
+                                                                    </span>
+
+                                                                </div>
+                                                            </div>
+-->
+
+                                                        </div>
+
+                                                    </div>
+
+                                                </div>
+
+
+                                                <h5 class="">{% trans "Anomaly summary" %}</h5>
+                                                <div id="anomaly-summary" class="">
+
+                                                    <div class="row">
+                                                        <span class="col-8">{% trans "Number of anomalies detected" %}: </span>
+                                                        <span class="col-4" id="noOfAnomalies"><i class="fa fa-spinner fa-spin"></i></span>
+                                                    </div>
+                                                    <div class="row">
+                                                        <span class="col-8">{% trans "Number of global anomalies detected" %}: </span>
+                                                        <span class="col-4" id="noOfGlobalAnomalies"><i class="fa fa-spinner fa-spin"></i></span>
+                                                    </div>
+                                                    <div class="row">
+                                                        <span class="col-8">{% trans "Number of local anomalies detected" %}: </span>
+                                                        <span class="col-4" id="noOfLocalAnomalies"><i class="fa fa-spinner fa-spin"></i></span>
+                                                    </div>
+                                                    <div class="row">
+                                                        <span class="col-8">{% trans "Highest anomaly score value" %}: </span>
+                                                        <span class="col-4" id="highestAnomalyScore"><i class="fa fa-spinner fa-spin"></i></span>
+                                                    </div>
+
+                                                </div>
+
+                                            </div>
+
+                                            <div class="col-6">
+
+                                                <h5 class="top20">{% trans "Anomaly detection configuration" %}</h5>
+                                                <div id="anomaly-configuration" class="">
+
+                                                    <div class="span6">
+                                                        <p>By default all the columns are used to calculate the anomaly score. You can re-calculate the scores by selecting the fields.</p>
+                                                    </div>
+
+                                                    <div class="span6">
+
+                                                        <div class="anomalyConfigurationAlert alert alert-info">
+                                                          <strong><i class="fa fa-info" aria-hidden="true"></i></strong> {% trans "Please select at least one item" %}.
+                                                        </div>
+
+                                                        <label class="checkbox" style="display: none;">
+                                                            <input type="checkbox" value="_id" class="anomalyDimensionCheckbox" checked="checked"> _id - <small><i>int4</i></small>
+                                                        </label>
+
+                                                        {% for f in resource_fields %}
+                                                            {% if f.id != '_id' %}
+                                                                <label class="checkbox">
+                                                                    <input type="checkbox" value="{{f.id}}" class="anomalyDimensionCheckbox"> {{f.id}} - <small><i>{% trans f.type %}</i></small>
+                                                                </label>
+                                                            {% endif %}
+                                                        {% endfor %}
+                                                    </div>
+
+                                                    <div class="span6 top20">
+                                                        <button id="recalculateAnomaly" onclick="recalculateAnomaly()" name="" class="btn btn-outline-primary"> <i class="fa fa-cogs" aria-hidden="true"></i> {% trans "Recalculate Results" %} </button>
+                                                    </div>
+
+                                                </div>
+
+                                            </div>
+
+                                        </div>
+
+                                        <h5 class="top30">{% trans "Anomaly visualisation" %}</h5>
+                                        <div id="dimension-chart" class="top20">
+                                            <i class="fa fa-spinner fa-spin" style="font-size:24px"></i>
+                                        </div>
+
+                                        <div id="anomaly-chart" class="top20">
+                                            <i class="fa fa-spinner fa-spin" style="font-size:24px"></i>
+                                        </div>
+
+                                        <h5 class="top20">{% trans "Anomaly table" %}</h5>
+                                        <div id="anomaly-output" class="top20">
+                                            <i class="fa fa-spinner fa-spin" style="font-size:24px"></i>
+                                        </div>
+
+                                    </div>
+
                             </div>
 <!--
                             <div role="tabpanel" class="tab-pane" id="discuss">
@@ -86,17 +297,14 @@
 
                     </div>
                 </div>
+                </div>
 
+{% comment %}
+                <div class="row">
 
-                <div class="row top30">
+                    <div class="col-12">
 
-                    <div class="span8">
-                        {% include "browser/_dataset_api_box.html" with API_LINK=API_LINK %}
-                    </div>
-
-                    <div class="span4 top30">
-
-                        <ul class="dataset-services-as-divider">
+                        <ul class="list-unstyled dataset-services-as-divider">
                             <li class="dataset-service">{% trans "View as: " %} </li>
                             <li class="dataset-service">
                                 <a href="{% url 'dataset' dataset.id %}"><i class="fa fa-3x fa-bar-chart" aria-hidden="true" data-toggle="tooltip" data-placement="bottom" title="{% trans "View as chart" %}"></i></a>
@@ -125,12 +333,11 @@
                     </div>
 
                 </div>
+{% endcomment %}
 
+                <div class="row dataset-details">
 
-                <div class="row">
-
-                    <div class="span6">
-
+                    <div class="col-md-6 col-sm-12">
 
                         <div class="panel panel-dataset">
 
@@ -142,7 +349,7 @@
                             </div>
 
                             <div class="panel-body dataset-description">
-                                <p class="text-justify">
+                                <p class="">
                                     {{ dataset.notes }}
                                 </p>
                             </div>
@@ -167,12 +374,11 @@
                     </div>
 
 
-                    <div class="span6">
+                    <div class="col-md-6 col-sm-12">
 
                         <div class="panel panel-dataset">
 
                             <div class="panel-heading">
-
                                 <h5>
                                     <i class="fa fa-comments-o" aria-hidden="true"></i> {% trans "Discussions at SPOD" %}
                                 </h5>
@@ -200,11 +406,67 @@
 
                         </div>
 
+
+                        <div class="panel panel-dataset">
+
+                            <div class="panel-heading">
+                                <h5>
+                                    <i class="fa fa-comments-o" aria-hidden="true"></i> {% trans "API Link" %}
+                                </h5>
+                            </div>
+
+                            <div class="panel-body">
+
+                                <p>
+                                    Access resource data via a web API with powerful query support.
+                                    Further information in the <a href="http://docs.ckan.org/en/latest/maintaining/datastore.html" target="_blank">main CKAN Data API and DataStore documentation</a>.
+                                </p>
+
+
+
+                                <div class="btn-group btn-block" role="group" aria-label="Basic example">
+
+                                    <div class="container">
+                                        <div class="row">
+                                            <!-- Target -->
+                                            <input type="text" id="api-link-url" class="col-10 p-2" value="{{API_LINK}}" aria-label="{{API_LINK}}" readonly="">
+
+                                            <!-- Trigger -->
+                                            <button id="copy-btn" class="btn btn-primary col-2" data-clipboard-target="#api-link-url" aria-label="Copy to clipboard" data-toggle="tooltip" data-placement="bottom" title="" >
+                                                <i class="fa fa-clipboard" aria-hidden="true"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+
+                                    <script>
+                                        var clipboard = new Clipboard('#copy-btn');
+
+                                        clipboard.on('success', function(e) {
+
+                                            $(e.trigger).tooltip('enable');
+
+                                            $(e.trigger).tooltip('hide')
+                                              .attr('data-original-title', 'Copied!')
+                                              .tooltip('show').delay( 800 ).tooltip('disable');
+
+                                            e.clearSelection();
+
+                                        });
+
+                                        clipboard.on('error', function(e) {
+                                            console.log(e);
+                                        });
+
+                                    </script>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
                     </div>
 
                 </div>
-
-
-            </div>
 
 {% endblock content %}

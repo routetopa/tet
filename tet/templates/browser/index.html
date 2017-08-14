@@ -4,46 +4,64 @@
 {% load staticfiles %}
 
 {% block content %}
-                <div id="homepage-search" class="container">
 
-                    <div class="row text-center tet-search-image">
-                        <img class="img-circle" alt="140x140" src="{% static 'browser/images/tet-search-graphics.png' %}" style="width: auto; height: 240px;">
+                <div id="homepage-search">
+
+                    {% if not TET_SIMPLE_HOMEPAGE %}
+                    <div class="row">
+                        <div class="col-12">
+                            <ul class="nav nav-pills float-right my-2">
+                                <li class="nav-item">
+                                    <a class="nav-link active" href="#homepage-search-tab" role="tab" data-toggle="tab"> <i class="fa fa-search"></i> </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="#homepage-categories-tab" role="tab" data-toggle="tab"> <i class="fa fa-list"></i> </a>
+                                </li>
+                            </ul>
+                        </div>
                     </div>
 
-                    <div class="row search-ui">
+                    {% endif %}
 
-                        <div class="span8 offset2 text-center">
 
-                            <div class="row">
+                    <div class="tab-content clearfix">
 
-                                {% include "browser/_search.html" with query=query %}
-
+                        <div id="homepage-search-tab" role="tabpanel" class="tab-pane fade-in active col-12 justify-content-center">
+                            <div class="text-center tet-search-image my-md-1">
+                                <img class="img-circle col-lg-6 col-md-9 col-sm-12 col-xs-12" alt="TET search graphics" src="{% static 'browser/images/tet-search-graphics.png' %}">
                             </div>
 
-                            <div class="row">
-                                <div class="span12 tags text-center">
-                                    <span>{% trans "Popular search phrases" %}:</span>
+                            <div class="search-ui">
 
-                                    <a class="tag" href="{% url 'search' %}?query=Dublin">Dublin</a>
-                                    <a class="tag" href="{% url 'search' %}?query=government">government</a>
-                                    <a class="tag" href="{% url 'search' %}?query=traffic">traffic</a>
+                                <div class="col-12 text-center">
 
+                                    <div class="py-md-5 align-self-center">
+
+                                        {% include "browser/_search.html" with query=query %}
+
+                                    </div>
+
+                                    <div class="row px-md-5">
+
+                                        <div class="col-12 text-center" style="margin-top: 55px">
+                                            <small>
+                                                {% trans "TET search engine results are based on resources available at" %} <a href="{{ CKAN_URL }}" target="_blank">{{ CKAN_URL }}</a>. <br/>
+                                                {% if datasets_count > 0 %}
+                                                    {% trans "Currently there are" %} <strong>{{ datasets_count }}</strong> {% if datasets_count == 1 %} {% trans "dataset" %}{% else %}{% trans "dataset" %}{% endif %} {% trans "published by" %} <strong>{{ organizations_count }}</strong> {% if organizations_count == 1 %}{% trans "organization" %}{% else %}{% trans "organizations" %}{% endif %}.
+                                                {% endif %}
+                                            </small>
+                                        </div>
+
+                                    </div>
                                 </div>
 
                             </div>
 
-                            <div class="row">
+                        </div>
 
-                                <div class="span8 Xoffset2 text-center" style="margin-top: 55px">
-                                    <small>
-                                        {% trans "TET search engine results are based on resources available at" %} <a href="{{ CKAN_URL }}" target="_blank">{{ CKAN_URL }}</a>. <br/>
-                                        {% if datasets_count > 0 %}
-                                            {% trans "Currently there are" %} <strong>{{ datasets_count }}</strong> {% if datasets_count == 1 %} {% trans "dataset" %}{% else %}{% trans "dataset" %}{% endif %} {% trans "published by" %} <strong>{{ organizations_count }}</strong> {% if organizations_count == 1 %}{% trans "organization" %}{% else %}{% trans "organizations" %}{% endif %}.
-                                        {% endif %}
-                                    </small>
-                                </div>
-
-                            </div>
+                        <div id="homepage-categories-tab" class="tab-pane fade">
+                            <h5>{% trans "Browse available resources" %}</h5>
+                            {% include "browser/_homepage_filters.html" with query=query %}
                         </div>
 
                     </div>

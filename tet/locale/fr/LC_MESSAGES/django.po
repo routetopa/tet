@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-11-07 09:18+0000\n"
+"POT-Creation-Date: 2017-03-03 10:27+0000\n"
 "PO-Revision-Date: 2016-11-09 12:00+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -18,48 +18,158 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 "X-Generator: Poedit 1.8.8\n"
 
-#: browser/views.py:269 browser/views.py:270
+#: browser/helpers.py:184 browser/helpers.py:185
+msgid "Integer numbers, e.g 42, 7"
+msgstr ""
+
+#: browser/helpers.py:186
+msgid "Numbers, e.g 1, 2.4, 4.7"
+msgstr ""
+
+#: browser/helpers.py:187
+msgid "Floats, e.g. 1.61803"
+msgstr ""
+
+#: browser/helpers.py:188
+msgid "Arbitrary text data, e.g. Some text"
+msgstr ""
+
+#: browser/helpers.py:189
+msgid "Arbitrary nested json data"
+msgstr ""
+
+#: browser/helpers.py:190
+msgid "Date without time, e.g 2016-5-25"
+msgstr ""
+
+#: browser/helpers.py:191
+msgid "Time without date, e.g 12:06"
+msgstr ""
+
+#: browser/helpers.py:192
+msgid "Date and time, e.g 2016-05-01T02:43Z"
+msgstr ""
+
+#: browser/helpers.py:193
+msgid "Boolean values, e.g. true, 0"
+msgstr ""
+
+#: browser/helpers.py:198
+msgid "Other"
+msgstr ""
+
+#: browser/views.py:299 browser/views.py:300
 msgid "i am"
 msgstr ""
 
-#: browser/views.py:271 browser/views.py:272
+#: browser/views.py:301 browser/views.py:302
 msgid "interested in"
+msgstr ""
+
+#: browser/views.py:422
+msgid "Very Poor"
+msgstr ""
+
+#: browser/views.py:424
+msgid "Poor"
+msgstr ""
+
+#: browser/views.py:426
+msgid "Fair"
+msgstr ""
+
+#: browser/views.py:428
+msgid "Good"
+msgstr ""
+
+#: browser/views.py:430
+msgid "Very good"
+msgstr ""
+
+#: browser/views.py:660 templates/browser/tabular.html:119
+msgid "Email"
+msgstr ""
+
+#: browser/views.py:664
+msgid "and"
+msgstr ""
+
+#: browser/views.py:665
+#, fuzzy
+#| msgid "Location"
+msgid "Notification\n"
+msgstr "Emplacement"
+
+#: browser/views.py:669
+msgid "Missing: "
+msgstr ""
+
+#: browser/views.py:675
+msgid "Alert created successfully"
+msgstr ""
+
+#: browser/views.py:687 browser/views.py:696
+msgid "Error: "
 msgstr ""
 
 #: templates/browser/_dataset_api_box.html:6
 msgid "API Link"
 msgstr "API Lien"
 
-#: templates/browser/_dataset_as_search_result.html:18
-#: templates/browser/tabular.html:75
+#: templates/browser/_dataset_as_search_result.html:19
+#: templates/browser/tabular.html:337
 msgid "View as chart"
 msgstr "Vue que le chat"
 
-#: templates/browser/_dataset_as_search_result.html:22
-#: templates/browser/dataset.html:87 templates/browser/dataset.html:416
+#: templates/browser/_dataset_as_search_result.html:23
+#: templates/browser/dataset.html:86 templates/browser/dataset.html:413
+#: templates/browser/merge.html:77
 msgid "View as table"
 msgstr "Vue que la table"
 
-#: templates/browser/_dataset_as_search_result.html:24
-#: templates/browser/dataset.html:89 templates/browser/dataset.html:418
+#: templates/browser/_dataset_as_search_result.html:25
+#: templates/browser/dataset.html:88 templates/browser/dataset.html:415
 msgid "View as table - not available"
 msgstr "Voir que la table - non disponible"
 
-#: templates/browser/_dataset_as_search_result.html:29
-#: templates/browser/dataset.html:101 templates/browser/dataset.html:423
-#: templates/browser/tabular.html:79
+#: templates/browser/_dataset_as_search_result.html:30
+#: templates/browser/dataset.html:93 templates/browser/tabular.html:340
+msgid "View the summary"
+msgstr ""
+
+#: templates/browser/_dataset_as_search_result.html:32
+#: templates/browser/dataset.html:95
+#, fuzzy
+#| msgid "View as app - not available"
+msgid "View the summary - not available"
+msgstr "Voir que l'application - non disponible"
+
+#: templates/browser/_dataset_as_search_result.html:37
+#: templates/browser/dataset.html:100 templates/browser/dataset.html:420
+#: templates/browser/tabular.html:344
 msgid "View as app"
 msgstr "Vue comme app"
 
-#: templates/browser/_dataset_as_search_result.html:31
-#: templates/browser/dataset.html:103 templates/browser/dataset.html:425
-#: templates/browser/tabular.html:81
+#: templates/browser/_dataset_as_search_result.html:39
+#: templates/browser/dataset.html:102 templates/browser/dataset.html:422
+#: templates/browser/tabular.html:346
 msgid "View as app - not available"
 msgstr "Voir que l'application - non disponible"
 
-#: templates/browser/_dataset_as_search_result.html:52
-msgid "View raw data"
-msgstr "Afficher les données brutes"
+#: templates/browser/_dataset_as_search_result.html:44
+#: templates/browser/dataset.html:107 templates/browser/dataset.html:427
+#: templates/browser/dataset.html:429 templates/browser/tabular.html:351
+msgid "View as PDF"
+msgstr "Voir en PDF"
+
+#: templates/browser/_dataset_as_search_result.html:46
+#: templates/browser/dataset.html:109 templates/browser/tabular.html:353
+msgid "View as PDF - not available"
+msgstr ""
+
+#: templates/browser/_dataset_as_search_result.html:60
+msgid "View"
+msgstr ""
 
 #: templates/browser/_dataset_discussion.html:28
 msgid "Join the discussion"
@@ -96,45 +206,37 @@ msgid ""
 "\"http://insight-centre.org/\">Insight Centre</a>"
 msgstr ""
 
-#: templates/browser/_header.html:10
+#: templates/browser/_header.html:19
 msgid "Login"
 msgstr "S’identifier"
 
-#: templates/browser/_header.html:15
+#: templates/browser/_header.html:21
+msgid "Logout"
+msgstr ""
+
+#: templates/browser/_header.html:27
 msgid "Home"
 msgstr "Domicile"
 
-#: templates/browser/_header.html:17
+#: templates/browser/_header.html:29
 msgid "About"
 msgstr "À propos"
 
-#: templates/browser/_header.html:18
+#: templates/browser/_header.html:30
 msgid "Help"
 msgstr "Aidez-moi"
 
-#: templates/browser/_header.html:20
+#: templates/browser/_header.html:32
 msgid "Classic CKAN"
 msgstr "CKAN classique"
+
+#: templates/browser/_header.html:33
+msgid "SPOD"
+msgstr ""
 
 #: templates/browser/_language_selector.html:10
 msgid "Language"
 msgstr ""
-
-#: templates/browser/_language_selector.html:13 tet/settings.py:122
-msgid "English"
-msgstr "Anglais"
-
-#: templates/browser/_language_selector.html:14 tet/settings.py:123
-msgid "Italian"
-msgstr "Italien"
-
-#: templates/browser/_language_selector.html:15 tet/settings.py:125
-msgid "Dutch"
-msgstr "Néerlandais"
-
-#: templates/browser/_language_selector.html:16 tet/settings.py:124
-msgid "French"
-msgstr "Français"
 
 #: templates/browser/_search.html:3
 msgid "Search for datasets"
@@ -144,105 +246,175 @@ msgstr "Rechercher des ensembles de données"
 msgid "Search"
 msgstr "Chercher"
 
-#: templates/browser/_search_filters.html:6
-msgid "Refine by"
+#: templates/browser/_search_filters.html:11
+#, fuzzy
+#| msgid "Refine by"
+msgid "Refine results"
 msgstr "Raffiner"
 
-#: templates/browser/_search_filters.html:15
+#: templates/browser/_search_filters.html:14
+#, fuzzy
+#| msgid "dataset"
+msgid "Combine datasets"
+msgstr "dataset"
+
+#: templates/browser/_search_filters.html:30
 msgid "Location"
 msgstr "Emplacement"
 
-#: templates/browser/_search_filters.html:32
-#: templates/browser/_search_filters.html:67
-#: templates/browser/_search_filters.html:102
-#: templates/browser/_search_filters.html:135
+#: templates/browser/_search_filters.html:47
+#: templates/browser/_search_filters.html:83
+#: templates/browser/_search_filters.html:119
+#: templates/browser/_search_filters.html:153
 msgid "Show More"
 msgstr "Montre plus"
 
-#: templates/browser/_search_filters.html:50
+#: templates/browser/_search_filters.html:48
+#: templates/browser/_search_filters.html:84
+#: templates/browser/_search_filters.html:120
+#: templates/browser/_search_filters.html:154
+#, fuzzy
+#| msgid "Show More"
+msgid "Show Less"
+msgstr "Montre plus"
+
+#: templates/browser/_search_filters.html:66
 msgid "Period"
 msgstr "Période"
 
-#: templates/browser/_search_filters.html:85
+#: templates/browser/_search_filters.html:102
 msgid "Themes"
 msgstr "Thème"
 
-#: templates/browser/_search_filters.html:118
+#: templates/browser/_search_filters.html:136
 msgid "Format"
 msgstr "Format"
 
-#: templates/browser/dataset.html:5
-msgid "Dataset details"
-msgstr "Détails dataset"
+#: templates/browser/_search_filters.html:169
+msgid "Please select one or more elements from tle list"
+msgstr ""
 
-#: templates/browser/dataset.html:45
+#: templates/browser/_search_filters.html:172
+msgid "This feature allow to merge multiple datasets."
+msgstr ""
+
+#: templates/browser/_search_filters.html:177
+msgid "Combine Datasets"
+msgstr ""
+
+#: templates/browser/analyse.html:5
+msgid "Analysis using PivotTable"
+msgstr ""
+
+#: templates/browser/analyse.html:29
+#, fuzzy
+#| msgid "PivotTable"
+msgid "PivotTable View"
+msgstr "Table de pivot"
+
+#: templates/browser/analyse.html:47
+#, fuzzy
+#| msgid "Tabular View"
+msgid "Table View"
+msgstr "Affichage tabulaire"
+
+#: templates/browser/analyse.html:62
+msgid "Charts"
+msgstr ""
+
+#: templates/browser/analyse.html:78 templates/browser/dataset.html:44
 msgid "Range of values in the field"
 msgstr ""
 
-#: templates/browser/dataset.html:45
+#: templates/browser/analyse.html:78 templates/browser/dataset.html:44
 msgid "Frequency"
 msgstr ""
 
-#: templates/browser/dataset.html:47
+#: templates/browser/analyse.html:80 templates/browser/dataset.html:46
 msgid "Values in"
 msgstr ""
 
-#: templates/browser/dataset.html:47
+#: templates/browser/analyse.html:80 templates/browser/dataset.html:46
 msgid "field"
 msgstr ""
 
-#: templates/browser/dataset.html:47
+#: templates/browser/analyse.html:80 templates/browser/dataset.html:46
 msgid "Number of occurrences"
 msgstr ""
 
-#: templates/browser/dataset.html:53
+#: templates/browser/dashboard/index.html:8
+#: templates/browser/dashboard/index.html:29
+msgid "Data Dashboard"
+msgstr ""
+
+#: templates/browser/dashboard/index.html:43
+msgid "Unemployment Rate"
+msgstr ""
+
+#: templates/browser/dashboard/index.html:45
+#: templates/browser/dashboard/index.html:76
+#: templates/browser/dashboard/index.html:84
+#, fuzzy
+#| msgid "Data Explorer"
+msgid "Data source"
+msgstr "Data Explorer"
+
+#: templates/browser/dashboard/index.html:74
+msgid "Residential Property Price Index (2005 = 100)"
+msgstr ""
+
+#: templates/browser/dashboard/index.html:82
+msgid "Residential Rents"
+msgstr ""
+
+#: templates/browser/data_cards.html:5 templates/browser/data_cards.html:29
+msgid "Data Cards"
+msgstr ""
+
+#: templates/browser/data_cards.html:65
+msgid "Source"
+msgstr ""
+
+#: templates/browser/dataset.html:5 templates/browser/summary.html:5
+#: templates/browser/tabular.html:8
+msgid "Dataset details"
+msgstr "Détails dataset"
+
+#: templates/browser/dataset.html:52
 msgid "Concepts related to the document"
 msgstr ""
 
-#: templates/browser/dataset.html:56
+#: templates/browser/dataset.html:55
 msgid "Entities related to the document"
 msgstr ""
 
-#: templates/browser/dataset.html:59
+#: templates/browser/dataset.html:58
 msgid "Keywords related to the document"
 msgstr ""
 
-#: templates/browser/dataset.html:84 templates/browser/tabular.html:73
+#: templates/browser/dataset.html:83 templates/browser/tabular.html:335
 msgid "View as: "
 msgstr ""
 
-#: templates/browser/dataset.html:94 templates/browser/dataset.html:96
-msgid "View the summary"
-msgstr ""
-
-#: templates/browser/dataset.html:108 templates/browser/dataset.html:430
-#: templates/browser/dataset.html:432 templates/browser/tabular.html:86
-msgid "View as PDF"
-msgstr "Voir en PDF"
-
-#: templates/browser/dataset.html:110 templates/browser/tabular.html:88
-msgid "View as PDF - not available"
-msgstr ""
-
-#: templates/browser/dataset.html:133 templates/browser/dataset.html:200
-#: templates/browser/tabular.html:110
+#: templates/browser/dataset.html:132 templates/browser/dataset.html:199
+#: templates/browser/summary.html:154 templates/browser/tabular.html:375
 msgid "Description"
 msgstr "La description"
 
-#: templates/browser/dataset.html:150 templates/browser/dataset.html:181
-#: templates/browser/tabular.html:127
+#: templates/browser/dataset.html:149 templates/browser/dataset.html:180
+#: templates/browser/tabular.html:392
 msgid "Metadata"
 msgstr "Métadonnées"
 
-#: templates/browser/dataset.html:167
+#: templates/browser/dataset.html:166
 msgid "Dataset Quality"
 msgstr ""
 
-#: templates/browser/dataset.html:174
+#: templates/browser/dataset.html:173
 msgid "Indicator"
 msgstr ""
 
-#: templates/browser/dataset.html:175
+#: templates/browser/dataset.html:174
 msgid "Value"
 msgstr ""
 
@@ -250,69 +422,69 @@ msgstr ""
 msgid "Fields"
 msgstr ""
 
-#: templates/browser/dataset.html:238
+#: templates/browser/dataset.html:240
 msgid "Records"
 msgstr ""
 
-#: templates/browser/dataset.html:257
+#: templates/browser/dataset.html:259
 msgid "Content"
 msgstr ""
 
-#: templates/browser/dataset.html:276
+#: templates/browser/dataset.html:278
 msgid "License"
 msgstr ""
 
-#: templates/browser/dataset.html:292 templates/browser/dataset.html:317
+#: templates/browser/dataset.html:294 templates/browser/dataset.html:319
 msgid "Not provided"
 msgstr ""
 
-#: templates/browser/dataset.html:301
+#: templates/browser/dataset.html:303
 msgid "Version"
 msgstr ""
 
-#: templates/browser/dataset.html:326
+#: templates/browser/dataset.html:328
 msgid "Last updated"
 msgstr ""
 
-#: templates/browser/dataset.html:335
-msgid "days ago"
+#: templates/browser/dataset.html:332
+msgid "ago"
 msgstr ""
 
-#: templates/browser/dataset.html:353
+#: templates/browser/dataset.html:350
 msgid "Tags"
 msgstr ""
 
-#: templates/browser/dataset.html:375
+#: templates/browser/dataset.html:372
 msgid "Table Structure"
 msgstr ""
 
-#: templates/browser/dataset.html:382 templates/browser/summary.html:64
+#: templates/browser/dataset.html:379 templates/browser/summary.html:93
 msgid "Field name"
 msgstr ""
 
-#: templates/browser/dataset.html:383
+#: templates/browser/dataset.html:380
 msgid "Type"
 msgstr ""
 
-#: templates/browser/dataset.html:409
+#: templates/browser/dataset.html:406
 msgid "Available views"
 msgstr "Vues disponibles"
 
-#: templates/browser/dataset.html:450 templates/browser/summary.html:126
+#: templates/browser/dataset.html:447 templates/browser/summary.html:170
 msgid "Share this page"
 msgstr ""
 
-#: templates/browser/dataset.html:457 templates/browser/summary.html:133
+#: templates/browser/dataset.html:454 templates/browser/summary.html:177
 msgid ""
 "Use the icons below in order to share this page in your favourite Social "
 "Media."
 msgstr ""
 
-#: templates/browser/dataset.html:472 templates/browser/tabular.html:147
+#: templates/browser/dataset.html:469 templates/browser/tabular.html:412
 msgid "Discussions at SPOD"
 msgstr "Discussion au SPOD"
 
-#: templates/browser/dataset.html:485 templates/browser/tabular.html:159
+#: templates/browser/dataset.html:482 templates/browser/tabular.html:424
 msgid ""
 "This dataset has not been discussed in SPOD, be the first to discuss the "
 "dataset!"
@@ -320,15 +492,19 @@ msgstr ""
 "Cette base de données n'a pas été discuté dans PDD, soyez le premier à "
 "discuter de l'ensemble de données!"
 
-#: templates/browser/dataset.html:489 templates/browser/tabular.html:163
+#: templates/browser/dataset.html:486 templates/browser/tabular.html:428
 msgid "Start the discussion"
 msgstr "Engager le débat"
 
-#: templates/browser/dataset.html:506
+#: templates/browser/dataset.html:503
 msgid "Related Datasets"
 msgstr ""
 
-#: templates/browser/dataset.html:533
+#: templates/browser/dataset.html:514
+msgid "Please use the slider in order to update the results."
+msgstr ""
+
+#: templates/browser/dataset.html:546 templates/browser/merge.html:43
 msgid "Files"
 msgstr "Fichiers"
 
@@ -340,42 +516,77 @@ msgstr ""
 msgid "Reasons"
 msgstr ""
 
-#: templates/browser/index.html:25
-msgid "Popular search phrases"
-msgstr "Mots-clés populaires"
-
-#: templates/browser/index.html:38
+#: templates/browser/index.html:27
 msgid "TET search engine results are based on resources available at"
 msgstr ""
 "Moteur de recherche de TET résultats reposent sur les ressources disponibles "
 "au"
 
-#: templates/browser/index.html:39
+#: templates/browser/index.html:29
 msgid "Currently there are"
 msgstr "Actuellement, il y a"
 
-#: templates/browser/index.html:39
+#: templates/browser/index.html:29
 msgid "dataset"
 msgstr "dataset"
 
-#: templates/browser/index.html:39
+#: templates/browser/index.html:29
 msgid "published by"
 msgstr "publié par"
 
-#: templates/browser/index.html:39
+#: templates/browser/index.html:29
 msgid "organization"
 msgstr "organisation"
 
-#: templates/browser/index.html:39
+#: templates/browser/index.html:29
 msgid "organizations"
 msgstr "organisations"
+
+#: templates/browser/merge.html:30
+#, fuzzy
+#| msgid "Search for datasets"
+msgid "Merge Datasets"
+msgstr "Rechercher des ensembles de données"
+
+#: templates/browser/merge.html:32
+msgid ""
+"Please select desired files and use action buttons in order to see the "
+"results."
+msgstr ""
+
+#: templates/browser/merge.html:44
+#, fuzzy
+#| msgid "Location"
+msgid "Actions"
+msgstr "Emplacement"
+
+#: templates/browser/merge.html:73
+msgid "Incompatible files can't be merged"
+msgstr ""
+
+#: templates/browser/merge.html:78
+#, fuzzy
+#| msgid "View as chart"
+msgid "Explore as chart"
+msgstr "Vue que le chat"
+
+#: templates/browser/merge.html:79
+#, fuzzy
+#| msgid "PivotTable"
+msgid "Analyse in PivotTable"
+msgstr "Table de pivot"
+
+#: templates/browser/merge.html:80
+msgid "Download combined datasets"
+msgstr ""
 
 #: templates/browser/pdf.html:28
 msgid "PDF Preview"
 msgstr "Aperçu PDF"
 
-#: templates/browser/pdf.html:39 templates/browser/summary.html:29
-#: templates/browser/summary.html:40 templates/browser/summary.html:65
+#: templates/browser/pdf.html:39 templates/browser/summary.html:5
+#: templates/browser/summary.html:28 templates/browser/summary.html:63
+#: templates/browser/summary.html:94
 msgid "Summary"
 msgstr ""
 
@@ -401,72 +612,272 @@ msgstr ""
 msgid "Dates"
 msgstr "Date"
 
-#: templates/browser/search.html:47
+#: templates/browser/search.html:49
 msgid "Relevance"
 msgstr "Pertinence"
 
-#: templates/browser/search.html:48
+#: templates/browser/search.html:50
 msgid "Name"
 msgstr "Prénom"
 
-#: templates/browser/search.html:49
+#: templates/browser/search.html:51
 msgid "Date"
 msgstr "Date"
 
-#: templates/browser/search.html:70
+#: templates/browser/search.html:76
 msgid "No results found."
 msgstr "Aucun résultat trouvé."
 
-#: templates/browser/search.html:71
+#: templates/browser/search.html:77
 msgid "Please try another search."
 msgstr "S'il vous plaît essayer une nouvelle recherche"
 
-#: templates/browser/summary.html:47
+#: templates/browser/summary.html:40
+msgid "Box Plot"
+msgstr ""
+
+#: templates/browser/summary.html:51 templates/browser/summary.html:144
+msgid "How can I understand this?"
+msgstr ""
+
+#: templates/browser/summary.html:72
 msgid "The average value in field"
 msgstr ""
 
-#: templates/browser/summary.html:47
+#: templates/browser/summary.html:73
 msgid "is"
 msgstr ""
 
-#: templates/browser/summary.html:47
+#: templates/browser/summary.html:74
 msgid "The maximum value in the field is"
 msgstr ""
 
-#: templates/browser/summary.html:47
+#: templates/browser/summary.html:75
 msgid "and the minmum value in the field is"
 msgstr ""
 
-#: templates/browser/summary.html:58
+#: templates/browser/summary.html:87
 #, fuzzy
 #| msgid "Dataset details"
 msgid "Details"
 msgstr "Détails dataset"
 
-#: templates/browser/summary.html:89
-msgid "Box Plot"
-msgstr ""
-
-#: templates/browser/summary.html:99
-msgid "How can I understand this?"
-msgstr ""
-
-#: templates/browser/summary.html:109
+#: templates/browser/summary.html:134
 msgid "Correlation Matrix"
 msgstr ""
 
-#: templates/browser/tabular.html:29
+#: templates/browser/tabular.html:40
 msgid "Tabular View"
 msgstr "Affichage tabulaire"
 
-#: templates/browser/tabular.html:39
+#: templates/browser/tabular.html:49
 msgid "Data Explorer"
 msgstr "Data Explorer"
 
-#: templates/browser/tabular.html:40
+#: templates/browser/tabular.html:50
 msgid "PivotTable"
 msgstr "Table de pivot"
 
-#: templates/browser/tabular.html:41
+#: templates/browser/tabular.html:51
+msgid "Query"
+msgstr ""
+
+#: templates/browser/tabular.html:52
+msgid "SQL Query"
+msgstr ""
+
+#: templates/browser/tabular.html:53
+msgid "Anomaly Detection"
+msgstr ""
+
+#: templates/browser/tabular.html:54
 msgid "SPOD Discussion"
 msgstr "Discussion PDD"
+
+#: templates/browser/tabular.html:68
+msgid "PivotTable visualisation"
+msgstr ""
+
+#: templates/browser/tabular.html:71
+msgid ""
+"A pivot table is a data summarization tool. Among other functions, a pivot "
+"table can automatically sort, count, total or average the data stored in one "
+"table, displaying the results in a second table showing the summarized data."
+msgstr ""
+
+#: templates/browser/tabular.html:72
+msgid ""
+"Pivot tables are also useful for quickly creating unweighted cross "
+"tabulations."
+msgstr ""
+
+#: templates/browser/tabular.html:73
+msgid ""
+"The user sets up and changes the summary's structure by dragging and "
+"dropping fields graphically. This 'rotation' or pivoting of the summary "
+"table gives the concept its name."
+msgstr ""
+
+#: templates/browser/tabular.html:74 templates/browser/tabular.html:149
+msgid "Read more"
+msgstr ""
+
+#: templates/browser/tabular.html:79
+msgid "Loading"
+msgstr ""
+
+#: templates/browser/tabular.html:109
+msgid "Alert"
+msgstr ""
+
+#: templates/browser/tabular.html:110
+msgid "Download"
+msgstr ""
+
+#: templates/browser/tabular.html:111 templates/browser/tabular.html:134
+msgid "Run"
+msgstr ""
+
+#: templates/browser/tabular.html:116
+msgid "Create Trigger"
+msgstr ""
+
+#: templates/browser/tabular.html:117
+#, fuzzy
+#| msgid "Location"
+msgid "Notification"
+msgstr "Emplacement"
+
+#: templates/browser/tabular.html:118
+msgid "Overspending in budget"
+msgstr ""
+
+#: templates/browser/tabular.html:121
+msgid "Create"
+msgstr ""
+
+#: templates/browser/tabular.html:143
+msgid "Anomaly detection"
+msgstr ""
+
+#: templates/browser/tabular.html:146
+msgid ""
+"Anomaly detection web service implemented for ROUTE-TO-PA project is based "
+"on the Local Outlier Factor Algorithm (LOF)."
+msgstr ""
+
+#: templates/browser/tabular.html:147
+msgid ""
+"LOF algorithm is unsupervised nearest neighborhood  based anomaly detection "
+"algorithm widely used for multivariate anomaly detection."
+msgstr ""
+
+#: templates/browser/tabular.html:148
+msgid ""
+"The LOF score is thus basically a ratio of local densities. The normal "
+"instances, which densities are as big as the densities of their neighbors, "
+"get a score of about 1.0. Anomalies, which have a low local density, will "
+"result in larger scores."
+msgstr ""
+
+#: templates/browser/tabular.html:153
+msgid "Detect Anomaly"
+msgstr ""
+
+#: templates/browser/tabular.html:160
+msgid "No anomaly detected"
+msgstr ""
+
+#: templates/browser/tabular.html:170
+msgid "Results adjustment"
+msgstr ""
+
+#: templates/browser/tabular.html:179
+msgid "Select a field name for visualisation"
+msgstr ""
+
+#: templates/browser/tabular.html:197
+msgid "Change visualisation type"
+msgstr ""
+
+#: templates/browser/tabular.html:205
+msgid "Scatter Plot"
+msgstr ""
+
+#: templates/browser/tabular.html:206
+#, fuzzy
+#| msgid "View as chart"
+msgid "Line Chart"
+msgstr "Vue que le chat"
+
+#: templates/browser/tabular.html:207
+#, fuzzy
+#| msgid "View as chart"
+msgid "Bar chart"
+msgstr "Vue que le chat"
+
+#: templates/browser/tabular.html:219
+msgid "Adjust the tolerance threshold value"
+msgstr ""
+
+#: templates/browser/tabular.html:237
+msgid "Anomaly summary"
+msgstr ""
+
+#: templates/browser/tabular.html:241
+msgid "Number of anomalies detected"
+msgstr ""
+
+#: templates/browser/tabular.html:245
+msgid "Number of global anomalies detected"
+msgstr ""
+
+#: templates/browser/tabular.html:249
+msgid "Number of local anomalies detected"
+msgstr ""
+
+#: templates/browser/tabular.html:253
+msgid "Highest anomaly score value"
+msgstr ""
+
+#: templates/browser/tabular.html:263
+msgid "Anomaly detection configuration"
+msgstr ""
+
+#: templates/browser/tabular.html:273
+msgid "Please select at least one item"
+msgstr ""
+
+#: templates/browser/tabular.html:289
+msgid "Recalculate Results"
+msgstr ""
+
+#: templates/browser/tabular.html:298
+msgid "Anomaly visualisation"
+msgstr ""
+
+#: templates/browser/tabular.html:307
+msgid "Anomaly table"
+msgstr ""
+
+#: tet/settings.py:121
+msgid "English"
+msgstr "Anglais"
+
+#: tet/settings.py:122
+msgid "Italian"
+msgstr "Italien"
+
+#: tet/settings.py:123
+msgid "French"
+msgstr "Français"
+
+#: tet/settings.py:124
+msgid "Dutch"
+msgstr "Néerlandais"
+
+#~ msgid "View raw data"
+#~ msgstr "Afficher les données brutes"
+
+#~ msgid "Popular search phrases"
+#~ msgstr "Mots-clés populaires"

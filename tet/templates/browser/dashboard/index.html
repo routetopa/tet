@@ -1,0 +1,126 @@
+{% extends "base.html" %}
+
+{% load i18n %}
+{% load staticfiles %}
+
+{% get_current_language as LANGUAGE_CODE %}
+
+{% block title %} {% trans "Data Dashboard" %} {% endblock title %}
+
+{% block scripts %}
+
+    {{ block.super }}
+
+    <script src="{% static 'js/d3.js' %}"></script>
+    <script src="{% static 'js/c3.js' %}"></script>
+
+    <script src="{% static 'browser/js/dashboard.js' %}"></script>
+
+    <link rel=stylesheet type=text/css href="{% static 'css/c3.css' %}" />
+    <link rel=stylesheet type=text/css href="{% static 'browser/css/tet-d3.css' %}" />
+
+{% endblock scripts %}
+
+{% block content %}
+
+            <div class="container">
+
+                <div class="row">
+                    <h4 class="dataset-title"> {% trans "Data Dashboard" %} </h4>
+
+                    <p>
+                        Presented charts are grouped into 5 main categories of key indicators.
+                    </p>
+                </div>
+
+                <div class="row">
+
+                    <div class="">
+
+                        <h4> <i class="fa fa-users" aria-hidden="true"></i> Social </h4>
+
+                        <h6 class="top20">
+                            {% trans "Unemployment Rate" %}
+                        </h6>
+                        <small>{% trans "Data source" %}: <a href="http://dkm.ie/en/publications/dublin_economic_monitor">Dublin Economic Monitor / Dublinked</a></small>
+
+                        <div id="chart_unemployment_rate">
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <div class="row">
+
+                    <div class="">
+
+                        <h4 class=""> <i class="fa fa-money" aria-hidden="true"></i> Economics </h4>
+                        <div class="clearfix"></div>
+
+                        <p class="top20">
+
+                        </p>
+                    </div>
+                </div>
+
+                <div class="row">
+
+                    <div class="">
+
+                        <h4> <i class="fa fa-home" aria-hidden="true"></i> Housing </h4>
+
+                        <h6 class="top20">
+                            {% trans "Residential Property Price Index (2005 = 100)" %}
+                        </h6>
+                        <small>{% trans "Data source" %}: <a href="http://dkm.ie/en/publications/dublin_economic_monitor">Dublin Economic Monitor / Dublinked</a></small>
+
+                        <div id="residential_property_price_index">
+                        </div>
+
+
+                        <h6 class="top20">
+                            {% trans "Residential Rents" %}
+                        </h6>
+                        <small>{% trans "Data source" %}: <a href="http://dkm.ie/en/publications/dublin_economic_monitor">Dublin Economic Monitor / Dublinked</a></small>
+
+                        <div id="residental_rents">
+                        </div>
+
+
+
+                    </div>
+
+                </div>
+
+                <div class="row">
+
+                    <div class="">
+
+                        <h4 class=""> <i class="fa fa-graduation-cap" aria-hidden="true"></i> Education </h4>
+                        <div class="clearfix"></div>
+
+                        <p class="top20">
+
+                        </p>
+                    </div>
+                </div>
+
+
+                <div class="row">
+
+                    <div class="">
+
+                        <h4> <i class="fa fa-shield" aria-hidden="true"></i> Safety </h4>
+
+                        <p class="top20">
+
+                        </p>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+{% endblock content %}

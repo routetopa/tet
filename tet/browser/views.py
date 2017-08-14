@@ -34,6 +34,7 @@ from django.http import HttpResponse, HttpResponseRedirect, Http404, JsonRespons
 from django.shortcuts import get_object_or_404, render
 from django.utils.html import strip_tags
 from django.views import generic
+from django.core.urlresolvers import resolve
 from reportlab.lib.pagesizes import letter
 from reportlab.lib.styles import getSampleStyleSheet
 from reportlab.platypus import BaseDocTemplate, Frame, PageTemplate, Paragraph
@@ -43,7 +44,10 @@ import operator
 from pandas.io.json import json_normalize
 import pandas as pd
 import numpy as np
-from StringIO import StringIO
+try:
+    from StringIO import StringIO
+except ImportError:
+    from io import StringIO
 from collections import Counter
 from django.utils.translation import ugettext as _
 from django.utils.translation import activate
@@ -57,6 +61,8 @@ from matplotlib.backends.backend_agg import FigureCanvasAgg as FigureCanvas
 from matplotlib.figure import Figure
 import matplotlib.pyplot as plt
 from django.contrib import messages
+import sqlite3
+
 mutex = Lock()
 logger = logging.getLogger(__name__)
 styles = getSampleStyleSheet()
@@ -88,17 +94,23 @@ def get_keywords_from_pdf(url, stopwords_file):
 def index(request):
 
     template_name = 'browser/index.html'
+
+    organizations = []
+    tags = []
+    roles = []
+    categories = []
+
     try:
+        # TODO ckan_api_instance
+        url_datasets_count = settings.CKAN_URL + "/api/3/stats/dataset_count"
+        url_organizations_count = settings.CKAN_URL + "/api/3/stats/organization_count"
 
-        url_datasets = settings.CKAN_URL + "/api/3/stats/dataset_count"
-        url_organizations = settings.CKAN_URL + "/api/3/stats/organization_count"
-
-        res_datasets = urlopen(url_datasets)
-        datasets_count_json = json.loads(res_datasets.read().decode('utf-8'))
+        res_datasets_count = urlopen(url_datasets_count)
+        datasets_count_json = json.loads(res_datasets_count.read().decode('utf-8'))
         datasets_count = int(datasets_count_json['dataset_count'])
 
-        res_organizations = urlopen(url_organizations)
-        organizations_count_json = json.loads(res_organizations.read().decode('utf-8'))
+        res_organizations_count = urlopen(url_organizations_count)
+        organizations_count_json = json.loads(res_organizations_count.read().decode('utf-8'))
         organizations_count = int(organizations_count_json['organization_count'])
 
     except Exception as e:
@@ -106,9 +118,51 @@ def index(request):
         organizations_count = 0
         pass
 
+    if not ( settings.TET_SIMPLE_HOMEPAGE ):
+        # try:
+
+            # organizations
+            # TODO order by package_count
+            url_organizations = settings.CKAN_URL + '/api/action/organization_list?all_fields=true&facet.field=["organization"]&facet.limit=10&rows=0&order_by=package_count'
+            res_organizations = urlopen(url_organizations)
+            res_organizations_json = json.loads(res_organizations.read().decode('utf-8'))
+
+            if (res_organizations_json['success'] == True):
+                organizations = res_organizations_json['result']
+
+            # tags
+            # TODO order by package_count
+            url_tags = settings.CKAN_URL + '/api/action/package_search?facet.field=["tags"]&facet.limit=10&rows=0'
+            res_tags = urlopen(url_tags)
+            res_tags_json = json.loads(res_tags.read().decode('utf-8'))
+            if (res_tags_json['success'] == True):
+                tags = res_tags_json['result']['facets']['tags']
+
+            try:
+                # roles and categories
+                # TODO Requires TET extension - note
+                url_tet_rc = settings.CKAN_URL + "/api/3/util/tet/getconfig"
+                tet_rc_res = urlopen(url_tet_rc)
+                tet_rc_res_json = json.loads(tet_rc_res.read())
+                for role in tet_rc_res_json["roles"]:
+                    roles.append(role)
+                for category in tet_rc_res_json["categories"]:
+                    categories.append(category)
+
+            # TODO HttpError handling
+            # TODO load default values from JSON / config
+            except Exception as e:
+                pass
+
     context = {
         'datasets_count': datasets_count,
         'organizations_count': organizations_count,
+        'TET_SIMPLE_HOMEPAGE': settings.TET_SIMPLE_HOMEPAGE,
+        'HIDE_SEARCH_NAV': True,
+        'organizations': organizations,
+        'tags': tags,
+        'roles': roles,
+        'categories': categories
     }
 
     return render(request, template_name, context)
@@ -292,13 +346,42 @@ def search(request, query=False):
     template_name = 'browser/search.html'
 
     # display logic
-    query = request.GET.get('query') or ''
+    query           = request.GET.get('query') or ''
+    fq              = request.GET.get('fq') or ''
 
+    # homepage filters
+    organization    = request.GET.get('organization') or ''
+    tags            = request.GET.get('tags') or ''
+    role            = request.GET.get('role') or ''
+    category        = request.GET.get('category') or ''
+    openness_score  = request.GET.get('openness_score') or ''
+
+    HIDE_SEARCH_NAV = False
+
+    # TODO rewrite + translation
     if query.lower().startswith(_("i am")):
         query =  "role::" + _(query.lower().replace(_("i am"), ""))
     if query.lower().startswith(_("interested in")):
         query =  "category::" + _(query.lower().replace(_("interested in"), ""))
-    
+
+    # facets
+    if tags:
+        fq += "tags:" + tags
+    if organization:
+        if fq:
+            fq += "+"
+        fq += "organization:" + organization
+    if openness_score:
+        if fq:
+            fq += "+"
+        fq += "openness_score:" + openness_score
+
+    # TODO fix role & category
+    if role:
+        query = "role::" + role
+    if category:
+        query = "category::" + category
+
     search_results = []
     filters = {}
     has_results = False
@@ -310,6 +393,7 @@ def search(request, query=False):
 
     api_result = ckan_api_instance.action.package_search(
         q=query,
+        fq=fq,
         sort='relevance asc, metadata_modified desc',
         rows=1000,
         start=0,
@@ -321,6 +405,7 @@ def search(request, query=False):
         pattern = re.compile(query, re.IGNORECASE)
 
         themes = {}
+        tags = {}
         periods = {}
         locations = {}
         formats = {}
@@ -330,8 +415,8 @@ def search(request, query=False):
         for idx, dataset in enumerate(api_result["results"]):
             # bold the query phrase
             if ( query ):
-                dataset["title"] = pattern.sub("<strong>"+query+"</strong>", strip_tags(dataset["title"]))
-                dataset["notes"] = pattern.sub("<strong>"+query+"</strong>", strip_tags(dataset["notes"]))
+                dataset["title"] = pattern.sub("<mark>"+query+"</mark>", strip_tags(dataset["title"]))
+                dataset["notes"] = pattern.sub("<mark>"+query+"</mark>", strip_tags(dataset["notes"]))
 
             # used in search / filtering JS
             dataset["relevance_key"] = idx
@@ -348,6 +433,15 @@ def search(request, query=False):
                         themes[category] = 1
                     else:
                         themes[category] += 1
+
+            dataset["tag_key"] = ""
+            for tag in dataset["tags"]:
+                if tag["name"].lower() not in tags.keys():
+                    tags[tag["name"].lower()] = 1
+                else:
+                    tags[tag["name"].lower()] += 1
+
+                dataset["tag_key"] += " " + tag["name"].lower()
 
             dataset["year_key"] = ""
             for year in range(1900, 2020):
@@ -381,7 +475,7 @@ def search(request, query=False):
                     if resource["format"].lower() in ["csv","xls"]:
                         dataset["has_table"] = True
 
-                    if resource["format"].lower()  == "pdf":
+                    if resource["format"].lower() == "pdf":
                         dataset["has_pdf"] = True
 
                     if resource["format"] not in formats:
@@ -397,13 +491,13 @@ def search(request, query=False):
         if "" in formats.keys():
             del formats[""]
 
-
-
         filters["themes"] = collections.OrderedDict(reversed(sorted(themes.items(), key=lambda x: int(x[1]))))
+        filters["tags"] = collections.OrderedDict(reversed(sorted(tags.items(), key=lambda x: int(x[1]))))
         filters["locations"] = collections.OrderedDict(reversed(sorted(locations.items(), key=lambda x: int(x[1]))))
         filters["periods"] = collections.OrderedDict(sorted(periods.items(), reverse=True))
         filters["formats"] = collections.OrderedDict(reversed(sorted(formats.items(), key=lambda x: int(x[1]))))
-
+    else:
+        HIDE_SEARCH_NAV = True
 
 
     context = {
@@ -411,6 +505,7 @@ def search(request, query=False):
         'has_results': has_results,
         'search_results': search_results,
         'filters': filters,
+        'HIDE_SEARCH_NAV': HIDE_SEARCH_NAV,
     }
 
     return render(request, template_name, context)
@@ -455,10 +550,32 @@ def compute_completeness(stats):
     stats["description_label"] = grading(stats["description"])
     stats["license"] = "license_url" in stats["ds"] and stats["ds"]["license_url"] != ""
     stats["version"] = "version" in stats["ds"] and stats["ds"]["version"] != ""
-    stats["last_updated"] = (datetime.datetime.now() -  dateutil.parser.parse(stats["ds"]["metadata_modified"])).days
+    stats["date_updated"] = dateutil.parser.parse(stats["ds"]["metadata_modified"])
+    stats["last_updated"] = (datetime.datetime.now() - stats["date_updated"]).days
     return stats
 
+def checkOccurenceFrequency(values,textcolumns):
+
+    if not values:
+        return {}
+
+    ExitColumns=[]
+
+    Json = values['result']
+
+    TEMP = json.dumps(Json['records'])
+    JsonData = pd.read_json(TEMP)
+    textData = JsonData[textcolumns]
+
+    for column in textData: #Checks if column has duplicates; if all values are unique -> result will be 0
+        if (len(textData[textData.duplicated([column], keep=False)]) ==0):
+            ExitColumns.append([column.encode("utf-8"), False])
+
+    return ExitColumns ##that columns will be removed from rresource fields
+
+
 def dataset(request, dataset_id):
+
 
     template_name = 'browser/dataset.html'
 
@@ -467,27 +584,30 @@ def dataset(request, dataset_id):
         user_agent='tetbrowser/1.0 (+http://tetbrowser.routetopa.eu)'
     )
 
+    textcolumns=[]
     resource_id = None 
     resource_fields = None
     related_datasets = None
     fields = None
     compleness = {}
     stats = {}
+    data = None
 
     try:
         dataset = ckan_api_instance.action.package_show(
             id=dataset_id
         )
 
-        stats["ds"] = dataset 
-        
+        stats["ds"] = dataset
+
         try:
             url = settings.CKAN_URL + "/api/3/util/tet/get_recommended_datasets?pkg=" + dataset_id
             res = urlopen(url)
             related_datasets = json.loads(res.read())["datasets"]
         except Exception as e:
             messages.add_message(request, messages.ERROR, e)
-            return render(request, error_template)
+            #return render(request, error_template)
+
         if "resources" in dataset.keys():
             for resource in dataset["resources"]:
                 if resource["format"].lower() in ["csv","xls"]:
@@ -502,13 +622,14 @@ def dataset(request, dataset_id):
                         res = urlopen(url)
                         data = json.loads(res.read())
                         resource_fields = []
-                        filter_list = ["long", "lat", "no.", "phone", "date","id", "code"] 
+                        filter_list = ["long", "lat", "no.", "phone", "date","id", "code"]
                         stats["fields"] = len(data["result"]["fields"])
                         stats["records"] = data["result"]["total"]
                         df = json_normalize(data["result"]["records"])
                         nullvalues = float(sum([v for v in df.isnull().sum()]))
                         allvalues = float(len(df.index)*len(df.columns))
                         stats["content"] = ((allvalues-nullvalues)/allvalues) * 100
+
                         for field in data["result"]["fields"]:
                             name = field["id"]
                             found = False 
@@ -521,18 +642,29 @@ def dataset(request, dataset_id):
                                 resource_fields.append((name, True))
                             elif field["type"] == "text":
                                 resource_fields.append((name, False))
+                                textcolumns.append(name)
                             else:
                                 pass
                         fields = data["result"]["fields"]
                         break
                     except Exception as e:
-                        resource_fields = None 
+                        resource_fields = []
         completness = compute_completeness(stats)
     except Exception as e:
         messages.add_message(request, messages.ERROR, e)
         return render(request, error_template)
+
+    uniqueColumns = checkOccurenceFrequency(data, textcolumns)
+
     if resource_id and len(resource_fields) < 1:
         resource_id = None
+
+    if uniqueColumns: ##if there are any columns with unique values
+        for column in uniqueColumns:
+            for element in resource_fields:
+                if (column[0].encode("utf-8") in element[0].encode("utf-8")):
+                    resource_fields.remove(element)
+
     context = {
         'dataset_id': dataset_id,
         'dataset': dataset,
@@ -571,7 +703,7 @@ def box_plot(request, resource_id):
             response = HttpResponse(content_type='image/png')
             canvas.print_png(response)
         return response
-    except Exception, e:
+    except Exception as e:
         return JsonResponse({'message': str(e)})
 
 def corr_mat(request, resource_id):
@@ -598,7 +730,7 @@ def corr_mat(request, resource_id):
             response = HttpResponse(content_type='image/png')
             canvas.print_png(response)
         return response
-    except Exception, e:
+    except Exception as e:
         return JsonResponse({'message': str(e)})
 
 def get_dataset(dataset_id):
@@ -626,11 +758,97 @@ def exe_sql(sql):
         res = urlopen(url)
         return json.loads(res.read().decode('utf-8'))
 
-def combine(request):
+def download(request):
+    sql = None
+    if request.method == 'POST':
+        sql = request.POST.get("sql", "")
+        data = exe_sql(sql)
+        df = pd.DataFrame()
+        if len(data["result"]["records"]) > 0:
+            df = json_normalize(data["result"]["records"])
+            del df["_id"]
+            del df["_full_text"]
+            fields = data["result"]["fields"]
+            headers = [field["id"]for field in fields ].remove("_id")
+        sio = StringIO()
+        df.to_csv(sio,  index=False)
+        filename = "data.csv"
+        workbook = sio.getvalue()
+        response = StreamingHttpResponse(workbook, content_type='text/csv')
+        response['Content-Disposition'] = 'attachment; filename=%s' % filename
+        return response
+
+def create_trigger(request):
+    if request.method == 'POST':
+        success  = True
+        message = ""
+        sql = request.POST.get("sql", "")
+        email = request.POST.get("email", "")
+        notification =  request.POST.get("notification", "")
+        if email == "":
+            message = _("Email")
+            success = False
+        if notification == "":
+            if not success:
+                message += " " + _("and") + " "
+            message += _("Notification\n")
+            success = False
+
+        if not success:
+            message = _("Missing: ") +  message
+            return JsonResponse({
+            "success" : success,
+            "message" : message
+            })
+
+        message = _("Alert created successfully") 
+        try:
+            conn = sqlite3.connect(settings.DB)
+            c = conn.cursor()
+            c.execute('''SELECT name FROM sqlite_master WHERE type='table' AND name='triggers';''')
+            if not c.fetchone():
+                c.execute('''CREATE TABLE triggers (id INTEGER PRIMARY KEY,email text, notification text, query text)''')
+            try:
+                c.execute("""INSERT INTO  triggers VALUES (NULL, ?,?,?)""",(email, notification,sql))
+                conn.commit()
+            except Exception as e:
+                success = False
+                message = _("Error: " + str(e))
+                conn.rollback()
+                return JsonResponse({
+                    "success" : success,
+                    "message" : message
+                })
+        except Exception as e:
+            print(str(e))
+            success = False
+            message = _("Error: " + str(e))
+        return JsonResponse({
+            "success" : success,
+            "message" : message
+        })
+
+
+def combine(request, dataset_id = False):
     template_name = 'browser/merge.html'
-    selected_datasets =[]
+    selected_datasets = []
     groups = {"other": []}
+    base_dataset = None
+    base_dataset_resource_id = None
+    API_LINK = None
+
     try:
+
+        if (dataset_id):
+            base_dataset = get_dataset(dataset_id)
+
+            if "resources" in base_dataset.keys():
+                for resource in base_dataset["resources"]:
+                    # TODO multiple resources view
+                    if resource["format"].lower() in ["csv","xls"]:
+                        base_dataset_resource_id = resource["id"]
+                        API_LINK = settings.CKAN_URL + "/api/action/datastore_search?resource_id=" + base_dataset_resource_id + "&limit=99999"
+
         if 'merge' in request.POST:
             rs = request.POST.getlist('selected_rs')
             if len(rs) > 0:
@@ -644,7 +862,7 @@ def combine(request):
                 del df["_id"]
                 del df["_full_text"]
                 fields = data["result"]["fields"]
-                headers = [field["id"]for field in fields ].remove("_id")
+                headers = [field["id"]for field in fields].remove("_id")
                 sio = StringIO()
                 df.to_csv(sio,  index=False)
                 filename = "merged.csv"
@@ -665,7 +883,6 @@ def combine(request):
                 context = {
                     "RESOURCE_URL" : url,
                     "ACTION" : "analyse",
-                    
                 }
                 template_name = 'browser/analyse.html'
                 return render(request, template_name, context)
@@ -723,8 +940,17 @@ def combine(request):
                 template_name = 'browser/analyse.html'
                 return render(request, template_name, context)
 
-        if 'mark_read' in request.POST:
+        if 'combine_datasets' in request.POST:
+
             selected_datasets = request.POST.getlist('selected_datasets')
+
+            if base_dataset["id"]:
+                selected_datasets.insert(0, base_dataset["id"])
+
+            # get unique values
+            selected_datasets = set(selected_datasets)
+            selected_datasets = list(selected_datasets)
+
             for dataset_id in selected_datasets:
                 dataset = get_dataset(dataset_id)
                 if "resources" in dataset.keys():
@@ -732,7 +958,7 @@ def combine(request):
                         if resource["format"].lower() in ["csv","xls"]:
                             resource_id = resource["id"]                 
                             try:
-                                fields =  "_".join([f["id"] for f in get_resource_data(resource_id)["result"]["fields"]])
+                                fields = "_".join([f["id"] for f in get_resource_data(resource_id)["result"]["fields"]])
                             except Exception:
                                 fields = "other"
                             if fields not in groups.keys():
@@ -741,16 +967,25 @@ def combine(request):
 
                 else:
                     groups["other"].append(dataset)
+
         for g in groups.keys():
             if len(groups[g]) < 2:
                 if g == "other":
                     continue
                 groups["other"].extend(groups[g])
                 del groups[g]
-    except Exception, e:
+
+    except Exception as e:
         return JsonResponse({'message': str(e)})
+
     context = {
-        "dataset_groups" : groups
+        "dataset_groups" : groups,
+        # to keep main menu clean
+        "dataset" : base_dataset,
+        "dataset_resource_id" : base_dataset_resource_id,
+        "dataset_id" : dataset_id,
+        'API_LINK' : API_LINK,
+        'QUERY_API': settings.CKAN_URL + "/api/action/datastore_search_sql"
      }
 
     return render(request, template_name, context)
@@ -769,16 +1004,20 @@ def dataset_as_table(request, dataset_id):
     url = settings.CKAN_URL + "/dataset/" + dataset_id
     url_table = None
     url_pivottable = None
+    pivot_resource_json = { "result": { "records": [] } }
     resource_id = None
+    resource_fields = None
     numeric_fields = None
+
     try:
         dataset = ckan_api_instance.action.package_show(
             id=dataset_id
         )
+
         if "resources" in dataset.keys():
             for resource in dataset["resources"]:
 
-                if resource["format"].lower()  == "pdf":
+                if resource["format"].lower() == "pdf":
                     dataset["has_pdf"] = True
 
                 if resource["format"].lower() in ["csv","xls"]:
@@ -787,8 +1026,9 @@ def dataset_as_table(request, dataset_id):
                     url = settings.CKAN_URL + "/api/action/datastore_search?resource_id=" + resource_id + "&limit=1"
                     res = urlopen(url)
                     data = json.loads(res.read())
-                    fields = data["result"]["fields"]
-                    numeric_fields = [f["id"] for f in fields if f["type"] == "numeric"]
+                    resource_fields = data["result"]["fields"]
+                    numeric_fields = [f["id"] for f in resource_fields if f["type"] == "numeric"]
+
                     for view in views:
                         if (view["view_type"]=="recline_view"):
                             url_table = settings.CKAN_URL + "/dataset/" + dataset_id + "/resource/" + resource["id"] + "/view/" + view["id"]
@@ -796,11 +1036,20 @@ def dataset_as_table(request, dataset_id):
                     for view in views:
                         if (view["view_type"]=="pivottable"):
                             url_pivottable = settings.CKAN_URL + "/dataset/" + dataset_id + "/resource/" + resource["id"] + "/view/" + view["id"]
+                            pivot_resource_url = settings.CKAN_URL + "/api/action/datastore_search?resource_id=" + resource_id + "&limit=9999"
+                            pivot_res = urlopen(pivot_resource_url)
+                            pivot_resource_json = json.loads(pivot_res.read())
                             break
                     break
+                else:
+                    # table view not available!
+                    messages.add_message(request, messages.ERROR, "Table view not available!")
+                    return redirect('dataset', dataset_id=dataset_id)
+
     except Exception as e:
         messages.add_message(request, messages.ERROR, e)
         return render(request, error_template)
+
     context = {
         "url_table": url_table,
         'url_pivottable': url_pivottable,
@@ -812,7 +1061,9 @@ def dataset_as_table(request, dataset_id):
         'API_LINK' : settings.CKAN_URL + "/api/action/datastore_search?resource_id=" + resource_id + "&limit=99999", 
         'QUERY_API': settings.CKAN_URL + "/api/action/datastore_search_sql",
         'resource_id' : resource_id,
-        "numeric_fields" : numeric_fields
+        'resource_fields' : resource_fields,
+        'numeric_fields' : numeric_fields,
+        'pivot_resource_json': json.dumps(pivot_resource_json['result']['records']),
      }
 
     return render(request, template_name, context)
@@ -848,8 +1099,9 @@ def dataset_as_summary(request, dataset_id):
                     break
 
     except Exception as e:
-        messages.add_message(request, messages.ERROR, e)
-        return render(request, error_template)
+        # summary view not available!
+        messages.add_message(request, messages.ERROR, "Summary view not available!")
+        return redirect('dataset', dataset_id=dataset_id)
 
     context = {
         "resource_id" : resource_id,
@@ -953,6 +1205,15 @@ def data_cards(request):
 
     context = {
         'indicators': indicators,
+    }
+
+    return render(request, template_name, context)
+
+def dashboard(request):
+    template_name = 'browser/dashboard/index.html'
+
+    context = {
+
     }
 
     return render(request, template_name, context)

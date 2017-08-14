@@ -1,8 +1,14 @@
 {% load i18n %}
 
-                                <form class="form-search" action="{% url "search" %}" method="get" placeholder="{% trans "Search for datasets" %}">
-                                    <div class="input-append">
-                                        <input type="text" class="span5 main-search" name="query" value="{{ query }}" autocomplete="off" />
-                                        <button type="submit" class="span2 pull-right btn main-search-btn rtpa-btn"> <i class="fa fa-search" aria-hidden="true"></i> {% trans "Search" %} </button>
-                                    </div>
-                                </form>
+<div class="container">
+    <div class="row justify-content-md-center">
+        <form class="form-search col-md-auto col-lg-8" action="{% url "search" %}" method="get">
+            <div class="input-group">
+                <input type="text" name="query" class="form-control main-search" placeholder="{% trans "Search for datasets" %}" autocomplete="off" {% if query %} value="{{ query }}" {% endif %}>
+                <span class="input-group-btn">
+                    <button class="btn btn-primary" type="submit"> <i class="fa fa-search" aria-hidden="true"></i> <span class="hidden-sm-down"> {% trans "Search" %} </span> </button>
+                </span>
+            </div>
+        </form>
+    </div>
+</div>

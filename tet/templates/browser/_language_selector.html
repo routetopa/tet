@@ -3,19 +3,18 @@
 
 {% get_current_language as LANGUAGE_CODE %}
 
-     <div class="pull-right language-bar">
-         <ul class="unstyled"><!-- nav navbar-nav navbar-right -->
-            <li class="dropdown">
-                <a href="#" class="lang_item dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-                    <span class="_lang_{{ LANGUAGE_CODE }} "> <i class="fa fa-language" aria-hidden="true"></i> {% trans "Language" %} </span>
-                </a>
-                <ul class="lang-dropdown-menu dropdown-menu" role="menu">
-                    <li class="lang_item"><a class="_lang_en" href="{% translate_url en %}" class="btn-link">{% trans "English" %}</a></li>
-                    <li class="lang_item"><a class="_lang_it" href="{% translate_url it %}" class="btn-link">{% trans "Italian" %}</a></li>
-                    <li class="lang_item"><a class="_lang_nl" href="{% translate_url nl %}" class="btn-link">{% trans "Dutch" %}</a></li>
-                    <li class="lang_item"><a class="_lang_fr" href="{% translate_url fr %}" class="btn-link">{% trans "French" %}</a></li>
-                </ul>
-            </li>
-        </ul>
-    </div>
+
+
+    <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="langDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="fa fa-language" aria-hidden="true"></i> {% trans "Language" %}</a>
+        <input id="currentLanguage" value="{{ LANGUAGE_CODE|lower }}" style="display:none" >
+        <div class="dropdown-menu" aria-labelledby="langDropdown">
+            <a class="dropdown-item" href="{% translate_url en %}" class="btn-link">English</a>
+            <a class="dropdown-item" href="{% translate_url it %}" class="btn-link">Italiano</a>
+            <a class="dropdown-item" href="{% translate_url nl %}" class="btn-link">Nederlands</a>
+            <a class="dropdown-item" href="{% translate_url fr %}" class="btn-link">Français</a>
+        </div>
+    </li>
+
+
 

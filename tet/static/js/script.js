@@ -1,50 +1,22 @@
 var SEARCH_MODE = "AND"
 var csrftoken = getCookie('csrftoken');
+var CURRENT_LANGUAGE = 'en'
 
 $(document).ready(function(){
 
-    $('[data-toggle="tooltip"]').tooltip();
-    $('[data-toggle="tab"]').tab();
-
-    if($( "#ds-rc-slider" ).size()){
-        var ds_id = $( "#ds-id" ).val();
-        var ds_url = $( "#ds-url" ).val();
-        var api_url = $( "#ds-api-url" ).val();
-        function fetch_data(value){
-             $("#ds-rc-output").html("<em>Loading...</em>")
-              url =  api_url +"/get/" + ds_id + "/" + value;
-              $.get(url, function(data){
-                 html = ""
-                 for (d in data["result"]){
-                    html += "<li><a href='" + ds_url + data["result"][d]["id"] +"'>" + data["result"][d]["title"] + "</a></li>";
-                 }
-                 $("#ds-rc-output").html("<ul class='dataset-files'>"+ html +"</ul>")
-             });
-        }
-        var ds_slider = $( "#ds-rc-slider" ).slider({
-                   max: 10,
-                   value: 1,
-                   min:1,
-                   slide: function( event, ui ) {
-                     fetch_data(ui.value)
-                   }   
-        });
-        fetch_data(1);
-    }
-
-    if ( $('#ds-merged').size() ){
+    if ( $('#ds-merged').length ){
         var ds_merged = $( "#ds-merged" ).val();
         var response = $.getJSON(ds_merged, function(data) {
-                if ($("#output").size() > 0){
+                if ($("#output").length > 0){
                     var derivers = $.pivotUtilities.derivers;
                     var renderers = $.extend(
                                     $.pivotUtilities.renderers,
                                     $.pivotUtilities.c3_renderers,
                                     $.pivotUtilities.d3_renderers
                                     );
-                    $("#output").pivotUI(data.result.records, { renderers: renderers});    
+                    $("#output").pivotUI(data.result.records, { renderers: renderers}, false, CURRENT_LANGUAGE);
 
-                }else{
+                } else {
                     columns = []
                     for (field in data.result.fields){
                         field_name = data.result.fields[field].id;
@@ -59,20 +31,6 @@ $(document).ready(function(){
                 }
             });
     }
-    if ( $('.js-zeroclipboard-btn').size() ){
-        var client = new ZeroClipboard( $(".js-zeroclipboard-btn") );
-    }
-
-    $('.lang_dropdown_toggle').on('click', function (event) {
-        // Avoid following the href location when clicking
-        event.preventDefault();
-
-        // Avoid having the menu to close when clicking
-        event.stopPropagation();
-
-        $('.language_popup').toggle();
-
-    });
 
     // Social sharing
     $('#social-sharing').jsSocials({
@@ -82,15 +40,88 @@ $(document).ready(function(){
         shares: ["email", "twitter", "facebook", "googleplus"] // TODO SPOD share
     });
 
+    $("#social-sharing").jsSocials("shareOption", "googleplus", "logo", "fa fa-google-plus");
+
     // auto-adjust chart area
-    $('#main-chart').on('slid', function() {
+    $('#main-chart').on('slid.bs.carousel', function() {
         $(window).trigger('resize');
+//        window.dispatchEvent(new Event('resize'));
         return false
     });
 
 });
 
 $(function () {
+
+    /* related datasets */
+    if($( "#ds-rc-slider" ).length){
+        var ds_id = $( "#ds-id" ).val();
+        var ds_url = $( "#ds-url" ).val();
+        var api_url = $( "#ds-api-url" ).val();
+
+        function fetch_data(value){
+            $("#ds-rc-output").html('<div class="mx-auto my-2"><i class="fa fa-spinner fa-spin"></i></div>')
+            url =  api_url +"/get/" + ds_id + "/" + value;
+            $.get(url, function(data){
+                html = ""
+                for (d in data["result"]){
+                    html += "<a href=\"" + ds_url + data["result"][d]["id"] + "\" class=\"list-group-item list-group-item-action small pl-3\"> <i class=\"fa fa-link mr-2\" aria-hidden=\"true\"></i> " + data["result"][d]["title"] + "</a>";
+                }
+                $("#ds-rc-output").html("<div class=\"list-group\">"+ html +"</div>")
+            });
+        }
+
+        var ds_slider = $( "#ds-rc-slider" ).slider({
+            max: 10,
+            value: 1,
+            min:1,
+            slide: function( event, ui ){
+                fetch_data(ui.value)
+            }
+        });
+
+        fetch_data(1);
+    }
+
+    /* merge datasets */
+    if($( "#ds-rc-slider-merge" ).length){
+        var ds_id = $( "#ds-id" ).val();
+        var ds_url = $( "#ds-url" ).val();
+        var api_url = $( "#ds-api-url" ).val();
+
+        $("#ds-rc-output").on("click", ".select_dataset_link", function( e ) {
+            $(this).children('.select_dataset').prop('checked', ! $(this).children('.select_dataset').prop('checked'));
+            e.preventDefault();
+        });
+
+        $("#ds-rc-output").on("click", ".select_dataset", function( e ) {
+            e.preventDefault();
+        });
+
+        function fetch_data(value){
+            $("#ds-rc-output").html('<div class="mx-auto my-2"><i class="fa fa-spinner fa-spin"></i></div>')
+            url =  api_url +"/get/" + ds_id + "/" + value;
+            $.get(url, function(data){
+                html = ""
+                for (d in data["result"]){
+                    html += "<a href=\"#\" class=\"list-group-item list-group-item-action select_dataset_link small pl-3\"> <input type=\"checkbox\" value=\"" + data["result"][d]["id"] + "\" name=\"selected_datasets\" class=\"select_dataset p-2 mr-3\">" + data["result"][d]["title"] + "</a>";
+                }
+                $("#ds-rc-output").html("<div class=\"list-group\">"+ html +"</div>")
+            });
+        }
+
+        var ds_slider = $( "#ds-rc-slider-merge" ).slider({
+            max: 10,
+            value: 1,
+            min:1,
+            slide: function( event, ui ){
+                fetch_data(ui.value)
+            }
+        });
+
+        fetch_data(1);
+    }
+
     //type ahead
     $('.main-search').typeahead({
         source: function (query, process) {
@@ -98,15 +129,151 @@ $(function () {
                 return process(data.options);
             });
         },
-        item: '<li class="span5"><a href="#"></a></li>'
+        item: '<li class="col-12 p-2"><a href="#" class=""></a></li>',
+        menu: '<ul class="typeahead dropdown-menu col-12"></ul>'
     });
-    
+
+
     //SQL editor
-    if($("#query-editor").length > 0){
-        var editor = ace.edit("query-editor");
+    if($("#adv-query-editor").length > 0){
+        var editor = ace.edit("adv-query-editor");
         editor.getSession().setMode("ace/mode/sql");
-        $("#exe-query").click(function(e){
+
+        $('a[href="#sqlquery"]').click(function (e) {
+            var sql = $('#query-editor').queryBuilder('getSQL').sql;
+            sql = 'SELECT  * from  ' + '"' + resource_id + '" WHERE ' +sql;
+            sql = sql.replace(new RegExp("_", 'g'), '"');
+            editor.setValue(sql, 1)
+        });
+
+        $("#adv-exe-query").click(function(e){
             sql_api = $("#query-api").val() + "?sql=" + encodeURIComponent(editor.getValue());
+            $("#adv-query-output").html("");
+            var jqxhr = $.get(sql_api, function (data){
+                var tr = "";
+                var table = "";
+                if (data["success"] == true){
+                   for(field in data["result"]["fields"]){
+                    if (data["result"]["fields"][field]["id"] .startsWith("_")) continue;
+                     tr += "<th>" + data["result"]["fields"][field]["id"] + "</th>";
+                   }
+                }
+                table += "<tr>" + tr + "</tr>";
+                tr=""
+                for(record  in data["result"]["records"]){
+                   for(field in data["result"]["fields"]){
+                    var field_id = data["result"]["fields"][field]["id"];
+                    if (field_id.startsWith("_")) continue;
+                    tr += "<td>" + data["result"]["records"][record][field_id] + "</td>"
+                   }
+                   table += "<tr>" + tr + "</tr>";
+                   tr=""
+                }
+                table = "<table class='table table-hover' width='100%'>"  + table + "</table>";
+                $("#adv-query-output").html(table);
+            }).fail(function() {
+                $("#adv-query-output").html('<div class="alert alert-danger"><strong>Error</strong> Failed to excute the query </div>');
+            });;
+        });
+    }
+
+    $("#trigger-create-form").submit(function(e){
+        e.preventDefault(e);
+    });
+
+    //Query Builder
+    if($("#query-editor").length > 0){
+
+        var resource_id
+
+        url = $( "#api-link" ).val();
+
+        $.get(url, function(data){
+            resource_id = data.result.resource_id;
+
+            var to_be_removed = 0;
+
+            for (field in data.result.fields){
+                if (data.result.fields[field]["id"] == '_id'){
+                    to_be_removed = field
+                    continue;
+                }
+                data.result.fields[field]["label"] = data.result.fields[field]["id"];
+                data.result.fields[field]["id"] = "_" + data.result.fields[field]["id"] + "_";
+
+                // TODO switch + default string
+                if (data.result.fields[field]["type"] == "int4"){
+                    data.result.fields[field]["type"] = "integer"
+                }
+                if (data.result.fields[field]["type"] == "text"){
+                    data.result.fields[field]["type"] = "string"
+                }
+                if (data.result.fields[field]["type"] == "timestamp"){
+                    data.result.fields[field]["type"] = "time"
+                }
+                if (data.result.fields[field]["type"] == "numeric"){
+                    data.result.fields[field]["type"] = "double"
+                }
+            }
+            data.result.fields.splice(to_be_removed, 1);
+            $("#query-editor").queryBuilder({filters:data.result.fields});
+        });
+
+        $("#trigger").click(function(e){
+             $( "#trigger-form" ).toggle( "slow", function() {});
+        });
+
+        $("#trigger-create").click(function(e){
+            var sql = $('#query-editor').queryBuilder('getSQL').sql;
+            sql = sql.replace(new RegExp("_", 'g'), '"');
+            email = $("#trigger-email").val()
+            notification = $("#trigger-text").val()
+            $("#trigger-create").prop('disabled', true);
+            $.ajax({
+                url: '/en/create_trigger',
+                type: 'POST',
+                data: {
+                    "sql":sql,
+                    "email": email,
+                    "notification" : notification,
+                    'csrfmiddlewaretoken': csrftoken
+                },
+                dataType: 'json',
+                success: function (result){
+                    if (result.success){
+                        $("#trigger-output").html('<div class="alert alert-success">' + result.message + '</div>');
+                        $( "#trigger-form" ).toggle( 1300, function() {
+                            $("#trigger-output").html('');
+                        });
+                    }else{
+                        $("#trigger-output").html('<div class="alert alert-error">' + result.message + '</div>');
+                    }
+                    $("#trigger-create").prop('disabled', false);
+                }
+            }).fail(function() {
+                $("#trigger-output").html('<div class="alert alert-error">Failed</div>');
+                $("#trigger-create").prop('disabled', false);
+            });
+        });
+
+
+        $("#download").click(function(e){
+            var sql = $('#query-editor').queryBuilder('getSQL').sql;
+            sql = 'SELECT  * from  ' + '"' + resource_id + '" WHERE ' +sql;
+            sql = sql.replace(new RegExp("_", 'g'), '"');
+            var form = $('<form></form>').attr('action', '/en/download').attr('method', 'post');
+            form.append($("<input></input>").attr('type', 'hidden').attr('name', 'sql').attr('value', sql));
+            form.append($("<input></input>").attr('type', 'hidden').attr('name', 'csrfmiddlewaretoken').attr('value', csrftoken));
+            form.appendTo('body').submit().remove();
+        });
+
+        $("#exe-query").click(function(e){
+            console.log( resource_id )
+            var sql = $('#query-editor').queryBuilder('getSQL').sql;
+            sql = 'SELECT  * from  ' + '"' + resource_id + '" WHERE ' +sql;
+            console.log( resource_id )
+            sql = sql.replace(new RegExp("_", 'g'), '"');
+            sql_api = $("#query-api").val() + "?sql=" + encodeURIComponent(sql);
             $("#query-output").html("");
             var jqxhr = $.get(sql_api, function (data){
                 var tr = "";
@@ -140,7 +307,7 @@ $(function () {
     // Combine Datasets
     $('#combineDatasets').click(function () {
 
-        $(this).parent().siblings('.alert').hide();
+        $(this).siblings('.alert').hide();
 
         var selected_datasets = $("input[name='selected_datasets']:checked");
 
@@ -149,7 +316,7 @@ $(function () {
             return true
 
         } else {
-            $(this).parent().siblings('.alert').fadeIn('slow');
+            $(this).siblings('.alert').fadeIn('slow');
         }
 
         return false;
@@ -166,8 +333,15 @@ $(function () {
 
     // Results filters
     $('.expand-btn').click(function () {
-        $(this).parent().parent().children('.filter-hidden').fadeIn('slow')
+        $(this).parent().parent().children('.filter-hidden').fadeIn('slow').css("display","inline-flex")
         $(this).hide()
+        $(this).siblings('.reduce-btn').fadeIn('slow').css("display","inline-flex")
+    });
+
+    $('.reduce-btn').click(function () {
+        $(this).parent().parent().children('.filter-hidden').fadeOut('slow')
+        $(this).hide()
+        $(this).siblings('.expand-btn').fadeIn('slow')
     });
 
     // Results order
@@ -249,7 +423,14 @@ $(function () {
 
 
     // Results filtering
+
+    $('#results-filter .list-group-item-action').click(function () {
+        $(this).children('input').click();
+    });
+
     $('input:checkbox').click(function () {
+
+        $(this).parent().toggleClass('list-group-item-info')
 
         if ( $("#results-filter input:checked").length == 0){
             $("ul.dataset-list li.dataset-item").show();
@@ -380,7 +561,7 @@ $.extend(
         $(form).appendTo('body').submit();
     }
 });
-
+/*
 function detectAnomaly(){
     var api_url = $( "#api-link" ).val();
     var field_name = $( "#field-name" ).val();
@@ -412,7 +593,7 @@ function detectAnomaly(){
             dataType: "text",
             contentType: "application/json; charset=utf-8",
         });
-        
+
     });
 }
-
+*/

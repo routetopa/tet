@@ -1,0 +1,181 @@
+{% load i18n %}
+{% load keyvalue %}
+
+<div class="row">
+    <div class="col-md-6 col-sm-12">
+
+        {% if organizations %}
+        <div>
+            <div class="mt-4">
+                <h5 class="homepage-filter">
+                    <a data-toggle="collapse" href="#collapseOrganization" aria-expanded="true" aria-controls="collapseOrganization"> <i class="fa fa-institution" aria-hidden="true"></i>
+                        {% trans "Publishers" %}
+                    </a>
+                </h5>
+            </div>
+            <ul id="collapseOrganization" class="list-unstyled collapse show">
+                {% for organization in organizations %}
+                <li class="nav-item">
+                    <a href="/search/?organization={{ organization.name }}" title="{{ organization.name|title }}">
+
+                        <span>{{ organization.display_name|title }} <small>({{organization.package_count}})</small></span>
+                    </a>
+                </li>
+                {% endfor %}
+            </ul>
+        </div>
+        {% endif %}
+
+        {% if tags %}
+        <div>
+            <div class="mt-4">
+                <h5 class="homepage-filter">
+                    <a data-toggle="collapse" href="#collapseTag" aria-expanded="true" aria-controls="collapseTag"> <i class="fa fa-tags" aria-hidden="true"></i>
+                        {% trans "Tags" %}
+                    </a>
+                </h5>
+            </div>
+            <ul id="collapseTag" class="list-unstyled collapse show">
+
+                {% for tag in tags %}
+                <li class="nav-item">
+                    <a href="/search/?tags={{ tag }}" title="{{ tag|title }}">
+
+                        <span>{{ tag|title }} <small>({% keyvalue tags tag %})</small></span>
+                    </a>
+                </li>
+                {% endfor %}
+            </ul>
+        </div>
+        {% endif %}
+
+        <div>
+            <div class="mt-4">
+                <h5 class="homepage-filter">
+                    <a data-toggle="collapse" href="#collapseScore" aria-expanded="true" aria-controls="collapseScore"> <i class="fa fa-star" aria-hidden="true"></i>
+                        {% trans "Openess Score" %}
+                    </a>
+                </h5>
+            </div>
+            <ul id="collapseScore" class="list-unstyled collapse show">
+                <li class="nav-item">
+                    <a href="/search/?openness_score=5" title="">
+                        <i class="fa fa-star" aria-hidden="true"></i>
+                        <i class="fa fa-star" aria-hidden="true"></i>
+                        <i class="fa fa-star" aria-hidden="true"></i>
+                        <i class="fa fa-star" aria-hidden="true"></i>
+                        <i class="fa fa-star" aria-hidden="true"></i>
+
+                        <span>5</span>
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <a href="/search/?openness_score=4" title="">
+                        <i class="fa fa-star" aria-hidden="true"></i>
+                        <i class="fa fa-star" aria-hidden="true"></i>
+                        <i class="fa fa-star" aria-hidden="true"></i>
+                        <i class="fa fa-star" aria-hidden="true"></i>
+                        <i class="fa fa-star-o" aria-hidden="true"></i>
+
+                        <span>4</span>
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <a href="/search/?openness_score=3" title="">
+                        <i class="fa fa-star" aria-hidden="true"></i>
+                        <i class="fa fa-star" aria-hidden="true"></i>
+                        <i class="fa fa-star" aria-hidden="true"></i>
+                        <i class="fa fa-star-o" aria-hidden="true"></i>
+                        <i class="fa fa-star-o" aria-hidden="true"></i>
+
+                        <span>3</span>
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <a href="/search/?openness_score=2" title="">
+                        <i class="fa fa-star" aria-hidden="true"></i>
+                        <i class="fa fa-star" aria-hidden="true"></i>
+                        <i class="fa fa-star-o" aria-hidden="true"></i>
+                        <i class="fa fa-star-o" aria-hidden="true"></i>
+                        <i class="fa fa-star-o" aria-hidden="true"></i>
+
+                        <span>2</span>
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <a href="/search/?openness_score=1" title="">
+                        <i class="fa fa-star" aria-hidden="true"></i>
+                        <i class="fa fa-star-o" aria-hidden="true"></i>
+                        <i class="fa fa-star-o" aria-hidden="true"></i>
+                        <i class="fa fa-star-o" aria-hidden="true"></i>
+                        <i class="fa fa-star-o" aria-hidden="true"></i>
+
+                        <span>1</span>
+                    </a>
+                </li>
+
+            </ul>
+
+        </div>
+    </div>
+
+
+    <div class="col-md-6 col-sm-12">
+
+        {% if roles %}
+        <div>
+            <div class="mt-4">
+                <h5 class="homepage-filter">
+                    <a data-toggle="collapse" href="#collapseRole" aria-expanded="true" aria-controls="collapseRole"> <i class="fa fa-group" aria-hidden="true"></i>
+                        {% trans "Roles" %}
+                    </a>
+                </h5>
+            </div>
+
+            <ul id="collapseRole" class="list-unstyled collapse show">
+                {% for role in roles %}
+                <li class="nav-item">
+                    <a href="/search/?role={{ role }}" title="{{ role|title }}">
+
+                        <span>{{ role|title }}</span>
+                    </a>
+                </li>
+                {% endfor %}
+            </ul>
+
+        </div>
+        {% endif %}
+
+        {% if categories %}
+        <div>
+            <div class="mt-4">
+                <h5 class="homepage-filter">
+                    <a data-toggle="collapse" href="#collapseCategory" aria-expanded="true" aria-controls="collapseCategory"> <i class="fa fa-list" aria-hidden="true"></i>
+                        {% trans "Categories" %}
+                    </a>
+                </h5>
+            </div>
+
+            <ul id="collapseCategory" class="list-unstyled collapse show">
+                {% for category in categories %}
+                <li class="nav-item">
+                    <a href="/search/?category={{ category }}" title="{{ category|title }}">
+
+                        <span>{{ category|title }}</span>
+                    </a>
+                </li>
+                {% endfor %}
+            </ul>
+
+        </div>
+        {% endif %}
+
+        <!-- SpatialAdministrativeArea -->
+
+    </div>
+
+</div>
