@@ -11,7 +11,7 @@
 
     {{ block.super }}
 
-    <script src="{% static 'browser/js/anomaly-detection.js' %}"></script>
+    <script src="{% static 'browser/js/anomaly-detection-prototype.js' %}"></script>
 
 {% endblock scripts %}
 
@@ -181,26 +181,26 @@
                                                             </div>
 
                                                             <div class="form-group">
-                                                                <span class="">
+                                                                <span class="form-control">
                                                                     <input id="scoreTolerance" class="form-control"  data-slider-id='scoreTolerance' type="text" data-slider-min="0" data-slider-max="5" data-slider-step="0.05" data-slider-value="0.5"/>
                                                                 </span>
                                                             </div>
 
+                                                            <div class="form-group">
+                                                                <span class="">
+                                                                    {% trans "Amount of neighbours" %}:
+                                                                </span>
+                                                            </div>
 
-<!--
                                                             <div class="form-group">
                                                                 <div id="neighboursAD" class="">
 
-                                                                    <span class="">
-                                                                        {% trans "Amount of neighbours" %}:
-                                                                    </span>
                                                                     <span class="">
                                                                         <input id="neighboursCount" class="form-control" data-slider-id='neighboursCount' type="text" data-slider-min="1" data-slider-max="12" data-slider-step="1" data-slider-value="10"/>
                                                                     </span>
 
                                                                 </div>
                                                             </div>
--->
 
                                                         </div>
 
