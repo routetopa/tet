@@ -548,8 +548,8 @@ def compute_completeness(stats):
         stats["content_label"] = grading(stats["content"])
     stats["metadata_label"] = grading(stats["metadata"])
     stats["description_label"] = grading(stats["description"])
-    stats["license"] = "license_url" in stats["ds"] and stats["ds"]["license_url"] != ""
-    stats["version"] = "version" in stats["ds"] and stats["ds"]["version"] != ""
+    stats["license"] = "license_url" in stats["ds"] and stats["ds"]["license_url"]
+    stats["version"] = "version" in stats["ds"] and stats["ds"]["version"]
     stats["date_updated"] = dateutil.parser.parse(stats["ds"]["metadata_modified"])
     stats["last_updated"] = (datetime.datetime.now() - stats["date_updated"]).days
     return stats
