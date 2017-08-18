@@ -30,9 +30,11 @@
                             <li role="presentation" class="nav-item">
                                 <a class="nav-link active" href="#explorer" aria-controls="explorer" role="tab" data-toggle="tab">{% trans "Data Explorer" %}</a>
                             </li>
+                            {% if show_pivot_table %}
                             <li role="presentation" class="nav-item">
                                 <a class="nav-link" href="#pivottable" aria-controls="pivottable" role="tab" data-toggle="tab">{% trans "PivotTable" %}</a>
                             </li>
+                            {% endif %}
                             <li role="presentation" class="nav-item">
                                 <a class="nav-link" class="nav-link" href="#anomaly-detect" aria-controls="anomaly-detect" role="tab" data-toggle="tab">{% trans "Anomaly Detection" %}</a>
                             </li>
@@ -45,6 +47,7 @@
                                 <iframe width="100%" height="350" src="{{url_table}}" frameBorder="0"></iframe>
                             </div>
 
+                            {% if show_pivot_table %}
                             <div role="tabpanel" class="tab-pane" id="pivottable">
 
                                 <!--<iframe width="100%" height="350" src="{{url_pivottable}}" frameBorder="0"></iframe>-->
@@ -106,17 +109,20 @@
                                 {% endif %}
 
                             </div>
+                            {% endif %}
 
                             <div role="tabpanel" class="tab-pane" id="anomaly-detect">
 
                                 <h4>{% trans "Anomaly detection" %}</h4>
 
-                                <p class="my-2 ">
+                                <p class="my-2 text-justify">
                                     {% trans "Anomaly detection web service implemented for ROUTE-TO-PA project is based on the Local Outlier Factor Algorithm (LOF)." %}
                                     {% trans "LOF algorithm is unsupervised nearest neighborhood  based anomaly detection algorithm widely used for multivariate anomaly detection." %}
                                     {% trans "The LOF score is thus basically a ratio of local densities. The normal instances, which densities are as big as the densities of their neighbors, get a score of about 1.0. Anomalies, which have a low local density, will result in larger scores." %}
                                     <a href="https://en.wikipedia.org/wiki/Local_outlier_factor" target="_blank">{% trans "Read more" %}</a>.
                                 </p>
+
+                                {% if numeric_fields|length > 0 %}
 
                                 <p class="my-2">
                                     <button id="detectAnomaly" onclick="detectAnomaly()" name="" class="span2 btn btn-primary float-right"> <i class="fa fa-bug" aria-hidden="true"></i> {% trans "Detect Anomaly" %} </button>
@@ -181,7 +187,7 @@
                                                             </div>
 
                                                             <div class="form-group">
-                                                                <span class="form-control">
+                                                                <span class="">
                                                                     <input id="scoreTolerance" class="form-control"  data-slider-id='scoreTolerance' type="text" data-slider-min="0" data-slider-max="5" data-slider-step="0.05" data-slider-value="0.5"/>
                                                                 </span>
                                                             </div>
@@ -288,15 +294,21 @@
                                     </div>
 
                             </div>
-<!--
-                            <div role="tabpanel" class="tab-pane" id="discuss">
+
+
+                            {% else %}
+
+                            <div class="alert alert-warning mt-3" role="alert">
+                              <strong>{% trans "Warning!" %}</strong> {% trans "Looks like this resource does not contains any numeric fields. Anomaly detection is not available!" %}
+                            </div>
+
+                            {% endif %}
 
                             </div>
--->
+
                         </div>
 
                     </div>
-                </div>
                 </div>
 
 {% comment %}
