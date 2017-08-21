@@ -5,7 +5,7 @@
 
 {% get_current_language as LANGUAGE_CODE %}
 
-{% block title %} {% trans "Dataset details" %} {% endblock title %}
+{% block title %} {% trans "Analysis & Visualisation" %} - {{ dataset.title }} {% endblock title %}
 
 {% block scripts %}
 
@@ -19,7 +19,7 @@
 
                 <div class="row">
 
-                    <h4 class="dataset-title"> {{ dataset.title }} <small>{% trans "Tabular View" %}</small></h4>
+                    <h4 class="dataset-title"> {{ dataset.title }} <small>{% trans "Analysis & Visualisation" %}</small></h4>
 
                 </div>
                 
@@ -30,14 +30,14 @@
                             <li role="presentation" class="nav-item">
                                 <a class="nav-link active" href="#explorer" aria-controls="explorer" role="tab" data-toggle="tab">{% trans "Data Explorer" %}</a>
                             </li>
+                            <li role="presentation" class="nav-item">
+                                <a class="nav-link" class="nav-link" href="#anomaly-detect" aria-controls="anomaly-detect" role="tab" data-toggle="tab">{% trans "Anomaly Detection" %}</a>
+                            </li>
                             {% if show_pivot_table %}
                             <li role="presentation" class="nav-item">
                                 <a class="nav-link" href="#pivottable" aria-controls="pivottable" role="tab" data-toggle="tab">{% trans "PivotTable" %}</a>
                             </li>
                             {% endif %}
-                            <li role="presentation" class="nav-item">
-                                <a class="nav-link" class="nav-link" href="#anomaly-detect" aria-controls="anomaly-detect" role="tab" data-toggle="tab">{% trans "Anomaly Detection" %}</a>
-                            </li>
                             <!--<li role="presentation" class="nav-item"><a href="#discuss" aria-controls="discuss" role="tab" data-toggle="tab">{% trans "SPOD Discussion" %}</a></li>-->
                         </ul>
 
