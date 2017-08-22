@@ -57,54 +57,49 @@ $(document).ready(function() {
 
 
 $(document).ready(function() {
-    //var neighboursCount=document.getElementById("neighboursCount")
+    var neighboursCount=document.getElementById("neighboursCount")
 
     var tmp = $('#neighboursCount').bootstrapSlider({
 
-                    min:1,
-                    max:20,
-                    value:10,
-                    formatter: function(value)
-                    {
-                        //getMaxNeighbours()
-                        return "Current value: " + value;
-                    }
-
+                min:1,
+                max:20,
+                value:10,
+                formatter: function(value)
+                {
+                    //getMaxNeighbours()
+                    return "Current value: " + value;
+                }
             });
+
             getMaxNeighbours()
 
            function getMaxNeighbours()
            {
-           if (typeof amountOfRecords !=='undefined')
-            {
-                //console.log(amountOfRecords)
-                var newNeighboursMaxValue=amountOfRecords;
-                if (newNeighboursMaxValue>=50)
+                if (typeof amountOfRecords !=='undefined')
                 {
-                    newNeighboursMaxValue=50
-                    //console.log('test')
-                    tmp.bootstrapSlider('setAttribute', 'max', newNeighboursMaxValue);
+                    var newNeighboursMaxValue=amountOfRecords;
+                    if (newNeighboursMaxValue>=50)
+                    {
+                        newNeighboursMaxValue=50
+                        tmp.bootstrapSlider('setAttribute', 'max', newNeighboursMaxValue);
+                    }
+                    else
+                    {
+                        tmp.bootstrapSlider('setAttribute', 'max', newNeighboursMaxValue);
+                    }
                 }
                 else
                 {
-                    //console.log('test<50')
-                    tmp.bootstrapSlider('setAttribute', 'max', newNeighboursMaxValue);
+                    setTimeout(getMaxNeighbours,100)
                 }
             }
-            else
-            {
-                setTimeout(getMaxNeighbours,100)
-            }
-            }
+
      $("#neighboursCount").on("slideStop", function(slideEvt) {
 
         neighboursAmount = slideEvt.value
 
-
     });
-    });
-
-
+});
 
 
 
@@ -365,6 +360,7 @@ function detectAnomaly(){
                 updateTableTolerance(score_tolerance)
                 updateAnomalyMetrics(score_tolerance)
 
+
                 // Pares the data for the chart
                 var column_x    = []
                 var column_y    = []
@@ -375,7 +371,7 @@ function detectAnomaly(){
                 // 0 - _id
                 // 1 - FirstNumericColumn
                 // 2 - Score
-                // 3 - flag (type) // TODO check updated API
+                // 3 - flag (type)
 
                 // Parse X + Y + make Anomalies null
                 for(i=0; i < source_data.result.records.length; i++)
@@ -383,7 +379,7 @@ function detectAnomaly(){
                     column_x[i] = source_data.result.records[i][x_axis];
                     column_y[i] = source_data.result.records[i][y_axis];
                     column_as[i] = json[i][2];
-                    console.log()
+
                     if ( json[i][2] > 1 + score_tolerance ){
                         column_a[i] = json[i][1];
                     } else {
@@ -396,7 +392,6 @@ function detectAnomaly(){
                 column_a.unshift("Anomaly")
                 column_as.unshift("Anomaly Score")
 
-
                 dimension_chart = c3.generate({
                     bindto: '#dimension-chart',
                     point: {
@@ -406,7 +401,6 @@ function detectAnomaly(){
                                 return 4 * column_as[d.index + 1];
                             }
                             return 3;
-
                         }
                     },
                     data: {
@@ -615,7 +609,7 @@ function recalculateAnomaly() {
                     // 0 - _id
                     // 1 - FirstNumericColumn
                     // 2 - Score
-                    // 3 - flag (type) // TODO check updated API TODO check updated API
+                    // 3 - flag (type)
 
                     // Parse X + Y + make Anomalies null
                     for(i=0; i < source_data.result.records.length; i++)
