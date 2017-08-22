@@ -548,8 +548,8 @@ def compute_completeness(stats):
         stats["content_label"] = grading(stats["content"])
     stats["metadata_label"] = grading(stats["metadata"])
     stats["description_label"] = grading(stats["description"])
-    stats["license"] = "license_url" in stats["ds"] and stats["ds"]["license_url"] != ""
-    stats["version"] = "version" in stats["ds"] and stats["ds"]["version"] != ""
+    stats["license"] = "license_url" in stats["ds"] and stats["ds"]["license_url"]
+    stats["version"] = "version" in stats["ds"] and stats["ds"]["version"]
     stats["date_updated"] = dateutil.parser.parse(stats["ds"]["metadata_modified"])
     stats["last_updated"] = (datetime.datetime.now() - stats["date_updated"]).days
     return stats
@@ -1005,6 +1005,7 @@ def dataset_as_table(request, dataset_id):
     url_table = None
     url_pivottable = None
     pivot_resource_json = { "result": { "records": [] } }
+    show_pivot_table = False
     resource_id = None
     resource_fields = None
     numeric_fields = None
@@ -1033,12 +1034,16 @@ def dataset_as_table(request, dataset_id):
                         if (view["view_type"]=="recline_view"):
                             url_table = settings.CKAN_URL + "/dataset/" + dataset_id + "/resource/" + resource["id"] + "/view/" + view["id"]
                             break
+
+                    # requires CKAN extension
+                    # check https://github.com/routetopa/ckanext-pivottable
                     for view in views:
                         if (view["view_type"]=="pivottable"):
                             url_pivottable = settings.CKAN_URL + "/dataset/" + dataset_id + "/resource/" + resource["id"] + "/view/" + view["id"]
                             pivot_resource_url = settings.CKAN_URL + "/api/action/datastore_search?resource_id=" + resource_id + "&limit=9999"
                             pivot_res = urlopen(pivot_resource_url)
                             pivot_resource_json = json.loads(pivot_res.read())
+                            show_pivot_table = True
                             break
                     break
                 else:
@@ -1064,6 +1069,7 @@ def dataset_as_table(request, dataset_id):
         'resource_fields' : resource_fields,
         'numeric_fields' : numeric_fields,
         'pivot_resource_json': json.dumps(pivot_resource_json['result']['records']),
+        'show_pivot_table' : show_pivot_table
      }
 
     return render(request, template_name, context)
