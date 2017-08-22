@@ -2,24 +2,22 @@
 
 <div class="spod-discussion">
 
-    <h5 class="top5"> <small> <i class="fa fa-chevron-right" aria-hidden="true"></i> {{ dataset.subject }}</small></h5>
+    <h6 class="my-2"> <small> <i class="fa fa-chevron-right" aria-hidden="true"></i> {{ dataset.subject }}</small></h6>
 
-    <ul class="media-list">
+    <ul class="media-list pl-1 mt-2">
 
     <!-- TODO limit no of comments -->
     {% for comment in dataset.roomsummary %}
 
-        <li class="media">
-            <a href="{{ comment.userUrl }}" class="pull-left" data-original-title="" title="">
-                <img src="{{ comment.userAvatarUrl }}" alt="" class="img-circle avatar">
+        <div class="media my-3">
+            <a href="{{ comment.userUrl }}" class="d-flex mr-3" data-original-title="" title="">
+                <img src="{{ comment.userAvatarUrl }}" alt="" class="rounded-circle avatar">
             </a>
             <div class="media-body">
-                <strong class="text-success">{{ comment.userDisplayName }}</strong>
-                <p>
-                    {{ comment.message }}
-                </p>
-            </div>
-        </li>
+            <h6 class="mt-0"><strong>{{ comment.userDisplayName }}</strong></h6>
+            {{ comment.message|safe }}
+          </div>
+        </div>
 
     {% endfor %}
 

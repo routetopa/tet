@@ -367,6 +367,8 @@ li.dataset-resource .label:hover {
  *  Helpers
  */
 
+.avatar { height: 64px; }
+
 .thead-inverse th {
     color: #fff;
     background-color: #007dbe;
