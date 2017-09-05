@@ -47,7 +47,7 @@ def dataset_to_metadata_text(dataset):
             pass
 
         text = u"<p>Questo Dataset è stato creato il <strong>" + parse(dataset["metadata_created"]).strftime("%d %B %Y, %H:%M") + u"</strong>"
-        text += u" e l'ultima modifica è del <strong>" + parse(dataset["metadata_modified"]).strftime("%d %B% %Y, %H:%M") + u"</strong>.</p> "
+        text += u" e l'ultima modifica è del <strong>" + parse(dataset["metadata_modified"]).strftime("%d %B %Y, %H:%M") + u"</strong>.</p> "
 
         if dataset["license_title"]:
             text += u"<p>Questo Dataset è soggetto a licenza di pubblicazione <strong>" + dataset["license_title"] + u"</strong></p> "
