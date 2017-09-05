@@ -313,6 +313,14 @@ li.dataset-resource .label:hover {
 }
 
 /*
+ * SPOD widget
+ */
+.spod-discussion {
+    max-height: 350px;
+    overflow-y: scroll;
+}
+
+/*
  * Related datasets
  */
 #ds-rc-output {
