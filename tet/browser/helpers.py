@@ -74,7 +74,7 @@ def dataset_to_metadata_text(dataset):
     # default lang - "en"
     else:
         text = "<p>This Dataset was created at <strong>" + parse(dataset["metadata_created"]).strftime("%d %B %Y, %H:%M") + "</strong>"
-        text += " and last modified at <strong>" + parse(dataset["metadata_modified"]).strftime("%d %B% %Y, %H:%M") + "</strong>.</p> "
+        text += " and last modified at <strong>" + parse(dataset["metadata_modified"]).strftime("%d %B %Y, %H:%M") + "</strong>.</p> "
 
         if dataset["license_title"]:
             text += "<p>This Dataset is published under <strong>" + dataset["license_title"] + "</strong> license.</p> "
