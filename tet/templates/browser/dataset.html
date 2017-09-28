@@ -10,7 +10,7 @@
                     <div class="col-md-9 col-sm-12">
                         <h4 class="dataset-title"> {{ dataset.title }} <small>{% trans "Profile" %}</small> </h4>
                         <p class="">
-                            {{ dataset.notes|urlize }}
+                            {{ dataset.notes|safe }}
                         </p>
                     </div>
 
@@ -346,7 +346,7 @@
                                 <div class="panel-body dataset-tags">
 
                                     {% for tag in dataset.tags %}
-                                        <a href="/search/?tags={{ tag.name }}" title="{{ tag.display_name|title }}" class="py-2 mx-2 float-left">
+                                        <a href='/search/?tags="{{ tag.name }}"' title="{{ tag.display_name|title }}" class="py-2 mx-2 float-left">
                                             <span class="label px-2 py-2">{{ tag.display_name }}</span>
                                         </a>
                                     {% endfor %}
