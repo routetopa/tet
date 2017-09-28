@@ -10,7 +10,7 @@
                     <div class="col-md-9 col-sm-12">
                         <h4 class="dataset-title"> {{ dataset.title }} <small>{% trans "Profile" %}</small> </h4>
                         <p class="">
-                            {{ dataset.notes }}
+                            {{ dataset.notes|urlize }}
                         </p>
                     </div>
 
@@ -125,7 +125,7 @@
                                 </div>
                                 <div class="panel-body dataset-description">
                                     <p class="">
-                                        {{ dataset.notes }}
+                                        {{ dataset.notes|safe|urlize }}
                                     </p>
                                 </div>
 
