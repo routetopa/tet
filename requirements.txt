@@ -16,3 +16,4 @@ pyparsing
 cycler
 pycrypto
 crypto
+python-tk
