@@ -57,6 +57,8 @@ from django.core.cache import cache
 import shelve
 import logging
 from threading import Lock
+import matplotlib
+matplotlib.use('Agg')
 from matplotlib.backends.backend_agg import FigureCanvasAgg as FigureCanvas
 from matplotlib.figure import Figure
 import matplotlib.pyplot as plt
