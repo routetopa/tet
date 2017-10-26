@@ -73,30 +73,60 @@ def dataset_to_metadata_text(dataset):
 
     # default lang - "en"
     else:
-        text = "<p>This Dataset was created at <strong>" + parse(dataset["metadata_created"]).strftime("%d %B %Y, %H:%M") + "</strong>"
-        text += " and last modified at <strong>" + parse(dataset["metadata_modified"]).strftime("%d %B %Y, %H:%M") + "</strong>.</p> "
+        #Set as default datetie locale on english
+        try:
+            locale.setlocale(locale.LC_TIME,"en_US")
+      
+            text = "<p>This Dataset was created at <strong>" + parse(dataset["metadata_created"]).strftime("%d %B %Y, %H:%M") + "</strong>"
+            text += " and last modified at <strong>" + parse(dataset["metadata_modified"]).strftime("%d %B% %Y, %H:%M") + "</strong>.</p> "
 
-        if dataset["license_title"]:
-            text += "<p>This Dataset is published under <strong>" + dataset["license_title"] + "</strong> license.</p> "
+            if dataset["license_title"]:
+                text += "<p>This Dataset is published under <strong>" + dataset["license_title"] + "</strong> license.</p> "
 
-        if dataset["organization"]:
-            text += "<p>The data was published by <strong>" + dataset["organization"]["title"] + "</strong>.</p> "
+            if dataset["organization"]:
+                text += "<p>The data was published by <strong>" + dataset["organization"]["title"] + "</strong>.</p> "
 
-        if dataset["maintainer_email"]:
-            text += "<p>If you need more details, maintainer can be contacted at: <a href='#' data-original-title='' title=''><strong>" + dataset["maintainer_email"] + "</strong></a>.</p> "
+            if dataset["maintainer_email"]:
+                text += "<p>If you need more details, maintainer can be contacted at: <a href='#' data-original-title='' title=''><strong>" + dataset["maintainer_email"] + "</strong></a>.</p> "
 
-        if number_of_resources_types > 0:
-            text += "<p>The data is available in " + str(number_of_resources_types) + " format"
-            if number_of_resources_types > 1:
-                text += "s"
+            if number_of_resources_types > 0:
+                text += "<p>The data is available in " + str(number_of_resources_types) + " format"
+                if number_of_resources_types > 1:
+                    text += "s"
 
-            text += ": ";
+                text += ": ";
 
-            # TODO direct link
-            for res in resources_types:
-                text += "<strong>" + res + "</strong> "
+                # TODO direct link
+                for res in resources_types:
+                    text += "<strong>" + res + "</strong> "
 
-            text += "</p> "
+                text += "</p> "
+        except Exception as e:
+
+            text = "<p>This Dataset was created at <strong>[Datetime locale format not supported] </strong>"
+            text += " and last modified at <strong>[Datetime locale format not supported]</strong>.</p> "
+
+            if dataset["license_title"]:
+                text += "<p>This Dataset is published under <strong>" + dataset["license_title"] + "</strong> license.</p> "
+
+            if dataset["organization"]:
+                text += "<p>The data was published by <strong>" + dataset["organization"]["title"] + "</strong>.</p> "
+
+            if dataset["maintainer_email"]:
+                text += "<p>If you need more details, maintainer can be contacted at: <a href='#' data-original-title='' title=''><strong>" + dataset["maintainer_email"] + "</strong></a>.</p> "
+
+            if number_of_resources_types > 0:
+                text += "<p>The data is available in " + str(number_of_resources_types) + " format"
+                if number_of_resources_types > 1:
+                    text += "s"
+
+                text += ": ";
+
+                # TODO direct link
+                for res in resources_types:
+                    text += "<strong>" + res + "</strong> "
+
+                text += "</p> "
 
     return text
 

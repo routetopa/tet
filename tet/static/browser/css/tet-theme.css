@@ -386,6 +386,10 @@ body, html {
     margin-right: 45px;
 }
 
+#results-filter li.expand a:hover{
+    cursor:pointer;
+}
+
 #results-filter .filter-hidden {
     display: none;
 }
