@@ -11,7 +11,7 @@
 
     {{ block.super }}
 
-    <script src="{% static 'browser/js/anomaly-detection.js' %}"></script>
+<script src="{% static 'browser/js/anomaly-detection.js' %}"></script>
 
 {% endblock scripts %}
 
@@ -44,7 +44,15 @@
                         <div class="tab-content my-2">
 
                             <div role="tabpanel" class="tab-pane active" id="explorer">
-                                <iframe width="100%" height="350" src="{{url_table}}" frameBorder="0"></iframe>
+
+                                <h4>{% trans "Data Explorer" %}</h4>
+
+                                <p class="top20 text-justify">
+                                    {% trans "The Data Explorer is an application for exploring and working with data in the browser. It allows querying, filtering, graphing and mapping data." %}
+                                </p>
+
+                                <iframe id="recline-explorer" style="margin-top: 25px;" width="100%" height="750px" src="{{url_table}}" frameBorder="0"></iframe>
+
                             </div>
 
                             {% if show_pivot_table %}
@@ -347,7 +355,7 @@
                 </div>
 {% endcomment %}
 
-                <div class="row ">
+                <div class="row dataset-details">
 
                     <div class="col-md-6 col-sm-12">
 
