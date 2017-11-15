@@ -105,7 +105,7 @@ def dataset_to_metadata_text(dataset):
         except Exception as e:
             
 
-            text = "<p>This Dataset was created at <strong>"+ parse(dataset["metadata_created"]).strftime("%d.%m.%Y, %H:%M") + "</strong>"
+            text = "<p>This Dataset was created at <strong>"+ parse(dataset["metadata_created"]).strftime("%d.%m.%Y, %H:%M") + "  </strong>"
             text += " and last modified at <strong>"+ parse(dataset["metadata_created"]).strftime("%d.%m.%Y, %H:%M") +"</strong>.</p> "
 
             if dataset["license_title"]:
