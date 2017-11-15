@@ -34,8 +34,8 @@ $(document).ready(function(){
 
     // Social sharing
     $('#social-sharing').jsSocials({
-        showLabel: false,
-        showCount: "inside",
+        showLabel: true,
+        showCount: true,
         shareIn: "popup",
         shares: ["email", "twitter", "facebook", "googleplus"] // TODO SPOD share
     });

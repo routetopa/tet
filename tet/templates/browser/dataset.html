@@ -268,17 +268,8 @@
                                             <td>
                                                 {% trans "License" %}
                                             </td>
-                                            <td>
-                                                <div class="text-center">
-                                                    {% if completness.license %}
-                                                        <i class="fa fa-check very-good" aria-hidden="true"></i>
-                                                    {% else %}
-                                                        <i class="fa fa-times very-poor" aria-hidden="true"></i>
-                                                    {% endif %}
-                                                </div>
-                                            </td>
-                                            <td>
-                                                <div class="text-center">
+                                              <td>
+                                                <div align="left">
                                                     {% if completness.license %}
                                                         {% trans dataset.license_title %}
                                                     {% else %}
@@ -286,12 +277,31 @@
                                                     {% endif %}
                                                 </div>
                                             </td>
+                                            <td>
+                                                <div class="text-center">
+                                                    {% if completness.license %}
+                                                        <i class="fa fa-check very-good" aria-hidden="true"></i>
+                                                    {% else %}
+                                                        <i class="fa fa-times very-poor" aria-hidden="true"></i>
+                                                    {% endif %}
+                                                </div>
+                                            </td>
+                                            
                                           </tr>
 
 
                                           <tr>
                                             <td>
                                                     {% trans "Version" %}
+                                            </td>
+                                              <td>
+                                                <div align="left">
+                                                    {% if completness.version %}
+                                                        {% trans dataset.version %}
+                                                    {% else %}
+                                                        {% trans "Not provided" %}
+                                                    {% endif %}
+                                                </div>
                                             </td>
                                             <td>
                                                 <div class="text-center">
@@ -302,15 +312,7 @@
                                                     {% endif %}
                                                 </div>
                                             </td>
-                                            <td>
-                                                <div class="text-center">
-                                                    {% if completness.version %}
-                                                        {% trans dataset.version %}
-                                                    {% else %}
-                                                        {% trans "Not provided" %}
-                                                    {% endif %}
-                                                </div>
-                                            </td>
+                                            
                                           </tr>
 
 
@@ -441,7 +443,7 @@
                                     </p>
                                     <br/><br/>
                                     <p>
-                                        <a href="{{ SPOD_URL }}/public-room" class="pull-right" data-original-title="" title=""> {% trans "Start the discussion" %}</a>
+                                        <a href="{{ SPOD_URL }}/agora" class="pull-right" data-original-title="" title=""> {% trans "Start the discussion" %}</a>
                                     </p>
                                     {% endif %}
 
