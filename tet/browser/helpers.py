@@ -98,13 +98,15 @@ def dataset_to_metadata_text(dataset):
 
                 # TODO direct link
                 for res in resources_types:
-                    text += "<strong>" + res + "</strong> "
+                    text += u"<strong>" + res + u"</strong> "
 
-                text += "</p> "
+                text += u"</p> "
+
         except Exception as e:
+            
 
-            text = "<p>This Dataset was created at <strong>[Datetime locale format not supported] </strong>"
-            text += " and last modified at <strong>[Datetime locale format not supported]</strong>.</p> "
+            text = "<p>This Dataset was created at <strong>"+ parse(dataset["metadata_created"]).strftime("%d.%m.%Y, %H:%M") + "  </strong>"
+            text += " and last modified at <strong>"+ parse(dataset["metadata_created"]).strftime("%d.%m.%Y, %H:%M") +"</strong>.</p> "
 
             if dataset["license_title"]:
                 text += "<p>This Dataset is published under <strong>" + dataset["license_title"] + "</strong> license.</p> "
@@ -124,10 +126,9 @@ def dataset_to_metadata_text(dataset):
 
                 # TODO direct link
                 for res in resources_types:
-                    text += "<strong>" + res + "</strong> "
+                    text += u"<strong>" + res + u"</strong> "
 
-                text += "</p> "
-
+                text += u"</p> "
     return text
 
 
