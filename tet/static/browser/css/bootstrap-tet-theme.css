@@ -224,6 +224,7 @@ h6 small {
     color: #f7f7f9;
 }
 .filters-pane .list-group-item {
+    cursor:pointer;
     padding: .75rem .25rem;
     border: none;
 }
