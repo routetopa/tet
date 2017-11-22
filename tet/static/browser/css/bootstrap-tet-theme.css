@@ -219,6 +219,7 @@ h6 small {
 }
 .filters-pane h5 a {
     color: #fff;
+    cursor: default;
 }
 .filters-pane h5:hover a {
     color: #f7f7f9;
@@ -258,7 +259,7 @@ h6 small {
 }
 
 .dataset-service .disabled:hover .fa {
-  cursor: default;
+    cursor: default;
 }
 
 li.dataset-resource .label {
@@ -270,6 +271,9 @@ li.dataset-resource .label:hover {
     color: #fff;
     opacity: 0.8;
     filter: alpha(opacity=80); /* For IE8 and earlier */
+}
+#results-filter .filters-pane .list-group-item {
+    cursor:pointer;
 }
 
 /*
