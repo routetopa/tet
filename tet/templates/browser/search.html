@@ -23,20 +23,20 @@
 
                             <div class="col-md-9 col-sm-12" id="search-results">
 
-                                <div class="order-by-header">
+                                <div class="order-by-header clearfix">
 
                                     <ul class="list-inline">
-                                      <li class="list-inline-item mr-5">
+                                      <li class="list-inline-item mr-5 mt-2" >
                                           <div class="text-right active-filter"><a href="#" id="sort-btn-relevance" class="sort-btn">{% trans "Relevance" %} <i class="fa fa-sort-amount-asc" aria-hidden="true"></i></a></div>
                                       </li>
-                                      <li class="list-inline-item mr-5">
+                                      <li class="list-inline-item mr-5 mt-2">
                                           <div class="text-right"><a href="#" id="sort-btn-name" class="sort-btn">{% trans "Name" %} <i class="fa fa-sort-amount-desc" aria-hidden="true"></i></a></div>
                                       </li>
-                                      <li class="list-inline-item">
+                                      <li class="list-inline-item mt-2">
                                           <div class="text-right"><a href="#" id="sort-btn-date" class="sort-btn">{% trans "Date" %} <i class="fa fa-sort-amount-asc" aria-hidden="true"></i></a></div>
                                       </li>
 
-                                      <li class="list-inline-item float-right">
+                                      <li class="list-inline-item col-sm-12 col-md-4 float-right mt-2">
                                           <div class="text-right dark-primary">{% trans "Results" %}: <span id="results_count">{{search_results|length}}</span></div>
                                       </li>
                                     </ul>
