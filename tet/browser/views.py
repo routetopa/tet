@@ -1074,10 +1074,30 @@ def dataset_as_table(request, dataset_id):
 
     return render(request, template_name, context)
 
+def dataset_summarytable(dataframe):
+    SummaryData=[]
+
+    numericColumns=["Summary"]+list(dataframe.columns.values)
+
+    SummaryData.append(["25%"]+(dataframe.quantile(0.25).tolist()))
+    SummaryData.append(["50%"]+dataframe.quantile(0.5).tolist())
+    SummaryData.append(["75%"]+dataframe.quantile(0.75).tolist())
+    SummaryData.append(["max"]+(dataframe.max()).tolist())
+    SummaryData.append(["min"]+(dataframe.min()).tolist())
+    SummaryData.append(["std"]+(dataframe.std()).tolist())
+    SummaryData.append(["mean"]+(dataframe.mean()).tolist())
+    SummaryData.append(["count"]+(dataframe.count()).tolist())
+    
+    return SummaryData, numericColumns
+
+
+
+
 def dataset_as_summary(request, dataset_id):
     template_name = 'browser/summary.html'
     resource_id = None
-    fields_description = None   
+    fields_description = None
+    summary_table_data=None
     ckan_api_instance = ckanapi.RemoteCKAN(
         settings.CKAN_URL,
         user_agent='tetbrowser/1.0 (+http://tetbrowser.routetopa.eu)'
@@ -1094,6 +1114,8 @@ def dataset_as_summary(request, dataset_id):
                     res = urlopen(url)
                     data = json.loads(res.read())
                     df = json_normalize(data["result"]["records"])
+                    df_summarytable=pd.read_json(json.dumps(data["result"]["records"])).select_dtypes(exclude=["object"])
+                    del df_summarytable["_id"]
                     fields = data["result"]["fields"]
                     numeric_fields = [f["id"] for f in fields if f["type"] == "numeric"]
                     df[numeric_fields] = df[numeric_fields].apply(pd.to_numeric)
@@ -1102,6 +1124,8 @@ def dataset_as_summary(request, dataset_id):
                     fields_description ={}
                     for d in desc:
                         fields_description[d]=dict(desc[d])
+                    (summary_table_data,summary_table_data_headers)=dataset_summarytable(df_summarytable)
+
                     break
 
     except Exception as e:
@@ -1114,6 +1138,9 @@ def dataset_as_summary(request, dataset_id):
         "fields_description" : fields_description,
         "dataset" : dataset,
         'CKAN_URL': settings.CKAN_URL + "/dataset/" + dataset_id + "?r=" + request.get_full_path(),
+        "summary_datatable" :summary_table_data,
+        "summary_datatable_headers" :summary_table_data_headers
+        
     }
     return render(request, template_name, context)
 

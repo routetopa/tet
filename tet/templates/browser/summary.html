@@ -72,31 +72,27 @@
                             </div>
                             <div class="panel-body dataset-description">
                                 <table class="table table-condensed">
-                                    <tr>
-                                        <th>{% trans "Field name" %}</th>
-                                        <th>{% trans "Summary" %}</th>
-                                    </tr>
-                                    {% for key, value in fields_description.items %}
-                                    <tr>
-                                        <td  style="vertical-align:middle">
-                                            <code>{{key}}</code>
-                                        </td>
-                                        <td>
-                                            <table class="table table-condensed table-borderless">
-                                                {% for k, v in value.items %}
-                                                    <tr>
-                                                        <td>
-                                                            <strong>{{k}}</strong>
-                                                        </td>
-                                                        <td>
-                                                            {{ v|floatformat:-2 }}
-                                                        </td>
-                                                    </tr>
-                                                {% endfor %}
-                                            </table>
-                                        </td>
-                                    </tr>
-                                    {% endfor %}
+                                    <thead>
+                                        <tr>
+                                            
+                                            {% for element in summary_datatable_headers %}
+                                            <td style="vertical-align:middle">
+                                                <code>{{element}}</code>
+                                            </td>
+                                            {%endfor%}
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {%for row in summary_datatable%}
+                                        <tr>
+                                            {%for element in row%}
+                                                <td>{{element}}</td>
+                                            {%endfor%}
+                                        </tr>
+                                        {%endfor%}
+                                    </tbody>
+                                    
+                                    
                                 </table>
                             </div>
 
