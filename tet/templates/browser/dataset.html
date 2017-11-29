@@ -141,9 +141,15 @@
                                     </h5>
                                 </div>
                                 <div class="panel-body dataset-description">
-                                    <div>
-                                        {{ metadata_box|safe }}
-                                    </div>
+                                    <table>
+                                        {%for row in metadata_box%}
+                                        <tr>
+                                            {%for element in row%}
+                                                <td>{{element}}</td>
+                                            {%endfor%}
+                                        </tr>
+                                        {%endfor%}
+                                    </table>
                                 </div>
 
                             </div>
