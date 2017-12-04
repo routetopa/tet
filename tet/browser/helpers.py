@@ -117,6 +117,7 @@ def dataset_to_metadata_text(dataset):
                 text.append(["Maintainer contact (for details)",  dataset["maintainer_email"] ])
             
             resourcetypes=""
+            resourcetypetext=""
             if number_of_resources_types > 0:
                 
                 resorcetypetext="File format"

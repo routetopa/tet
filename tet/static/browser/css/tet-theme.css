@@ -337,6 +337,7 @@ body, html {
 }
 
 .order-by-header .active-filter {
+    color: #0088cc;
     font-weight: bold;
 }
 
