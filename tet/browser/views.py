@@ -415,8 +415,17 @@ def search(request, query=False):
         for idx, dataset in enumerate(api_result["results"]):
             # bold the query phrase
             if ( query ):
-                dataset["title"] = pattern.sub("<mark>"+query+"</mark>", strip_tags(dataset["title"]))
-                dataset["notes"] = pattern.sub("<mark>"+query+"</mark>", strip_tags(dataset["notes"]))
+                '''
+                a=lambda before,after:''.join(d.upper() if c.isupper() else d.lower()
+                for c,d in zip(x.group(), after)), s
+                print(a)
+                
+                lambda : ''.join(d.upper() if c.isupper() else d.lower()
+                for c,d in zip(x.group(), after)), s'''
+                dataset["title"] = pattern.sub((lambda x: "<mark>"+str("".join(d.upper() if c.isupper() else d.lower()
+                                                                    for c,d in zip(x.group(), query)))+"</mark>"), strip_tags(dataset["title"]))
+                dataset["notes"] = pattern.sub((lambda x: "<mark>"+str("".join(d.upper() if c.isupper() else d.lower()
+                                                                    for c,d in zip(x.group(), query)))+"</mark>"), strip_tags(dataset["notes"]))
 
             # used in search / filtering JS
             dataset["relevance_key"] = idx
