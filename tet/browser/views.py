@@ -4,8 +4,7 @@ from __future__ import absolute_import
 from __future__ import print_function
 import nltk, re, pprint
 from nltk import word_tokenize
-import pyPdf
-from pyPdf import PdfFileReader
+from PyPDF2 import PdfFileReader
 import string
 import RAKE.RAKE as rake
 import operator
@@ -52,11 +51,13 @@ from collections import Counter
 from django.utils.translation import ugettext as _
 from django.utils.translation import activate
 from django.utils import translation
-from watson_developer_cloud import AlchemyLanguageV1
+# from watson_developer_cloud import AlchemyLanguageV1 ::: AlchemyLanguage service has been deprecated
 from django.core.cache import cache
 import shelve
 import logging
 from threading import Lock
+import matplotlib
+matplotlib.use('Agg')
 from matplotlib.backends.backend_agg import FigureCanvasAgg as FigureCanvas
 from matplotlib.figure import Figure
 import matplotlib.pyplot as plt
@@ -709,8 +710,10 @@ def box_plot(request, resource_id):
             fig = box.get_figure()
             fig.set_facecolor('white')
             canvas = FigureCanvas(fig)
-            response = HttpResponse(content_type='image/png')
-            canvas.print_png(response)
+
+            response = HttpResponse(content_type='image/jpg')
+            canvas.print_jpg(response)
+
         return response
     except Exception as e:
         return JsonResponse({'message': str(e)})
@@ -736,8 +739,10 @@ def corr_mat(request, resource_id):
             plt.tight_layout()
             fig.set_facecolor('white')
             canvas = FigureCanvas(fig)
-            response = HttpResponse(content_type='image/png')
-            canvas.print_png(response)
+
+            response = HttpResponse(content_type='image/jpg')
+            canvas.print_jpg(response)
+
         return response
     except Exception as e:
         return JsonResponse({'message': str(e)})

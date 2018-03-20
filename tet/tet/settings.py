@@ -155,6 +155,6 @@ MEDIA_ROOT = os.path.join(os.path.dirname(BASE_DIR), "media")
 # LOAD TET SETTINGS
 try:
   from settings_tet import *
-except ImportError:
+except ImportError as e:
   pass
 

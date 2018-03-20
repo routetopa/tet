@@ -160,7 +160,7 @@ def get_rooms_for_dataset(dataset):
                         if not room["id"] in rooms_ids:
                             rooms.append(room)
                             rooms_ids.append(room["id"])
-            except Exception, e:
+            except Exception as e:
                 # do nothing
                 print("Error: " + str(e))
                 pass
@@ -188,7 +188,7 @@ def dataset_to_spod(dataset):
                     room["roomsummary"] = j["result"]
                 else:
                     room["roomsummary"] = False
-            except Exception, e:
+            except Exception as e:
                 # do nothing
                 print("Error: " + str(e))
                 pass
