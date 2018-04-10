@@ -152,6 +152,16 @@ STATICFILES_DIRS = (
 STATIC_ROOT = os.path.join(os.path.dirname(BASE_DIR), "static")
 MEDIA_ROOT = os.path.join(os.path.dirname(BASE_DIR), "media")
 
+
+CACHES = {
+    'default': {
+        'BACKEND': 'django.core.cache.backends.filebased.FileBasedCache',
+        'LOCATION': 'c:/temp',
+    }
+}
+
+SESSION_ENGINE = "django.contrib.sessions.backends.cache"
+
 # LOAD TET SETTINGS
 try:
   from settings_tet import *
