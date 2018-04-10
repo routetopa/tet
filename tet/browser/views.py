@@ -392,132 +392,155 @@ def search(request, query=False):
         user_agent='tetbrowser/1.0 (+http://tetbrowser.routetopa.eu)'
     )
 
-    api_result = ckan_api_instance.action.package_search(
-        q=query,
-        fq=fq,
-        sort='relevance asc, metadata_modified desc',
-        rows=1000,
-        start=0,
-    )
-
-    if api_result["count"] > 0:
-        has_results = True
-        # prepare search results and the filters
-        pattern = re.compile(query, re.IGNORECASE)
-
-        themes = {}
-        tags = {}
-        periods = {}
-        locations = {}
-        formats = {}
-
-        locations_list = settings.LOCATIONS_LIST
-
-        for idx, dataset in enumerate(api_result["results"]):
-            # bold the query phrase
-            if ( query ):
-                '''
-                a=lambda before,after:''.join(d.upper() if c.isupper() else d.lower()
-                for c,d in zip(x.group(), after)), s
-                print(a)
-                
-                lambda : ''.join(d.upper() if c.isupper() else d.lower()
-                for c,d in zip(x.group(), after)), s'''
-                dataset["title"] = pattern.sub((lambda x: "<mark>"+str("".join(d.upper() if c.isupper() else d.lower()
-                                                                    for c,d in zip(x.group(), query)))+"</mark>"), strip_tags(dataset["title"]))
-                dataset["notes"] = pattern.sub((lambda x: "<mark>"+str("".join(d.upper() if c.isupper() else d.lower()
-                                                                    for c,d in zip(x.group(), query)))+"</mark>"), strip_tags(dataset["notes"]))
-
-            # used in search / filtering JS
-            dataset["relevance_key"] = idx
-            dataset["name_key"] = strip_tags(dataset["title"])[:10].upper()
-            dataset["date_key"] = parse(dataset["metadata_created"]).strftime("%Y%m%d%H%M%S")
-
-            text = (dataset["title"] + dataset["notes"]).lower()
-
-            if "category" in dataset.keys():
-                categories = dataset["category"].split(",")
-                dataset["category_key"] = " ".join(categories)
-                for category in categories:
-                    if category not in themes.keys():
-                        themes[category] = 1
-                    else:
-                        themes[category] += 1
-
-            dataset["tag_key"] = ""
-            for tag in dataset["tags"]:
-                if tag["name"].lower() not in tags.keys():
-                    tags[tag["name"].lower()] = 1
-                else:
-                    tags[tag["name"].lower()] += 1
-
-                dataset["tag_key"] += " " + tag["name"].lower()
-
-            dataset["year_key"] = ""
-            for year in range(1900, 2020):
-                syear = str(year)
-                if text.find(syear) > 0:
-                    dataset["year_key"] += " " + syear
-                    if syear not in periods.keys():
-                        periods[syear] = 1
-                    else:
-                        periods[syear] += 1
-
-            dataset["location_key"] = ""
-            for location in locations_list:
-                slocation = location.lower() 
-                if text.find(slocation) > 0:
-                    dataset["location_key"] += slocation + " "
-                    if location not in locations.keys():
-                        locations[location] = 1
-                    else:
-                        locations[location] += 1
-
-            dataset["format_key"] = ""
-            if "resources" in dataset.keys():
-                already_added = []
-                for resource in dataset["resources"]:
-                    dataset["format_key"] += resource["format"].lower() + " "
-
-                    if resource["format"].lower() in already_added:
-                        continue
-
-                    if resource["format"].lower() in ["csv","xls"]:
-                        dataset["has_table"] = True
-
-                    if resource["format"].lower() == "pdf":
-                        dataset["has_pdf"] = True
-
-                    if resource["format"] not in formats:
-                        formats[resource["format"]] = 1
-                    else:
-                        formats[resource["format"]] += 1
-                    already_added.append(resource["format"].lower())
-
-            search_results.append(dataset)
-
-        if "" in themes.keys():
-            del themes[""]
-        if "" in formats.keys():
-            del formats[""]
-
-        filters["themes"] = collections.OrderedDict(reversed(sorted(themes.items(), key=lambda x: int(x[1]))))
-        filters["tags"] = collections.OrderedDict(reversed(sorted(tags.items(), key=lambda x: int(x[1]))))
-        filters["locations"] = collections.OrderedDict(reversed(sorted(locations.items(), key=lambda x: int(x[1]))))
-        filters["periods"] = collections.OrderedDict(sorted(periods.items(), reverse=True))
-        filters["formats"] = collections.OrderedDict(reversed(sorted(formats.items(), key=lambda x: int(x[1]))))
+    ##MEMCaching
+    if not query:
+        cache_key='all'
     else:
-        HIDE_SEARCH_NAV = True
+        cache_key=(query.replace(" ",""))
+    cache_time=100
+    data=cache.get(cache_key)
+    filters=cache.get(cache_key+'filters')
+    has_results=cache.get(cache_key+'has_results')
 
+    
+
+    if data == None:
+        filters={}
+        has_results=False
+        print('no cache')
+        api_result = ckan_api_instance.action.package_search(
+            q=query,
+            fq=fq,
+            sort='relevance asc, metadata_modified desc',
+            rows=1000,
+            start=0,
+            )
+
+        if api_result["count"] > 0:
+            has_results = True
+            # prepare search results and the filters
+            pattern = re.compile(query, re.IGNORECASE)
+
+            themes = {}
+            tags = {}
+            periods = {}
+            locations = {}
+            formats = {}
+
+            locations_list = settings.LOCATIONS_LIST
+
+            for idx, dataset in enumerate(api_result["results"]):
+                # bold the query phrase
+                if ( query ):
+                    '''
+                    a=lambda before,after:''.join(d.upper() if c.isupper() else d.lower()
+                    for c,d in zip(x.group(), after)), s
+                    print(a)
+                
+                    lambda : ''.join(d.upper() if c.isupper() else d.lower()
+                    for c,d in zip(x.group(), after)), s'''
+                    dataset["title"] = pattern.sub((lambda x: "<mark>"+str("".join(d.upper() if c.isupper() else d.lower()
+                                                                        for c,d in zip(x.group(), query)))+"</mark>"), strip_tags(dataset["title"]))
+                    dataset["notes"] = pattern.sub((lambda x: "<mark>"+str("".join(d.upper() if c.isupper() else d.lower()
+                                                                        for c,d in zip(x.group(), query)))+"</mark>"), strip_tags(dataset["notes"]))
+
+                # used in search / filtering JS
+                dataset["relevance_key"] = idx
+                dataset["name_key"] = strip_tags(dataset["title"])[:10].upper()
+                dataset["date_key"] = parse(dataset["metadata_created"]).strftime("%Y%m%d%H%M%S")
+
+                text = (dataset["title"] + dataset["notes"]).lower()
+
+                if "category" in dataset.keys():
+                    categories = dataset["category"].split(",")
+                    dataset["category_key"] = " ".join(categories)
+                    for category in categories:
+                        if category not in themes.keys():
+                            themes[category] = 1
+                        else:
+                            themes[category] += 1
+
+                dataset["tag_key"] = ""
+                for tag in dataset["tags"]:
+                    if tag["name"].lower() not in tags.keys():
+                        tags[tag["name"].lower()] = 1
+                    else:
+                        tags[tag["name"].lower()] += 1
+
+                    dataset["tag_key"] += " " + tag["name"].lower()
+
+                dataset["year_key"] = ""
+                for year in range(1900, 2020):
+                    syear = str(year)
+                    if text.find(syear) > 0:
+                        dataset["year_key"] += " " + syear
+                        if syear not in periods.keys():
+                            periods[syear] = 1
+                        else:
+                            periods[syear] += 1
+
+                dataset["location_key"] = ""
+                for location in locations_list:
+                    slocation = location.lower() 
+                    if text.find(slocation) > 0:
+                        dataset["location_key"] += slocation + " "
+                        if location not in locations.keys():
+                            locations[location] = 1
+                        else:
+                            locations[location] += 1
+
+                dataset["format_key"] = ""
+                if "resources" in dataset.keys():
+                    already_added = []
+                    for resource in dataset["resources"]:
+                        dataset["format_key"] += resource["format"].lower() + " "
+
+                        if resource["format"].lower() in already_added:
+                            continue
+
+                        if resource["format"].lower() in ["csv","xls"]:
+                            dataset["has_table"] = True
+
+                        if resource["format"].lower() == "pdf":
+                            dataset["has_pdf"] = True
+
+                        if resource["format"] not in formats:
+                            formats[resource["format"]] = 1
+                        else:
+                            formats[resource["format"]] += 1
+                        already_added.append(resource["format"].lower())
+
+                search_results.append(dataset)
+
+            if "" in themes.keys():
+                del themes[""]
+            if "" in formats.keys():
+                del formats[""]
+
+            filters["themes"] = collections.OrderedDict(reversed(sorted(themes.items(), key=lambda x: int(x[1]))))
+            filters["tags"] = collections.OrderedDict(reversed(sorted(tags.items(), key=lambda x: int(x[1]))))
+            filters["locations"] = collections.OrderedDict(reversed(sorted(locations.items(), key=lambda x: int(x[1]))))
+            filters["periods"] = collections.OrderedDict(sorted(periods.items(), reverse=True))
+            filters["formats"] = collections.OrderedDict(reversed(sorted(formats.items(), key=lambda x: int(x[1]))))
+        else:
+            HIDE_SEARCH_NAV = True
+        data=search_results
+    else:
+        print("cache")
+        search_results=data
+    #print ('test passes')
+    cache.set(cache_key, data, cache_time)
+    cache.set(cache_key+'filters',filters, cache_time)
+    cache.set(cache_key+'has_results',has_results, cache_time)
+    
 
     context = {
         'query': query,
         'has_results': has_results,
-        'search_results': search_results,
+        'search_results': data,
         'filters': filters,
         'HIDE_SEARCH_NAV': HIDE_SEARCH_NAV,
     }
-
     return render(request, template_name, context)
 
 def grading(number):
