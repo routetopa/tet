@@ -13,8 +13,8 @@ import re
 import datetime
 import dateutil
 import os
-import pickle 
-try: 
+import pickle
+try:
   from urllib2 import urlopen
   from urllib2 import Request
   from urlparse import scheme_chars
@@ -63,6 +63,9 @@ from matplotlib.figure import Figure
 import matplotlib.pyplot as plt
 from django.contrib import messages
 import sqlite3
+from django.views.decorators.cache import cache_page
+
+
 
 mutex = Lock()
 logger = logging.getLogger(__name__)
@@ -70,6 +73,7 @@ styles = getSampleStyleSheet()
 style_normal = styles['Normal']
 style_heading1 = styles['Heading1']
 error_template = "browser/error.html"
+cachetime=60*10
 
 def get_keywords(raw_text, stopwords_file):
     punctuation_exclude = set(string.punctuation)
@@ -91,6 +95,7 @@ def get_keywords_from_pdf(url, stopwords_file):
         raked = get_keywords(raw_text,stopwords_file)
         keywords.extend(raked)
     return keywords
+
 
 def index(request):
 
@@ -216,6 +221,7 @@ def query_api(request, query, field_id):
     url = settings.CKAN_URL + "/api/action/datastore_search_sql?sql=" + urllib.quote(query)
     return column_summary(url, field_id)
 
+@cache_page(cachetime)
 def column_summary(url, field_id):
     try:
         res = urlopen(url)
@@ -397,7 +403,7 @@ def search(request, query=False):
         cache_key='all'
     else:
         cache_key=(query.replace(" ",""))
-    cache_time=100
+    cache_time=3600
     data=cache.get(cache_key)
     filters=cache.get(cache_key+'filters')
     has_results=cache.get(cache_key+'has_results')
@@ -407,7 +413,6 @@ def search(request, query=False):
     if data == None:
         filters={}
         has_results=False
-        print('no cache')
         api_result = ckan_api_instance.action.package_search(
             q=query,
             fq=fq,
@@ -526,7 +531,6 @@ def search(request, query=False):
             HIDE_SEARCH_NAV = True
         data=search_results
     else:
-        print("cache")
         search_results=data
     #print ('test passes')
     cache.set(cache_key, data, cache_time)
@@ -606,7 +610,7 @@ def checkOccurenceFrequency(values,textcolumns):
 
     return ExitColumns ##that columns will be removed from rresource fields
 
-
+@cache_page(cachetime)
 def dataset(request, dataset_id):
 
 
@@ -714,6 +718,7 @@ def dataset(request, dataset_id):
         context['freq_resource_id'] = "/en/api/table/" + resource_id
     return render(request, template_name, context)
 
+@cache_page(cachetime)
 def box_plot(request, resource_id):
     try:
         url = settings.CKAN_URL + "/api/action/datastore_search?resource_id=" + resource_id + "&limit=99999"
@@ -741,6 +746,7 @@ def box_plot(request, resource_id):
     except Exception as e:
         return JsonResponse({'message': str(e)})
 
+@cache_page(cachetime)
 def corr_mat(request, resource_id):
     try:
         url = settings.CKAN_URL + "/api/action/datastore_search?resource_id=" + resource_id + "&limit=99999"
@@ -1111,6 +1117,7 @@ def dataset_as_table(request, dataset_id):
 
     return render(request, template_name, context)
 
+@cache_page(cachetime)
 def dataset_summarytable(dataframe):
     SummaryData=[]
 
@@ -1129,7 +1136,7 @@ def dataset_summarytable(dataframe):
 
 
 
-
+@cache_page(cachetime)
 def dataset_as_summary(request, dataset_id):
     template_name = 'browser/summary.html'
     resource_id = None
