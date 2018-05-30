@@ -16,3 +16,4 @@ pyparsing
 cycler
 pycrypto
 crypto
+watson-developer-cloud==0.26.1
