@@ -35,10 +35,10 @@ TET configuration file is available at ``tet/tet/settings_tet.py``.
 Main configuration options are as follows:
 
 - ``CKAN_URL`` - URL of the CKAN instance
-- ``SPOD_API``  - URL of the SPOD Platform
+- ``SPOD_URL``  - URL of the SPOD Platform
 - ``SOM_API_URL`` - URL of datasets recommendation API for TET
 - ``GA_API_KEY`` - Google Analytics API key
-- ``CACHES LOCATION`` - The path should be absolute. Please make sure that the selected directory exists and is readable and writable by the system user under which Web server runs.
+- ``CACHES :: LOCATION`` - The path should be absolute. Please make sure that the selected directory exists and is readable and writable by the system user under which Web server runs.
 
 
 ### Acknowledgement ###
