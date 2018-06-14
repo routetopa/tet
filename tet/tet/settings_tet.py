@@ -1,6 +1,5 @@
 # DATA SOURCE: CKAN - Comprehensive Knowledge Archive Network
 # Required
-CKAN_URL = "https://data.openstate.eu"
 CKAN_URL = "http://dublin-tet.routetopa.eu:8080"
 
 # Optional
