@@ -531,7 +531,7 @@ def search(request, query=False):
         data=search_results
     else:
         search_results=data
-    #print ('test passes')
+
     cache.set(cache_key, data, cache_time)
     cache.set(cache_key+'filters',filters, cache_time)
     cache.set(cache_key+'has_results',has_results, cache_time)
@@ -560,7 +560,7 @@ def grading(number):
 
 
 def compute_completeness(stats):
-    print(stats)
+    #print(stats)
     if stats is {}:
         return None 
 
