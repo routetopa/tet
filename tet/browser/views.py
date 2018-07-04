@@ -221,7 +221,6 @@ def query_api(request, query, field_id):
     url = settings.CKAN_URL + "/api/action/datastore_search_sql?sql=" + urllib.quote(query)
     return column_summary(url, field_id)
 
-@cache_page(cachetime)
 def column_summary(url, field_id):
     try:
         res = urlopen(url)

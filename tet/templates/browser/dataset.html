@@ -4,6 +4,15 @@
 {% get_current_language as LANGUAGE_CODE %}
 {% block title %} {% trans "Dataset details" %} {% endblock title %}
 
+{% block scripts %}
+
+    {{ block.super }}
+
+<script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+
+{% endblock scripts %}
+
+
 {% block content %}
 
                 <div class="row">
