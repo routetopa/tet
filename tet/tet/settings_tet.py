@@ -9,6 +9,9 @@ CKAN_API_KEY = "xxxx-xxxx-xxxx-xxxx"
 # SPOD - SOCIAL PLATFORM ON OPEN DATA
 SPOD_URL = "http://dublin-spod.routetopa.eu"
 
+#Use SPOD Charts
+USE_SPOD_CHARTS=False
+
 # TET
 TET_VERSION = "3.0"
 
@@ -33,7 +36,7 @@ SOM_API_URL = "http://vmrtpa05.deri.ie:8004"
 DB = "triggers.db"
 
 # Cache
-CACHES = {
+'''CACHES = {
     'default': {
         'BACKEND': 'django.core.cache.backends.filebased.FileBasedCache',
         # directory path should be absolute
@@ -41,6 +44,7 @@ CACHES = {
         # for Windows servers
         # 'LOCATION': 'c:/foo/bar',
     }
-}
-
+}'''
 SESSION_ENGINE = "django.contrib.sessions.backends.cache"
+
+

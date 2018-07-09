@@ -33,5 +33,6 @@ urlpatterns = [
     url(r'^create_trigger$', views.create_trigger, name='create_trigger'),
     # data dashboard
     url(r'^dashboard$', views.dashboard, name='dashboard'),
+    url(r'^api/plotly/(?P<resource_id>[a-zA-Z0-9-]+)', views.plotly_data, name='plotly_data')
 ]
 

@@ -8,5 +8,6 @@ def common_settings(request):
         'SOM_API_URL': settings.SOM_API_URL,
         'GA_API_KEY': settings.GA_API_KEY,
         'TET_VERSION': settings.TET_VERSION,
+        'USE_SPOD_CHARTS': settings.USE_SPOD_CHARTS,
     }
 

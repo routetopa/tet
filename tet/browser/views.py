@@ -38,6 +38,7 @@ from reportlab.lib.pagesizes import letter
 from reportlab.lib.styles import getSampleStyleSheet
 from reportlab.platypus import BaseDocTemplate, Frame, PageTemplate, Paragraph
 from django.shortcuts import render, redirect
+from django.core import serializers
 import collections
 import operator
 from pandas.io.json import json_normalize
@@ -73,7 +74,7 @@ styles = getSampleStyleSheet()
 style_normal = styles['Normal']
 style_heading1 = styles['Heading1']
 error_template = "browser/error.html"
-cachetime=60*10
+cachetime=1
 
 def get_keywords(raw_text, stopwords_file):
     punctuation_exclude = set(string.punctuation)
@@ -220,6 +221,47 @@ def table_api(request, resource_id, field_id):
 def query_api(request, query, field_id):
     url = settings.CKAN_URL + "/api/action/datastore_search_sql?sql=" + urllib.quote(query)
     return column_summary(url, field_id)
+
+def plotly_data(request, resource_id):
+    try:
+        url = settings.CKAN_URL + "/api/action/datastore_search?resource_id=" + resource_id + "&limit=99999"
+        res = urlopen(url)
+        data = json.loads(res.read().decode('utf-8'))
+        dataframe=pd.read_json(json.dumps(data['result']['records']))
+        columns=(dataframe.select_dtypes(exclude=['datetime']).columns)
+
+        plotlydata=[]
+        valuename=''
+        value=0
+        print(columns)
+        for column in columns:
+            tempplotlydata = []
+            tempplotlydatavalues = []
+            templotlydatavaluenames = []
+            if  (column != '_id' ):
+                #numeric and eliminating columns with only one value through the whole column
+                if (dataframe[column].dtype in ['int64','float64'] and dataframe[column].value_counts().values[0] != len(dataframe[column])):
+                    histdata=np.histogram(dataframe[column],11)
+                    columnname=(column.encode('utf-8'))
+                    for i in range(0,11):
+                        valuename=(str(round(histdata[1][i]))+' to '+str(round(histdata[1][i+1])))
+                        value=str(histdata[0][i])
+                        tempplotlydatavalues.append(value)
+                        templotlydatavaluenames.append(valuename)
+                    plotlydata.append([columnname, templotlydatavaluenames, tempplotlydatavalues])
+                # numeric and eliminating columns with only one value through the whole column
+                if (dataframe[column].dtype=='object' and len(dataframe[column].unique()) != len(dataframe[column])):
+                    print("text " + column)
+                    columnname = (column.encode('utf-8'))
+                    valuesfreqdata=(dataframe[column].value_counts()[:10]) #counting occurences of text and takes top 10
+                    tempplotlydatavalues.append(list(int(value) for value in valuesfreqdata.values.tolist()))
+                    templotlydatavaluenames.append((list(freqname.encode('utf-8') for freqname in valuesfreqdata.index))) #utf-8 encoding for column names
+                    plotlydata.append([columnname, templotlydatavaluenames[0], tempplotlydatavalues[0]])
+
+        return JsonResponse(plotlydata, safe=False)
+    except Exception as e:
+        return JsonResponse({'success': False})
+
 
 def column_summary(url, field_id):
     try:
