@@ -229,13 +229,8 @@ def plotly_data(request, resource_id):
         data = json.loads(res.read().decode('utf-8'))
         dataframe=pd.read_json(json.dumps(data['result']['records']))
         columns=(dataframe.select_dtypes(exclude=['datetime']).columns)
-
         plotlydata=[]
-        valuename=''
-        value=0
-        print(columns)
         for column in columns:
-            tempplotlydata = []
             tempplotlydatavalues = []
             templotlydatavaluenames = []
             if  (column != '_id' ):
@@ -251,7 +246,6 @@ def plotly_data(request, resource_id):
                     plotlydata.append([columnname, templotlydatavaluenames, tempplotlydatavalues])
                 # numeric and eliminating columns with only one value through the whole column
                 if (dataframe[column].dtype=='object' and len(dataframe[column].unique()) != len(dataframe[column])):
-                    print("text " + column)
                     columnname = (column.encode('utf-8'))
                     valuesfreqdata=(dataframe[column].value_counts()[:10]) #counting occurences of text and takes top 10
                     tempplotlydatavalues.append(list(int(value) for value in valuesfreqdata.values.tolist()))
