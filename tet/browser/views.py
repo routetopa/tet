@@ -74,7 +74,7 @@ styles = getSampleStyleSheet()
 style_normal = styles['Normal']
 style_heading1 = styles['Heading1']
 error_template = "browser/error.html"
-cachetime=1
+cachetime=60*10
 
 def get_keywords(raw_text, stopwords_file):
     punctuation_exclude = set(string.punctuation)
