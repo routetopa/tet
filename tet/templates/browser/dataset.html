@@ -5,13 +5,11 @@
 {% get_current_language as LANGUAGE_CODE %}
 {% block title %} {% trans "Dataset details" %} {% endblock title %}
 
-{% block scripts %}
 
+{% block scripts %}}
     {{ block.super }}
-
-<script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
-<script src="{% static 'browser/js/plotcharts.js' %}"></script>
-
+        <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+        <script src="{% static 'browser/js/plotcharts.js' %}"></script>
 {% endblock scripts %}
 
 
@@ -49,6 +47,7 @@
                                     {% endfor %}
 
                                 {% else %}
+                                        {{USE_SPOD_CHARTS}}
                                         <div data-url="/api/plotly/{{resource_id}}" id="plotlycharts"></div>
                                         {% for resource in resource_fields %}
                                             <div class="carousel-item{% if forloop.counter == 1 %} active{% endif %}">

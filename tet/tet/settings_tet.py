@@ -10,7 +10,7 @@ CKAN_API_KEY = "xxxx-xxxx-xxxx-xxxx"
 SPOD_URL = "http://dublin-spod.routetopa.eu"
 
 #Use SPOD Charts
-USE_SPOD_CHARTS=False
+USE_SPOD_CHARTS=True
 
 # TET
 TET_VERSION = "3.0"

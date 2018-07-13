@@ -243,7 +243,6 @@ def plotly_data(request, resource_id):
                         value=str(histdata[0][i])
                         tempplotlydatavalues.append(value)
                         templotlydatavaluenames.append(valuename)
-                    plotlydata.append([columnname, templotlydatavaluenames, tempplotlydatavalues])
                 # numeric and eliminating columns with only one value through the whole column
                 if (dataframe[column].dtype=='object' and len(dataframe[column].unique()) != len(dataframe[column])):
                     columnname = (column.encode('utf-8'))
@@ -251,7 +250,6 @@ def plotly_data(request, resource_id):
                     tempplotlydatavalues.append(list(int(value) for value in valuesfreqdata.values.tolist()))
                     templotlydatavaluenames.append((list(freqname.encode('utf-8') for freqname in valuesfreqdata.index))) #utf-8 encoding for column names
                     plotlydata.append([columnname, templotlydatavaluenames[0], tempplotlydatavalues[0]])
-
         return JsonResponse(plotlydata, safe=False)
     except Exception as e:
         return JsonResponse({'success': False})
