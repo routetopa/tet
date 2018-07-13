@@ -39,7 +39,7 @@ Main configuration options are as follows:
 - ``SOM_API_URL`` - URL of datasets recommendation API for TET
 - ``GA_API_KEY`` - Google Analytics API key
 - ``CACHES :: LOCATION`` - The path should be absolute. Please make sure that the selected directory exists and is readable and writable by the system user under which Web server runs.
-
+- ``USE_SPOD_CHARTS`` - Indicator which visualisations should be use. By default it is set True
 
 ### Acknowledgement ###
 Development of this project is supported by European Commision through the [ROUTE-TO-PA project](http://routetopa.eu/)
